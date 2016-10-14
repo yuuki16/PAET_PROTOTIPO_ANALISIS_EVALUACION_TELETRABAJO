@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+    <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+    <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
+    <property name="hibernate.connection.username">mmonge</property>
+    <property name="hibernate.connection.password">mmonge</property>
+    <property name="hibernate.connection.pool_size">5</property>
+    <mapping resource="PAET_DOMAIN/PaetTrTrabajador.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetTlTeletrabajador.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetAcCaActCaract.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetDiDia.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetFcFactorComplementario.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetDiSlDiaSolicitud.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetAcActividad.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetDvDivision.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetCaCaracteristica.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetPtPuesto.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetDrDireccion.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetArArea.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetMtPtMetaPuesto.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetMtMeta.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetFcPtFactorPuesto.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetEvEvaluacion.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetSlSolicitud.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetAcPtActividadPuesto.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetDiTlDiaTeletrabajador.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetGrGerencia.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetGrGerencia" table="PAET_GR_GERENCIA" schema="MMONGE" optimistic-lock="version">
+        <id name="grCodigo" type="big_decimal">
+            <column name="GR_CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="grDescripcion" type="string">
+            <column name="GR_DESCRIPCION" length="100" not-null="true" unique="true" />
+        </property>
+        <property name="grEstado" type="char">
+            <column name="GR_ESTADO" length="1" not-null="true" />
+        </property>
+        <set name="paetPtPuestos" table="PAET_PT_PUESTO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AR_AREA" precision="22" scale="0" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetPtPuesto" />
+        </set>
+        <one-to-one name="paetDvDivision" class="PAET_DOMAIN.PaetDvDivision"></one-to-one>
+    </class>
+</hibernate-mapping>

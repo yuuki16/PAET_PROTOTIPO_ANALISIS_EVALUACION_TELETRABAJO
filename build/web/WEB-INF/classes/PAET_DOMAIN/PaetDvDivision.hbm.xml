@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetDvDivision" table="PAET_DV_DIVISION" schema="MMONGE" optimistic-lock="version">
+        <id name="dvCodigo" type="big_decimal">
+            <column name="DV_CODIGO" precision="22" scale="0" />
+            <generator class="foreign">
+                <param name="property">paetGrGerencia</param>
+            </generator>
+        </id>
+        <one-to-one name="paetGrGerencia" class="PAET_DOMAIN.PaetGrGerencia" constrained="true"></one-to-one>
+        <property name="dvDescripcion" type="string">
+            <column name="DV_DESCRIPCION" length="100" not-null="true" unique="true" />
+        </property>
+        <property name="dvEstado" type="char">
+            <column name="DV_ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="grGerencia" type="big_decimal">
+            <column name="GR_GERENCIA" precision="22" scale="0" not-null="true" />
+        </property>
+        <one-to-one name="paetDrDireccion" class="PAET_DOMAIN.PaetDrDireccion"></one-to-one>
+        <set name="paetPtPuestos" table="PAET_PT_PUESTO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AR_AREA" precision="22" scale="0" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetPtPuesto" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetTrTrabajador" table="PAET_TR_TRABAJADOR" schema="MMONGE" optimistic-lock="version">
+        <id name="trUsuario" type="string">
+            <column name="TR_USUARIO" length="100" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="paetPtPuesto" class="PAET_DOMAIN.PaetPtPuesto" fetch="select">
+            <column name="PT_PUESTO" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" fetch="select">
+            <column name="TR_JEFATURA" length="100" />
+        </many-to-one>
+        <property name="trCedula" type="string">
+            <column name="TR_CEDULA" length="40" not-null="true" unique="true" />
+        </property>
+        <property name="trNombre" type="string">
+            <column name="TR_NOMBRE" length="100" not-null="true" />
+        </property>
+        <property name="trApellido1" type="string">
+            <column name="TR_APELLIDO1" length="100" not-null="true" />
+        </property>
+        <property name="trApellido2" type="string">
+            <column name="TR_APELLIDO2" length="100" />
+        </property>
+        <property name="trTelefono" type="java.lang.Long">
+            <column name="TR_TELEFONO" precision="15" scale="0" />
+        </property>
+        <property name="trEstado" type="char">
+            <column name="TR_ESTADO" length="1" not-null="true" />
+        </property>
+        <one-to-one name="paetTlTeletrabajador" class="PAET_DOMAIN.PaetTlTeletrabajador"></one-to-one>
+        <set name="paetTrTrabajadors" table="PAET_TR_TRABAJADOR" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TR_JEFATURA" length="100" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetTrTrabajador" />
+        </set>
+        <set name="paetSlSolicituds" table="PAET_SL_SOLICITUD" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TR_TRABAJADOR" length="100" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetSlSolicitud" />
+        </set>
+    </class>
+</hibernate-mapping>

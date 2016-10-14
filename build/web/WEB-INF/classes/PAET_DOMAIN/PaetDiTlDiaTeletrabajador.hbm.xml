@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetDiTlDiaTeletrabajador" table="PAET_DI_TL_DIA_TELETRABAJADOR" schema="MMONGE" optimistic-lock="version">
+        <id name="diTlCodigo" type="big_decimal">
+            <column name="DI_TL_CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="diTlEstado" type="char">
+            <column name="DI_TL_ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="diDia" type="char">
+            <column name="DI_DIA" length="1" not-null="true" />
+        </property>
+        <property name="tlTeletrabajador" type="string">
+            <column name="TL_TELETRABAJADOR" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

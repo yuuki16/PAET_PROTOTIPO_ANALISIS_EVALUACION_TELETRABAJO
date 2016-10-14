@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetTlTeletrabajador" table="PAET_TL_TELETRABAJADOR" schema="MMONGE" optimistic-lock="version">
+        <id name="trTrabajador" type="string">
+            <column name="TR_TRABAJADOR" length="100" />
+            <generator class="foreign">
+                <param name="property">paetTrTrabajador</param>
+            </generator>
+        </id>
+        <one-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" constrained="true"></one-to-one>
+        <property name="tlFechaInicio" type="date">
+            <column name="TL_FECHA_INICIO" length="7" not-null="true" />
+        </property>
+        <property name="tlEstado" type="char">
+            <column name="TL_ESTADO" length="1" not-null="true" />
+        </property>
+        <set name="paetEvEvaluacions" table="PAET_EV_EVALUACION" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TL_TRABAJADOR" length="100" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetEvEvaluacion" />
+        </set>
+    </class>
+</hibernate-mapping>

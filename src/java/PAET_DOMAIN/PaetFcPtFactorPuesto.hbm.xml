@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetFcPtFactorPuesto" table="PAET_FC_PT_FACTOR_PUESTO" schema="MMONGE" optimistic-lock="version">
+        <id name="fcPtCodigo" type="big_decimal">
+            <column name="FC_PT_CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="paetPtPuesto" class="PAET_DOMAIN.PaetPtPuesto" fetch="select">
+            <column name="PT_PUESTO" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paetFcFactorComplementario" class="PAET_DOMAIN.PaetFcFactorComplementario" fetch="select">
+            <column name="FC_FACTOR" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="fcPtEstado" type="char">
+            <column name="FC_PT_ESTADO" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

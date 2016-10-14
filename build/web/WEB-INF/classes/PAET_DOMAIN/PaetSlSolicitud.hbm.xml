@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetSlSolicitud" table="PAET_SL_SOLICITUD" schema="MMONGE" optimistic-lock="version">
+        <id name="slCodigo" type="big_decimal">
+            <column name="SL_CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" fetch="select">
+            <column name="TR_TRABAJADOR" length="100" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="slFecha" type="date">
+            <column name="SL_FECHA" length="7" not-null="true" />
+        </property>
+        <property name="slJustificacion" type="string">
+            <column name="SL_JUSTIFICACION" length="200" not-null="true" />
+        </property>
+        <property name="slResultado" type="java.lang.Short">
+            <column name="SL_RESULTADO" precision="3" scale="0" />
+        </property>
+        <property name="slEstado" type="char">
+            <column name="SL_ESTADO" length="1" not-null="true" />
+        </property>
+        <set name="paetDiSlDiaSolicituds" table="PAET_DI_SL_DIA_SOLICITUD" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetDiSlDiaSolicitud" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetCaCaracteristica" table="PAET_CA_CARACTERISTICA" schema="MMONGE" optimistic-lock="version">
+        <id name="caCodigo" type="big_decimal">
+            <column name="CA_CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="caDescripicion" type="string">
+            <column name="CA_DESCRIPICION" length="100" not-null="true" unique="true" />
+        </property>
+        <property name="caEstado" type="char">
+            <column name="CA_ESTADO" length="1" not-null="true" />
+        </property>
+        <set name="paetAcCaActCaracts" table="PAET_AC_CA_ACT_CARACT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CA_CARACTERISTICA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetAcCaActCaract" />
+        </set>
+    </class>
+</hibernate-mapping>
