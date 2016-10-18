@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetAcActividad" table="PAET_AC_ACTIVIDAD" schema="MMONGE" optimistic-lock="version">
         <id name="acCodigo" type="big_decimal">
@@ -11,8 +11,8 @@
         <property name="acDescripcion" type="string">
             <column name="AC_DESCRIPCION" length="200" not-null="true" unique="true" />
         </property>
-        <property name="acEstado" type="char">
-            <column name="AC_ESTADO" length="1" not-null="true" />
+        <property name="acAlineamiento" type="char">
+            <column name="AC_ALINEAMIENTO" length="1" not-null="true" />
         </property>
         <set name="paetAcPtActividadPuestos" table="PAET_AC_PT_ACTIVIDAD_PUESTO" inverse="true" lazy="true" fetch="select">
             <key>

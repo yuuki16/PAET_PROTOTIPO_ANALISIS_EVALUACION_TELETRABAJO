@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetSlSolicitud" table="PAET_SL_SOLICITUD" schema="MMONGE" optimistic-lock="version">
         <id name="slCodigo" type="big_decimal">
@@ -9,25 +9,52 @@
             <generator class="assigned" />
         </id>
         <many-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" fetch="select">
-            <column name="TR_TRABAJADOR" length="100" not-null="true" unique="true" />
+            <column name="TR_TRABAJADOR" length="40" not-null="true" />
         </many-to-one>
-        <property name="slFecha" type="date">
-            <column name="SL_FECHA" length="7" not-null="true" />
-        </property>
         <property name="slJustificacion" type="string">
             <column name="SL_JUSTIFICACION" length="200" not-null="true" />
         </property>
-        <property name="slResultado" type="java.lang.Short">
-            <column name="SL_RESULTADO" precision="3" scale="0" />
+        <property name="slFecha" type="date">
+            <column name="SL_FECHA" length="7" not-null="true" />
         </property>
-        <property name="slEstado" type="char">
-            <column name="SL_ESTADO" length="1" not-null="true" />
+        <property name="slModalidad" type="char">
+            <column name="SL_MODALIDAD" length="1" not-null="true" />
         </property>
+        <property name="slTiempo" type="string">
+            <column name="SL_TIEMPO" length="3" not-null="true" />
+        </property>
+        <property name="slConectividad" type="char">
+            <column name="SL_CONECTIVIDAD" length="1" not-null="true" />
+        </property>
+        <property name="slTelefonia" type="char">
+            <column name="SL_TELEFONIA" length="1" not-null="true" />
+        </property>
+        <property name="slResultado" type="char">
+            <column name="SL_RESULTADO" length="1" not-null="true" />
+        </property>
+        <set name="paetEtSlEquipoSolicituds" table="PAET_ET_SL_EQUIPO_SOLICITUD" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetEtSlEquipoSolicitud" />
+        </set>
+        <set name="paetPsProcesoSolicituds" table="PAET_PS_PROCESO_SOLICITUD" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetPsProcesoSolicitud" />
+        </set>
         <set name="paetDiSlDiaSolicituds" table="PAET_DI_SL_DIA_SOLICITUD" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="PAET_DOMAIN.PaetDiSlDiaSolicitud" />
+        </set>
+        <set name="paetTtTeletrabajadors" table="PAET_TT_TELETRABAJADOR" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetTtTeletrabajador" />
         </set>
     </class>
 </hibernate-mapping>

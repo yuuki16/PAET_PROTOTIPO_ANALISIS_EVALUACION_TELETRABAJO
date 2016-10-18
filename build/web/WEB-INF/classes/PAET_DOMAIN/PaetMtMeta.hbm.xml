@@ -1,18 +1,39 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-oct-2016 20:16:05 by Hibernate Tools 4.3.1 -->
+<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetMtMeta" table="PAET_MT_META" schema="MMONGE" optimistic-lock="version">
         <id name="mtCodigo" type="big_decimal">
             <column name="MT_CODIGO" precision="22" scale="0" />
             <generator class="assigned" />
         </id>
+        <many-to-one name="paetEvEvaluacion" class="PAET_DOMAIN.PaetEvEvaluacion" fetch="select">
+            <column name="EV_EVALUACION" precision="22" scale="0" not-null="true" />
+        </many-to-one>
         <property name="mtDescripcion" type="string">
-            <column name="MT_DESCRIPCION" length="200" not-null="true" unique="true" />
+            <column name="MT_DESCRIPCION" length="400" not-null="true" />
         </property>
-        <property name="mtEstado" type="char">
-            <column name="MT_ESTADO" length="1" not-null="true" />
+        <property name="mtLimite" type="short">
+            <column name="MT_LIMITE" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="mtPeso" type="short">
+            <column name="MT_PESO" precision="3" scale="0" not-null="true" />
+        </property>
+        <property name="mtLimiteSobresaliente" type="short">
+            <column name="MT_LIMITE_SOBRESALIENTE" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="mtLimiteBajo" type="short">
+            <column name="MT_LIMITE_BAJO" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="mtPorcentajeSobresaliente" type="big_decimal">
+            <column name="MT_PORCENTAJE_SOBRESALIENTE" precision="3" not-null="true" />
+        </property>
+        <property name="mtPorcentajeBajo" type="big_decimal">
+            <column name="MT_PORCENTAJE_BAJO" precision="3" not-null="true" />
+        </property>
+        <property name="mtComentario" type="string">
+            <column name="MT_COMENTARIO" length="100" />
         </property>
         <set name="paetMtPtMetaPuestos" table="PAET_MT_PT_META_PUESTO" inverse="true" lazy="true" fetch="select">
             <key>
