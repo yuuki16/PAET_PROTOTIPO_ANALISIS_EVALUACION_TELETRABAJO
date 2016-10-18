@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetPrProvincia" table="PAET_PR_PROVINCIA" schema="MMONGE" optimistic-lock="version">
+        <id name="prCodigo" type="byte">
+            <column name="PR_CODIGO" precision="2" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="prDescripcion" type="string">
+            <column name="PR_DESCRIPCION" length="20" not-null="true" />
+        </property>
+        <set name="paetCnCantons" table="PAET_CN_CANTON" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PR_PROVINCIA" precision="2" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetCnCanton" />
+        </set>
+    </class>
+</hibernate-mapping>

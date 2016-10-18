@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 13-oct-2016 20:16:04 by Hibernate Tools 4.3.1
+// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -13,23 +13,43 @@ public class PaetMtMeta  implements java.io.Serializable {
 
 
      private BigDecimal mtCodigo;
+     private PaetEvEvaluacion paetEvEvaluacion;
      private String mtDescripcion;
-     private char mtEstado;
+     private short mtLimite;
+     private short mtPeso;
+     private short mtLimiteSobresaliente;
+     private short mtLimiteBajo;
+     private BigDecimal mtPorcentajeSobresaliente;
+     private BigDecimal mtPorcentajeBajo;
+     private String mtComentario;
      private Set paetMtPtMetaPuestos = new HashSet(0);
 
     public PaetMtMeta() {
     }
 
 	
-    public PaetMtMeta(BigDecimal mtCodigo, String mtDescripcion, char mtEstado) {
+    public PaetMtMeta(BigDecimal mtCodigo, PaetEvEvaluacion paetEvEvaluacion, String mtDescripcion, short mtLimite, short mtPeso, short mtLimiteSobresaliente, short mtLimiteBajo, BigDecimal mtPorcentajeSobresaliente, BigDecimal mtPorcentajeBajo) {
         this.mtCodigo = mtCodigo;
+        this.paetEvEvaluacion = paetEvEvaluacion;
         this.mtDescripcion = mtDescripcion;
-        this.mtEstado = mtEstado;
+        this.mtLimite = mtLimite;
+        this.mtPeso = mtPeso;
+        this.mtLimiteSobresaliente = mtLimiteSobresaliente;
+        this.mtLimiteBajo = mtLimiteBajo;
+        this.mtPorcentajeSobresaliente = mtPorcentajeSobresaliente;
+        this.mtPorcentajeBajo = mtPorcentajeBajo;
     }
-    public PaetMtMeta(BigDecimal mtCodigo, String mtDescripcion, char mtEstado, Set paetMtPtMetaPuestos) {
+    public PaetMtMeta(BigDecimal mtCodigo, PaetEvEvaluacion paetEvEvaluacion, String mtDescripcion, short mtLimite, short mtPeso, short mtLimiteSobresaliente, short mtLimiteBajo, BigDecimal mtPorcentajeSobresaliente, BigDecimal mtPorcentajeBajo, String mtComentario, Set paetMtPtMetaPuestos) {
        this.mtCodigo = mtCodigo;
+       this.paetEvEvaluacion = paetEvEvaluacion;
        this.mtDescripcion = mtDescripcion;
-       this.mtEstado = mtEstado;
+       this.mtLimite = mtLimite;
+       this.mtPeso = mtPeso;
+       this.mtLimiteSobresaliente = mtLimiteSobresaliente;
+       this.mtLimiteBajo = mtLimiteBajo;
+       this.mtPorcentajeSobresaliente = mtPorcentajeSobresaliente;
+       this.mtPorcentajeBajo = mtPorcentajeBajo;
+       this.mtComentario = mtComentario;
        this.paetMtPtMetaPuestos = paetMtPtMetaPuestos;
     }
    
@@ -40,6 +60,13 @@ public class PaetMtMeta  implements java.io.Serializable {
     public void setMtCodigo(BigDecimal mtCodigo) {
         this.mtCodigo = mtCodigo;
     }
+    public PaetEvEvaluacion getPaetEvEvaluacion() {
+        return this.paetEvEvaluacion;
+    }
+    
+    public void setPaetEvEvaluacion(PaetEvEvaluacion paetEvEvaluacion) {
+        this.paetEvEvaluacion = paetEvEvaluacion;
+    }
     public String getMtDescripcion() {
         return this.mtDescripcion;
     }
@@ -47,12 +74,54 @@ public class PaetMtMeta  implements java.io.Serializable {
     public void setMtDescripcion(String mtDescripcion) {
         this.mtDescripcion = mtDescripcion;
     }
-    public char getMtEstado() {
-        return this.mtEstado;
+    public short getMtLimite() {
+        return this.mtLimite;
     }
     
-    public void setMtEstado(char mtEstado) {
-        this.mtEstado = mtEstado;
+    public void setMtLimite(short mtLimite) {
+        this.mtLimite = mtLimite;
+    }
+    public short getMtPeso() {
+        return this.mtPeso;
+    }
+    
+    public void setMtPeso(short mtPeso) {
+        this.mtPeso = mtPeso;
+    }
+    public short getMtLimiteSobresaliente() {
+        return this.mtLimiteSobresaliente;
+    }
+    
+    public void setMtLimiteSobresaliente(short mtLimiteSobresaliente) {
+        this.mtLimiteSobresaliente = mtLimiteSobresaliente;
+    }
+    public short getMtLimiteBajo() {
+        return this.mtLimiteBajo;
+    }
+    
+    public void setMtLimiteBajo(short mtLimiteBajo) {
+        this.mtLimiteBajo = mtLimiteBajo;
+    }
+    public BigDecimal getMtPorcentajeSobresaliente() {
+        return this.mtPorcentajeSobresaliente;
+    }
+    
+    public void setMtPorcentajeSobresaliente(BigDecimal mtPorcentajeSobresaliente) {
+        this.mtPorcentajeSobresaliente = mtPorcentajeSobresaliente;
+    }
+    public BigDecimal getMtPorcentajeBajo() {
+        return this.mtPorcentajeBajo;
+    }
+    
+    public void setMtPorcentajeBajo(BigDecimal mtPorcentajeBajo) {
+        this.mtPorcentajeBajo = mtPorcentajeBajo;
+    }
+    public String getMtComentario() {
+        return this.mtComentario;
+    }
+    
+    public void setMtComentario(String mtComentario) {
+        this.mtComentario = mtComentario;
     }
     public Set getPaetMtPtMetaPuestos() {
         return this.paetMtPtMetaPuestos;

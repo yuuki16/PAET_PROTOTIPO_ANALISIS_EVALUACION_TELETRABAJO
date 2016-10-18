@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 13-oct-2016 20:16:04 by Hibernate Tools 4.3.1
+// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -14,7 +14,7 @@ public class PaetAcActividad  implements java.io.Serializable {
 
      private BigDecimal acCodigo;
      private String acDescripcion;
-     private char acEstado;
+     private char acAlineamiento;
      private Set paetAcPtActividadPuestos = new HashSet(0);
      private Set paetAcCaActCaracts = new HashSet(0);
 
@@ -22,15 +22,15 @@ public class PaetAcActividad  implements java.io.Serializable {
     }
 
 	
-    public PaetAcActividad(BigDecimal acCodigo, String acDescripcion, char acEstado) {
+    public PaetAcActividad(BigDecimal acCodigo, String acDescripcion, char acAlineamiento) {
         this.acCodigo = acCodigo;
         this.acDescripcion = acDescripcion;
-        this.acEstado = acEstado;
+        this.acAlineamiento = acAlineamiento;
     }
-    public PaetAcActividad(BigDecimal acCodigo, String acDescripcion, char acEstado, Set paetAcPtActividadPuestos, Set paetAcCaActCaracts) {
+    public PaetAcActividad(BigDecimal acCodigo, String acDescripcion, char acAlineamiento, Set paetAcPtActividadPuestos, Set paetAcCaActCaracts) {
        this.acCodigo = acCodigo;
        this.acDescripcion = acDescripcion;
-       this.acEstado = acEstado;
+       this.acAlineamiento = acAlineamiento;
        this.paetAcPtActividadPuestos = paetAcPtActividadPuestos;
        this.paetAcCaActCaracts = paetAcCaActCaracts;
     }
@@ -49,12 +49,12 @@ public class PaetAcActividad  implements java.io.Serializable {
     public void setAcDescripcion(String acDescripcion) {
         this.acDescripcion = acDescripcion;
     }
-    public char getAcEstado() {
-        return this.acEstado;
+    public char getAcAlineamiento() {
+        return this.acAlineamiento;
     }
     
-    public void setAcEstado(char acEstado) {
-        this.acEstado = acEstado;
+    public void setAcAlineamiento(char acAlineamiento) {
+        this.acAlineamiento = acAlineamiento;
     }
     public Set getPaetAcPtActividadPuestos() {
         return this.paetAcPtActividadPuestos;

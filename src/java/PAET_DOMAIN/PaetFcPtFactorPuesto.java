@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 13-oct-2016 20:16:04 by Hibernate Tools 4.3.1
+// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -13,16 +13,16 @@ public class PaetFcPtFactorPuesto  implements java.io.Serializable {
      private BigDecimal fcPtCodigo;
      private PaetPtPuesto paetPtPuesto;
      private PaetFcFactorComplementario paetFcFactorComplementario;
-     private char fcPtEstado;
+     private boolean fcPtGrado;
 
     public PaetFcPtFactorPuesto() {
     }
 
-    public PaetFcPtFactorPuesto(BigDecimal fcPtCodigo, PaetPtPuesto paetPtPuesto, PaetFcFactorComplementario paetFcFactorComplementario, char fcPtEstado) {
+    public PaetFcPtFactorPuesto(BigDecimal fcPtCodigo, PaetPtPuesto paetPtPuesto, PaetFcFactorComplementario paetFcFactorComplementario, boolean fcPtGrado) {
        this.fcPtCodigo = fcPtCodigo;
        this.paetPtPuesto = paetPtPuesto;
        this.paetFcFactorComplementario = paetFcFactorComplementario;
-       this.fcPtEstado = fcPtEstado;
+       this.fcPtGrado = fcPtGrado;
     }
    
     public BigDecimal getFcPtCodigo() {
@@ -46,12 +46,12 @@ public class PaetFcPtFactorPuesto  implements java.io.Serializable {
     public void setPaetFcFactorComplementario(PaetFcFactorComplementario paetFcFactorComplementario) {
         this.paetFcFactorComplementario = paetFcFactorComplementario;
     }
-    public char getFcPtEstado() {
-        return this.fcPtEstado;
+    public boolean isFcPtGrado() {
+        return this.fcPtGrado;
     }
     
-    public void setFcPtEstado(char fcPtEstado) {
-        this.fcPtEstado = fcPtEstado;
+    public void setFcPtGrado(boolean fcPtGrado) {
+        this.fcPtGrado = fcPtGrado;
     }
 
 

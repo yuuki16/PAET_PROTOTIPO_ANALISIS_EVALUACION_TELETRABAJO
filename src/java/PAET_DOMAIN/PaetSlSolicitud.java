@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 13-oct-2016 20:16:04 by Hibernate Tools 4.3.1
+// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,31 +15,47 @@ public class PaetSlSolicitud  implements java.io.Serializable {
 
      private BigDecimal slCodigo;
      private PaetTrTrabajador paetTrTrabajador;
-     private Date slFecha;
      private String slJustificacion;
-     private Short slResultado;
-     private char slEstado;
+     private Date slFecha;
+     private char slModalidad;
+     private String slTiempo;
+     private char slConectividad;
+     private char slTelefonia;
+     private char slResultado;
+     private Set paetEtSlEquipoSolicituds = new HashSet(0);
+     private Set paetPsProcesoSolicituds = new HashSet(0);
      private Set paetDiSlDiaSolicituds = new HashSet(0);
+     private Set paetTtTeletrabajadors = new HashSet(0);
 
     public PaetSlSolicitud() {
     }
 
 	
-    public PaetSlSolicitud(BigDecimal slCodigo, PaetTrTrabajador paetTrTrabajador, Date slFecha, String slJustificacion, char slEstado) {
+    public PaetSlSolicitud(BigDecimal slCodigo, PaetTrTrabajador paetTrTrabajador, String slJustificacion, Date slFecha, char slModalidad, String slTiempo, char slConectividad, char slTelefonia, char slResultado) {
         this.slCodigo = slCodigo;
         this.paetTrTrabajador = paetTrTrabajador;
-        this.slFecha = slFecha;
         this.slJustificacion = slJustificacion;
-        this.slEstado = slEstado;
+        this.slFecha = slFecha;
+        this.slModalidad = slModalidad;
+        this.slTiempo = slTiempo;
+        this.slConectividad = slConectividad;
+        this.slTelefonia = slTelefonia;
+        this.slResultado = slResultado;
     }
-    public PaetSlSolicitud(BigDecimal slCodigo, PaetTrTrabajador paetTrTrabajador, Date slFecha, String slJustificacion, Short slResultado, char slEstado, Set paetDiSlDiaSolicituds) {
+    public PaetSlSolicitud(BigDecimal slCodigo, PaetTrTrabajador paetTrTrabajador, String slJustificacion, Date slFecha, char slModalidad, String slTiempo, char slConectividad, char slTelefonia, char slResultado, Set paetEtSlEquipoSolicituds, Set paetPsProcesoSolicituds, Set paetDiSlDiaSolicituds, Set paetTtTeletrabajadors) {
        this.slCodigo = slCodigo;
        this.paetTrTrabajador = paetTrTrabajador;
-       this.slFecha = slFecha;
        this.slJustificacion = slJustificacion;
+       this.slFecha = slFecha;
+       this.slModalidad = slModalidad;
+       this.slTiempo = slTiempo;
+       this.slConectividad = slConectividad;
+       this.slTelefonia = slTelefonia;
        this.slResultado = slResultado;
-       this.slEstado = slEstado;
+       this.paetEtSlEquipoSolicituds = paetEtSlEquipoSolicituds;
+       this.paetPsProcesoSolicituds = paetPsProcesoSolicituds;
        this.paetDiSlDiaSolicituds = paetDiSlDiaSolicituds;
+       this.paetTtTeletrabajadors = paetTtTeletrabajadors;
     }
    
     public BigDecimal getSlCodigo() {
@@ -56,13 +72,6 @@ public class PaetSlSolicitud  implements java.io.Serializable {
     public void setPaetTrTrabajador(PaetTrTrabajador paetTrTrabajador) {
         this.paetTrTrabajador = paetTrTrabajador;
     }
-    public Date getSlFecha() {
-        return this.slFecha;
-    }
-    
-    public void setSlFecha(Date slFecha) {
-        this.slFecha = slFecha;
-    }
     public String getSlJustificacion() {
         return this.slJustificacion;
     }
@@ -70,19 +79,61 @@ public class PaetSlSolicitud  implements java.io.Serializable {
     public void setSlJustificacion(String slJustificacion) {
         this.slJustificacion = slJustificacion;
     }
-    public Short getSlResultado() {
+    public Date getSlFecha() {
+        return this.slFecha;
+    }
+    
+    public void setSlFecha(Date slFecha) {
+        this.slFecha = slFecha;
+    }
+    public char getSlModalidad() {
+        return this.slModalidad;
+    }
+    
+    public void setSlModalidad(char slModalidad) {
+        this.slModalidad = slModalidad;
+    }
+    public String getSlTiempo() {
+        return this.slTiempo;
+    }
+    
+    public void setSlTiempo(String slTiempo) {
+        this.slTiempo = slTiempo;
+    }
+    public char getSlConectividad() {
+        return this.slConectividad;
+    }
+    
+    public void setSlConectividad(char slConectividad) {
+        this.slConectividad = slConectividad;
+    }
+    public char getSlTelefonia() {
+        return this.slTelefonia;
+    }
+    
+    public void setSlTelefonia(char slTelefonia) {
+        this.slTelefonia = slTelefonia;
+    }
+    public char getSlResultado() {
         return this.slResultado;
     }
     
-    public void setSlResultado(Short slResultado) {
+    public void setSlResultado(char slResultado) {
         this.slResultado = slResultado;
     }
-    public char getSlEstado() {
-        return this.slEstado;
+    public Set getPaetEtSlEquipoSolicituds() {
+        return this.paetEtSlEquipoSolicituds;
     }
     
-    public void setSlEstado(char slEstado) {
-        this.slEstado = slEstado;
+    public void setPaetEtSlEquipoSolicituds(Set paetEtSlEquipoSolicituds) {
+        this.paetEtSlEquipoSolicituds = paetEtSlEquipoSolicituds;
+    }
+    public Set getPaetPsProcesoSolicituds() {
+        return this.paetPsProcesoSolicituds;
+    }
+    
+    public void setPaetPsProcesoSolicituds(Set paetPsProcesoSolicituds) {
+        this.paetPsProcesoSolicituds = paetPsProcesoSolicituds;
     }
     public Set getPaetDiSlDiaSolicituds() {
         return this.paetDiSlDiaSolicituds;
@@ -90,6 +141,13 @@ public class PaetSlSolicitud  implements java.io.Serializable {
     
     public void setPaetDiSlDiaSolicituds(Set paetDiSlDiaSolicituds) {
         this.paetDiSlDiaSolicituds = paetDiSlDiaSolicituds;
+    }
+    public Set getPaetTtTeletrabajadors() {
+        return this.paetTtTeletrabajadors;
+    }
+    
+    public void setPaetTtTeletrabajadors(Set paetTtTeletrabajadors) {
+        this.paetTtTeletrabajadors = paetTtTeletrabajadors;
     }
 
 

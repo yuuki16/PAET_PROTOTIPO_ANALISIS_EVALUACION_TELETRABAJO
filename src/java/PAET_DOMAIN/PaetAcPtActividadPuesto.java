@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 13-oct-2016 20:16:04 by Hibernate Tools 4.3.1
+// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -13,16 +13,14 @@ public class PaetAcPtActividadPuesto  implements java.io.Serializable {
      private BigDecimal acPtCodigo;
      private PaetAcActividad paetAcActividad;
      private PaetPtPuesto paetPtPuesto;
-     private char acPtEstado;
 
     public PaetAcPtActividadPuesto() {
     }
 
-    public PaetAcPtActividadPuesto(BigDecimal acPtCodigo, PaetAcActividad paetAcActividad, PaetPtPuesto paetPtPuesto, char acPtEstado) {
+    public PaetAcPtActividadPuesto(BigDecimal acPtCodigo, PaetAcActividad paetAcActividad, PaetPtPuesto paetPtPuesto) {
        this.acPtCodigo = acPtCodigo;
        this.paetAcActividad = paetAcActividad;
        this.paetPtPuesto = paetPtPuesto;
-       this.acPtEstado = acPtEstado;
     }
    
     public BigDecimal getAcPtCodigo() {
@@ -45,13 +43,6 @@ public class PaetAcPtActividadPuesto  implements java.io.Serializable {
     
     public void setPaetPtPuesto(PaetPtPuesto paetPtPuesto) {
         this.paetPtPuesto = paetPtPuesto;
-    }
-    public char getAcPtEstado() {
-        return this.acPtEstado;
-    }
-    
-    public void setAcPtEstado(char acPtEstado) {
-        this.acPtEstado = acPtEstado;
     }
 
 

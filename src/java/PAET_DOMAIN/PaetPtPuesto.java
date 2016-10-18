@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 13-oct-2016 20:16:04 by Hibernate Tools 4.3.1
+// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -17,7 +17,6 @@ public class PaetPtPuesto  implements java.io.Serializable {
      private PaetDvDivision paetDvDivision;
      private PaetDrDireccion paetDrDireccion;
      private PaetArArea paetArArea;
-     private String ptNombre;
      private String ptDescripcion;
      private char ptEstado;
      private BigDecimal drDireccion;
@@ -32,18 +31,16 @@ public class PaetPtPuesto  implements java.io.Serializable {
     }
 
 	
-    public PaetPtPuesto(String ptCodigo, String ptNombre, char ptEstado) {
+    public PaetPtPuesto(String ptCodigo, char ptEstado) {
         this.ptCodigo = ptCodigo;
-        this.ptNombre = ptNombre;
         this.ptEstado = ptEstado;
     }
-    public PaetPtPuesto(String ptCodigo, PaetGrGerencia paetGrGerencia, PaetDvDivision paetDvDivision, PaetDrDireccion paetDrDireccion, PaetArArea paetArArea, String ptNombre, String ptDescripcion, char ptEstado, BigDecimal drDireccion, BigDecimal dvDivision, BigDecimal grGerencia, Set paetFcPtFactorPuestos, Set paetTrTrabajadors, Set paetMtPtMetaPuestos, Set paetAcPtActividadPuestos) {
+    public PaetPtPuesto(String ptCodigo, PaetGrGerencia paetGrGerencia, PaetDvDivision paetDvDivision, PaetDrDireccion paetDrDireccion, PaetArArea paetArArea, String ptDescripcion, char ptEstado, BigDecimal drDireccion, BigDecimal dvDivision, BigDecimal grGerencia, Set paetFcPtFactorPuestos, Set paetTrTrabajadors, Set paetMtPtMetaPuestos, Set paetAcPtActividadPuestos) {
        this.ptCodigo = ptCodigo;
        this.paetGrGerencia = paetGrGerencia;
        this.paetDvDivision = paetDvDivision;
        this.paetDrDireccion = paetDrDireccion;
        this.paetArArea = paetArArea;
-       this.ptNombre = ptNombre;
        this.ptDescripcion = ptDescripcion;
        this.ptEstado = ptEstado;
        this.drDireccion = drDireccion;
@@ -89,13 +86,6 @@ public class PaetPtPuesto  implements java.io.Serializable {
     
     public void setPaetArArea(PaetArArea paetArArea) {
         this.paetArArea = paetArArea;
-    }
-    public String getPtNombre() {
-        return this.ptNombre;
-    }
-    
-    public void setPtNombre(String ptNombre) {
-        this.ptNombre = ptNombre;
     }
     public String getPtDescripcion() {
         return this.ptDescripcion;

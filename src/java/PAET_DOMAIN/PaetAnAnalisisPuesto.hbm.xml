@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetAnAnalisisPuesto" table="PAET_AN_ANALISIS_PUESTO" schema="MMONGE" optimistic-lock="version">
+        <id name="anCodigo" type="big_decimal">
+            <column name="AN_CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="paetPsProcesoSolicitud" class="PAET_DOMAIN.PaetPsProcesoSolicitud" fetch="select">
+            <column name="PS_PROCESO_SOLICITUD" precision="22" scale="0" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="anResultadoFactores" type="java.lang.Short">
+            <column name="AN_RESULTADO_FACTORES" precision="3" scale="0" />
+        </property>
+        <property name="anResultadoActividades" type="java.lang.Short">
+            <column name="AN_RESULTADO_ACTIVIDADES" precision="3" scale="0" />
+        </property>
+        <property name="anResultadoFinal" type="java.lang.Short">
+            <column name="AN_RESULTADO_FINAL" precision="3" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

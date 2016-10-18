@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 13-oct-2016 20:16:04 by Hibernate Tools 4.3.1
+// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -14,6 +14,7 @@ public class PaetDrDireccion  implements java.io.Serializable {
 
      private BigDecimal drCodigo;
      private PaetDvDivision paetDvDivision;
+     private PaetTrTrabajador paetTrTrabajador;
      private String drDescripcion;
      private char drEstado;
      private BigDecimal dvDivision;
@@ -24,14 +25,16 @@ public class PaetDrDireccion  implements java.io.Serializable {
     }
 
 	
-    public PaetDrDireccion(PaetDvDivision paetDvDivision, String drDescripcion, char drEstado, BigDecimal dvDivision) {
+    public PaetDrDireccion(PaetDvDivision paetDvDivision, PaetTrTrabajador paetTrTrabajador, String drDescripcion, char drEstado, BigDecimal dvDivision) {
         this.paetDvDivision = paetDvDivision;
+        this.paetTrTrabajador = paetTrTrabajador;
         this.drDescripcion = drDescripcion;
         this.drEstado = drEstado;
         this.dvDivision = dvDivision;
     }
-    public PaetDrDireccion(PaetDvDivision paetDvDivision, String drDescripcion, char drEstado, BigDecimal dvDivision, Set paetPtPuestos, Set paetArAreas) {
+    public PaetDrDireccion(PaetDvDivision paetDvDivision, PaetTrTrabajador paetTrTrabajador, String drDescripcion, char drEstado, BigDecimal dvDivision, Set paetPtPuestos, Set paetArAreas) {
        this.paetDvDivision = paetDvDivision;
+       this.paetTrTrabajador = paetTrTrabajador;
        this.drDescripcion = drDescripcion;
        this.drEstado = drEstado;
        this.dvDivision = dvDivision;
@@ -52,6 +55,13 @@ public class PaetDrDireccion  implements java.io.Serializable {
     
     public void setPaetDvDivision(PaetDvDivision paetDvDivision) {
         this.paetDvDivision = paetDvDivision;
+    }
+    public PaetTrTrabajador getPaetTrTrabajador() {
+        return this.paetTrTrabajador;
+    }
+    
+    public void setPaetTrTrabajador(PaetTrTrabajador paetTrTrabajador) {
+        this.paetTrTrabajador = paetTrTrabajador;
     }
     public String getDrDescripcion() {
         return this.drDescripcion;

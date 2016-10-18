@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 13-oct-2016 20:16:04 by Hibernate Tools 4.3.1
+// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,6 +13,7 @@ public class PaetDiDia  implements java.io.Serializable {
 
      private char diCodigo;
      private String diDescripcion;
+     private Set paetDiTtDiaTeletrabajadors = new HashSet(0);
      private Set paetDiSlDiaSolicituds = new HashSet(0);
 
     public PaetDiDia() {
@@ -23,9 +24,10 @@ public class PaetDiDia  implements java.io.Serializable {
         this.diCodigo = diCodigo;
         this.diDescripcion = diDescripcion;
     }
-    public PaetDiDia(char diCodigo, String diDescripcion, Set paetDiSlDiaSolicituds) {
+    public PaetDiDia(char diCodigo, String diDescripcion, Set paetDiTtDiaTeletrabajadors, Set paetDiSlDiaSolicituds) {
        this.diCodigo = diCodigo;
        this.diDescripcion = diDescripcion;
+       this.paetDiTtDiaTeletrabajadors = paetDiTtDiaTeletrabajadors;
        this.paetDiSlDiaSolicituds = paetDiSlDiaSolicituds;
     }
    
@@ -42,6 +44,13 @@ public class PaetDiDia  implements java.io.Serializable {
     
     public void setDiDescripcion(String diDescripcion) {
         this.diDescripcion = diDescripcion;
+    }
+    public Set getPaetDiTtDiaTeletrabajadors() {
+        return this.paetDiTtDiaTeletrabajadors;
+    }
+    
+    public void setPaetDiTtDiaTeletrabajadors(Set paetDiTtDiaTeletrabajadors) {
+        this.paetDiTtDiaTeletrabajadors = paetDiTtDiaTeletrabajadors;
     }
     public Set getPaetDiSlDiaSolicituds() {
         return this.paetDiSlDiaSolicituds;

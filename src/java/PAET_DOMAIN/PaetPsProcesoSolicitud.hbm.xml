@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetPsProcesoSolicitud" table="PAET_PS_PROCESO_SOLICITUD" schema="MMONGE" optimistic-lock="version">
+        <id name="psCodigo" type="big_decimal">
+            <column name="PS_CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="paetSlSolicitud" class="PAET_DOMAIN.PaetSlSolicitud" fetch="select">
+            <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paetEsEstado" class="PAET_DOMAIN.PaetEsEstado" fetch="select">
+            <column name="ES_ESTADO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="psFecha" type="date">
+            <column name="PS_FECHA" length="7" not-null="true" />
+        </property>
+        <property name="psObservacion" type="string">
+            <column name="PS_OBSERVACION" length="200" not-null="true" />
+        </property>
+        <set name="paetAnAnalisisPuestos" table="PAET_AN_ANALISIS_PUESTO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PS_PROCESO_SOLICITUD" precision="22" scale="0" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetAnAnalisisPuesto" />
+        </set>
+    </class>
+</hibernate-mapping>

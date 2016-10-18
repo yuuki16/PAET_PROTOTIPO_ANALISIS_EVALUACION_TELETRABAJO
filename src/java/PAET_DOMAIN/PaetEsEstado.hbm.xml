@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetEsEstado" table="PAET_ES_ESTADO" schema="MMONGE" optimistic-lock="version">
+        <id name="esCodigo" type="big_decimal">
+            <column name="ES_CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="esSecuencia" type="big_decimal">
+            <column name="ES_SECUENCIA" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="esDescripcion" type="string">
+            <column name="ES_DESCRIPCION" length="200" not-null="true" />
+        </property>
+        <property name="esProceso" type="char">
+            <column name="ES_PROCESO" length="1" not-null="true" />
+        </property>
+        <set name="paetPgProcesoSeguimientos" table="PAET_PG_PROCESO_SEGUIMIENTO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ES_ESTADO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetPgProcesoSeguimiento" />
+        </set>
+        <set name="paetPsProcesoSolicituds" table="PAET_PS_PROCESO_SOLICITUD" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ES_ESTADO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetPsProcesoSolicitud" />
+        </set>
+        <set name="paetPfProcesoFinalizacions" table="PAET_PF_PROCESO_FINALIZACION" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ES_ESTADO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="PAET_DOMAIN.PaetPfProcesoFinalizacion" />
+        </set>
+    </class>
+</hibernate-mapping>

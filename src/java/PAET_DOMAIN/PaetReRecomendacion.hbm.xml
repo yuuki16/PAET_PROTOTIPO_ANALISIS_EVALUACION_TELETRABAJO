@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetReRecomendacion" table="PAET_RE_RECOMENDACION" schema="MMONGE" optimistic-lock="version">
+        <id name="reCodigo" type="big_decimal">
+            <column name="RE_CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="paetPgProcesoSeguimiento" class="PAET_DOMAIN.PaetPgProcesoSeguimiento" fetch="select">
+            <column name="PG_PROCESO_SEGUIMIENTO" precision="22" scale="0" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="reFechaLimite" type="date">
+            <column name="RE_FECHA_LIMITE" length="7" not-null="true" />
+        </property>
+        <property name="reFechaRealizada" type="date">
+            <column name="RE_FECHA_REALIZADA" length="7" />
+        </property>
+        <property name="reDescripcion" type="string">
+            <column name="RE_DESCRIPCION" length="100" not-null="true" />
+        </property>
+        <property name="reEstado" type="char">
+            <column name="RE_ESTADO" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
