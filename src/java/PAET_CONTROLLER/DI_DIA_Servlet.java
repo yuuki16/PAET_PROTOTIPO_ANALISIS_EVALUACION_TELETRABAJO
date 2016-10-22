@@ -37,7 +37,7 @@ public class DI_DIA_Servlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String json;
+            String json, campo, valor;
             PaetDiDia dia = new PaetDiDia();
             PAET_DI_DIA_BL diaBl = new PAET_DI_DIA_BL();
 
@@ -77,6 +77,14 @@ public class DI_DIA_Servlet extends HttpServlet {
                         //Se imprime la respuesta con el response
                         out.print("C~El día fue modificado correctamente");
                     }
+                    break;
+                case "consultaDinamica":
+                    campo = request.getParameter("campo");
+                    valor = request.getParameter("valor");
+                    
+                    //se consulta el objeto por el campo y el valor 
+                    json = new Gson().toJson(diaBl.findDynamicFilter(campo, valor, PaetDiDia.class.getName()));
+                    out.print(json);
                     break;
                 default:
                     out.print("E~No se indico la acción que se desea realizare");

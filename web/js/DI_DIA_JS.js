@@ -13,8 +13,12 @@ $(function () {
         $("#formularioAdministrar").modal("hide");
     });
 
-    $(".btn btn-info centered busqueda").click(function () {
+    $("#btBusquedaDiCodigo, #btBusquedaDiDescripcion").click(function () {
         buscar(this.id);
+    });
+
+    $("#btLimpiarBusqueda").click(function () {
+        limpiarBusqueda();
     });
 });
 
@@ -199,32 +203,11 @@ function buscar(idBoton) {
 
     if (idBoton === "btBusquedaDiCodigo") {
         if (validarBusqueda("diCodigo")) {
-            mostrarModal("modalMensajes", "Espere por favor..", "Consultando los días");
-
-            $.ajax({
-                url: 'DI_DIA_Servlet',
-                data: {
-                    accion: "consultaDinamica",
-                    campo: "diCodigo",
-                    valor: $("#diCodigo").val()
-                },
-                error: function () { //si existe un error en la respuesta del ajax
-                    cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-                },
-                success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                    // se oculta el mensaje de espera
-                    ocultarModal("modalMensajes");
-                    
-                    //redibujar la tabla
-                    dibujarTabla(data);
-                },
-                type: 'POST',
-                dataType: "json"
-            });
+            enviarBusqueda("diCodigo", $("#diCodigo").val());
         }
     } else if (idBoton === "btBusquedaDiDescripcion") {
         if (validarBusqueda("diDescripcion")) {
-
+            enviarBusqueda("diDescripcion", $("#diDescripcion").val());
         }
     }
 }
@@ -243,4 +226,40 @@ function validarBusqueda(campo) {
     }
 
     return validacion;
+}
+
+function enviarBusqueda(campo, valor) {
+
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los días");
+
+    $.ajax({
+        url: 'DI_DIA_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: campo,
+            valor: valor
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+
+            //redibujar la tabla
+            dibujarTabla(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function limpiarBusqueda() {
+
+    //Consultar todos los días
+    consultarDias();
+
+    //Limpiar txt
+     $('#diCodigo').val("");
+     $('#diDescripcion').val("");
 }

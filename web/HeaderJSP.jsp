@@ -9,21 +9,24 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Logo</a>
+                    <a class="navbar-brand" href="#"><img src="Imagenes/logo.png" alt="Logo"></a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#" class="">Home</a></li>
+                        <li class="active glyphicon"><a href="#" class="">&#xe021;</a></li>
                         <li class=" dropdown">
-                            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Departments <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrar <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li class=" dropdown">
-                                    <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View Departments</a>
+                                    <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Días</a>
                                 </li>
-                                <li><a href="#">Add New</a></li>
+                                <li><a href="#">Áreas</a></li>
+                                <li><a href="DI_DIA_JSP.jsp">Días</a></li>
+                                <li><a href="#">Direcciones</a></li>
+                                <li><a href="#">Trabajadores</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Add New</a></li>
+                        <%-- <li><a href="#">Add New</a></li>
                         <li class=" dropdown"><a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Managers <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">View Managers</a></li>
@@ -36,22 +39,22 @@
                                 <li><a href="#">Add New</a></li>
                                 <li><a href="#">Bulk Upload</a></li>
                             </ul>
-                        </li>
-                        <li class=" down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HR <span class="caret"></span></a>
+                        </li>--%>
+                        <li class=" down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Change Time Entry</a></li>
-                                <li><a href="#">Report</a></li>
+                                <li><a href="#">Áreas</a></li>
+                                <li><a href="#">Metas</a></li>
+                                <li><a href="#">Teletrabajadores</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav pull-right">
-                        <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signed in as  <span class="caret"></span></a>
+                        <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Michelle  <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Change Password</a></li>
-                                <li><a href="#">My Profile</a></li>
+                                <li><a href="#">Mis Solicitudes</a></li>
                             </ul>
                         </li>
-                        <li class=""><a href="#">Logout</a></li>
+                        <li class=""><a href="#">Cerrar Sesión</a></li>
                     </ul>
                 </div>
             </div>

@@ -27,7 +27,8 @@
                 <div class="panel-heading"><h3>Mantenimiento de Días</h3></div>
                 <div class="panel-body">
                     <center>
-                        <button type="button" class="btn btn-primary centered" data-toggle="modal" data-target="#formularioAdministrar" id="btMostarForm">Insertar Día</button>
+                        <button type="button" class="btn btn-success centered" data-toggle="modal" data-target="#formularioAdministrar" id="btMostarForm">Insertar Día</button>
+                        <button type="button" class="btn btn-default centered" data-toggle="modal" id="btLimpiarBusqueda">Limpiar Búsqueda</button>
                     </center><br>
                     <!-- BUSQUEDA -->
                     <div class="col-sm-12">

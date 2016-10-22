@@ -98,8 +98,8 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
         
         try {
             iniciaOperacion();
-            query = getSesion().createQuery("from PaetDiDia where "+filterBy+" like ?");
-            query.setString(0, "%"+filter+"%");
+            query = getSesion().createQuery("from PaetDiDia where lower("+filterBy+") like ?");
+            query.setString(0, "%"+filter.toLowerCase()+"%");
             listaDias = query.list();
             
         } finally {
