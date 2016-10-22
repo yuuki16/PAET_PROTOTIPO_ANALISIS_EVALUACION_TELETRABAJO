@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;

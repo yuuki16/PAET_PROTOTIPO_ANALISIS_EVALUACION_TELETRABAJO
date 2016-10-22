@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ public class PaetDvDivision  implements java.io.Serializable {
      private char dvEstado;
      private BigDecimal grGerencia;
      private PaetDrDireccion paetDrDireccion;
-     private Set paetPtPuestos = new HashSet(0);
+     private Set<PaetPtPuesto> paetPtPuestos = new HashSet<PaetPtPuesto>(0);
 
     public PaetDvDivision() {
     }
@@ -30,7 +30,7 @@ public class PaetDvDivision  implements java.io.Serializable {
         this.dvEstado = dvEstado;
         this.grGerencia = grGerencia;
     }
-    public PaetDvDivision(PaetGrGerencia paetGrGerencia, String dvDescripcion, char dvEstado, BigDecimal grGerencia, PaetDrDireccion paetDrDireccion, Set paetPtPuestos) {
+    public PaetDvDivision(PaetGrGerencia paetGrGerencia, String dvDescripcion, char dvEstado, BigDecimal grGerencia, PaetDrDireccion paetDrDireccion, Set<PaetPtPuesto> paetPtPuestos) {
        this.paetGrGerencia = paetGrGerencia;
        this.dvDescripcion = dvDescripcion;
        this.dvEstado = dvEstado;
@@ -81,11 +81,11 @@ public class PaetDvDivision  implements java.io.Serializable {
     public void setPaetDrDireccion(PaetDrDireccion paetDrDireccion) {
         this.paetDrDireccion = paetDrDireccion;
     }
-    public Set getPaetPtPuestos() {
+    public Set<PaetPtPuesto> getPaetPtPuestos() {
         return this.paetPtPuestos;
     }
     
-    public void setPaetPtPuestos(Set paetPtPuestos) {
+    public void setPaetPtPuestos(Set<PaetPtPuesto> paetPtPuestos) {
         this.paetPtPuestos = paetPtPuestos;
     }
 

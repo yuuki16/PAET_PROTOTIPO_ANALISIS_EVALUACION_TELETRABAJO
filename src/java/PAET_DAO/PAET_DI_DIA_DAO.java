@@ -8,14 +8,19 @@ package PAET_DAO;
 import PAET_DOMAIN.PaetDiDia;
 import PAET_UTILS.HibernateUtil;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author Michelle
  */
-public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia, String>{
-     
+public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia, String> {
+
     @Override
     public void save(PaetDiDia o) {
         try {
@@ -29,7 +34,7 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
             getSesion().close();
         }
     }
-    
+
     @Override
     public PaetDiDia merge(PaetDiDia o) throws HibernateException {
         try {
@@ -44,7 +49,7 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
         }
         return o;
     }
-    
+
     @Override
     public void delete(PaetDiDia o) {
         try {
@@ -71,18 +76,18 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
         }
         return dia;
     }
-    
+
     @Override
     public List<PaetDiDia> findAll() {
-        List<PaetDiDia> listaPersonas;
+        List<PaetDiDia> listaDias;
+        
         try {
-            iniciaOperacion();//HQL
-            listaPersonas = getSesion().createQuery("from PaetDiDia").list();
+            iniciaOperacion();
+            listaDias = getSesion().createQuery("from PaetDiDia").list();
         } finally {
             getSesion().close();
         }
 
-        return listaPersonas;
+        return listaDias;
     }
-
 }

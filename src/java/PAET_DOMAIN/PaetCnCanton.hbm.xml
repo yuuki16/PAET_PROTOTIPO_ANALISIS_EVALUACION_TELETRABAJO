@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
+<!-- Generated 19-oct-2016 22:10:24 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetCnCanton" table="PAET_CN_CANTON" schema="MMONGE" optimistic-lock="version">
-        <id name="cnCodigo" type="byte">
-            <column name="CN_CODIGO" precision="2" scale="0" />
+        <id name="cnCodigo" type="short">
+            <column name="CN_CODIGO" precision="3" scale="0" />
             <generator class="assigned" />
         </id>
         <many-to-one name="paetPrProvincia" class="PAET_DOMAIN.PaetPrProvincia" fetch="select">
-            <column name="PR_PROVINCIA" precision="2" scale="0" not-null="true" />
+            <column name="PR_PROVINCIA" precision="1" scale="0" not-null="true" />
         </many-to-one>
         <property name="cnDescripcion" type="string">
             <column name="CN_DESCRIPCION" length="40" not-null="true" />
         </property>
         <set name="paetDsDistritos" table="PAET_DS_DISTRITO" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CN_CANTON" precision="2" scale="0" not-null="true" />
+                <column name="CN_CANTON" precision="3" scale="0" not-null="true" />
             </key>
             <one-to-many class="PAET_DOMAIN.PaetDsDistrito" />
         </set>

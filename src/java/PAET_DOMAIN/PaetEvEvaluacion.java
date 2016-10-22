@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -20,9 +20,9 @@ public class PaetEvEvaluacion  implements java.io.Serializable {
      private Date evFechaHasta;
      private Character evLogro;
      private Short evResultado;
-     private Set paetCuCausas = new HashSet(0);
-     private Set paetMtMetas = new HashSet(0);
-     private Set paetAmAccionMejoras = new HashSet(0);
+     private Set<PaetCuCausa> paetCuCausas = new HashSet<PaetCuCausa>(0);
+     private Set<PaetMtMeta> paetMtMetas = new HashSet<PaetMtMeta>(0);
+     private Set<PaetAmAccionMejora> paetAmAccionMejoras = new HashSet<PaetAmAccionMejora>(0);
 
     public PaetEvEvaluacion() {
     }
@@ -35,7 +35,7 @@ public class PaetEvEvaluacion  implements java.io.Serializable {
         this.evFechaDesde = evFechaDesde;
         this.evFechaHasta = evFechaHasta;
     }
-    public PaetEvEvaluacion(BigDecimal evCodigo, PaetPgProcesoSeguimiento paetPgProcesoSeguimiento, Date evFecha, Date evFechaDesde, Date evFechaHasta, Character evLogro, Short evResultado, Set paetCuCausas, Set paetMtMetas, Set paetAmAccionMejoras) {
+    public PaetEvEvaluacion(BigDecimal evCodigo, PaetPgProcesoSeguimiento paetPgProcesoSeguimiento, Date evFecha, Date evFechaDesde, Date evFechaHasta, Character evLogro, Short evResultado, Set<PaetCuCausa> paetCuCausas, Set<PaetMtMeta> paetMtMetas, Set<PaetAmAccionMejora> paetAmAccionMejoras) {
        this.evCodigo = evCodigo;
        this.paetPgProcesoSeguimiento = paetPgProcesoSeguimiento;
        this.evFecha = evFecha;
@@ -97,25 +97,25 @@ public class PaetEvEvaluacion  implements java.io.Serializable {
     public void setEvResultado(Short evResultado) {
         this.evResultado = evResultado;
     }
-    public Set getPaetCuCausas() {
+    public Set<PaetCuCausa> getPaetCuCausas() {
         return this.paetCuCausas;
     }
     
-    public void setPaetCuCausas(Set paetCuCausas) {
+    public void setPaetCuCausas(Set<PaetCuCausa> paetCuCausas) {
         this.paetCuCausas = paetCuCausas;
     }
-    public Set getPaetMtMetas() {
+    public Set<PaetMtMeta> getPaetMtMetas() {
         return this.paetMtMetas;
     }
     
-    public void setPaetMtMetas(Set paetMtMetas) {
+    public void setPaetMtMetas(Set<PaetMtMeta> paetMtMetas) {
         this.paetMtMetas = paetMtMetas;
     }
-    public Set getPaetAmAccionMejoras() {
+    public Set<PaetAmAccionMejora> getPaetAmAccionMejoras() {
         return this.paetAmAccionMejoras;
     }
     
-    public void setPaetAmAccionMejoras(Set paetAmAccionMejoras) {
+    public void setPaetAmAccionMejoras(Set<PaetAmAccionMejora> paetAmAccionMejoras) {
         this.paetAmAccionMejoras = paetAmAccionMejoras;
     }
 

@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -16,27 +16,31 @@ public class PaetPsProcesoSolicitud  implements java.io.Serializable {
      private BigDecimal psCodigo;
      private PaetSlSolicitud paetSlSolicitud;
      private PaetEsEstado paetEsEstado;
-     private Date psFecha;
+     private Date psFechaEntrada;
      private String psObservacion;
-     private Set paetAnAnalisisPuestos = new HashSet(0);
+     private Date pfFechaAtendido;
+     private char psEstado;
+     private Set<PaetAnAnalisisPuesto> paetAnAnalisisPuestos = new HashSet<PaetAnAnalisisPuesto>(0);
 
     public PaetPsProcesoSolicitud() {
     }
 
 	
-    public PaetPsProcesoSolicitud(BigDecimal psCodigo, PaetSlSolicitud paetSlSolicitud, PaetEsEstado paetEsEstado, Date psFecha, String psObservacion) {
+    public PaetPsProcesoSolicitud(BigDecimal psCodigo, PaetSlSolicitud paetSlSolicitud, PaetEsEstado paetEsEstado, Date psFechaEntrada, char psEstado) {
         this.psCodigo = psCodigo;
         this.paetSlSolicitud = paetSlSolicitud;
         this.paetEsEstado = paetEsEstado;
-        this.psFecha = psFecha;
-        this.psObservacion = psObservacion;
+        this.psFechaEntrada = psFechaEntrada;
+        this.psEstado = psEstado;
     }
-    public PaetPsProcesoSolicitud(BigDecimal psCodigo, PaetSlSolicitud paetSlSolicitud, PaetEsEstado paetEsEstado, Date psFecha, String psObservacion, Set paetAnAnalisisPuestos) {
+    public PaetPsProcesoSolicitud(BigDecimal psCodigo, PaetSlSolicitud paetSlSolicitud, PaetEsEstado paetEsEstado, Date psFechaEntrada, String psObservacion, Date pfFechaAtendido, char psEstado, Set<PaetAnAnalisisPuesto> paetAnAnalisisPuestos) {
        this.psCodigo = psCodigo;
        this.paetSlSolicitud = paetSlSolicitud;
        this.paetEsEstado = paetEsEstado;
-       this.psFecha = psFecha;
+       this.psFechaEntrada = psFechaEntrada;
        this.psObservacion = psObservacion;
+       this.pfFechaAtendido = pfFechaAtendido;
+       this.psEstado = psEstado;
        this.paetAnAnalisisPuestos = paetAnAnalisisPuestos;
     }
    
@@ -61,12 +65,12 @@ public class PaetPsProcesoSolicitud  implements java.io.Serializable {
     public void setPaetEsEstado(PaetEsEstado paetEsEstado) {
         this.paetEsEstado = paetEsEstado;
     }
-    public Date getPsFecha() {
-        return this.psFecha;
+    public Date getPsFechaEntrada() {
+        return this.psFechaEntrada;
     }
     
-    public void setPsFecha(Date psFecha) {
-        this.psFecha = psFecha;
+    public void setPsFechaEntrada(Date psFechaEntrada) {
+        this.psFechaEntrada = psFechaEntrada;
     }
     public String getPsObservacion() {
         return this.psObservacion;
@@ -75,11 +79,25 @@ public class PaetPsProcesoSolicitud  implements java.io.Serializable {
     public void setPsObservacion(String psObservacion) {
         this.psObservacion = psObservacion;
     }
-    public Set getPaetAnAnalisisPuestos() {
+    public Date getPfFechaAtendido() {
+        return this.pfFechaAtendido;
+    }
+    
+    public void setPfFechaAtendido(Date pfFechaAtendido) {
+        this.pfFechaAtendido = pfFechaAtendido;
+    }
+    public char getPsEstado() {
+        return this.psEstado;
+    }
+    
+    public void setPsEstado(char psEstado) {
+        this.psEstado = psEstado;
+    }
+    public Set<PaetAnAnalisisPuesto> getPaetAnAnalisisPuestos() {
         return this.paetAnAnalisisPuestos;
     }
     
-    public void setPaetAnAnalisisPuestos(Set paetAnAnalisisPuestos) {
+    public void setPaetAnAnalisisPuestos(Set<PaetAnAnalisisPuesto> paetAnAnalisisPuestos) {
         this.paetAnAnalisisPuestos = paetAnAnalisisPuestos;
     }
 

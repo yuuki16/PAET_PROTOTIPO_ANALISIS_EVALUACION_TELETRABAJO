@@ -2,5 +2,41 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-schema="MMONGE"/>
-  
+  <table-filter match-name="PAET_FC_PT_FACTOR_PUESTO"/>
+  <table-filter match-name="PAET_CA_CARACTERISTICA"/>
+  <table-filter match-name="PAET_AN_ANALISIS_PUESTO"/>
+  <table-filter match-name="PAET_TT_TELETRABAJADOR"/>
+  <table-filter match-name="PAET_DR_DIRECCION"/>
+  <table-filter match-name="PAET_CU_CAUSA"/>
+  <table-filter match-name="PAET_PR_PROVINCIA"/>
+  <table-filter match-name="PAET_TL_TELEFONO"/>
+  <table-filter match-name="PAET_MT_PT_META_PUESTO"/>
+  <table-filter match-name="PAET_ES_ESTADO"/>
+  <table-filter match-name="PAET_CR_CORREO"/>
+  <table-filter match-name="PAET_PG_PROCESO_SEGUIMIENTO"/>
+  <table-filter match-name="PAET_AM_ACCION_MEJORA"/>
+  <table-filter match-name="PAET_RE_RECOMENDACION"/>
+  <table-filter match-name="PAET_DI_SL_DIA_SOLICITUD"/>
+  <table-filter match-name="PAET_AR_AREA"/>
+  <table-filter match-name="PAET_DC_DOCUMENTACION"/>
+  <table-filter match-name="PAET_FC_FACTOR_COMPLEMENTARIO"/>
+  <table-filter match-name="PAET_ET_SL_EQUIPO_SOLICITUD"/>
+  <table-filter match-name="PAET_PT_PUESTO"/>
+  <table-filter match-name="PAET_GR_GERENCIA"/>
+  <table-filter match-name="PAET_DI_TT_DIA_TELETRABAJADOR"/>
+  <table-filter match-name="PAET_PF_PROCESO_FINALIZACION"/>
+  <table-filter match-name="PAET_ET_EQUIPO_TECNOLOGICO"/>
+  <table-filter match-name="PAET_AC_PT_ACTIVIDAD_PUESTO"/>
+  <table-filter match-name="PAET_EV_EVALUACION"/>
+  <table-filter match-name="PAET_DS_DISTRITO"/>
+  <table-filter match-name="PAET_SL_SOLICITUD"/>
+  <table-filter match-name="PAET_CN_CANTON"/>
+  <table-filter match-name="PAET_PS_PROCESO_SOLICITUD"/>
+  <table-filter match-name="PAET_AC_ACTIVIDAD"/>
+  <table-filter match-name="PAET_DI_DIA"/>
+  <table-filter match-name="PAET_TR_TRABAJADOR"/>
+  <table-filter match-name="PAET_MT_META"/>
+  <table-filter match-name="PAET_DF_DIRECCION_FISICA"/>
+  <table-filter match-name="PAET_AC_CA_ACT_CARACT"/>
+  <table-filter match-name="PAET_DV_DIVISION"/>
 </hibernate-reverse-engineering>

@@ -6,19 +6,19 @@
 package PAET_BL;
 
 import PAET_DAO.IBaseDAO;
-import PAET_DAO.PAET_DI_DIA_DAO;
+import PAET_DAO.*;
 import java.util.LinkedHashMap;
 
 /**
  *
  * @author Michelle
  */
-public class BaseBL{
+public class BaseBL {
     private final LinkedHashMap<String, IBaseDAO> daos;
 
     public BaseBL() {
         daos = new LinkedHashMap();
-        daos.put("PAET_DAO", new PAET_DI_DIA_DAO());
+        daos.put("PAET_DOMAIN.PaetDiDia", new PAET_DI_DIA_DAO());
     }
     
     public IBaseDAO getDao(String className){

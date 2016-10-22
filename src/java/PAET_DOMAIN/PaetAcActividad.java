@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,8 +15,8 @@ public class PaetAcActividad  implements java.io.Serializable {
      private BigDecimal acCodigo;
      private String acDescripcion;
      private char acAlineamiento;
-     private Set paetAcPtActividadPuestos = new HashSet(0);
-     private Set paetAcCaActCaracts = new HashSet(0);
+     private Set<PaetAcPtActividadPuesto> paetAcPtActividadPuestos = new HashSet<PaetAcPtActividadPuesto>(0);
+     private Set<PaetAcCaActCaract> paetAcCaActCaracts = new HashSet<PaetAcCaActCaract>(0);
 
     public PaetAcActividad() {
     }
@@ -27,7 +27,7 @@ public class PaetAcActividad  implements java.io.Serializable {
         this.acDescripcion = acDescripcion;
         this.acAlineamiento = acAlineamiento;
     }
-    public PaetAcActividad(BigDecimal acCodigo, String acDescripcion, char acAlineamiento, Set paetAcPtActividadPuestos, Set paetAcCaActCaracts) {
+    public PaetAcActividad(BigDecimal acCodigo, String acDescripcion, char acAlineamiento, Set<PaetAcPtActividadPuesto> paetAcPtActividadPuestos, Set<PaetAcCaActCaract> paetAcCaActCaracts) {
        this.acCodigo = acCodigo;
        this.acDescripcion = acDescripcion;
        this.acAlineamiento = acAlineamiento;
@@ -56,18 +56,18 @@ public class PaetAcActividad  implements java.io.Serializable {
     public void setAcAlineamiento(char acAlineamiento) {
         this.acAlineamiento = acAlineamiento;
     }
-    public Set getPaetAcPtActividadPuestos() {
+    public Set<PaetAcPtActividadPuesto> getPaetAcPtActividadPuestos() {
         return this.paetAcPtActividadPuestos;
     }
     
-    public void setPaetAcPtActividadPuestos(Set paetAcPtActividadPuestos) {
+    public void setPaetAcPtActividadPuestos(Set<PaetAcPtActividadPuesto> paetAcPtActividadPuestos) {
         this.paetAcPtActividadPuestos = paetAcPtActividadPuestos;
     }
-    public Set getPaetAcCaActCaracts() {
+    public Set<PaetAcCaActCaract> getPaetAcCaActCaracts() {
         return this.paetAcCaActCaracts;
     }
     
-    public void setPaetAcCaActCaracts(Set paetAcCaActCaracts) {
+    public void setPaetAcCaActCaracts(Set<PaetAcCaActCaract> paetAcCaActCaracts) {
         this.paetAcCaActCaracts = paetAcCaActCaracts;
     }
 

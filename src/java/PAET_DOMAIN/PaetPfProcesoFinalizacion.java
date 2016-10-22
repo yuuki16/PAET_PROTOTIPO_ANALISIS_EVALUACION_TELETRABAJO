@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,21 +15,26 @@ public class PaetPfProcesoFinalizacion  implements java.io.Serializable {
      private PaetEsEstado paetEsEstado;
      private Date pfFecha;
      private String pfObservacion;
+     private Date pfFechaAtendido;
+     private char pfEstado;
 
     public PaetPfProcesoFinalizacion() {
     }
 
 	
-    public PaetPfProcesoFinalizacion(BigDecimal pfCodigo, PaetEsEstado paetEsEstado, Date pfFecha) {
+    public PaetPfProcesoFinalizacion(BigDecimal pfCodigo, PaetEsEstado paetEsEstado, Date pfFecha, char pfEstado) {
         this.pfCodigo = pfCodigo;
         this.paetEsEstado = paetEsEstado;
         this.pfFecha = pfFecha;
+        this.pfEstado = pfEstado;
     }
-    public PaetPfProcesoFinalizacion(BigDecimal pfCodigo, PaetEsEstado paetEsEstado, Date pfFecha, String pfObservacion) {
+    public PaetPfProcesoFinalizacion(BigDecimal pfCodigo, PaetEsEstado paetEsEstado, Date pfFecha, String pfObservacion, Date pfFechaAtendido, char pfEstado) {
        this.pfCodigo = pfCodigo;
        this.paetEsEstado = paetEsEstado;
        this.pfFecha = pfFecha;
        this.pfObservacion = pfObservacion;
+       this.pfFechaAtendido = pfFechaAtendido;
+       this.pfEstado = pfEstado;
     }
    
     public BigDecimal getPfCodigo() {
@@ -59,6 +64,20 @@ public class PaetPfProcesoFinalizacion  implements java.io.Serializable {
     
     public void setPfObservacion(String pfObservacion) {
         this.pfObservacion = pfObservacion;
+    }
+    public Date getPfFechaAtendido() {
+        return this.pfFechaAtendido;
+    }
+    
+    public void setPfFechaAtendido(Date pfFechaAtendido) {
+        this.pfFechaAtendido = pfFechaAtendido;
+    }
+    public char getPfEstado() {
+        return this.pfEstado;
+    }
+    
+    public void setPfEstado(char pfEstado) {
+        this.pfEstado = pfEstado;
     }
 
 

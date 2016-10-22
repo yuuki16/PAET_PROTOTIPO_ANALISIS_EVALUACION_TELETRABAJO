@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -19,27 +19,32 @@ public class PaetPgProcesoSeguimiento  implements java.io.Serializable {
      private Date pgFecha;
      private BigDecimal pgNumero;
      private String pgObservacion;
-     private Set paetEvEvaluacions = new HashSet(0);
-     private Set paetReRecomendacions = new HashSet(0);
+     private Date pgFechaAtendido;
+     private char pgEstado;
+     private Set<PaetEvEvaluacion> paetEvEvaluacions = new HashSet<PaetEvEvaluacion>(0);
+     private Set<PaetReRecomendacion> paetReRecomendacions = new HashSet<PaetReRecomendacion>(0);
 
     public PaetPgProcesoSeguimiento() {
     }
 
 	
-    public PaetPgProcesoSeguimiento(BigDecimal pgCodigo, PaetEsEstado paetEsEstado, PaetTtTeletrabajador paetTtTeletrabajador, Date pgFecha, BigDecimal pgNumero) {
+    public PaetPgProcesoSeguimiento(BigDecimal pgCodigo, PaetEsEstado paetEsEstado, PaetTtTeletrabajador paetTtTeletrabajador, Date pgFecha, BigDecimal pgNumero, char pgEstado) {
         this.pgCodigo = pgCodigo;
         this.paetEsEstado = paetEsEstado;
         this.paetTtTeletrabajador = paetTtTeletrabajador;
         this.pgFecha = pgFecha;
         this.pgNumero = pgNumero;
+        this.pgEstado = pgEstado;
     }
-    public PaetPgProcesoSeguimiento(BigDecimal pgCodigo, PaetEsEstado paetEsEstado, PaetTtTeletrabajador paetTtTeletrabajador, Date pgFecha, BigDecimal pgNumero, String pgObservacion, Set paetEvEvaluacions, Set paetReRecomendacions) {
+    public PaetPgProcesoSeguimiento(BigDecimal pgCodigo, PaetEsEstado paetEsEstado, PaetTtTeletrabajador paetTtTeletrabajador, Date pgFecha, BigDecimal pgNumero, String pgObservacion, Date pgFechaAtendido, char pgEstado, Set<PaetEvEvaluacion> paetEvEvaluacions, Set<PaetReRecomendacion> paetReRecomendacions) {
        this.pgCodigo = pgCodigo;
        this.paetEsEstado = paetEsEstado;
        this.paetTtTeletrabajador = paetTtTeletrabajador;
        this.pgFecha = pgFecha;
        this.pgNumero = pgNumero;
        this.pgObservacion = pgObservacion;
+       this.pgFechaAtendido = pgFechaAtendido;
+       this.pgEstado = pgEstado;
        this.paetEvEvaluacions = paetEvEvaluacions;
        this.paetReRecomendacions = paetReRecomendacions;
     }
@@ -86,18 +91,32 @@ public class PaetPgProcesoSeguimiento  implements java.io.Serializable {
     public void setPgObservacion(String pgObservacion) {
         this.pgObservacion = pgObservacion;
     }
-    public Set getPaetEvEvaluacions() {
+    public Date getPgFechaAtendido() {
+        return this.pgFechaAtendido;
+    }
+    
+    public void setPgFechaAtendido(Date pgFechaAtendido) {
+        this.pgFechaAtendido = pgFechaAtendido;
+    }
+    public char getPgEstado() {
+        return this.pgEstado;
+    }
+    
+    public void setPgEstado(char pgEstado) {
+        this.pgEstado = pgEstado;
+    }
+    public Set<PaetEvEvaluacion> getPaetEvEvaluacions() {
         return this.paetEvEvaluacions;
     }
     
-    public void setPaetEvEvaluacions(Set paetEvEvaluacions) {
+    public void setPaetEvEvaluacions(Set<PaetEvEvaluacion> paetEvEvaluacions) {
         this.paetEvEvaluacions = paetEvEvaluacions;
     }
-    public Set getPaetReRecomendacions() {
+    public Set<PaetReRecomendacion> getPaetReRecomendacions() {
         return this.paetReRecomendacions;
     }
     
-    public void setPaetReRecomendacions(Set paetReRecomendacions) {
+    public void setPaetReRecomendacions(Set<PaetReRecomendacion> paetReRecomendacions) {
         this.paetReRecomendacions = paetReRecomendacions;
     }
 

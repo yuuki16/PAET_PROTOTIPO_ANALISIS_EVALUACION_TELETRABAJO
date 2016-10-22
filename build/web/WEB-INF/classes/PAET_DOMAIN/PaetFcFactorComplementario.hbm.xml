@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
+<!-- Generated 19-oct-2016 22:10:24 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetFcFactorComplementario" table="PAET_FC_FACTOR_COMPLEMENTARIO" schema="MMONGE" optimistic-lock="version">
         <id name="fcCodigo" type="big_decimal">
@@ -9,7 +9,7 @@
             <generator class="assigned" />
         </id>
         <property name="fcDescripcion" type="string">
-            <column name="FC_DESCRIPCION" length="200" not-null="true" unique="true" />
+            <column name="FC_DESCRIPCION" length="400" not-null="true" unique="true" />
         </property>
         <property name="fcEstado" type="char">
             <column name="FC_ESTADO" length="1" not-null="true" />

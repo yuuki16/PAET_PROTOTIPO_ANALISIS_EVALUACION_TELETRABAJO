@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -16,9 +16,9 @@ public class PaetEsEstado  implements java.io.Serializable {
      private BigDecimal esSecuencia;
      private String esDescripcion;
      private char esProceso;
-     private Set paetPgProcesoSeguimientos = new HashSet(0);
-     private Set paetPsProcesoSolicituds = new HashSet(0);
-     private Set paetPfProcesoFinalizacions = new HashSet(0);
+     private Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos = new HashSet<PaetPgProcesoSeguimiento>(0);
+     private Set<PaetPsProcesoSolicitud> paetPsProcesoSolicituds = new HashSet<PaetPsProcesoSolicitud>(0);
+     private Set<PaetPfProcesoFinalizacion> paetPfProcesoFinalizacions = new HashSet<PaetPfProcesoFinalizacion>(0);
 
     public PaetEsEstado() {
     }
@@ -30,7 +30,7 @@ public class PaetEsEstado  implements java.io.Serializable {
         this.esDescripcion = esDescripcion;
         this.esProceso = esProceso;
     }
-    public PaetEsEstado(BigDecimal esCodigo, BigDecimal esSecuencia, String esDescripcion, char esProceso, Set paetPgProcesoSeguimientos, Set paetPsProcesoSolicituds, Set paetPfProcesoFinalizacions) {
+    public PaetEsEstado(BigDecimal esCodigo, BigDecimal esSecuencia, String esDescripcion, char esProceso, Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos, Set<PaetPsProcesoSolicitud> paetPsProcesoSolicituds, Set<PaetPfProcesoFinalizacion> paetPfProcesoFinalizacions) {
        this.esCodigo = esCodigo;
        this.esSecuencia = esSecuencia;
        this.esDescripcion = esDescripcion;
@@ -68,25 +68,25 @@ public class PaetEsEstado  implements java.io.Serializable {
     public void setEsProceso(char esProceso) {
         this.esProceso = esProceso;
     }
-    public Set getPaetPgProcesoSeguimientos() {
+    public Set<PaetPgProcesoSeguimiento> getPaetPgProcesoSeguimientos() {
         return this.paetPgProcesoSeguimientos;
     }
     
-    public void setPaetPgProcesoSeguimientos(Set paetPgProcesoSeguimientos) {
+    public void setPaetPgProcesoSeguimientos(Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos) {
         this.paetPgProcesoSeguimientos = paetPgProcesoSeguimientos;
     }
-    public Set getPaetPsProcesoSolicituds() {
+    public Set<PaetPsProcesoSolicitud> getPaetPsProcesoSolicituds() {
         return this.paetPsProcesoSolicituds;
     }
     
-    public void setPaetPsProcesoSolicituds(Set paetPsProcesoSolicituds) {
+    public void setPaetPsProcesoSolicituds(Set<PaetPsProcesoSolicitud> paetPsProcesoSolicituds) {
         this.paetPsProcesoSolicituds = paetPsProcesoSolicituds;
     }
-    public Set getPaetPfProcesoFinalizacions() {
+    public Set<PaetPfProcesoFinalizacion> getPaetPfProcesoFinalizacions() {
         return this.paetPfProcesoFinalizacions;
     }
     
-    public void setPaetPfProcesoFinalizacions(Set paetPfProcesoFinalizacions) {
+    public void setPaetPfProcesoFinalizacions(Set<PaetPfProcesoFinalizacion> paetPfProcesoFinalizacions) {
         this.paetPfProcesoFinalizacions = paetPfProcesoFinalizacions;
     }
 

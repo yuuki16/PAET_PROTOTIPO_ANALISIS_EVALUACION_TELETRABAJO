@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ public class PaetEtEquipoTecnologico  implements java.io.Serializable {
      private BigDecimal etCodigo;
      private String etDescripcion;
      private char etEstado;
-     private Set paetEtSlEquipoSolicituds = new HashSet(0);
+     private Set<PaetEtSlEquipoSolicitud> paetEtSlEquipoSolicituds = new HashSet<PaetEtSlEquipoSolicitud>(0);
 
     public PaetEtEquipoTecnologico() {
     }
@@ -26,7 +26,7 @@ public class PaetEtEquipoTecnologico  implements java.io.Serializable {
         this.etDescripcion = etDescripcion;
         this.etEstado = etEstado;
     }
-    public PaetEtEquipoTecnologico(BigDecimal etCodigo, String etDescripcion, char etEstado, Set paetEtSlEquipoSolicituds) {
+    public PaetEtEquipoTecnologico(BigDecimal etCodigo, String etDescripcion, char etEstado, Set<PaetEtSlEquipoSolicitud> paetEtSlEquipoSolicituds) {
        this.etCodigo = etCodigo;
        this.etDescripcion = etDescripcion;
        this.etEstado = etEstado;
@@ -54,11 +54,11 @@ public class PaetEtEquipoTecnologico  implements java.io.Serializable {
     public void setEtEstado(char etEstado) {
         this.etEstado = etEstado;
     }
-    public Set getPaetEtSlEquipoSolicituds() {
+    public Set<PaetEtSlEquipoSolicitud> getPaetEtSlEquipoSolicituds() {
         return this.paetEtSlEquipoSolicituds;
     }
     
-    public void setPaetEtSlEquipoSolicituds(Set paetEtSlEquipoSolicituds) {
+    public void setPaetEtSlEquipoSolicituds(Set<PaetEtSlEquipoSolicitud> paetEtSlEquipoSolicituds) {
         this.paetEtSlEquipoSolicituds = paetEtSlEquipoSolicituds;
     }
 

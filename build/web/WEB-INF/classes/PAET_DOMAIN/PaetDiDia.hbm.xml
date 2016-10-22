@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17-oct-2016 18:54:53 by Hibernate Tools 4.3.1 -->
+<!-- Generated 19-oct-2016 22:10:24 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetDiDia" table="PAET_DI_DIA" schema="MMONGE" optimistic-lock="version">
         <id name="diCodigo" type="char">
@@ -11,17 +11,5 @@
         <property name="diDescripcion" type="string">
             <column name="DI_DESCRIPCION" length="20" not-null="true" unique="true" />
         </property>
-        <set name="paetDiTtDiaTeletrabajadors" table="PAET_DI_TT_DIA_TELETRABAJADOR" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="DI_DIA" length="1" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetDiTtDiaTeletrabajador" />
-        </set>
-        <set name="paetDiSlDiaSolicituds" table="PAET_DI_SL_DIA_SOLICITUD" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="DI_DIA" length="1" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetDiSlDiaSolicitud" />
-        </set>
     </class>
 </hibernate-mapping>

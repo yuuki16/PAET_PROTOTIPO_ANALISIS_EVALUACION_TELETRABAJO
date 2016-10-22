@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,32 +11,32 @@ import java.util.Set;
 public class PaetCnCanton  implements java.io.Serializable {
 
 
-     private byte cnCodigo;
+     private short cnCodigo;
      private PaetPrProvincia paetPrProvincia;
      private String cnDescripcion;
-     private Set paetDsDistritos = new HashSet(0);
+     private Set<PaetDsDistrito> paetDsDistritos = new HashSet<PaetDsDistrito>(0);
 
     public PaetCnCanton() {
     }
 
 	
-    public PaetCnCanton(byte cnCodigo, PaetPrProvincia paetPrProvincia, String cnDescripcion) {
+    public PaetCnCanton(short cnCodigo, PaetPrProvincia paetPrProvincia, String cnDescripcion) {
         this.cnCodigo = cnCodigo;
         this.paetPrProvincia = paetPrProvincia;
         this.cnDescripcion = cnDescripcion;
     }
-    public PaetCnCanton(byte cnCodigo, PaetPrProvincia paetPrProvincia, String cnDescripcion, Set paetDsDistritos) {
+    public PaetCnCanton(short cnCodigo, PaetPrProvincia paetPrProvincia, String cnDescripcion, Set<PaetDsDistrito> paetDsDistritos) {
        this.cnCodigo = cnCodigo;
        this.paetPrProvincia = paetPrProvincia;
        this.cnDescripcion = cnDescripcion;
        this.paetDsDistritos = paetDsDistritos;
     }
    
-    public byte getCnCodigo() {
+    public short getCnCodigo() {
         return this.cnCodigo;
     }
     
-    public void setCnCodigo(byte cnCodigo) {
+    public void setCnCodigo(short cnCodigo) {
         this.cnCodigo = cnCodigo;
     }
     public PaetPrProvincia getPaetPrProvincia() {
@@ -53,11 +53,11 @@ public class PaetCnCanton  implements java.io.Serializable {
     public void setCnDescripcion(String cnDescripcion) {
         this.cnDescripcion = cnDescripcion;
     }
-    public Set getPaetDsDistritos() {
+    public Set<PaetDsDistrito> getPaetDsDistritos() {
         return this.paetDsDistritos;
     }
     
-    public void setPaetDsDistritos(Set paetDsDistritos) {
+    public void setPaetDsDistritos(Set<PaetDsDistrito> paetDsDistritos) {
         this.paetDsDistritos = paetDsDistritos;
     }
 

@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ public class PaetFcFactorComplementario  implements java.io.Serializable {
      private BigDecimal fcCodigo;
      private String fcDescripcion;
      private char fcEstado;
-     private Set paetFcPtFactorPuestos = new HashSet(0);
+     private Set<PaetFcPtFactorPuesto> paetFcPtFactorPuestos = new HashSet<PaetFcPtFactorPuesto>(0);
 
     public PaetFcFactorComplementario() {
     }
@@ -26,7 +26,7 @@ public class PaetFcFactorComplementario  implements java.io.Serializable {
         this.fcDescripcion = fcDescripcion;
         this.fcEstado = fcEstado;
     }
-    public PaetFcFactorComplementario(BigDecimal fcCodigo, String fcDescripcion, char fcEstado, Set paetFcPtFactorPuestos) {
+    public PaetFcFactorComplementario(BigDecimal fcCodigo, String fcDescripcion, char fcEstado, Set<PaetFcPtFactorPuesto> paetFcPtFactorPuestos) {
        this.fcCodigo = fcCodigo;
        this.fcDescripcion = fcDescripcion;
        this.fcEstado = fcEstado;
@@ -54,11 +54,11 @@ public class PaetFcFactorComplementario  implements java.io.Serializable {
     public void setFcEstado(char fcEstado) {
         this.fcEstado = fcEstado;
     }
-    public Set getPaetFcPtFactorPuestos() {
+    public Set<PaetFcPtFactorPuesto> getPaetFcPtFactorPuestos() {
         return this.paetFcPtFactorPuestos;
     }
     
-    public void setPaetFcPtFactorPuestos(Set paetFcPtFactorPuestos) {
+    public void setPaetFcPtFactorPuestos(Set<PaetFcPtFactorPuesto> paetFcPtFactorPuestos) {
         this.paetFcPtFactorPuestos = paetFcPtFactorPuestos;
     }
 

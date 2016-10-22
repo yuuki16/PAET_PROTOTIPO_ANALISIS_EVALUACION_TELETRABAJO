@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -18,8 +18,8 @@ public class PaetDrDireccion  implements java.io.Serializable {
      private String drDescripcion;
      private char drEstado;
      private BigDecimal dvDivision;
-     private Set paetPtPuestos = new HashSet(0);
-     private Set paetArAreas = new HashSet(0);
+     private Set<PaetPtPuesto> paetPtPuestos = new HashSet<PaetPtPuesto>(0);
+     private Set<PaetArArea> paetArAreas = new HashSet<PaetArArea>(0);
 
     public PaetDrDireccion() {
     }
@@ -32,7 +32,7 @@ public class PaetDrDireccion  implements java.io.Serializable {
         this.drEstado = drEstado;
         this.dvDivision = dvDivision;
     }
-    public PaetDrDireccion(PaetDvDivision paetDvDivision, PaetTrTrabajador paetTrTrabajador, String drDescripcion, char drEstado, BigDecimal dvDivision, Set paetPtPuestos, Set paetArAreas) {
+    public PaetDrDireccion(PaetDvDivision paetDvDivision, PaetTrTrabajador paetTrTrabajador, String drDescripcion, char drEstado, BigDecimal dvDivision, Set<PaetPtPuesto> paetPtPuestos, Set<PaetArArea> paetArAreas) {
        this.paetDvDivision = paetDvDivision;
        this.paetTrTrabajador = paetTrTrabajador;
        this.drDescripcion = drDescripcion;
@@ -84,18 +84,18 @@ public class PaetDrDireccion  implements java.io.Serializable {
     public void setDvDivision(BigDecimal dvDivision) {
         this.dvDivision = dvDivision;
     }
-    public Set getPaetPtPuestos() {
+    public Set<PaetPtPuesto> getPaetPtPuestos() {
         return this.paetPtPuestos;
     }
     
-    public void setPaetPtPuestos(Set paetPtPuestos) {
+    public void setPaetPtPuestos(Set<PaetPtPuesto> paetPtPuestos) {
         this.paetPtPuestos = paetPtPuestos;
     }
-    public Set getPaetArAreas() {
+    public Set<PaetArArea> getPaetArAreas() {
         return this.paetArAreas;
     }
     
-    public void setPaetArAreas(Set paetArAreas) {
+    public void setPaetArAreas(Set<PaetArArea> paetArAreas) {
         this.paetArAreas = paetArAreas;
     }
 

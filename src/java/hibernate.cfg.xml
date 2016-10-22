@@ -7,7 +7,8 @@
     <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
     <property name="hibernate.connection.username">mmonge</property>
     <property name="hibernate.connection.password">mmonge</property>
-    <property name="hibernate.connection.pool_size">5</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
     <mapping resource="PAET_DOMAIN/PaetCnCanton.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetTrTrabajador.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetPrProvincia.hbm.xml"/>
@@ -33,10 +34,10 @@
     <mapping resource="PAET_DOMAIN/PaetDsDistrito.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetPsProcesoSolicitud.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetDiSlDiaSolicitud.hbm.xml"/>
-    <mapping resource="PAET_DOMAIN/PaetAcActividad.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetAmAccionMejora.hbm.xml"/>
-    <mapping resource="PAET_DOMAIN/PaetDvDivision.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetAcActividad.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetPfProcesoFinalizacion.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetDvDivision.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetCaCaracteristica.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetCrCorreo.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetDrDireccion.hbm.xml"/>

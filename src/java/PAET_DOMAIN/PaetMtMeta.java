@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -22,7 +22,7 @@ public class PaetMtMeta  implements java.io.Serializable {
      private BigDecimal mtPorcentajeSobresaliente;
      private BigDecimal mtPorcentajeBajo;
      private String mtComentario;
-     private Set paetMtPtMetaPuestos = new HashSet(0);
+     private Set<PaetMtPtMetaPuesto> paetMtPtMetaPuestos = new HashSet<PaetMtPtMetaPuesto>(0);
 
     public PaetMtMeta() {
     }
@@ -39,7 +39,7 @@ public class PaetMtMeta  implements java.io.Serializable {
         this.mtPorcentajeSobresaliente = mtPorcentajeSobresaliente;
         this.mtPorcentajeBajo = mtPorcentajeBajo;
     }
-    public PaetMtMeta(BigDecimal mtCodigo, PaetEvEvaluacion paetEvEvaluacion, String mtDescripcion, short mtLimite, short mtPeso, short mtLimiteSobresaliente, short mtLimiteBajo, BigDecimal mtPorcentajeSobresaliente, BigDecimal mtPorcentajeBajo, String mtComentario, Set paetMtPtMetaPuestos) {
+    public PaetMtMeta(BigDecimal mtCodigo, PaetEvEvaluacion paetEvEvaluacion, String mtDescripcion, short mtLimite, short mtPeso, short mtLimiteSobresaliente, short mtLimiteBajo, BigDecimal mtPorcentajeSobresaliente, BigDecimal mtPorcentajeBajo, String mtComentario, Set<PaetMtPtMetaPuesto> paetMtPtMetaPuestos) {
        this.mtCodigo = mtCodigo;
        this.paetEvEvaluacion = paetEvEvaluacion;
        this.mtDescripcion = mtDescripcion;
@@ -123,11 +123,11 @@ public class PaetMtMeta  implements java.io.Serializable {
     public void setMtComentario(String mtComentario) {
         this.mtComentario = mtComentario;
     }
-    public Set getPaetMtPtMetaPuestos() {
+    public Set<PaetMtPtMetaPuesto> getPaetMtPtMetaPuestos() {
         return this.paetMtPtMetaPuestos;
     }
     
-    public void setPaetMtPtMetaPuestos(Set paetMtPtMetaPuestos) {
+    public void setPaetMtPtMetaPuestos(Set<PaetMtPtMetaPuesto> paetMtPtMetaPuestos) {
         this.paetMtPtMetaPuestos = paetMtPtMetaPuestos;
     }
 

@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -19,8 +19,8 @@ public class PaetTtTeletrabajador  implements java.io.Serializable {
      private Date ttFechaInicio;
      private Date ttFechaFin;
      private char ttEstado;
-     private Set paetPgProcesoSeguimientos = new HashSet(0);
-     private Set paetDiTtDiaTeletrabajadors = new HashSet(0);
+     private Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos = new HashSet<PaetPgProcesoSeguimiento>(0);
+     private Set<PaetDiTtDiaTeletrabajador> paetDiTtDiaTeletrabajadors = new HashSet<PaetDiTtDiaTeletrabajador>(0);
 
     public PaetTtTeletrabajador() {
     }
@@ -33,7 +33,7 @@ public class PaetTtTeletrabajador  implements java.io.Serializable {
         this.ttFechaInicio = ttFechaInicio;
         this.ttEstado = ttEstado;
     }
-    public PaetTtTeletrabajador(BigDecimal ttCodigo, PaetTrTrabajador paetTrTrabajador, PaetSlSolicitud paetSlSolicitud, Date ttFechaInicio, Date ttFechaFin, char ttEstado, Set paetPgProcesoSeguimientos, Set paetDiTtDiaTeletrabajadors) {
+    public PaetTtTeletrabajador(BigDecimal ttCodigo, PaetTrTrabajador paetTrTrabajador, PaetSlSolicitud paetSlSolicitud, Date ttFechaInicio, Date ttFechaFin, char ttEstado, Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos, Set<PaetDiTtDiaTeletrabajador> paetDiTtDiaTeletrabajadors) {
        this.ttCodigo = ttCodigo;
        this.paetTrTrabajador = paetTrTrabajador;
        this.paetSlSolicitud = paetSlSolicitud;
@@ -86,18 +86,18 @@ public class PaetTtTeletrabajador  implements java.io.Serializable {
     public void setTtEstado(char ttEstado) {
         this.ttEstado = ttEstado;
     }
-    public Set getPaetPgProcesoSeguimientos() {
+    public Set<PaetPgProcesoSeguimiento> getPaetPgProcesoSeguimientos() {
         return this.paetPgProcesoSeguimientos;
     }
     
-    public void setPaetPgProcesoSeguimientos(Set paetPgProcesoSeguimientos) {
+    public void setPaetPgProcesoSeguimientos(Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos) {
         this.paetPgProcesoSeguimientos = paetPgProcesoSeguimientos;
     }
-    public Set getPaetDiTtDiaTeletrabajadors() {
+    public Set<PaetDiTtDiaTeletrabajador> getPaetDiTtDiaTeletrabajadors() {
         return this.paetDiTtDiaTeletrabajadors;
     }
     
-    public void setPaetDiTtDiaTeletrabajadors(Set paetDiTtDiaTeletrabajadors) {
+    public void setPaetDiTtDiaTeletrabajadors(Set<PaetDiTtDiaTeletrabajador> paetDiTtDiaTeletrabajadors) {
         this.paetDiTtDiaTeletrabajadors = paetDiTtDiaTeletrabajadors;
     }
 

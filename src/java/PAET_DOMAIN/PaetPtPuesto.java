@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -22,10 +22,10 @@ public class PaetPtPuesto  implements java.io.Serializable {
      private BigDecimal drDireccion;
      private BigDecimal dvDivision;
      private BigDecimal grGerencia;
-     private Set paetFcPtFactorPuestos = new HashSet(0);
-     private Set paetTrTrabajadors = new HashSet(0);
-     private Set paetMtPtMetaPuestos = new HashSet(0);
-     private Set paetAcPtActividadPuestos = new HashSet(0);
+     private Set<PaetFcPtFactorPuesto> paetFcPtFactorPuestos = new HashSet<PaetFcPtFactorPuesto>(0);
+     private Set<PaetTrTrabajador> paetTrTrabajadors = new HashSet<PaetTrTrabajador>(0);
+     private Set<PaetMtPtMetaPuesto> paetMtPtMetaPuestos = new HashSet<PaetMtPtMetaPuesto>(0);
+     private Set<PaetAcPtActividadPuesto> paetAcPtActividadPuestos = new HashSet<PaetAcPtActividadPuesto>(0);
 
     public PaetPtPuesto() {
     }
@@ -35,7 +35,7 @@ public class PaetPtPuesto  implements java.io.Serializable {
         this.ptCodigo = ptCodigo;
         this.ptEstado = ptEstado;
     }
-    public PaetPtPuesto(String ptCodigo, PaetGrGerencia paetGrGerencia, PaetDvDivision paetDvDivision, PaetDrDireccion paetDrDireccion, PaetArArea paetArArea, String ptDescripcion, char ptEstado, BigDecimal drDireccion, BigDecimal dvDivision, BigDecimal grGerencia, Set paetFcPtFactorPuestos, Set paetTrTrabajadors, Set paetMtPtMetaPuestos, Set paetAcPtActividadPuestos) {
+    public PaetPtPuesto(String ptCodigo, PaetGrGerencia paetGrGerencia, PaetDvDivision paetDvDivision, PaetDrDireccion paetDrDireccion, PaetArArea paetArArea, String ptDescripcion, char ptEstado, BigDecimal drDireccion, BigDecimal dvDivision, BigDecimal grGerencia, Set<PaetFcPtFactorPuesto> paetFcPtFactorPuestos, Set<PaetTrTrabajador> paetTrTrabajadors, Set<PaetMtPtMetaPuesto> paetMtPtMetaPuestos, Set<PaetAcPtActividadPuesto> paetAcPtActividadPuestos) {
        this.ptCodigo = ptCodigo;
        this.paetGrGerencia = paetGrGerencia;
        this.paetDvDivision = paetDvDivision;
@@ -122,32 +122,32 @@ public class PaetPtPuesto  implements java.io.Serializable {
     public void setGrGerencia(BigDecimal grGerencia) {
         this.grGerencia = grGerencia;
     }
-    public Set getPaetFcPtFactorPuestos() {
+    public Set<PaetFcPtFactorPuesto> getPaetFcPtFactorPuestos() {
         return this.paetFcPtFactorPuestos;
     }
     
-    public void setPaetFcPtFactorPuestos(Set paetFcPtFactorPuestos) {
+    public void setPaetFcPtFactorPuestos(Set<PaetFcPtFactorPuesto> paetFcPtFactorPuestos) {
         this.paetFcPtFactorPuestos = paetFcPtFactorPuestos;
     }
-    public Set getPaetTrTrabajadors() {
+    public Set<PaetTrTrabajador> getPaetTrTrabajadors() {
         return this.paetTrTrabajadors;
     }
     
-    public void setPaetTrTrabajadors(Set paetTrTrabajadors) {
+    public void setPaetTrTrabajadors(Set<PaetTrTrabajador> paetTrTrabajadors) {
         this.paetTrTrabajadors = paetTrTrabajadors;
     }
-    public Set getPaetMtPtMetaPuestos() {
+    public Set<PaetMtPtMetaPuesto> getPaetMtPtMetaPuestos() {
         return this.paetMtPtMetaPuestos;
     }
     
-    public void setPaetMtPtMetaPuestos(Set paetMtPtMetaPuestos) {
+    public void setPaetMtPtMetaPuestos(Set<PaetMtPtMetaPuesto> paetMtPtMetaPuestos) {
         this.paetMtPtMetaPuestos = paetMtPtMetaPuestos;
     }
-    public Set getPaetAcPtActividadPuestos() {
+    public Set<PaetAcPtActividadPuesto> getPaetAcPtActividadPuestos() {
         return this.paetAcPtActividadPuestos;
     }
     
-    public void setPaetAcPtActividadPuestos(Set paetAcPtActividadPuestos) {
+    public void setPaetAcPtActividadPuestos(Set<PaetAcPtActividadPuesto> paetAcPtActividadPuestos) {
         this.paetAcPtActividadPuestos = paetAcPtActividadPuestos;
     }
 

@@ -5,6 +5,7 @@
  */
 package PAET_BL;
 
+import PAET_DAO.PAET_DI_DIA_DAO;
 import PAET_DOMAIN.PaetDiDia;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class PAET_DI_DIA_BL extends BaseBL implements IBaseBL<PaetDiDia, String>
 
     @Override
     public void delete(PaetDiDia o) {
-        this.getDao(o.getClass().getName()).delete(o);
+        
     }
 
     @Override

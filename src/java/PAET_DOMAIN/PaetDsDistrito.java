@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,32 +11,32 @@ import java.util.Set;
 public class PaetDsDistrito  implements java.io.Serializable {
 
 
-     private byte dsCodigo;
+     private int dsCodigo;
      private PaetCnCanton paetCnCanton;
      private String dsDescripcion;
-     private Set paetDfDireccionFisicas = new HashSet(0);
+     private Set<PaetDfDireccionFisica> paetDfDireccionFisicas = new HashSet<PaetDfDireccionFisica>(0);
 
     public PaetDsDistrito() {
     }
 
 	
-    public PaetDsDistrito(byte dsCodigo, PaetCnCanton paetCnCanton, String dsDescripcion) {
+    public PaetDsDistrito(int dsCodigo, PaetCnCanton paetCnCanton, String dsDescripcion) {
         this.dsCodigo = dsCodigo;
         this.paetCnCanton = paetCnCanton;
         this.dsDescripcion = dsDescripcion;
     }
-    public PaetDsDistrito(byte dsCodigo, PaetCnCanton paetCnCanton, String dsDescripcion, Set paetDfDireccionFisicas) {
+    public PaetDsDistrito(int dsCodigo, PaetCnCanton paetCnCanton, String dsDescripcion, Set<PaetDfDireccionFisica> paetDfDireccionFisicas) {
        this.dsCodigo = dsCodigo;
        this.paetCnCanton = paetCnCanton;
        this.dsDescripcion = dsDescripcion;
        this.paetDfDireccionFisicas = paetDfDireccionFisicas;
     }
    
-    public byte getDsCodigo() {
+    public int getDsCodigo() {
         return this.dsCodigo;
     }
     
-    public void setDsCodigo(byte dsCodigo) {
+    public void setDsCodigo(int dsCodigo) {
         this.dsCodigo = dsCodigo;
     }
     public PaetCnCanton getPaetCnCanton() {
@@ -53,11 +53,11 @@ public class PaetDsDistrito  implements java.io.Serializable {
     public void setDsDescripcion(String dsDescripcion) {
         this.dsDescripcion = dsDescripcion;
     }
-    public Set getPaetDfDireccionFisicas() {
+    public Set<PaetDfDireccionFisica> getPaetDfDireccionFisicas() {
         return this.paetDfDireccionFisicas;
     }
     
-    public void setPaetDfDireccionFisicas(Set paetDfDireccionFisicas) {
+    public void setPaetDfDireccionFisicas(Set<PaetDfDireccionFisica> paetDfDireccionFisicas) {
         this.paetDfDireccionFisicas = paetDfDireccionFisicas;
     }
 

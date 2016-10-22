@@ -1,5 +1,5 @@
 package PAET_DOMAIN;
-// Generated 17-oct-2016 18:54:49 by Hibernate Tools 4.3.1
+// Generated 19-oct-2016 22:10:22 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,29 +11,29 @@ import java.util.Set;
 public class PaetPrProvincia  implements java.io.Serializable {
 
 
-     private byte prCodigo;
+     private boolean prCodigo;
      private String prDescripcion;
-     private Set paetCnCantons = new HashSet(0);
+     private Set<PaetCnCanton> paetCnCantons = new HashSet<PaetCnCanton>(0);
 
     public PaetPrProvincia() {
     }
 
 	
-    public PaetPrProvincia(byte prCodigo, String prDescripcion) {
+    public PaetPrProvincia(boolean prCodigo, String prDescripcion) {
         this.prCodigo = prCodigo;
         this.prDescripcion = prDescripcion;
     }
-    public PaetPrProvincia(byte prCodigo, String prDescripcion, Set paetCnCantons) {
+    public PaetPrProvincia(boolean prCodigo, String prDescripcion, Set<PaetCnCanton> paetCnCantons) {
        this.prCodigo = prCodigo;
        this.prDescripcion = prDescripcion;
        this.paetCnCantons = paetCnCantons;
     }
    
-    public byte getPrCodigo() {
+    public boolean isPrCodigo() {
         return this.prCodigo;
     }
     
-    public void setPrCodigo(byte prCodigo) {
+    public void setPrCodigo(boolean prCodigo) {
         this.prCodigo = prCodigo;
     }
     public String getPrDescripcion() {
@@ -43,11 +43,11 @@ public class PaetPrProvincia  implements java.io.Serializable {
     public void setPrDescripcion(String prDescripcion) {
         this.prDescripcion = prDescripcion;
     }
-    public Set getPaetCnCantons() {
+    public Set<PaetCnCanton> getPaetCnCantons() {
         return this.paetCnCantons;
     }
     
-    public void setPaetCnCantons(Set paetCnCantons) {
+    public void setPaetCnCantons(Set<PaetCnCanton> paetCnCantons) {
         this.paetCnCantons = paetCnCantons;
     }
 
