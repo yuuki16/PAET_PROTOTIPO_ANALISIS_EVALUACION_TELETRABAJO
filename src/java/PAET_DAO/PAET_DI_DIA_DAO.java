@@ -19,7 +19,7 @@ import org.hibernate.Transaction;
  *
  * @author Michelle
  */
-public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia, String> {
+public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia, java.lang.Character> {
 
     @Override
     public void save(PaetDiDia o) {
@@ -65,7 +65,7 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
     }
 
     @Override
-    public PaetDiDia findById(String o) {
+    public PaetDiDia findById(java.lang.Character o) {
         PaetDiDia dia = null;
 
         try {
@@ -84,6 +84,24 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
         try {
             iniciaOperacion();
             listaDias = getSesion().createQuery("from PaetDiDia").list();
+        } finally {
+            getSesion().close();
+        }
+
+        return listaDias;
+    }
+    
+    @Override
+    public List<PaetDiDia> findDynamicFilter(String filterBy, String filter) {
+        List<PaetDiDia> listaDias;
+        Query query;
+        
+        try {
+            iniciaOperacion();
+            query = getSesion().createQuery("from PaetDiDia where "+filterBy+" like ?");
+            query.setString(0, "%"+filter+"%");
+            listaDias = query.list();
+            
         } finally {
             getSesion().close();
         }

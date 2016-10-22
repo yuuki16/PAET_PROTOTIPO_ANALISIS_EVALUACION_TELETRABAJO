@@ -17,4 +17,5 @@ public interface IBaseBL <T,K> {
     public abstract void delete (T o);
     public abstract T findById (K o);
     public abstract  List<T> findAll(String className);
+    public abstract List<T> findDynamicFilter(String filterBy, String filter, String className);
 }

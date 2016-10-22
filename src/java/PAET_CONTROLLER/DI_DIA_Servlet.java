@@ -40,7 +40,7 @@ public class DI_DIA_Servlet extends HttpServlet {
             String json;
             PaetDiDia dia = new PaetDiDia();
             PAET_DI_DIA_BL diaBl = new PAET_DI_DIA_BL();
-                        
+
             Thread.sleep(1000);
 
             HttpSession session = request.getSession();
@@ -50,6 +50,33 @@ public class DI_DIA_Servlet extends HttpServlet {
                 case "consultarDias":
                     json = new Gson().toJson(diaBl.findAll(PaetDiDia.class.getName()));
                     out.print(json);
+                    break;
+                case "consultarDiaByCodigo":
+                    //se consulta el objeto por ID
+                    dia = diaBl.findById(request.getParameter("diCodigo").charAt(0));
+
+                    //se pasa la informacion del objeto a formato JSON
+                    json = new Gson().toJson(dia);
+                    out.print(json);
+                    break;
+                case "agregarDia":
+                case "modificarDia":
+                    dia.setDiCodigo(request.getParameter("diCodigo").charAt(0));
+                    dia.setDiDescripcion(request.getParameter("diDescripcion"));
+                    if(accion.equals("agregarDia")){ //es insertar
+                        //Se guarda el objeto
+                        diaBl.save(dia);
+
+                        //Se imprime la respuesta con el response
+                        out.print("C~El día fue agregado correctamente");
+                        
+                    }else{//es modificar 
+                        //Se guarda el objeto
+                        diaBl.merge(dia);
+
+                        //Se imprime la respuesta con el response
+                        out.print("C~El día fue modificado correctamente");
+                    }
                     break;
                 default:
                     out.print("E~No se indico la acción que se desea realizare");

@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Michelle
  */
-public class PAET_DI_DIA_BL extends BaseBL implements IBaseBL<PaetDiDia, String>{
+public class PAET_DI_DIA_BL extends BaseBL implements IBaseBL<PaetDiDia, java.lang.Character>{
 
     public PAET_DI_DIA_BL()
     {
@@ -36,7 +36,7 @@ public class PAET_DI_DIA_BL extends BaseBL implements IBaseBL<PaetDiDia, String>
     }
 
     @Override
-    public PaetDiDia findById(String o) {
+    public PaetDiDia findById(java.lang.Character o) {
         return (PaetDiDia) this.getDao(PaetDiDia.class.getName()).findById(o);
     }
 
@@ -45,4 +45,8 @@ public class PAET_DI_DIA_BL extends BaseBL implements IBaseBL<PaetDiDia, String>
         return this.getDao(className).findAll();
     }
     
+    @Override
+    public List<PaetDiDia> findDynamicFilter(String filterBy, String filter, String className) {
+        return this.getDao(className).findDynamicFilter(filterBy, filter);
+    }
 }
