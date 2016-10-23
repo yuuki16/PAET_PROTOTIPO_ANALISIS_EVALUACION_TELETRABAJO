@@ -13,30 +13,18 @@ public class PaetDvDivision  implements java.io.Serializable {
 
 
      private BigDecimal dvCodigo;
-     private PaetGrGerencia paetGrGerencia;
      private String dvDescripcion;
      private char dvEstado;
      private BigDecimal grGerencia;
-     private PaetDrDireccion paetDrDireccion;
-     private Set<PaetPtPuesto> paetPtPuestos = new HashSet<PaetPtPuesto>(0);
 
     public PaetDvDivision() {
     }
-
-	
-    public PaetDvDivision(PaetGrGerencia paetGrGerencia, String dvDescripcion, char dvEstado, BigDecimal grGerencia) {
-        this.paetGrGerencia = paetGrGerencia;
+    
+    public PaetDvDivision(BigDecimal dvCodigo, String dvDescripcion, char dvEstado, BigDecimal grGerencia) {
+        this.dvCodigo = dvCodigo;
         this.dvDescripcion = dvDescripcion;
         this.dvEstado = dvEstado;
         this.grGerencia = grGerencia;
-    }
-    public PaetDvDivision(PaetGrGerencia paetGrGerencia, String dvDescripcion, char dvEstado, BigDecimal grGerencia, PaetDrDireccion paetDrDireccion, Set<PaetPtPuesto> paetPtPuestos) {
-       this.paetGrGerencia = paetGrGerencia;
-       this.dvDescripcion = dvDescripcion;
-       this.dvEstado = dvEstado;
-       this.grGerencia = grGerencia;
-       this.paetDrDireccion = paetDrDireccion;
-       this.paetPtPuestos = paetPtPuestos;
     }
    
     public BigDecimal getDvCodigo() {
@@ -46,13 +34,7 @@ public class PaetDvDivision  implements java.io.Serializable {
     public void setDvCodigo(BigDecimal dvCodigo) {
         this.dvCodigo = dvCodigo;
     }
-    public PaetGrGerencia getPaetGrGerencia() {
-        return this.paetGrGerencia;
-    }
     
-    public void setPaetGrGerencia(PaetGrGerencia paetGrGerencia) {
-        this.paetGrGerencia = paetGrGerencia;
-    }
     public String getDvDescripcion() {
         return this.dvDescripcion;
     }
@@ -60,6 +42,7 @@ public class PaetDvDivision  implements java.io.Serializable {
     public void setDvDescripcion(String dvDescripcion) {
         this.dvDescripcion = dvDescripcion;
     }
+    
     public char getDvEstado() {
         return this.dvEstado;
     }
@@ -67,6 +50,7 @@ public class PaetDvDivision  implements java.io.Serializable {
     public void setDvEstado(char dvEstado) {
         this.dvEstado = dvEstado;
     }
+    
     public BigDecimal getGrGerencia() {
         return this.grGerencia;
     }
@@ -74,24 +58,6 @@ public class PaetDvDivision  implements java.io.Serializable {
     public void setGrGerencia(BigDecimal grGerencia) {
         this.grGerencia = grGerencia;
     }
-    public PaetDrDireccion getPaetDrDireccion() {
-        return this.paetDrDireccion;
-    }
-    
-    public void setPaetDrDireccion(PaetDrDireccion paetDrDireccion) {
-        this.paetDrDireccion = paetDrDireccion;
-    }
-    public Set<PaetPtPuesto> getPaetPtPuestos() {
-        return this.paetPtPuestos;
-    }
-    
-    public void setPaetPtPuestos(Set<PaetPtPuesto> paetPtPuestos) {
-        this.paetPtPuestos = paetPtPuestos;
-    }
-
-
-
-
 }
 
 

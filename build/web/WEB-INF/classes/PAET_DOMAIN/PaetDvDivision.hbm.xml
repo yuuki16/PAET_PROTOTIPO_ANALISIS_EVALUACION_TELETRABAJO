@@ -7,10 +7,9 @@
         <id name="dvCodigo" type="big_decimal">
             <column name="DV_CODIGO" precision="22" scale="0" />
             <generator class="foreign">
-                <param name="property">paetGrGerencia</param>
+                <param name="sequence">PAET_DV_DIVISION_SEQ</param>
             </generator>
         </id>
-        <one-to-one name="paetGrGerencia" class="PAET_DOMAIN.PaetGrGerencia" constrained="true"></one-to-one>
         <property name="dvDescripcion" type="string">
             <column name="DV_DESCRIPCION" length="100" not-null="true" unique="true" />
         </property>
@@ -20,12 +19,5 @@
         <property name="grGerencia" type="big_decimal">
             <column name="GR_GERENCIA" precision="22" scale="0" not-null="true" />
         </property>
-        <one-to-one name="paetDrDireccion" class="PAET_DOMAIN.PaetDrDireccion"></one-to-one>
-        <set name="paetPtPuestos" table="PAET_PT_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="AR_AREA" precision="22" scale="0" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetPtPuesto" />
-        </set>
     </class>
 </hibernate-mapping>

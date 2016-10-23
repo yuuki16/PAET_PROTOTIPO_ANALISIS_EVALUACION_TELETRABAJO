@@ -12,6 +12,10 @@
         <servlet-name>GR_GERENCIA_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.GR_GERENCIA_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DV_DIVISION_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.DV_DIVISION_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>GR_GERENCIA_Servlet</servlet-name>
         <url-pattern>/GR_GERENCIA_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DV_DIVISION_Servlet</servlet-name>
+        <url-pattern>/DV_DIVISION_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
