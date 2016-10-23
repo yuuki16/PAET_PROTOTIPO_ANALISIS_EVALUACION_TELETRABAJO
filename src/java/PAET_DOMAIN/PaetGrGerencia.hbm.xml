@@ -6,7 +6,9 @@
     <class name="PAET_DOMAIN.PaetGrGerencia" table="PAET_GR_GERENCIA" schema="MMONGE" optimistic-lock="version">
         <id name="grCodigo" type="big_decimal">
             <column name="GR_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">PAET_GR_GERENCIA_SEQ</param>
+            </generator>
         </id>
         <property name="grDescripcion" type="string">
             <column name="GR_DESCRIPCION" length="100" not-null="true" unique="true" />
@@ -14,12 +16,5 @@
         <property name="grEstado" type="char">
             <column name="GR_ESTADO" length="1" not-null="true" />
         </property>
-        <set name="paetPtPuestos" table="PAET_PT_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="AR_AREA" precision="22" scale="0" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetPtPuesto" />
-        </set>
-        <one-to-one name="paetDvDivision" class="PAET_DOMAIN.PaetDvDivision"></one-to-one>
     </class>
 </hibernate-mapping>

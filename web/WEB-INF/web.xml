@@ -4,9 +4,25 @@
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.DI_DIA_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AR_AREA_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.AR_AREA_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GR_GERENCIA_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.GR_GERENCIA_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AR_AREA_Servlet</servlet-name>
+        <url-pattern>/AR_AREA_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GR_GERENCIA_Servlet</servlet-name>
+        <url-pattern>/GR_GERENCIA_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

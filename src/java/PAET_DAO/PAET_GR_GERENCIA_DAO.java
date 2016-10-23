@@ -5,24 +5,21 @@
  */
 package PAET_DAO;
 
-import PAET_DOMAIN.PaetDiDia;
+import PAET_DOMAIN.PaetGrGerencia;
 import PAET_UTILS.HibernateUtil;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
  * @author Michelle
  */
-public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia, java.lang.Character> {
+public class PAET_GR_GERENCIA_DAO extends HibernateUtil implements IBaseDAO<PaetGrGerencia, BigDecimal> {
 
     @Override
-    public void save(PaetDiDia o) {
+    public void save(PaetGrGerencia o) {
         try {
             iniciaOperacion();
             getSesion().save(o);
@@ -36,10 +33,10 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
     }
 
     @Override
-    public PaetDiDia merge(PaetDiDia o) throws HibernateException {
+    public PaetGrGerencia merge(PaetGrGerencia o) {
         try {
             iniciaOperacion();
-            o = (PaetDiDia) getSesion().merge(o);
+            o = (PaetGrGerencia) getSesion().merge(o);
             getTransac().commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -51,52 +48,53 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
     }
 
     @Override
-    public void delete(PaetDiDia o) {
-       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(PaetGrGerencia o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public PaetDiDia findById(java.lang.Character o) {
-        PaetDiDia dia = null;
+    public PaetGrGerencia findById(BigDecimal o) {
+        PaetGrGerencia gerencia = null;
 
         try {
             iniciaOperacion();
-            dia = (PaetDiDia) getSesion().get(PaetDiDia.class, o);
+            gerencia = (PaetGrGerencia) getSesion().get(PaetGrGerencia.class, o);
         } finally {
             getSesion().close();
         }
-        return dia;
+        return gerencia;
     }
 
     @Override
-    public List<PaetDiDia> findAll() {
-        List<PaetDiDia> listaDias;
+    public List<PaetGrGerencia> findAll() {
+        List<PaetGrGerencia> listaDias;
         
         try {
             iniciaOperacion();
-            listaDias = getSesion().createQuery("from PaetDiDia").list();
+            listaDias = getSesion().createQuery("from PaetGrGerencia").list();
         } finally {
             getSesion().close();
         }
 
         return listaDias;
     }
-    
+
     @Override
-    public List<PaetDiDia> findDynamicFilter(String filterBy, String filter) {
-        List<PaetDiDia> listaDias;
+    public List<PaetGrGerencia> findDynamicFilter(String filterBy, String filter) {
+        List<PaetGrGerencia> listaGerencias;
         Query query;
         
         try {
             iniciaOperacion();
-            query = getSesion().createQuery("from PaetDiDia where lower("+filterBy+") like ?");
+            query = getSesion().createQuery("from PaetGrGerencia where lower("+filterBy+") like ?");
             query.setString(0, "%"+filter.toLowerCase()+"%");
-            listaDias = query.list();
+            listaGerencias = query.list();
             
         } finally {
             getSesion().close();
         }
 
-        return listaDias;
+        return listaGerencias;
     }
+    
 }

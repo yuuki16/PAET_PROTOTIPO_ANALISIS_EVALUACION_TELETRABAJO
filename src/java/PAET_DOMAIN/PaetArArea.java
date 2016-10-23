@@ -13,27 +13,18 @@ public class PaetArArea  implements java.io.Serializable {
 
 
      private BigDecimal arCodigo;
-     private PaetDrDireccion paetDrDireccion;
      private String arDescripcion;
      private char arEstado;
-     private Set<PaetPtPuesto> paetPtPuestos = new HashSet<PaetPtPuesto>(0);
+     private BigDecimal drDireccion;
 
     public PaetArArea() {
     }
 
-	
-    public PaetArArea(BigDecimal arCodigo, PaetDrDireccion paetDrDireccion, String arDescripcion, char arEstado) {
+    public PaetArArea(BigDecimal arCodigo, String arDescripcion, char arEstado, BigDecimal drDireccion) {
         this.arCodigo = arCodigo;
-        this.paetDrDireccion = paetDrDireccion;
         this.arDescripcion = arDescripcion;
         this.arEstado = arEstado;
-    }
-    public PaetArArea(BigDecimal arCodigo, PaetDrDireccion paetDrDireccion, String arDescripcion, char arEstado, Set<PaetPtPuesto> paetPtPuestos) {
-       this.arCodigo = arCodigo;
-       this.paetDrDireccion = paetDrDireccion;
-       this.arDescripcion = arDescripcion;
-       this.arEstado = arEstado;
-       this.paetPtPuestos = paetPtPuestos;
+        this.drDireccion = drDireccion;
     }
    
     public BigDecimal getArCodigo() {
@@ -43,13 +34,7 @@ public class PaetArArea  implements java.io.Serializable {
     public void setArCodigo(BigDecimal arCodigo) {
         this.arCodigo = arCodigo;
     }
-    public PaetDrDireccion getPaetDrDireccion() {
-        return this.paetDrDireccion;
-    }
     
-    public void setPaetDrDireccion(PaetDrDireccion paetDrDireccion) {
-        this.paetDrDireccion = paetDrDireccion;
-    }
     public String getArDescripcion() {
         return this.arDescripcion;
     }
@@ -64,17 +49,14 @@ public class PaetArArea  implements java.io.Serializable {
     public void setArEstado(char arEstado) {
         this.arEstado = arEstado;
     }
-    public Set<PaetPtPuesto> getPaetPtPuestos() {
-        return this.paetPtPuestos;
+    
+    public BigDecimal getDrDireccion() {
+        return this.drDireccion;
     }
     
-    public void setPaetPtPuestos(Set<PaetPtPuesto> paetPtPuestos) {
-        this.paetPtPuestos = paetPtPuestos;
+    public void setDrDireccion(BigDecimal drDireccion) {
+        this.drDireccion = drDireccion;
     }
-
-
-
-
 }
 
 

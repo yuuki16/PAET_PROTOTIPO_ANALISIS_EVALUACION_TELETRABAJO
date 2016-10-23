@@ -19,6 +19,8 @@ public class BaseBL {
     public BaseBL() {
         daos = new LinkedHashMap();
         daos.put("PAET_DOMAIN.PaetDiDia", new PAET_DI_DIA_DAO());
+        daos.put("PAET_DOMAIN.PaetArArea", new PAET_AR_AREA_DAO());
+        daos.put("PAET_DOMAIN.PaetGrGerencia", new PAET_GR_GERENCIA_DAO());
     }
     
     public IBaseDAO getDao(String className){

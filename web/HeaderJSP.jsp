@@ -17,12 +17,13 @@
                         <li class=" dropdown">
                             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrar <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li class=" dropdown">
+                                <%--<li class=" dropdown">
                                     <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Días</a>
-                                </li>
-                                <li><a href="#">Áreas</a></li>
+                                </li>--%>
+                                <li><a href="AR_AREA_JSP.jsp">Áreas</a></li>
                                 <li><a href="DI_DIA_JSP.jsp">Días</a></li>
                                 <li><a href="#">Direcciones</a></li>
+                                <li><a href="GR_GERENCIA_JSP.jsp">Gerencias</a></li>
                                 <li><a href="#">Trabajadores</a></li>
                             </ul>
                         </li>

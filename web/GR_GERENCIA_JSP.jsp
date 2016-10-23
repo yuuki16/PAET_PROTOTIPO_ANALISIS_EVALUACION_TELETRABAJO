@@ -1,6 +1,6 @@
 <%-- 
-    Document   : DI_DIA_JSP
-    Created on : 17-oct-2016, 19:40:24
+    Document   : GR_GERENCIA_JSP
+    Created on : 22-oct-2016, 15:16:55
     Author     : Michelle
 --%>
 
@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Mantenimiento de Días</title>
+        <title>Mantenimiento de Gerencias</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap -->
@@ -18,43 +18,43 @@
         <!-- Referencias -->
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
         <script src="js/utils.js" type="text/javascript"></script>
-        <script src="js/DI_DIA_JS.js" type="text/javascript"></script>  
+        <script src="js/GR_GERENCIA_JS.js" type="text/javascript"></script>  
     </head>
     <body>
         <%@ include file="/HeaderJSP.jsp" %>
         <div class="container">
             <div class="panel panel-default">
-                <div class="panel-heading"><h3>Mantenimiento de Días</h3></div>
+                <div class="panel-heading"><h3>Mantenimiento de Gerencias</h3></div>
                 <div class="panel-body">
                     <center>
-                        <button type="button" class="btn btn-success centered" data-toggle="modal" data-target="#formularioAdministrar" id="btMostarForm">Insertar Día</button>
+                        <button type="button" class="btn btn-success centered" data-toggle="modal" data-target="#formularioAdministrar" id="btMostrarForm">Insertar Gerencia</button>
                         <button type="button" class="btn btn-default centered" data-toggle="modal" id="btLimpiarBusqueda">Limpiar Búsqueda</button>
                     </center><br>
                     <!-- BUSQUEDA -->
                     <div class="col-sm-12">
-                        <form role="form" onsubmit="return false;" id="formConsultas" class="form-horizontal centered">
-                            <div class="form-group" id="groupdiCodigo">
+                        <form role="form" onsubmit="return false;" id="formBusqueda" class="form-horizontal centered">
+                            <div class="form-group" id="groupgrCodigo">
                                 <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diCodigo" placeholder="Digite el código del día">
+                                    <input type="text" class="form-control" id="grCodigo" placeholder="Digite el código de la gerencia">
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDiCodigo">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaGrCodigo">
                                         Buscar <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-group" id="groupdiDescripcion">
+                            <div class="form-group" id="groupgrDescripcion">
                                 <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
-                                    <p><b>Buscar por nombre:</b></p>
+                                    <p><b>Buscar por descripción:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diDescripcion" placeholder="Digite el nombre del día">
+                                    <input type="text" class="form-control" id="grDescripcion" placeholder="Digite el nombre de la gerencia">
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDiDescripcion">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaGrDescripcion">
                                         Buscar <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </div>
@@ -63,26 +63,26 @@
                     </div>
                     <!-- TABLA -->
 
-                    <table class="table table-hover table-condensed" id="tablaDias"></table>
+                    <table class="table table-hover table-condensed" id="tablaGerencias"></table>
 
                 </div>
                 <div class="panel-footer">Nota: Acciones validas dependeran del rol del usuario</div>
             </div>
         </div>
-        
+
         <!-- FORMULARIO -->
         <div class="modal fade" id="formularioAdministrar" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" id="myModalTitle"> Administrar Dias</h4>
+                        <h4 class="modal-title" id="myModalTitle"> Administrar Gerencias</h4>
                     </div>
                     <div class="modal-body" id="myModalMessage">
-                        <form role="form" onsubmit="return false;" id="formDias">
+                        <form role="form" onsubmit="return false;" id="formGerencias">
                             <div class="form-group" id="groupCodigo">
                                 <label for="codigo">Código:</label>
-                                <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código">
+                                <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código" readonly="true">
                             </div>
 
                             <div class="form-group" id="groupDescripcion">
@@ -90,11 +90,19 @@
                                 <input type="text" class="form-control" id="descripcion" placeholder="Descripción" >
                             </div>
                             
+                            <div class="form-group" id="groupEstado">
+                                <label for="estado">Estado:</label>
+                                <select class="form-control" id="estado">
+                                    <option value="A" selected="selected">Activo</option>
+                                    <option value="I">Inactivo</option>
+                                </select>
+                            </div>
+                            
                             <div class="form-group">
-                                <input type="hidden" value="agregarDia" id="diasAction"/>
-                                
-                                    <button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
-                              
+                                <input type="hidden" value="agregarGerencia" id="gerenciasAction"/>
+
+                                <button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
+
                                 <button type="reset" class="btn btn-danger" id="cancelar">Cancelar</button>
                             </div>
 
@@ -109,7 +117,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Mensajes -->
         <div class="modal fade" id="modalMensajes" role="dialog">
             <div class="modal-dialog modal-sm">
@@ -126,3 +134,5 @@
         </div>
     </body>
 </html>
+
+
