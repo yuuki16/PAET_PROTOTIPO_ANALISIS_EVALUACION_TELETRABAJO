@@ -46,8 +46,8 @@ public class PAET_AR_AREA_BL extends BaseBL implements IBaseBL<PaetArArea, BigDe
     }
 
     @Override
-    public List<PaetArArea> findDynamicFilter(String filterBy, String filter, String className) {
-        return this.getDao(className).findDynamicFilter(filterBy, filter);
+    public List<PaetArArea> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
+        return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
     
 }

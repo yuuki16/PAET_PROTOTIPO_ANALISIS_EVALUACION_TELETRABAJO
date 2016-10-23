@@ -203,11 +203,11 @@ function buscar(idBoton) {
 
     if (idBoton === "btBusquedaDiCodigo") {
         if (validarBusqueda("diCodigo")) {
-            enviarBusqueda("diCodigo", $("#diCodigo").val());
+            enviarBusqueda("diCodigo", $("#diCodigo").val(), true);
         }
     } else if (idBoton === "btBusquedaDiDescripcion") {
         if (validarBusqueda("diDescripcion")) {
-            enviarBusqueda("diDescripcion", $("#diDescripcion").val());
+            enviarBusqueda("diDescripcion", $("#diDescripcion").val(), false);
         }
     }
 }
@@ -228,7 +228,7 @@ function validarBusqueda(campo) {
     return validacion;
 }
 
-function enviarBusqueda(campo, valor) {
+function enviarBusqueda(campo, valor, unico) {
 
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los días");
 
@@ -237,7 +237,8 @@ function enviarBusqueda(campo, valor) {
         data: {
             accion: "consultaDinamica",
             campo: campo,
-            valor: valor
+            valor: valor,
+            unico: unico
         },
         error: function () { //si existe un error en la respuesta del ajax
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");

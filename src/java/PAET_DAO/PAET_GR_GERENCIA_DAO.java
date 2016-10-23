@@ -80,14 +80,20 @@ public class PAET_GR_GERENCIA_DAO extends HibernateUtil implements IBaseDAO<Paet
     }
 
     @Override
-    public List<PaetGrGerencia> findDynamicFilter(String filterBy, String filter) {
+    public List<PaetGrGerencia> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         List<PaetGrGerencia> listaGerencias;
         Query query;
         
         try {
             iniciaOperacion();
-            query = getSesion().createQuery("from PaetGrGerencia where lower("+filterBy+") like ?");
-            query.setString(0, "%"+filter.toLowerCase()+"%");
+            if (unique) {
+                query = getSesion().createQuery("from PaetGrGerencia where "+filterBy+" = "+filter);
+            }
+            else
+            {
+                query = getSesion().createQuery("from PaetGrGerencia where lower("+filterBy+") like ?");
+                query.setString(0, "%"+filter.toLowerCase()+"%");
+            }
             listaGerencias = query.list();
             
         } finally {

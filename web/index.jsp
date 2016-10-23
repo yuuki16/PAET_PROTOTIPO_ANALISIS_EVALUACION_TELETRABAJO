@@ -36,9 +36,8 @@
 
             <!-- Jumbotron Header -->
             <header class="jumbotron hero-spacer">
-                <h1>A Warm Welcome!</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-                <p><a class="btn btn-primary btn-large">Call to action!</a>
+                <h1>PAET</h1>
+                <p>Prototipo funcional para el análisis y evaluacion de puestos de teletrabajo.</p>
                 </p>
             </header>
 
@@ -47,7 +46,7 @@
             <!-- Title -->
             <div class="row">
                 <div class="col-lg-12">
-                    <h3>Latest Features</h3>
+                    <h3>Beneficios del Teletrabajo</h3>
                 </div>
             </div>
             <!-- /.row -->
@@ -116,7 +115,7 @@
             <footer>
                 <div class="row">
                     <div class="col-lg-12">
-                        <p>Copyright &copy; Your Website 2014</p>
+                        <p>Proyecto Final de Graduación - Michelle Monge Arguedas - 2016</p>
                     </div>
                 </div>
             </footer>

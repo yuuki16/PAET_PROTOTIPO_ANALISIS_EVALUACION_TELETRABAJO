@@ -38,6 +38,7 @@ public class AR_AREA_Servlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String json, campo, valor;
+            Boolean unique;
             BigDecimal arCodigo, drDireccion;
             PaetArArea area = new PaetArArea();
             PAET_AR_AREA_BL areaBl = new PAET_AR_AREA_BL();
@@ -89,9 +90,9 @@ public class AR_AREA_Servlet extends HttpServlet {
                 case "consultaDinamica":
                     campo = request.getParameter("campo");
                     valor = request.getParameter("valor");
-
+                    unique = Boolean.valueOf(request.getParameter("unico"));
                     //se consulta el objeto por el campo y el valor 
-                    json = new Gson().toJson(areaBl.findDynamicFilter(campo, valor, PaetArArea.class.getName()));
+                    json = new Gson().toJson(areaBl.findDynamicFilter(campo, valor, unique, PaetArArea.class.getName()));
                     out.print(json);
                     break;
                 default:

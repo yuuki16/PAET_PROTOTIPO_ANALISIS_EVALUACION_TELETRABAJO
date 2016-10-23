@@ -6,7 +6,7 @@
     <class name="PAET_DOMAIN.PaetDvDivision" table="PAET_DV_DIVISION" schema="MMONGE" optimistic-lock="version">
         <id name="dvCodigo" type="big_decimal">
             <column name="DV_CODIGO" precision="22" scale="0" />
-            <generator class="foreign">
+            <generator class="sequence">
                 <param name="sequence">PAET_DV_DIVISION_SEQ</param>
             </generator>
         </id>

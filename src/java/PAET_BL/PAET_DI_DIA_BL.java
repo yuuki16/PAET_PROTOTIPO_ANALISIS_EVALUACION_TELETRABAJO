@@ -46,7 +46,7 @@ public class PAET_DI_DIA_BL extends BaseBL implements IBaseBL<PaetDiDia, java.la
     }
     
     @Override
-    public List<PaetDiDia> findDynamicFilter(String filterBy, String filter, String className) {
-        return this.getDao(className).findDynamicFilter(filterBy, filter);
+    public List<PaetDiDia> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
+        return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
 }

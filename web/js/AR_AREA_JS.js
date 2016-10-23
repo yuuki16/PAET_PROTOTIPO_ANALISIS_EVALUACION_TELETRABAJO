@@ -71,7 +71,7 @@ function dibujarTabla(dataJson) {
 function dibujarFila(rowData) {
     //Cuando dibuja la tabla en cada boton se le agrega la funcionalidad de cargar o eliminar la informacion
     var row = $("<tr />");
-    $("#tablaDias").append(row);
+    $("#tablaAreas").append(row);
     row.append($("<td>" + rowData.arCodigo + "</td>"));
     row.append($("<td>" + rowData.arDescripcion + "</td>"));
     row.append($("<td>" + rowData.arEstado + "</td>"));
@@ -158,7 +158,7 @@ function guardar() {
                 if (tipoRespuesta === "C~") {
                     mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
                     $("#formularioAdministrar").modal("hide");
-                    consultarDias();
+                    consultarAreas();
                 } else {
                     if (tipoRespuesta === "E~") {
                         mostrarMensaje("alert alert-danger", respuestaTxt, "Error!");
@@ -221,15 +221,15 @@ function buscar(idBoton) {
 
     if (idBoton === "btBusquedaArCodigo") {
         if (validarBusqueda("arCodigo")) {
-            enviarBusqueda("arCodigo", $("#arCodigo").val());
+            enviarBusqueda("arCodigo", $("#arCodigo").val(), true);
         }
     } else if (idBoton === "btBusquedaArDescripcion") {
         if (validarBusqueda("arDescripcion")) {
-            enviarBusqueda("arDescripcion", $("#arDescripcion").val());
+            enviarBusqueda("arDescripcion", $("#arDescripcion").val(), false);
         }
     } else if (idBoton === "btBusquedaDrDireccion") {
         if (validarBusqueda("drDireccion")) {
-            enviarBusqueda("drDireccion", $("#drDireccion").val());
+            enviarBusqueda("drDireccion", $("#drDireccion").val(), false);
         }
     }
 
@@ -251,7 +251,7 @@ function validarBusqueda(campo) {
     return validacion;
 }
 
-function enviarBusqueda(campo, valor) {
+function enviarBusqueda(campo, valor, unico) {
 
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando las áreas");
 
@@ -260,7 +260,8 @@ function enviarBusqueda(campo, valor) {
         data: {
             accion: "consultaDinamica",
             campo: campo,
-            valor: valor
+            valor: valor,
+            unico: unico
         },
         error: function () { //si existe un error en la respuesta del ajax
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
@@ -279,7 +280,7 @@ function enviarBusqueda(campo, valor) {
 
 function limpiarBusqueda() {
 
-    //Consultar todos los días
+    //Consultar todos las áreas
     consultarAreas();
 
     //Limpiar txt

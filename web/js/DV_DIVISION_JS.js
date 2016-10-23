@@ -69,7 +69,7 @@ function dibujarTabla(dataJson) {
 function dibujarFila(rowData) {
     //Cuando dibuja la tabla en cada boton se le agrega la funcionalidad de cargar o eliminar la informacion
     var row = $("<tr />");
-    $("#tablaGerencias").append(row);
+    $("#tablaDivisiones").append(row);
     row.append($("<td>" + rowData.dvCodigo + "</td>"));
     row.append($("<td>" + rowData.dvDescripcion + "</td>"));
     if (rowData.dvEstado === "A") {
@@ -216,17 +216,17 @@ function mostrarMensaje(classCss, msg, neg) {
 
 function buscar(idBoton) {
 
-    if (idBoton === "btBusquedaDVCodigo") {
+    if (idBoton === "btBusquedaDvCodigo") {
         if (validarBusqueda("dvCodigo")) {
-            enviarBusqueda("dvCodigo", $("#dvCodigo").val());
+            enviarBusqueda("dvCodigo", $("#dvCodigo").val(), true);
         }
     } else if (idBoton === "btBusquedaDvDescripcion") {
         if (validarBusqueda("dvDescripcion")) {
-            enviarBusqueda("dvDescripcion", $("#dvDescripcion").val());
+            enviarBusqueda("dvDescripcion", $("#dvDescripcion").val(), false);
         }
     } else if (idBoton === "btBusquedaGrGerencia") {
         if (validarBusqueda("grGerencia")) {
-            enviarBusqueda("grGerencia", $("#grGerencia").val());
+            enviarBusqueda("grGerencia", $("#grGerencia").val(), false);
         }
     }
 }
@@ -247,7 +247,7 @@ function validarBusqueda(campo) {
     return validacion;
 }
 
-function enviarBusqueda(campo, valor) {
+function enviarBusqueda(campo, valor, unico) {
 
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando las divisiones");
 
@@ -256,7 +256,8 @@ function enviarBusqueda(campo, valor) {
         data: {
             accion: "consultaDinamica",
             campo: campo,
-            valor: valor
+            valor: valor,
+            unico: unico
         },
         error: function () { //si existe un error en la respuesta del ajax
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
@@ -307,5 +308,9 @@ function dibujarCombo(dataJson){
     
     for (var i = 0; i < dataJson.length; i++) {
         $("#gerencia").append($("<option value=\""+dataJson[i].grCodigo+"\">"+dataJson[i].grDescripcion+"</option>"));
+    }
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#grGerencia").append($("<option value=\""+dataJson[i].grCodigo+"\">"+dataJson[i].grDescripcion+"</option>"));
     }
 }

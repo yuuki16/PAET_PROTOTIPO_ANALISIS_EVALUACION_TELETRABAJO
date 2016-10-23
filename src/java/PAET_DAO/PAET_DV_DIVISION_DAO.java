@@ -80,14 +80,20 @@ public class PAET_DV_DIVISION_DAO extends HibernateUtil implements IBaseDAO<Paet
     }
 
     @Override
-    public List<PaetDvDivision> findDynamicFilter(String filterBy, String filter) {
+    public List<PaetDvDivision> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         List<PaetDvDivision> listaDivisiones;
         Query query;
         
         try {
             iniciaOperacion();
-            query = getSesion().createQuery("from PaetDvDivision where lower("+filterBy+") like ?");
-            query.setString(0, "%"+filter.toLowerCase()+"%");
+            if (unique) {
+                query = getSesion().createQuery("from PaetDvDivision where "+filterBy+" = "+filter);
+            }
+            else   
+            { 
+                query = getSesion().createQuery("from PaetDvDivision where lower("+filterBy+") like ?");
+                query.setString(0, "%"+filter.toLowerCase()+"%");
+            }
             listaDivisiones = query.list();
             
         } finally {

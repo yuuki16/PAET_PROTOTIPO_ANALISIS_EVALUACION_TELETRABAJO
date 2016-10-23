@@ -38,7 +38,7 @@
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="grCodigo" placeholder="Digite el código de la división">
+                                    <input type="text" class="form-control" id="dvCodigo" placeholder="Digite el código de la división">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDvCodigo">
@@ -51,7 +51,7 @@
                                     <p><b>Buscar por descripción:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="grDescripcion" placeholder="Digite el nombre de la división">
+                                    <input type="text" class="form-control" id="dvDescripcion" placeholder="Digite el nombre de la división">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDvDescripcion">
@@ -64,7 +64,9 @@
                                     <p><b>Buscar por gerencia:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="grDescripcion" placeholder="Digite el nombre de la gerencia">
+                                    <select class="form-control" id="grGerencia">
+                                        <option value="" selected="selected"></option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaGrGerencia">
@@ -102,7 +104,7 @@
                                 <label for="descripcion">Descripción:</label>
                                 <input type="text" class="form-control" id="descripcion" placeholder="Descripción" >
                             </div>
-                            
+
                             <div class="form-group" id="groupEstado">
                                 <label for="estado">Estado:</label>
                                 <select class="form-control" id="estado">
@@ -110,14 +112,14 @@
                                     <option value="I">Inactivo</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group" id="groupGerencia">
                                 <label for="estado">Gerencia:</label>
                                 <select class="form-control" id="gerencia">
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <input type="hidden" value="agregarDivision" id="divisionesAction"/>
 

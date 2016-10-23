@@ -8,12 +8,8 @@ package PAET_DAO;
 import PAET_DOMAIN.PaetDiDia;
 import PAET_UTILS.HibernateUtil;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -83,14 +79,20 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
     }
     
     @Override
-    public List<PaetDiDia> findDynamicFilter(String filterBy, String filter) {
+    public List<PaetDiDia> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         List<PaetDiDia> listaDias;
         Query query;
         
         try {
             iniciaOperacion();
-            query = getSesion().createQuery("from PaetDiDia where lower("+filterBy+") like ?");
-            query.setString(0, "%"+filter.toLowerCase()+"%");
+            if (unique) {
+                query = getSesion().createQuery("from PaetDiDia where lower("+filterBy+") = '"+filter.toLowerCase()+"'");
+            }
+            else
+            {
+                query = getSesion().createQuery("from PaetDiDia where lower("+filterBy+") like ?");
+                query.setString(0, "%"+filter.toLowerCase()+"%");
+            }
             listaDias = query.list();
             
         } finally {

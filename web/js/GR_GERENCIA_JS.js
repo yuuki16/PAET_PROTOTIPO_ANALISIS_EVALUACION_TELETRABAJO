@@ -207,11 +207,11 @@ function buscar(idBoton) {
 
     if (idBoton === "btBusquedaGrCodigo") {
         if (validarBusqueda("grCodigo")) {
-            enviarBusqueda("grCodigo", $("#grCodigo").val());
+            enviarBusqueda("grCodigo", $("#grCodigo").val(), true);
         }
     } else if (idBoton === "btBusquedaGrDescripcion") {
         if (validarBusqueda("grDescripcion")) {
-            enviarBusqueda("grDescripcion", $("#grDescripcion").val());
+            enviarBusqueda("grDescripcion", $("#grDescripcion").val(), false);
         }
     }
 }
@@ -232,7 +232,7 @@ function validarBusqueda(campo) {
     return validacion;
 }
 
-function enviarBusqueda(campo, valor) {
+function enviarBusqueda(campo, valor, unico) {
 
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando las gerencias");
 
@@ -241,7 +241,8 @@ function enviarBusqueda(campo, valor) {
         data: {
             accion: "consultaDinamica",
             campo: campo,
-            valor: valor
+            valor: valor,
+            unico: unico
         },
         error: function () { //si existe un error en la respuesta del ajax
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");

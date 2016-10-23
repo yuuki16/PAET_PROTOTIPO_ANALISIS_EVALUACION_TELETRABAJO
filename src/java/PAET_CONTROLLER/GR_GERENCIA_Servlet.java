@@ -39,6 +39,7 @@ public class GR_GERENCIA_Servlet extends HttpServlet {
         try {
             String json, campo, valor;
             BigDecimal grCodigo;
+            Boolean unico;
             PaetGrGerencia gerencia = new PaetGrGerencia();
             PAET_GR_GERENCIA_BL gerenciaBl = new PAET_GR_GERENCIA_BL();
 
@@ -89,9 +90,9 @@ public class GR_GERENCIA_Servlet extends HttpServlet {
                 case "consultaDinamica":
                     campo = request.getParameter("campo");
                     valor = request.getParameter("valor");
-
+                    unico = Boolean.valueOf(request.getParameter("unico"));
                     //se consulta el objeto por el campo y el valor 
-                    json = new Gson().toJson(gerenciaBl.findDynamicFilter(campo, valor, PaetGrGerencia.class.getName()));
+                    json = new Gson().toJson(gerenciaBl.findDynamicFilter(campo, valor, unico, PaetGrGerencia.class.getName()));
                     out.print(json);
                     break;
                 default:

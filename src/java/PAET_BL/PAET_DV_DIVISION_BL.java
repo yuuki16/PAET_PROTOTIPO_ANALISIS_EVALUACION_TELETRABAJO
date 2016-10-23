@@ -45,8 +45,8 @@ public class PAET_DV_DIVISION_BL extends BaseBL implements IBaseBL<PaetDvDivisio
     }
 
     @Override
-    public List<PaetDvDivision> findDynamicFilter(String filterBy, String filter, String className) {
-        return this.getDao(className).findDynamicFilter(filterBy, filter);
+    public List<PaetDvDivision> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
+        return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
 
 }

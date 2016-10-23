@@ -40,6 +40,7 @@ public class DV_DIVISION_Servlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String json, campo, valor;
+            Boolean unico;
             BigDecimal dvCodigo, grGerencia;
             PaetDvDivision division = new PaetDvDivision();
             PAET_DV_DIVISION_BL divisionBl = new PAET_DV_DIVISION_BL();
@@ -96,9 +97,10 @@ public class DV_DIVISION_Servlet extends HttpServlet {
                 case "consultaDinamica":
                     campo = request.getParameter("campo");
                     valor = request.getParameter("valor");
+                    unico = Boolean.valueOf(request.getParameter("unico"));
 
                     //se consulta el objeto por el campo y el valor 
-                    json = new Gson().toJson(divisionBl.findDynamicFilter(campo, valor, PaetDvDivision.class.getName()));
+                    json = new Gson().toJson(divisionBl.findDynamicFilter(campo, valor, unico, PaetDvDivision.class.getName()));
                     out.print(json);
                     break;
                 case "consultarGerencias":

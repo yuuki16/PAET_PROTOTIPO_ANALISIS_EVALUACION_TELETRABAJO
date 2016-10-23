@@ -80,14 +80,20 @@ public class PAET_AR_AREA_DAO extends HibernateUtil implements IBaseDAO<PaetArAr
     }
 
     @Override
-    public List<PaetArArea> findDynamicFilter(String filterBy, String filter) {
+    public List<PaetArArea> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         List<PaetArArea> listaAreas;
         Query query;
         
         try {
             iniciaOperacion();
-            query = getSesion().createQuery("from PaetArArea where lower("+filterBy+") like ?");
-            query.setString(0, "%"+filter.toLowerCase()+"%");
+            if (unique) {
+                query = getSesion().createQuery("from PaetArArea where "+filterBy+" = "+filter);
+            }
+            else
+            {
+                query = getSesion().createQuery("from PaetArArea where lower("+filterBy+") like ?");
+                query.setString(0, "%"+filter.toLowerCase()+"%");
+            }
             listaAreas = query.list();
             
         } finally {

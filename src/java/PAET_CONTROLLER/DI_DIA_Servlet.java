@@ -38,6 +38,7 @@ public class DI_DIA_Servlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String json, campo, valor;
+            Boolean unico;
             PaetDiDia dia = new PaetDiDia();
             PAET_DI_DIA_BL diaBl = new PAET_DI_DIA_BL();
 
@@ -81,9 +82,9 @@ public class DI_DIA_Servlet extends HttpServlet {
                 case "consultaDinamica":
                     campo = request.getParameter("campo");
                     valor = request.getParameter("valor");
-                    
+                    unico = Boolean.valueOf(request.getParameter("unico"));
                     //se consulta el objeto por el campo y el valor 
-                    json = new Gson().toJson(diaBl.findDynamicFilter(campo, valor, PaetDiDia.class.getName()));
+                    json = new Gson().toJson(diaBl.findDynamicFilter(campo, valor, unico, PaetDiDia.class.getName()));
                     out.print(json);
                     break;
                 default:
