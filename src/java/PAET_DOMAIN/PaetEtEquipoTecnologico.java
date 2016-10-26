@@ -15,7 +15,6 @@ public class PaetEtEquipoTecnologico  implements java.io.Serializable {
      private BigDecimal etCodigo;
      private String etDescripcion;
      private char etEstado;
-     private Set<PaetEtSlEquipoSolicitud> paetEtSlEquipoSolicituds = new HashSet<PaetEtSlEquipoSolicitud>(0);
 
     public PaetEtEquipoTecnologico() {
     }
@@ -25,12 +24,6 @@ public class PaetEtEquipoTecnologico  implements java.io.Serializable {
         this.etCodigo = etCodigo;
         this.etDescripcion = etDescripcion;
         this.etEstado = etEstado;
-    }
-    public PaetEtEquipoTecnologico(BigDecimal etCodigo, String etDescripcion, char etEstado, Set<PaetEtSlEquipoSolicitud> paetEtSlEquipoSolicituds) {
-       this.etCodigo = etCodigo;
-       this.etDescripcion = etDescripcion;
-       this.etEstado = etEstado;
-       this.paetEtSlEquipoSolicituds = paetEtSlEquipoSolicituds;
     }
    
     public BigDecimal getEtCodigo() {
@@ -54,17 +47,6 @@ public class PaetEtEquipoTecnologico  implements java.io.Serializable {
     public void setEtEstado(char etEstado) {
         this.etEstado = etEstado;
     }
-    public Set<PaetEtSlEquipoSolicitud> getPaetEtSlEquipoSolicituds() {
-        return this.paetEtSlEquipoSolicituds;
-    }
-    
-    public void setPaetEtSlEquipoSolicituds(Set<PaetEtSlEquipoSolicitud> paetEtSlEquipoSolicituds) {
-        this.paetEtSlEquipoSolicituds = paetEtSlEquipoSolicituds;
-    }
-
-
-
-
 }
 
 

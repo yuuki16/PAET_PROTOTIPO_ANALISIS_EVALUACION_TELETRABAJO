@@ -24,6 +24,10 @@
         <servlet-name>FC_FACTOR_COMPLEMENTARIO_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.FC_FACTOR_COMPLEMENTARIO_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ET_EQUIPO_TECNOLOGICO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.ET_EQUIPO_TECNOLOGICO_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>FC_FACTOR_COMPLEMENTARIO_Servlet</servlet-name>
         <url-pattern>/FC_FACTOR_COMPLEMENTARIO_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ET_EQUIPO_TECNOLOGICO_Servlet</servlet-name>
+        <url-pattern>/ET_EQUIPO_TECNOLOGICO_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -6,7 +6,9 @@
     <class name="PAET_DOMAIN.PaetEtEquipoTecnologico" table="PAET_ET_EQUIPO_TECNOLOGICO" schema="MMONGE" optimistic-lock="version">
         <id name="etCodigo" type="big_decimal">
             <column name="ET_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">PAET_ET_EQUIPO_TECNOLOGICO_SEQ</param>
+            </generator>
         </id>
         <property name="etDescripcion" type="string">
             <column name="ET_DESCRIPCION" length="40" not-null="true" />
@@ -14,11 +16,5 @@
         <property name="etEstado" type="char">
             <column name="ET_ESTADO" length="1" not-null="true" />
         </property>
-        <set name="paetEtSlEquipoSolicituds" table="PAET_ET_SL_EQUIPO_SOLICITUD" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="ET_EQUIPO" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetEtSlEquipoSolicitud" />
-        </set>
     </class>
 </hibernate-mapping>

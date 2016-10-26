@@ -8,7 +8,6 @@ package PAET_BL;
 import PAET_DAO.IBaseDAO;
 import PAET_DAO.*;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 /**
  *
@@ -26,6 +25,7 @@ public class BaseBL {
             daos.put("PAET_DOMAIN.PaetDvDivision", new PAET_DV_DIVISION_DAO());
             daos.put("PAET_DOMAIN.PaetDrDireccion", new PAET_DR_DIRECCION_DAO());
             daos.put("PAET_DOMAIN.PaetFcFactorComplementario", new PAET_FC_FACTOR_COMPLEMENTARIO_DAO());
+            daos.put("PAET_DOMAIN.PaetEtEquipoTecnologico", new PAET_ET_EQUIPO_TECNOLOGICO_DAO());
     }
 
     public IBaseDAO getDao(String className) {
