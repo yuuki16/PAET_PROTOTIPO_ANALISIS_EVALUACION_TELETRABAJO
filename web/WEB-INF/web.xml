@@ -16,6 +16,14 @@
         <servlet-name>DV_DIVISION_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.DV_DIVISION_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DR_DIRECCION_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.DR_DIRECCION_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FC_FACTOR_COMPLEMENTARIO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.FC_FACTOR_COMPLEMENTARIO_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>DV_DIVISION_Servlet</servlet-name>
         <url-pattern>/DV_DIVISION_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DR_DIRECCION_Servlet</servlet-name>
+        <url-pattern>/DR_DIRECCION_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FC_FACTOR_COMPLEMENTARIO_Servlet</servlet-name>
+        <url-pattern>/FC_FACTOR_COMPLEMENTARIO_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

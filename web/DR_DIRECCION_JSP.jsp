@@ -1,6 +1,6 @@
 <%-- 
-    Document   : DV_DIVISION_JSP
-    Created on : 22-oct-2016, 18:41:32
+    Document   : DR_DIRECCION_JSP
+    Created on : 23-oct-2016, 18:16:08
     Author     : Michelle
 --%>
 
@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Mantenimiento de Divisiones</title>
+        <title>Mantenimiento de Direcciones</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap -->
@@ -18,58 +18,58 @@
         <!-- Referencias -->
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
         <script src="js/utils.js" type="text/javascript"></script>
-        <script src="js/DV_DIVISION_JS.js" type="text/javascript"></script>  
+        <script src="js/DR_DIRECCION_JS.js" type="text/javascript"></script>  
     </head>
     <body>
         <%@ include file="/HeaderJSP.jsp" %>
         <div class="container">
             <div class="panel panel-default">
-                <div class="panel-heading"><h3>Mantenimiento de Divisiones</h3></div>
+                <div class="panel-heading"><h3>Mantenimiento de Direcciones</h3></div>
                 <div class="panel-body">
                     <center>
-                        <button type="button" class="btn btn-success centered" data-toggle="modal" data-target="#formularioAdministrar" id="btMostrarForm">Insertar División</button>
+                        <button type="button" class="btn btn-success centered" data-toggle="modal" data-target="#formularioAdministrar" id="btMostrarForm">Insertar Dirección</button>
                         <button type="button" class="btn btn-default centered" data-toggle="modal" id="btLimpiarBusqueda">Limpiar Búsqueda</button>
                     </center><br>
                     <!-- BUSQUEDA -->
                     <div class="col-sm-12">
                         <form role="form" onsubmit="return false;" id="formBusqueda" class="form-horizontal centered">
-                            <div class="form-group" id="groupdvCodigo">
+                            <div class="form-group" id="groupdrCodigo">
                                 <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="dvCodigo" placeholder="Digite el código de la división">
+                                    <input type="text" class="form-control" id="drCodigo" placeholder="Digite el código de la dirección">
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDvCodigo">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDrCodigo">
                                         Buscar <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-group" id="groupdvDescripcion">
+                            <div class="form-group" id="groupdrDescripcion">
                                 <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
                                     <p><b>Buscar por descripción:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="dvDescripcion" placeholder="Digite el nombre de la división">
+                                    <input type="text" class="form-control" id="dvDescripcion" placeholder="Digite el nombre de la dirección">
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDvDescripcion">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDrDescripcion">
                                         Buscar <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-group" id="groupgrGerencia">
+                            <div class="form-group" id="groupdvDivisión">
                                 <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
-                                    <p><b>Buscar por gerencia:</b></p>
+                                    <p><b>Buscar por división:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <select class="form-control" id="grGerencia">
+                                    <select class="form-control" id="dvDivision">
                                         <option value="" selected="selected"></option>
                                     </select>
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaGrGerencia">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDvDivision">
                                         Buscar <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </div>
@@ -78,7 +78,7 @@
                     </div>
                     <!-- TABLA -->
 
-                    <table class="table table-hover table-condensed" id="tablaDivisiones"></table>
+                    <table class="table table-hover table-condensed" id="tablaDireccion"></table>
 
                 </div>
                 <div class="panel-footer">Nota: Acciones validas dependeran del rol del usuario</div>
@@ -91,10 +91,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" id="myModalTitle"> Administrar Divisiones</h4>
+                        <h4 class="modal-title" id="myModalTitle"> Administrar Direcciones</h4>
                     </div>
                     <div class="modal-body" id="myModalMessage">
-                        <form role="form" onsubmit="return false;" id="formDivisiones">
+                        <form role="form" onsubmit="return false;" id="formDirecciones">
                             <div class="form-group" id="groupCodigo">
                                 <label for="codigo">Código:</label>
                                 <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código" readonly="true">
@@ -113,15 +113,15 @@
                                 </select>
                             </div>
 
-                            <div class="form-group" id="groupGerencia">
-                                <label for="gerencia">Gerencia:</label>
-                                <select class="form-control" id="gerencia">
+                            <div class="form-group" id="groupDivision">
+                                <label for="division">Division:</label>
+                                <select class="form-control" id="division">
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <input type="hidden" value="agregarDivision" id="divisionesAction"/>
+                                <input type="hidden" value="agregarDivision" id="direccionesAction"/>
 
                                 <button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
 
@@ -156,6 +156,3 @@
         </div>
     </body>
 </html>
-
-
-

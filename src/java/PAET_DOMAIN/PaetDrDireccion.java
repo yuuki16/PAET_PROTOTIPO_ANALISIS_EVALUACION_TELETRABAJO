@@ -11,35 +11,19 @@ import java.util.Set;
  */
 public class PaetDrDireccion  implements java.io.Serializable {
 
-
      private BigDecimal drCodigo;
-     private PaetDvDivision paetDvDivision;
-     private PaetTrTrabajador paetTrTrabajador;
      private String drDescripcion;
      private char drEstado;
      private BigDecimal dvDivision;
-     private Set<PaetPtPuesto> paetPtPuestos = new HashSet<PaetPtPuesto>(0);
-     private Set<PaetArArea> paetArAreas = new HashSet<PaetArArea>(0);
 
     public PaetDrDireccion() {
     }
 
-	
-    public PaetDrDireccion(PaetDvDivision paetDvDivision, PaetTrTrabajador paetTrTrabajador, String drDescripcion, char drEstado, BigDecimal dvDivision) {
-        this.paetDvDivision = paetDvDivision;
-        this.paetTrTrabajador = paetTrTrabajador;
+    public PaetDrDireccion(BigDecimal drCodigo, String drDescripcion, char drEstado, BigDecimal dvDivision) {
+        this.drCodigo = drCodigo;
         this.drDescripcion = drDescripcion;
         this.drEstado = drEstado;
         this.dvDivision = dvDivision;
-    }
-    public PaetDrDireccion(PaetDvDivision paetDvDivision, PaetTrTrabajador paetTrTrabajador, String drDescripcion, char drEstado, BigDecimal dvDivision, Set<PaetPtPuesto> paetPtPuestos, Set<PaetArArea> paetArAreas) {
-       this.paetDvDivision = paetDvDivision;
-       this.paetTrTrabajador = paetTrTrabajador;
-       this.drDescripcion = drDescripcion;
-       this.drEstado = drEstado;
-       this.dvDivision = dvDivision;
-       this.paetPtPuestos = paetPtPuestos;
-       this.paetArAreas = paetArAreas;
     }
    
     public BigDecimal getDrCodigo() {
@@ -49,20 +33,7 @@ public class PaetDrDireccion  implements java.io.Serializable {
     public void setDrCodigo(BigDecimal drCodigo) {
         this.drCodigo = drCodigo;
     }
-    public PaetDvDivision getPaetDvDivision() {
-        return this.paetDvDivision;
-    }
     
-    public void setPaetDvDivision(PaetDvDivision paetDvDivision) {
-        this.paetDvDivision = paetDvDivision;
-    }
-    public PaetTrTrabajador getPaetTrTrabajador() {
-        return this.paetTrTrabajador;
-    }
-    
-    public void setPaetTrTrabajador(PaetTrTrabajador paetTrTrabajador) {
-        this.paetTrTrabajador = paetTrTrabajador;
-    }
     public String getDrDescripcion() {
         return this.drDescripcion;
     }
@@ -84,24 +55,6 @@ public class PaetDrDireccion  implements java.io.Serializable {
     public void setDvDivision(BigDecimal dvDivision) {
         this.dvDivision = dvDivision;
     }
-    public Set<PaetPtPuesto> getPaetPtPuestos() {
-        return this.paetPtPuestos;
-    }
-    
-    public void setPaetPtPuestos(Set<PaetPtPuesto> paetPtPuestos) {
-        this.paetPtPuestos = paetPtPuestos;
-    }
-    public Set<PaetArArea> getPaetArAreas() {
-        return this.paetArAreas;
-    }
-    
-    public void setPaetArAreas(Set<PaetArArea> paetArAreas) {
-        this.paetArAreas = paetArAreas;
-    }
-
-
-
-
 }
 
 

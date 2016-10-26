@@ -6,14 +6,10 @@
     <class name="PAET_DOMAIN.PaetDrDireccion" table="PAET_DR_DIRECCION" schema="MMONGE" optimistic-lock="version">
         <id name="drCodigo" type="big_decimal">
             <column name="DR_CODIGO" precision="22" scale="0" />
-            <generator class="foreign">
-                <param name="property">paetDvDivision</param>
+            <generator class="sequence">
+                <param name="sequence">PAET_DR_DIRECCION_SEQ</param>
             </generator>
         </id>
-        <one-to-one name="paetDvDivision" class="PAET_DOMAIN.PaetDvDivision" constrained="true"></one-to-one>
-        <many-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" fetch="select">
-            <column name="TR_DIRECTOR" length="40" not-null="true" />
-        </many-to-one>
         <property name="drDescripcion" type="string">
             <column name="DR_DESCRIPCION" length="100" not-null="true" unique="true" />
         </property>
@@ -23,17 +19,5 @@
         <property name="dvDivision" type="big_decimal">
             <column name="DV_DIVISION" precision="22" scale="0" not-null="true" />
         </property>
-        <set name="paetPtPuestos" table="PAET_PT_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="AR_AREA" precision="22" scale="0" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetPtPuesto" />
-        </set>
-        <set name="paetArAreas" table="PAET_AR_AREA" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="DR_DIRECCION" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetArArea" />
-        </set>
     </class>
 </hibernate-mapping>

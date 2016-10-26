@@ -24,6 +24,8 @@ public class BaseBL {
             daos.put("PAET_DOMAIN.PaetArArea", new PAET_AR_AREA_DAO());
             daos.put("PAET_DOMAIN.PaetGrGerencia", new PAET_GR_GERENCIA_DAO());
             daos.put("PAET_DOMAIN.PaetDvDivision", new PAET_DV_DIVISION_DAO());
+            daos.put("PAET_DOMAIN.PaetDrDireccion", new PAET_DR_DIRECCION_DAO());
+            daos.put("PAET_DOMAIN.PaetFcFactorComplementario", new PAET_FC_FACTOR_COMPLEMENTARIO_DAO());
     }
 
     public IBaseDAO getDao(String className) {

@@ -6,7 +6,9 @@
     <class name="PAET_DOMAIN.PaetFcFactorComplementario" table="PAET_FC_FACTOR_COMPLEMENTARIO" schema="MMONGE" optimistic-lock="version">
         <id name="fcCodigo" type="big_decimal">
             <column name="FC_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">PAET_FC_FACTOR_COMPLEMENTARIO2</param>
+            </generator>
         </id>
         <property name="fcDescripcion" type="string">
             <column name="FC_DESCRIPCION" length="400" not-null="true" unique="true" />
@@ -14,11 +16,5 @@
         <property name="fcEstado" type="char">
             <column name="FC_ESTADO" length="1" not-null="true" />
         </property>
-        <set name="paetFcPtFactorPuestos" table="PAET_FC_PT_FACTOR_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="FC_FACTOR" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetFcPtFactorPuesto" />
-        </set>
     </class>
 </hibernate-mapping>

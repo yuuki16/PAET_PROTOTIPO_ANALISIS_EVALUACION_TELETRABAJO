@@ -22,8 +22,9 @@
                                 </li>--%>
                                 <li><a href="AR_AREA_JSP.jsp">Áreas</a></li>
                                 <li><a href="DI_DIA_JSP.jsp">Días</a></li>
-                                <li><a href="#">Direcciones</a></li>
+                                <li><a href="DR_DIRECCION_JSP.jsp">Direcciones</a></li>
                                 <li><a href="DV_DIVISION_JSP.jsp">Divisiones</a></li>
+                                <li><a href="FC_FACTOR_COMPLEMENTARIO_JSP.jsp">Factores Complementarios</a></li>
                                 <li><a href="GR_GERENCIA_JSP.jsp">Gerencias</a></li>
                                 <li><a href="#">Trabajadores</a></li>
                             </ul>

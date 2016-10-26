@@ -15,7 +15,6 @@ public class PaetFcFactorComplementario  implements java.io.Serializable {
      private BigDecimal fcCodigo;
      private String fcDescripcion;
      private char fcEstado;
-     private Set<PaetFcPtFactorPuesto> paetFcPtFactorPuestos = new HashSet<PaetFcPtFactorPuesto>(0);
 
     public PaetFcFactorComplementario() {
     }
@@ -25,12 +24,6 @@ public class PaetFcFactorComplementario  implements java.io.Serializable {
         this.fcCodigo = fcCodigo;
         this.fcDescripcion = fcDescripcion;
         this.fcEstado = fcEstado;
-    }
-    public PaetFcFactorComplementario(BigDecimal fcCodigo, String fcDescripcion, char fcEstado, Set<PaetFcPtFactorPuesto> paetFcPtFactorPuestos) {
-       this.fcCodigo = fcCodigo;
-       this.fcDescripcion = fcDescripcion;
-       this.fcEstado = fcEstado;
-       this.paetFcPtFactorPuestos = paetFcPtFactorPuestos;
     }
    
     public BigDecimal getFcCodigo() {
@@ -53,13 +46,6 @@ public class PaetFcFactorComplementario  implements java.io.Serializable {
     
     public void setFcEstado(char fcEstado) {
         this.fcEstado = fcEstado;
-    }
-    public Set<PaetFcPtFactorPuesto> getPaetFcPtFactorPuestos() {
-        return this.paetFcPtFactorPuestos;
-    }
-    
-    public void setPaetFcPtFactorPuestos(Set<PaetFcPtFactorPuesto> paetFcPtFactorPuestos) {
-        this.paetFcPtFactorPuestos = paetFcPtFactorPuestos;
     }
 
 
