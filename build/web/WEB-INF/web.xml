@@ -32,6 +32,22 @@
         <servlet-name>PT_PUESTO_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.PT_PUESTO_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TR_TRABAJADOR_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.TR_TRABAJADOR_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TL_TELEFONO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.TL_TELEFONO_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CR_CORREO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.CR_CORREO_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DF_DIRECCION_FISICA_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.DF_DIRECCION_FISICA_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -63,6 +79,22 @@
     <servlet-mapping>
         <servlet-name>PT_PUESTO_Servlet</servlet-name>
         <url-pattern>/PT_PUESTO_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TR_TRABAJADOR_Servlet</servlet-name>
+        <url-pattern>/TR_TRABAJADOR_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TL_TELEFONO_Servlet</servlet-name>
+        <url-pattern>/TL_TELEFONO_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CR_CORREO_Servlet</servlet-name>
+        <url-pattern>/CR_CORREO_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DF_DIRECCION_FISICA_Servlet</servlet-name>
+        <url-pattern>/DF_DIRECCION_FISICA_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

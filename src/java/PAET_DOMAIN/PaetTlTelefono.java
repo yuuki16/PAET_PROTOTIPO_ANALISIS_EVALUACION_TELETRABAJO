@@ -11,20 +11,20 @@ public class PaetTlTelefono  implements java.io.Serializable {
 
 
      private BigDecimal tlCodigo;
-     private PaetTrTrabajador paetTrTrabajador;
      private String tlTelefono;
      private String tlDescripcion;
      private char tlEstado;
+     private String trTrabajador;
 
     public PaetTlTelefono() {
     }
 
-    public PaetTlTelefono(BigDecimal tlCodigo, PaetTrTrabajador paetTrTrabajador, String tlTelefono, String tlDescripcion, char tlEstado) {
+    public PaetTlTelefono(BigDecimal tlCodigo, String tlTelefono, String tlDescripcion, char tlEstado, String trTrabajador) {
        this.tlCodigo = tlCodigo;
-       this.paetTrTrabajador = paetTrTrabajador;
        this.tlTelefono = tlTelefono;
        this.tlDescripcion = tlDescripcion;
        this.tlEstado = tlEstado;
+       this.trTrabajador = trTrabajador;
     }
    
     public BigDecimal getTlCodigo() {
@@ -34,13 +34,7 @@ public class PaetTlTelefono  implements java.io.Serializable {
     public void setTlCodigo(BigDecimal tlCodigo) {
         this.tlCodigo = tlCodigo;
     }
-    public PaetTrTrabajador getPaetTrTrabajador() {
-        return this.paetTrTrabajador;
-    }
     
-    public void setPaetTrTrabajador(PaetTrTrabajador paetTrTrabajador) {
-        this.paetTrTrabajador = paetTrTrabajador;
-    }
     public String getTlTelefono() {
         return this.tlTelefono;
     }
@@ -48,6 +42,7 @@ public class PaetTlTelefono  implements java.io.Serializable {
     public void setTlTelefono(String tlTelefono) {
         this.tlTelefono = tlTelefono;
     }
+    
     public String getTlDescripcion() {
         return this.tlDescripcion;
     }
@@ -55,6 +50,7 @@ public class PaetTlTelefono  implements java.io.Serializable {
     public void setTlDescripcion(String tlDescripcion) {
         this.tlDescripcion = tlDescripcion;
     }
+    
     public char getTlEstado() {
         return this.tlEstado;
     }
@@ -63,9 +59,13 @@ public class PaetTlTelefono  implements java.io.Serializable {
         this.tlEstado = tlEstado;
     }
 
-
-
-
+    public String getTrTrabajador() {
+        return this.trTrabajador;
+    }
+    
+    public void setTrTrabajador(String trTrabajador) {
+        this.trTrabajador = trTrabajador;
+    }
 }
 
 

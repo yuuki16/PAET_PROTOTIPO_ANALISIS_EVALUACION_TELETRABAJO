@@ -11,20 +11,20 @@ public class PaetDfDireccionFisica  implements java.io.Serializable {
 
 
      private BigDecimal dfCodigo;
-     private PaetTrTrabajador paetTrTrabajador;
-     private PaetDsDistrito paetDsDistrito;
      private String dfDireccion;
      private char dfEstado;
+     private BigDecimal dsDistrito;
+     private String trTrabajador;
 
     public PaetDfDireccionFisica() {
     }
 
-    public PaetDfDireccionFisica(BigDecimal dfCodigo, PaetTrTrabajador paetTrTrabajador, PaetDsDistrito paetDsDistrito, String dfDireccion, char dfEstado) {
+    public PaetDfDireccionFisica(BigDecimal dfCodigo, String dfDireccion, char dfEstado, BigDecimal dsDistrito, String trTrabajador) {
        this.dfCodigo = dfCodigo;
-       this.paetTrTrabajador = paetTrTrabajador;
-       this.paetDsDistrito = paetDsDistrito;
        this.dfDireccion = dfDireccion;
        this.dfEstado = dfEstado;
+       this.dsDistrito = dsDistrito;
+       this.trTrabajador = trTrabajador;
     }
    
     public BigDecimal getDfCodigo() {
@@ -34,20 +34,7 @@ public class PaetDfDireccionFisica  implements java.io.Serializable {
     public void setDfCodigo(BigDecimal dfCodigo) {
         this.dfCodigo = dfCodigo;
     }
-    public PaetTrTrabajador getPaetTrTrabajador() {
-        return this.paetTrTrabajador;
-    }
     
-    public void setPaetTrTrabajador(PaetTrTrabajador paetTrTrabajador) {
-        this.paetTrTrabajador = paetTrTrabajador;
-    }
-    public PaetDsDistrito getPaetDsDistrito() {
-        return this.paetDsDistrito;
-    }
-    
-    public void setPaetDsDistrito(PaetDsDistrito paetDsDistrito) {
-        this.paetDsDistrito = paetDsDistrito;
-    }
     public String getDfDireccion() {
         return this.dfDireccion;
     }
@@ -62,10 +49,22 @@ public class PaetDfDireccionFisica  implements java.io.Serializable {
     public void setDfEstado(char dfEstado) {
         this.dfEstado = dfEstado;
     }
-
-
-
-
+    
+    public BigDecimal getDsDistrito() {
+        return this.dsDistrito;
+    }
+    
+    public void setDsDistrito(BigDecimal dsDistrito) {
+        this.dsDistrito = dsDistrito;
+    }
+    
+    public void setTrTrabajador(String trTrabajador) {
+        this.trTrabajador = trTrabajador;
+    }
+    
+    public String getTrTrabajador() {
+        return this.trTrabajador;
+    }
 }
 
 

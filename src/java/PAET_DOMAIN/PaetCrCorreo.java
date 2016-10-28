@@ -11,18 +11,18 @@ public class PaetCrCorreo  implements java.io.Serializable {
 
 
      private BigDecimal crCodigo;
-     private PaetTrTrabajador paetTrTrabajador;
      private String crCorreo;
      private char crEstado;
+     private String trTrabajador;
 
     public PaetCrCorreo() {
     }
 
-    public PaetCrCorreo(BigDecimal crCodigo, PaetTrTrabajador paetTrTrabajador, String crCorreo, char crEstado) {
+    public PaetCrCorreo(BigDecimal crCodigo, String crCorreo, char crEstado, String trTrabajador) {
        this.crCodigo = crCodigo;
-       this.paetTrTrabajador = paetTrTrabajador;
        this.crCorreo = crCorreo;
        this.crEstado = crEstado;
+       this.trTrabajador = trTrabajador;
     }
    
     public BigDecimal getCrCodigo() {
@@ -32,13 +32,7 @@ public class PaetCrCorreo  implements java.io.Serializable {
     public void setCrCodigo(BigDecimal crCodigo) {
         this.crCodigo = crCodigo;
     }
-    public PaetTrTrabajador getPaetTrTrabajador() {
-        return this.paetTrTrabajador;
-    }
     
-    public void setPaetTrTrabajador(PaetTrTrabajador paetTrTrabajador) {
-        this.paetTrTrabajador = paetTrTrabajador;
-    }
     public String getCrCorreo() {
         return this.crCorreo;
     }
@@ -54,9 +48,13 @@ public class PaetCrCorreo  implements java.io.Serializable {
         this.crEstado = crEstado;
     }
 
-
-
-
+    public String getTrTrabajador() {
+        return this.trTrabajador;
+    }
+    
+    public void setTrTrabajador(String trTrabajador) {
+        this.trTrabajador = trTrabajador;
+    }
 }
 
 

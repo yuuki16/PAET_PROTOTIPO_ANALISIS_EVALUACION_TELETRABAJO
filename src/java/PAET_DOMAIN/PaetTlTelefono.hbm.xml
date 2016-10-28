@@ -6,11 +6,10 @@
     <class name="PAET_DOMAIN.PaetTlTelefono" table="PAET_TL_TELEFONO" schema="MMONGE" optimistic-lock="version">
         <id name="tlCodigo" type="big_decimal">
             <column name="TL_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">PAET_TL_TELEFONO_SEQ</param>
+            </generator>
         </id>
-        <many-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" fetch="select">
-            <column name="TR_TRABAJADOR" length="40" not-null="true" />
-        </many-to-one>
         <property name="tlTelefono" type="string">
             <column name="TL_TELEFONO" length="20" not-null="true" unique="true" />
         </property>
@@ -19,6 +18,9 @@
         </property>
         <property name="tlEstado" type="char">
             <column name="TL_ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="trTrabajador" type="string">
+            <column name="TR_TRABAJADOR" length="40" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

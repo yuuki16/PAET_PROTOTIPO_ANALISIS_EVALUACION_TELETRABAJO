@@ -6,16 +6,18 @@
     <class name="PAET_DOMAIN.PaetCrCorreo" table="PAET_CR_CORREO" schema="MMONGE" optimistic-lock="version">
         <id name="crCodigo" type="big_decimal">
             <column name="CR_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">PAET_CR_CORREO_SEQ</param>
+            </generator>
         </id>
-        <many-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" fetch="select">
-            <column name="TR_TRABAJADOR" length="40" not-null="true" />
-        </many-to-one>
         <property name="crCorreo" type="string">
             <column name="CR_CORREO" length="200" not-null="true" unique="true" />
         </property>
         <property name="crEstado" type="char">
             <column name="CR_ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="trTrabajador" type="string">
+            <column name="TR_TRABAJADOR" length="40" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>
