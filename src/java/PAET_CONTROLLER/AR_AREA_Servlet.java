@@ -6,7 +6,9 @@
 package PAET_CONTROLLER;
 
 import PAET_BL.PAET_AR_AREA_BL;
+import PAET_BL.PAET_DV_DIVISION_BL;
 import PAET_DOMAIN.PaetArArea;
+import PAET_DOMAIN.PaetDrDireccion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,7 +44,8 @@ public class AR_AREA_Servlet extends HttpServlet {
             BigDecimal arCodigo, drDireccion;
             PaetArArea area = new PaetArArea();
             PAET_AR_AREA_BL areaBl = new PAET_AR_AREA_BL();
-
+            PAET_DV_DIVISION_BL direccionBl = new PAET_DV_DIVISION_BL();
+            
             Thread.sleep(1000);
 
             HttpSession session = request.getSession();
@@ -64,22 +67,26 @@ public class AR_AREA_Servlet extends HttpServlet {
                     break;
                 case "agregarArea":
                 case "modificarArea":
-                    arCodigo = new BigDecimal(request.getParameter("arCodigo"));
+
                     drDireccion = new BigDecimal(request.getParameter("drDireccion"));
-                    
-                    area.setArCodigo(arCodigo);
-                    area.setArDescripcion(request.getParameter("arDescripcion"));
-                    area.setArEstado(request.getParameter("arEstado").charAt(0));
-                    area.setDrDireccion(drDireccion);
-                    
-                    if (accion.equals("agregarArea")) { //es insertar
+
+                    if (accion.equals("agregarArea")) {
+                        area.setArDescripcion(request.getParameter("arDescripcion"));
+                        area.setArEstado(request.getParameter("arEstado").charAt(0));
+                        area.setDrDireccion(drDireccion);
+                        
                         //Se guarda el objeto
                         areaBl.save(area);
-
                         //Se imprime la respuesta con el response
                         out.print("C~El área fue agregado correctamente");
-
-                    } else {//es modificar 
+                        
+                    } else {
+                        arCodigo = new BigDecimal(request.getParameter("arCodigo"));
+                        area.setArCodigo(arCodigo);
+                        area.setArDescripcion(request.getParameter("arDescripcion"));
+                        area.setArEstado(request.getParameter("arEstado").charAt(0));
+                        area.setDrDireccion(drDireccion);
+                        
                         //Se guarda el objeto
                         areaBl.merge(area);
 

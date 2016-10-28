@@ -28,6 +28,10 @@
         <servlet-name>ET_EQUIPO_TECNOLOGICO_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.ET_EQUIPO_TECNOLOGICO_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PT_PUESTO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.PT_PUESTO_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ET_EQUIPO_TECNOLOGICO_Servlet</servlet-name>
         <url-pattern>/ET_EQUIPO_TECNOLOGICO_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PT_PUESTO_Servlet</servlet-name>
+        <url-pattern>/PT_PUESTO_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -8,12 +8,6 @@
             <column name="TR_USUARIO" length="40" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="paetPtPuesto" class="PAET_DOMAIN.PaetPtPuesto" fetch="select">
-            <column name="PT_PUESTO" length="3" not-null="true" />
-        </many-to-one>
-        <many-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" fetch="select">
-            <column name="TR_JEFATURA" length="40" />
-        </many-to-one>
         <property name="trCedula" type="string">
             <column name="TR_CEDULA" length="40" not-null="true" unique="true" />
         </property>
@@ -38,47 +32,5 @@
         <property name="trPtFechaEntrada" type="date">
             <column name="TR_PT_FECHA_ENTRADA" length="7" not-null="true" />
         </property>
-        <set name="paetTrTrabajadors" table="PAET_TR_TRABAJADOR" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="TR_JEFATURA" length="40" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetTrTrabajador" />
-        </set>
-        <set name="paetTlTelefonos" table="PAET_TL_TELEFONO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="TR_TRABAJADOR" length="40" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetTlTelefono" />
-        </set>
-        <set name="paetDrDireccions" table="PAET_DR_DIRECCION" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="TR_DIRECTOR" length="40" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetDrDireccion" />
-        </set>
-        <set name="paetCrCorreos" table="PAET_CR_CORREO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="TR_TRABAJADOR" length="40" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetCrCorreo" />
-        </set>
-        <set name="paetTtTeletrabajadors" table="PAET_TT_TELETRABAJADOR" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="TR_TRABAJADOR" length="40" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetTtTeletrabajador" />
-        </set>
-        <set name="paetSlSolicituds" table="PAET_SL_SOLICITUD" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="TR_TRABAJADOR" length="40" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetSlSolicitud" />
-        </set>
-        <set name="paetDfDireccionFisicas" table="PAET_DF_DIRECCION_FISICA" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="TR_TRABAJADOR" length="40" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetDfDireccionFisica" />
-        </set>
     </class>
 </hibernate-mapping>

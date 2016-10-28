@@ -5,8 +5,8 @@
  */
 package PAET_CONTROLLER;
 
-import PAET_BL.PAET_DV_DIVISION_BL;
-import PAET_DOMAIN.PaetDvDivision;
+import PAET_BL.PAET_PT_PUESTO_BL;
+import PAET_DOMAIN.PaetPtPuesto;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Michelle
  */
-public class DV_DIVISION_Servlet extends HttpServlet {
+public class PT_PUESTO_Servlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,11 +37,11 @@ public class DV_DIVISION_Servlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String json, campo, valor;
+            String json, campo, valor, arAreaStr, drDireccionStr, dvDivisionStr, grGerenciaStr;
             Boolean unico;
-            BigDecimal dvCodigo, grGerencia;
-            PaetDvDivision division = new PaetDvDivision();
-            PAET_DV_DIVISION_BL divisionBl = new PAET_DV_DIVISION_BL();
+            BigDecimal arArea, drDireccion, dvDivision, grGerencia;
+            PaetPtPuesto puesto = new PaetPtPuesto();
+            PAET_PT_PUESTO_BL puestoBl = new PAET_PT_PUESTO_BL();
 
             Thread.sleep(1000);
 
@@ -49,46 +49,60 @@ public class DV_DIVISION_Servlet extends HttpServlet {
             String accion = request.getParameter("accion");
 
             switch (accion) {
-                case "consultarDivisiones":
-                    json = new Gson().toJson(divisionBl.findAll(PaetDvDivision.class.getName()));
+                case "consultarPuestos":
+                    json = new Gson().toJson(puestoBl.findAll(PaetPtPuesto.class.getName()));
                     out.print(json);
                     break;
-                case "consultarDivisionByCodigo":
-                    dvCodigo = new BigDecimal(request.getParameter("dvCodigo"));
+                case "consultarPuestoByCodigo":
                     //se consulta el objeto por ID
-                    division = divisionBl.findById(dvCodigo);
+                    puesto = puestoBl.findById(request.getParameter("ptCodigo"));
 
                     //se pasa la informacion del objeto a formato JSON
-                    json = new Gson().toJson(division);
+                    json = new Gson().toJson(puesto);
                     out.print(json);
                     break;
-                case "agregarDivision":
-                case "modificarDivision":
-
-                    grGerencia = new BigDecimal(request.getParameter("grGerencia"));
+                case "agregarPuesto":
+                case "modificarPuesto":
+                    arAreaStr = request.getParameter("arArea");
+                    drDireccionStr = request.getParameter("drDireccion");
+                    dvDivisionStr = request.getParameter("dvDivision");
+                    grGerenciaStr = request.getParameter("grGerencia");
                     
-                    if (accion.equals("agregarDivision")) { //es insertar
-                        division.setDvDescripcion(request.getParameter("dvDescripcion"));
-                        division.setDvEstado(request.getParameter("dvEstado").charAt(0));
-                        division.setGrGerencia(grGerencia);
+                    if (!"".equals(arAreaStr.trim())) {
+                        arArea = new BigDecimal(request.getParameter("arArea"));
+                        puesto.setArArea(arArea);
+                    }
+                    if (!"".equals(drDireccionStr.trim())) {
+                        drDireccion = new BigDecimal(request.getParameter("drDireccion"));
+                        puesto.setDrDireccion(drDireccion);
+                    }
+                    if (!"".equals(dvDivisionStr.trim())) {
+                        dvDivision = new BigDecimal(request.getParameter("dvDivision"));
+                        puesto.setDvDivision(dvDivision);
+                    }
+                    if (!"".equals(grGerenciaStr.trim())) {
+                        grGerencia = new BigDecimal(request.getParameter("grGerencia"));
+                        puesto.setGrGerencia(grGerencia);
+                    }
+                    
+                    puesto.setPtCodigo(request.getParameter("ptCodigo"));
+                    puesto.setPtDescripcion(request.getParameter("ptDescripcion"));
+                    puesto.setPtEstado(request.getParameter("ptEstado").charAt(0));
+                    
+                    if (accion.equals("agregarPuesto")) { //es insertar
+                        
                         //Se guarda el objeto
-                        divisionBl.save(division);
+                        puestoBl.save(puesto);
 
                         //Se imprime la respuesta con el response
-                        out.print("C~La división fue agregada correctamente");
+                        out.print("C~El puesto fue agregado correctamente");
 
                     } else {//es modificar 
-                        dvCodigo = new BigDecimal(request.getParameter("dvCodigo"));
-
-                        division.setDvCodigo(dvCodigo);
-                        division.setDvDescripcion(request.getParameter("dvDescripcion"));
-                        division.setDvEstado(request.getParameter("dvEstado").charAt(0));
-                        division.setGrGerencia(grGerencia);
                         //Se guarda el objeto
-                        divisionBl.merge(division);
+                        puestoBl.merge(puesto);
 
                         //Se imprime la respuesta con el response
-                        out.print("C~La división fue modificada correctamente");
+                        out.print("C~El puesto fue modificado correctamente");
                     }
                     break;
                 case "consultaDinamica":
@@ -97,7 +111,7 @@ public class DV_DIVISION_Servlet extends HttpServlet {
                     unico = Boolean.valueOf(request.getParameter("unico"));
 
                     //se consulta el objeto por el campo y el valor 
-                    json = new Gson().toJson(divisionBl.findDynamicFilter(campo, valor, unico, PaetDvDivision.class.getName()));
+                    json = new Gson().toJson(puestoBl.findDynamicFilter(campo, valor, unico, PaetPtPuesto.class.getName()));
                     out.print(json);
                     break;
                 default:

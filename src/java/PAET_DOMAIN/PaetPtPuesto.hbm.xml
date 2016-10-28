@@ -6,25 +6,16 @@
     <class name="PAET_DOMAIN.PaetPtPuesto" table="PAET_PT_PUESTO" schema="MMONGE" optimistic-lock="version">
         <id name="ptCodigo" type="string">
             <column name="PT_CODIGO" length="3" />
-            <generator class="assigned" />
+            <generator class="assigned"/>
         </id>
-        <many-to-one name="paetGrGerencia" class="PAET_DOMAIN.PaetGrGerencia" fetch="select">
-            <column name="AR_AREA" precision="22" scale="0" />
-        </many-to-one>
-        <many-to-one name="paetDvDivision" class="PAET_DOMAIN.PaetDvDivision" update="false" insert="false" fetch="select">
-            <column name="AR_AREA" precision="22" scale="0" />
-        </many-to-one>
-        <many-to-one name="paetDrDireccion" class="PAET_DOMAIN.PaetDrDireccion" update="false" insert="false" fetch="select">
-            <column name="AR_AREA" precision="22" scale="0" />
-        </many-to-one>
-        <many-to-one name="paetArArea" class="PAET_DOMAIN.PaetArArea" update="false" insert="false" fetch="select">
-            <column name="AR_AREA" precision="22" scale="0" />
-        </many-to-one>
         <property name="ptDescripcion" type="string">
             <column name="PT_DESCRIPCION" length="100" />
         </property>
         <property name="ptEstado" type="char">
             <column name="PT_ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="arArea" type="big_decimal">
+            <column name="AR_AREA" precision="22" scale="0" />
         </property>
         <property name="drDireccion" type="big_decimal">
             <column name="DR_DIRECCION" precision="22" scale="0" />
@@ -35,29 +26,5 @@
         <property name="grGerencia" type="big_decimal">
             <column name="GR_GERENCIA" precision="22" scale="0" />
         </property>
-        <set name="paetFcPtFactorPuestos" table="PAET_FC_PT_FACTOR_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="PT_PUESTO" length="3" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetFcPtFactorPuesto" />
-        </set>
-        <set name="paetTrTrabajadors" table="PAET_TR_TRABAJADOR" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="PT_PUESTO" length="3" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetTrTrabajador" />
-        </set>
-        <set name="paetMtPtMetaPuestos" table="PAET_MT_PT_META_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="PT_PUESTO" length="3" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetMtPtMetaPuesto" />
-        </set>
-        <set name="paetAcPtActividadPuestos" table="PAET_AC_PT_ACTIVIDAD_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="PT_PUESTO" length="3" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetAcPtActividadPuesto" />
-        </set>
     </class>
 </hibernate-mapping>

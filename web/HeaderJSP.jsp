@@ -27,7 +27,8 @@
                                 <li><a href="ET_EQUIPO_TECNOLOGICO.jsp">Equipo Tecnológico</a></li>
                                 <li><a href="FC_FACTOR_COMPLEMENTARIO_JSP.jsp">Factores Complementarios</a></li>
                                 <li><a href="GR_GERENCIA_JSP.jsp">Gerencias</a></li>
-                                <li><a href="#">Trabajadores</a></li>
+                                <li><a href="PT_PUESTO_JSP.jsp">Puestos</a></li>
+                                <li><a href="TR_TRABAJADOR_JSP.jsp">Trabajadores</a></li>
                             </ul>
                         </li>
                         <%-- <li><a href="#">Add New</a></li>

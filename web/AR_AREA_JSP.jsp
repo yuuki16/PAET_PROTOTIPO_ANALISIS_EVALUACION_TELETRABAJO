@@ -38,7 +38,7 @@
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="arCodigo" placeholder="Digite el código del día">
+                                    <input type="text" class="form-control" id="arCodigo" placeholder="Digite el código del área">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaArCodigo">
@@ -95,7 +95,7 @@
                         <form role="form" onsubmit="return false;" id="formAreas">
                             <div class="form-group" id="groupCodigo">
                                 <label for="codigo">Código:</label>
-                                <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código">
+                                <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código" readonly="true">
                             </div>
 
                             <div class="form-group" id="groupDescripcion">

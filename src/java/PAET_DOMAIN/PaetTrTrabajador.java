@@ -13,8 +13,6 @@ public class PaetTrTrabajador  implements java.io.Serializable {
 
 
      private String trUsuario;
-     private PaetPtPuesto paetPtPuesto;
-     private PaetTrTrabajador paetTrTrabajador;
      private String trCedula;
      private String trNombre;
      private String trApellido1;
@@ -23,21 +21,15 @@ public class PaetTrTrabajador  implements java.io.Serializable {
      private Date trFechaIngreso;
      private char trEstado;
      private Date trPtFechaEntrada;
-     private Set<PaetTrTrabajador> paetTrTrabajadors = new HashSet<PaetTrTrabajador>(0);
-     private Set<PaetTlTelefono> paetTlTelefonos = new HashSet<PaetTlTelefono>(0);
-     private Set<PaetDrDireccion> paetDrDireccions = new HashSet<PaetDrDireccion>(0);
-     private Set<PaetCrCorreo> paetCrCorreos = new HashSet<PaetCrCorreo>(0);
-     private Set<PaetTtTeletrabajador> paetTtTeletrabajadors = new HashSet<PaetTtTeletrabajador>(0);
-     private Set<PaetSlSolicitud> paetSlSolicituds = new HashSet<PaetSlSolicitud>(0);
-     private Set<PaetDfDireccionFisica> paetDfDireccionFisicas = new HashSet<PaetDfDireccionFisica>(0);
+     private String trJefatura;
+     private String ptPuesto;
 
     public PaetTrTrabajador() {
     }
 
 	
-    public PaetTrTrabajador(String trUsuario, PaetPtPuesto paetPtPuesto, String trCedula, String trNombre, String trApellido1, String trSexo, Date trFechaIngreso, char trEstado, Date trPtFechaEntrada) {
+    public PaetTrTrabajador(String trUsuario, String trCedula, String trNombre, String trApellido1, String trSexo, Date trFechaIngreso, char trEstado, Date trPtFechaEntrada, String trJefatura, String ptPuesto) {
         this.trUsuario = trUsuario;
-        this.paetPtPuesto = paetPtPuesto;
         this.trCedula = trCedula;
         this.trNombre = trNombre;
         this.trApellido1 = trApellido1;
@@ -45,26 +37,8 @@ public class PaetTrTrabajador  implements java.io.Serializable {
         this.trFechaIngreso = trFechaIngreso;
         this.trEstado = trEstado;
         this.trPtFechaEntrada = trPtFechaEntrada;
-    }
-    public PaetTrTrabajador(String trUsuario, PaetPtPuesto paetPtPuesto, PaetTrTrabajador paetTrTrabajador, String trCedula, String trNombre, String trApellido1, String trApellido2, String trSexo, Date trFechaIngreso, char trEstado, Date trPtFechaEntrada, Set<PaetTrTrabajador> paetTrTrabajadors, Set<PaetTlTelefono> paetTlTelefonos, Set<PaetDrDireccion> paetDrDireccions, Set<PaetCrCorreo> paetCrCorreos, Set<PaetTtTeletrabajador> paetTtTeletrabajadors, Set<PaetSlSolicitud> paetSlSolicituds, Set<PaetDfDireccionFisica> paetDfDireccionFisicas) {
-       this.trUsuario = trUsuario;
-       this.paetPtPuesto = paetPtPuesto;
-       this.paetTrTrabajador = paetTrTrabajador;
-       this.trCedula = trCedula;
-       this.trNombre = trNombre;
-       this.trApellido1 = trApellido1;
-       this.trApellido2 = trApellido2;
-       this.trSexo = trSexo;
-       this.trFechaIngreso = trFechaIngreso;
-       this.trEstado = trEstado;
-       this.trPtFechaEntrada = trPtFechaEntrada;
-       this.paetTrTrabajadors = paetTrTrabajadors;
-       this.paetTlTelefonos = paetTlTelefonos;
-       this.paetDrDireccions = paetDrDireccions;
-       this.paetCrCorreos = paetCrCorreos;
-       this.paetTtTeletrabajadors = paetTtTeletrabajadors;
-       this.paetSlSolicituds = paetSlSolicituds;
-       this.paetDfDireccionFisicas = paetDfDireccionFisicas;
+        this.trJefatura = trJefatura;
+        this.ptPuesto = ptPuesto;
     }
    
     public String getTrUsuario() {
@@ -74,20 +48,7 @@ public class PaetTrTrabajador  implements java.io.Serializable {
     public void setTrUsuario(String trUsuario) {
         this.trUsuario = trUsuario;
     }
-    public PaetPtPuesto getPaetPtPuesto() {
-        return this.paetPtPuesto;
-    }
     
-    public void setPaetPtPuesto(PaetPtPuesto paetPtPuesto) {
-        this.paetPtPuesto = paetPtPuesto;
-    }
-    public PaetTrTrabajador getPaetTrTrabajador() {
-        return this.paetTrTrabajador;
-    }
-    
-    public void setPaetTrTrabajador(PaetTrTrabajador paetTrTrabajador) {
-        this.paetTrTrabajador = paetTrTrabajador;
-    }
     public String getTrCedula() {
         return this.trCedula;
     }
@@ -116,6 +77,7 @@ public class PaetTrTrabajador  implements java.io.Serializable {
     public void setTrApellido2(String trApellido2) {
         this.trApellido2 = trApellido2;
     }
+    
     public String getTrSexo() {
         return this.trSexo;
     }
@@ -123,6 +85,7 @@ public class PaetTrTrabajador  implements java.io.Serializable {
     public void setTrSexo(String trSexo) {
         this.trSexo = trSexo;
     }
+    
     public Date getTrFechaIngreso() {
         return this.trFechaIngreso;
     }
@@ -130,6 +93,7 @@ public class PaetTrTrabajador  implements java.io.Serializable {
     public void setTrFechaIngreso(Date trFechaIngreso) {
         this.trFechaIngreso = trFechaIngreso;
     }
+    
     public char getTrEstado() {
         return this.trEstado;
     }
@@ -144,59 +108,22 @@ public class PaetTrTrabajador  implements java.io.Serializable {
     public void setTrPtFechaEntrada(Date trPtFechaEntrada) {
         this.trPtFechaEntrada = trPtFechaEntrada;
     }
-    public Set<PaetTrTrabajador> getPaetTrTrabajadors() {
-        return this.paetTrTrabajadors;
+    
+    public void setTrJefatura(String trJefatura) {
+        this.trJefatura = trJefatura;
     }
     
-    public void setPaetTrTrabajadors(Set<PaetTrTrabajador> paetTrTrabajadors) {
-        this.paetTrTrabajadors = paetTrTrabajadors;
-    }
-    public Set<PaetTlTelefono> getPaetTlTelefonos() {
-        return this.paetTlTelefonos;
+    public String getTrJefatura() {
+        return this.trJefatura;
     }
     
-    public void setPaetTlTelefonos(Set<PaetTlTelefono> paetTlTelefonos) {
-        this.paetTlTelefonos = paetTlTelefonos;
-    }
-    public Set<PaetDrDireccion> getPaetDrDireccions() {
-        return this.paetDrDireccions;
+    public void setPtPuesto(String ptPuesto) {
+        this.ptPuesto = ptPuesto;
     }
     
-    public void setPaetDrDireccions(Set<PaetDrDireccion> paetDrDireccions) {
-        this.paetDrDireccions = paetDrDireccions;
+    public String getPtPuesto() {
+        return this.ptPuesto;
     }
-    public Set<PaetCrCorreo> getPaetCrCorreos() {
-        return this.paetCrCorreos;
-    }
-    
-    public void setPaetCrCorreos(Set<PaetCrCorreo> paetCrCorreos) {
-        this.paetCrCorreos = paetCrCorreos;
-    }
-    public Set<PaetTtTeletrabajador> getPaetTtTeletrabajadors() {
-        return this.paetTtTeletrabajadors;
-    }
-    
-    public void setPaetTtTeletrabajadors(Set<PaetTtTeletrabajador> paetTtTeletrabajadors) {
-        this.paetTtTeletrabajadors = paetTtTeletrabajadors;
-    }
-    public Set<PaetSlSolicitud> getPaetSlSolicituds() {
-        return this.paetSlSolicituds;
-    }
-    
-    public void setPaetSlSolicituds(Set<PaetSlSolicitud> paetSlSolicituds) {
-        this.paetSlSolicituds = paetSlSolicituds;
-    }
-    public Set<PaetDfDireccionFisica> getPaetDfDireccionFisicas() {
-        return this.paetDfDireccionFisicas;
-    }
-    
-    public void setPaetDfDireccionFisicas(Set<PaetDfDireccionFisica> paetDfDireccionFisicas) {
-        this.paetDfDireccionFisicas = paetDfDireccionFisicas;
-    }
-
-
-
-
 }
 
 

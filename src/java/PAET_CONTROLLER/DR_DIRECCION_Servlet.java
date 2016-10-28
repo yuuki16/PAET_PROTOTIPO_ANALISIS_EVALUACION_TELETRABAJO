@@ -53,7 +53,7 @@ public class DR_DIRECCION_Servlet extends HttpServlet {
 
             switch (accion) {
                 case "consultarDirecciones":
-                    json = new Gson().toJson(divisionBl.findAll(PaetDrDireccion.class.getName()));
+                    json = new Gson().toJson(direccionBl.findAll(PaetDrDireccion.class.getName()));
                     out.print(json);
                     break;
                 case "consultarDireccionByCodigo":

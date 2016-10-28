@@ -1,5 +1,6 @@
 $(document).ready(function () {
     consultarAreas();
+    consultarDirecciones();
 });
 
 $(function () {
@@ -20,10 +21,6 @@ $(function () {
     $("#btLimpiarBusqueda").click(function () {
         limpiarBusqueda();
     });
-    
-//    $("#ddlEstado li a").click(function () {
-//        console.log("Selected Option:"+$(this).text());
-//    });
 });
 
 function consultarAreas() {
@@ -76,19 +73,19 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.arDescripcion + "</td>"));
     row.append($("<td>" + rowData.arEstado + "</td>"));
     row.append($("<td>" + rowData.drDireccion + "</td>"));
-    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarAreaByCodigo(\'' + rowData.diCodigo + '\');">' +
+    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarAreaByCodigo(\'' + rowData.arCodigo + '\');">' +
             '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
             '</button></td>'));
 }
 
-function consultarAreaByCodigo(diCodigo) {
+function consultarAreaByCodigo(arCodigo) {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando el área seleccionada");
 
     $.ajax({
         url: 'AR_AREA_Servlet',
         data: {
             accion: "consultarAreaByCodigo",
-            diCodigo: diCodigo
+            arCodigo: arCodigo
         },
         error: function () { //si existe un error en la respuesta del ajax
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
@@ -104,8 +101,6 @@ function consultarAreaByCodigo(diCodigo) {
             //************************************************************************
             //carga información en el formulario
             //************************************************************************
-            //se indicar que la cédula es solo readOnly
-            $("#arCodigo").attr('readonly', 'readonly');
 
             //se modificar el hidden que indicar el tipo de accion que se esta realizando
             $("#areasAction").val("modificarArea");
@@ -113,8 +108,8 @@ function consultarAreaByCodigo(diCodigo) {
             //se carga la información en el formulario
             $("#arCodigo").val(data.arCodigo);
             $("#arDescripcion").val(data.arDescripcion);
-            //estado $("#arDescripcion").val(data.arDescripcion);
-            //direccion $("#arDescripcion").val(data.arDescripcion);
+            $("#arEstado").val(data.arEstado);
+            $("#drDireccion").val(data.drDireccion);
         },
         type: 'POST',
         dataType: "json"
@@ -124,7 +119,6 @@ function consultarAreaByCodigo(diCodigo) {
 function limpiarForm() {
     //setea el focus del formulario
     $('#arCodigo').focus();
-    $("#arCodigo").removeAttr("readonly"); //elimina el atributo de solo lectura
 
     //se cambia la accion por agregarPersona
     $("#areasAction").val("agregarArea");
@@ -287,4 +281,34 @@ function limpiarBusqueda() {
     $('#arCodigo').val("");
     $('#arDescripcion').val("");
     $('#drDireccion').val("");
+}
+
+function consultarDirecciones()
+{
+    $.ajax({
+        url: 'DR_DIRECCION_Servlet',
+        data: {
+            accion: "consultarDirecciones"
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            alert("Se presento un error a la hora de cargar la información de las direcciones en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            dibujarCombo(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+    
+}
+
+function dibujarCombo(dataJson){
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#direccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
+    }
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#drDireccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
+    }
 }

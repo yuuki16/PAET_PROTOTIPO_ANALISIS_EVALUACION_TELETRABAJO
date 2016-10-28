@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    consultarPuestos();
+    consultarAreas();
+    consultarDirecciones();
     consultarDivisiones();
     consultarGerencias();
 });
@@ -14,7 +17,7 @@ $(function () {
         $("#formularioAdministrar").modal("hide");
     });
 
-    $("#btBusquedaDvCodigo, #btBusquedaDvDescripcion, #btBusquedaGrGerencia").click(function () {
+    $("#btBusquedaPtCodigo, #btBusquedaPtDescripcion, #btBusquedaArArea, #btBusquedaDrDireccion, #btBusquedaDvDivision, #btBusquedaGrGerencia").click(function () {
         buscar(this.id);
     });
 
@@ -23,16 +26,16 @@ $(function () {
     });
 });
 
-function consultarDivisiones() {
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando la información de divisiones en la base de datos");
+function consultarPuestos() {
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando la información de puestos en la base de datos");
     //Se envia la información por ajax
     $.ajax({
-        url: 'DV_DIVISION_Servlet',
+        url: 'PT_PUESTO_Servlet',
         data: {
-            accion: "consultarDivisiones"
+            accion: "consultarPuestos"
         },
         error: function () { //si existe un error en la respuesta del ajax
-            alert("Se presento un error a la hora de cargar la información de las divisiones en la base de datos");
+            alert("Se presento un error a la hora de cargar la información de los puestos en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             dibujarTabla(data);
@@ -47,16 +50,19 @@ function consultarDivisiones() {
 
 function dibujarTabla(dataJson) {
     //limpia la información que tiene la tabla
-    $("#tablaDivisiones").html("");
+    $("#tablaPuestos").html("");
 
     //muestra el enzabezado de la tabla
     var head = $("<thead />");
     var row = $("<tr />");
     head.append(row);
-    $("#tablaDivisiones").append(head);
+    $("#tablaPuestos").append(head);
     row.append($("<th><b>CÓDIGO</b></th>"));
     row.append($("<th><b>DESCRIPCIÓN</b></th>"));
     row.append($("<th><b>ESTADO</b></th>"));
+    row.append($("<th><b>ÁREA</b></th>"));
+    row.append($("<th><b>DIRECCIÓN</b></th>"));
+    row.append($("<th><b>DIVISIÓN</b></th>"));
     row.append($("<th><b>GERENCIA</b></th>"));
     row.append($("<th><b>ACCIÓN</th>"));
 
@@ -69,28 +75,55 @@ function dibujarTabla(dataJson) {
 function dibujarFila(rowData) {
     //Cuando dibuja la tabla en cada boton se le agrega la funcionalidad de cargar o eliminar la informacion
     var row = $("<tr />");
-    $("#tablaDivisiones").append(row);
-    row.append($("<td>" + rowData.dvCodigo + "</td>"));
-    row.append($("<td>" + rowData.dvDescripcion + "</td>"));
-    if (rowData.dvEstado === "A") {
+    $("#tablaPuestos").append(row);
+    row.append($("<td>" + rowData.ptCodigo + "</td>"));
+    row.append($("<td>" + rowData.ptDescripcion + "</td>"));
+    if (rowData.ptEstado === "A") {
         row.append($("<td> Activo </td>"));
-    }else if (rowData.dvEstado === "I") {
+    }else if (rowData.ptEstado === "I") {
         row.append($("<td> Inactivo </td>"));
     }
-    row.append($("<td>" + rowData.grGerencia + "</td>"));
-    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarDivisionByCodigo(\'' + rowData.dvCodigo + '\');">' +
+    if (rowData.hasOwnProperty('arArea')) {
+        row.append($("<td>" + rowData.arArea + "</td>"));
+    }
+    else
+    {
+        row.append($("<td> NA </td>"));
+    }
+    if (rowData.hasOwnProperty('drDireccion')) {
+        row.append($("<td>" + rowData.drDireccion + "</td>"));
+    }
+    else
+    {
+        row.append($("<td> NA </td>"));
+    }
+    if (rowData.hasOwnProperty('dvDivision')) {
+        row.append($("<td>" + rowData.dvDivision + "</td>"));
+    }
+    else
+    {
+        row.append($("<td> NA </td>"));
+    }
+    if (rowData.hasOwnProperty('grGerencia')) {
+        row.append($("<td>" + rowData.grGerencia + "</td>"));
+    }
+    else
+    {
+        row.append($("<td> NA </td>"));
+    }
+    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarPuestoByCodigo(\'' + rowData.ptCodigo + '\');">' +
             '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
             '</button></td>'));
 }
 
-function consultarDivisionByCodigo(dvCodigo) {
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando la división seleccionada");
+function consultarPuestoByCodigo(ptCodigo) {
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando el puesto seleccionado");
 
     $.ajax({
-        url: 'DV_DIVISION_Servlet',
+        url: 'PT_PUESTO_Servlet',
         data: {
-            accion: "consultarDivisionByCodigo",
-            dvCodigo: dvCodigo
+            accion: "consultarPuestoByCodigo",
+            ptCodigo: ptCodigo
         },
         error: function () { //si existe un error en la respuesta del ajax
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
@@ -106,14 +139,17 @@ function consultarDivisionByCodigo(dvCodigo) {
             //************************************************************************
             //carga información en el formulario
             //************************************************************************
-          
+            $("#codigo").attr('readonly', 'readonly');
             //se modificar el hidden que indicar el tipo de accion que se esta realizando
-            $("#divisionesAction").val("modificarDivision");
+            $("#puestosAction").val("modificarPuesto");
 
             //se carga la información en el formulario
-            $("#codigo").val(data.dvCodigo);
-            $("#descripcion").val(data.dvDescripcion);
-            $("#estado").val(data.dvEstado);
+            $("#codigo").val(data.ptCodigo);
+            $("#descripcion").val(data.ptDescripcion);
+            $("#estado").val(data.ptEstado);
+            $("#area").val(data.arArea);
+            $("#direccion").val(data.drDireccion);
+            $("#division").val(data.dvDivision);
             $("#gerencia").val(data.grGerencia);
         },
         type: 'POST',
@@ -123,16 +159,17 @@ function consultarDivisionByCodigo(dvCodigo) {
 
 function limpiarForm() {
     //setea el focus del formulario
-    $('#descripcion').focus();
+    $('#codigo').focus();
+    $("#codigo").removeAttr("readonly"); 
 
     //se cambia la accion por agregarDivision
-    $("#divisionesAction").val("agregarDivision");
+    $("#puestosAction").val("agregarPuesto");
 
     //esconde el div del mensaje
     mostrarMensaje("hiddenDiv", "", "");
 
     //Resetear el formulario
-    $('#formDivisiones').trigger("reset");
+    $('#formPuestos').trigger("reset");
 }
 
 function guardar() {
@@ -140,12 +177,15 @@ function guardar() {
     if (validar()) {
         //Se envia la información por ajax
         $.ajax({
-            url: 'DV_DIVISION_Servlet',
+            url: 'PT_PUESTO_Servlet',
             data: {
-                accion: $("#divisionesAction").val(),
-                dvCodigo: $("#codigo").val(),
-                dvDescripcion: $("#descripcion").val(),
-                dvEstado: $("#estado").val(),
+                accion: $("#puestosAction").val(),
+                ptCodigo: $("#codigo").val(),
+                ptDescripcion: $("#descripcion").val(),
+                ptEstado: $("#estado").val(),
+                arArea: $("#area").val(),
+                drDireccion: $("#direccion").val(),
+                dvDivision: $("#division").val(),
                 grGerencia: $("#gerencia").val()
             },
             error: function () { //si existe un error en la respuesta del ajax
@@ -157,7 +197,7 @@ function guardar() {
                 if (tipoRespuesta === "C~") {
                     mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
                     $("#formularioAdministrar").modal("hide");
-                    consultarDivisiones();
+                    consultarPuestos();
                     limpiarForm();
                 } else {
                     if (tipoRespuesta === "E~") {
@@ -182,7 +222,6 @@ function validar() {
     //quitar errores
     $("#groupDescripcion").removeClass("has-error");
     $("#groupEstado").removeClass("has-error");
-    $("#groupGerencia").removeClass("has-error");
     
     if ($("#descripcion").val() === "") {
         $("#groupDescripcion").addClass("has-error");
@@ -192,11 +231,7 @@ function validar() {
         $("#groupEstado").addClass("has-error");
         validacion = false;
     }
-    if ($("#gerencia").val() === "") {
-        $("#groupGerencia").addClass("has-error");
-        validacion = false;
-    }
-
+    
     return validacion;
 }
 
@@ -216,15 +251,27 @@ function mostrarMensaje(classCss, msg, neg) {
 
 function buscar(idBoton) {
 
-    if (idBoton === "btBusquedaDvCodigo") {
-        if (validarBusqueda("dvCodigo")) {
-            enviarBusqueda("dvCodigo", $("#dvCodigo").val(), true);
+    if (idBoton === "btBusquedaPtCodigo") {
+        if (validarBusqueda("ptCodigo")) {
+            enviarBusqueda("ptCodigo", $("#ptCodigo").val(), true);
         }
-    } else if (idBoton === "btBusquedaDvDescripcion") {
-        if (validarBusqueda("dvDescripcion")) {
-            enviarBusqueda("dvDescripcion", $("#dvDescripcion").val(), false);
+    } else if (idBoton === "btBusquedaPtDescripcion") {
+        if (validarBusqueda("ptDescripcion")) {
+            enviarBusqueda("ptDescripcion", $("#ptDescripcion").val(), false);
         }
-    } else if (idBoton === "btBusquedaGrGerencia") {
+    } else if (idBoton === "btBusquedaArArea") {
+        if (validarBusqueda("arArea")) {
+            enviarBusqueda("arArea", $("#arArea").val(), false);
+        }
+    }else if (idBoton === "btBusquedaDrDireccion") {
+        if (validarBusqueda("drDireccion")) {
+            enviarBusqueda("drDireccion", $("#drDireccion").val(), false);
+        }
+    }else if (idBoton === "btBusquedaDvDivision") {
+        if (validarBusqueda("dvDivision")) {
+            enviarBusqueda("dvDivision", $("#dvDivision").val(), false);
+        }
+    }else if (idBoton === "btBusquedaGrGerencia") {
         if (validarBusqueda("grGerencia")) {
             enviarBusqueda("grGerencia", $("#grGerencia").val(), false);
         }
@@ -249,10 +296,10 @@ function validarBusqueda(campo) {
 
 function enviarBusqueda(campo, valor, unico) {
 
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando las divisiones");
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los puestos");
 
     $.ajax({
-        url: 'DV_DIVISION_Servlet',
+        url: 'PT_PUESTO_Servlet',
         data: {
             accion: "consultaDinamica",
             campo: campo,
@@ -277,12 +324,69 @@ function enviarBusqueda(campo, valor, unico) {
 function limpiarBusqueda() {
 
     //Consultar todos los divisiones
-    consultarDivisiones();
+    consultarPuestos();
 
     //Limpiar txt
-     $('#dvCodigo').val("");
-     $('#dvDescripcion').val("");
+     $('#ptCodigo').val("");
+     $('#ptDescripcion').val("");
+     $('#arArea').val("");
+     $('#drDireccion').val("");
+     $('#dvDivision').val("");
      $('#grGerencia').val("");
+}
+
+function consultarAreas()
+{
+    $.ajax({
+        url: 'AR_AREA_Servlet',
+        data: {
+            accion: "consultarAreas"
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            alert("Se presento un error a la hora de cargar la información de las áreas en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            dibujarComboAreas(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });   
+}
+
+function consultarDirecciones()
+{
+    $.ajax({
+        url: 'DR_DIRECCION_Servlet',
+        data: {
+            accion: "consultarDirecciones"
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            alert("Se presento un error a la hora de cargar la información de las direcciones en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            dibujarComboDirecciones(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });   
+}
+
+function consultarDivisiones()
+{
+    $.ajax({
+        url: 'DV_DIVISION_Servlet',
+        data: {
+            accion: "consultarDivisiones"
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            alert("Se presento un error a la hora de cargar la información de las divisiones en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            dibujarComboDivisiones(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });   
 }
 
 function consultarGerencias()
@@ -296,15 +400,47 @@ function consultarGerencias()
             alert("Se presento un error a la hora de cargar la información de las divisiones en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarCombo(data);
+            dibujarComboGerencias(data);
         },
         type: 'POST',
         dataType: "json"
-    });
-    
+    });   
 }
 
-function dibujarCombo(dataJson){
+function dibujarComboAreas(dataJson){
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#area").append($("<option value=\""+dataJson[i].arCodigo+"\">"+dataJson[i].arDescripcion+"</option>"));
+    }
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#arArea").append($("<option value=\""+dataJson[i].arCodigo+"\">"+dataJson[i].arDescripcion+"</option>"));
+    }
+}
+
+function dibujarComboDirecciones(dataJson){
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#direccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
+    }
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#drDireccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
+    }
+}
+
+function dibujarComboDivisiones(dataJson){
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#division").append($("<option value=\""+dataJson[i].dvCodigo+"\">"+dataJson[i].dvDescripcion+"</option>"));
+    }
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#dvDivision").append($("<option value=\""+dataJson[i].dvCodigo+"\">"+dataJson[i].dvDescripcion+"</option>"));
+    }
+}
+
+function dibujarComboGerencias(dataJson){
     
     for (var i = 0; i < dataJson.length; i++) {
         $("#gerencia").append($("<option value=\""+dataJson[i].grCodigo+"\">"+dataJson[i].grDescripcion+"</option>"));
@@ -314,3 +450,6 @@ function dibujarCombo(dataJson){
         $("#grGerencia").append($("<option value=\""+dataJson[i].grCodigo+"\">"+dataJson[i].grDescripcion+"</option>"));
     }
 }
+
+
+
