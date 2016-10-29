@@ -28,6 +28,9 @@ public class BaseBL {
             daos.put("PAET_DOMAIN.PaetEtEquipoTecnologico", new PAET_ET_EQUIPO_TECNOLOGICO_DAO());
             daos.put("PAET_DOMAIN.PaetPtPuesto", new PAET_PT_PUESTO_DAO());
             daos.put("PAET_DOMAIN.PaetTrTrabajador", new PAET_TR_TRABAJADOR_DAO());
+            daos.put("PAET_DOMAIN.PaetTlTelefono", new PAET_TL_TELEFONO_DAO());
+            daos.put("PAET_DOMAIN.PaetCrCorreo", new PAET_CR_CORREO_DAO());
+            daos.put("PAET_DOMAIN.PaetDfDireccionFisica", new PAET_DF_DIRECCION_FISICA_DAO());
     }
 
     public IBaseDAO getDao(String className) {

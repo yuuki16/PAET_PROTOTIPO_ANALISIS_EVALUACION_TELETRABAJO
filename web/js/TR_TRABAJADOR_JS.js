@@ -28,10 +28,19 @@ $(function () {
     $("#guardar").click(function () {
         guardar();
     });
+    
+    $("#guardarCorreo").click(function () {
+        guardarCorreo();
+    });
 
     $("#cancelar").click(function () {
         limpiarForm();
-        $("#formularioAdministrar").modal("hide");
+        $("#formularioAdministrarTrabajador").modal("hide");
+    });
+    
+    $("#cancelarCorreo").click(function () {
+        limpiarFormCorreo();
+        $("#formularioAdministrarCorreo").modal("hide");
     });
 
     $("#btBusquedaTrUsuario, #btBusquedaTrCedula, #btBusquedaTrNombre, #btBusquedaTrJefatura, #btBusquedaPtPuesto").click(function () {
@@ -41,11 +50,14 @@ $(function () {
     $("#btLimpiarBusqueda").click(function () {
         limpiarBusqueda();
     });
-
+    
+    $("#guardarInfo").click(function () {
+        $('#formularioAdministrarInformacion').modal('hide');
+    });
 });
 
 function consultarTrabajadores() {
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando la información de trabajadores en la base de datos");
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los trabajadores");
     //Se envia la información por ajax
     $.ajax({
         url: 'TR_TRABAJADOR_Servlet',
@@ -86,7 +98,8 @@ function dibujarTabla(dataJson) {
     row.append($("<th><b>JEFATURA</b></th>"));
     row.append($("<th><b>FECHA ENTRADA</b></th>"));
     row.append($("<th><b>PUESTO</b></th>"));
-    row.append($("<th><b>ACCIÓN</th>"));
+    row.append($("<th><b>INFORMACIÓN ADICIONAL</th>"));
+    row.append($("<th><b>MODIFICAR</th>"));
 
     //carga la tabla con el json devuelto
     for (var i = 0; i < dataJson.length; i++) {
@@ -117,6 +130,9 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.trJefatura + "</td>"));
     row.append($("<td>" + rowData.trPtFechaEntrada + "</td>"));
     row.append($("<td>" + rowData.ptPuesto + "</td>"));
+    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarInformacionByCodigo(\'' + rowData.trUsuario + '\');">' +
+            '<span class="glyphicon glyphicon-list-alt"></span>' +
+            '</button></td>'));
     row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarTrabajadorByCodigo(\'' + rowData.trUsuario + '\');">' +
             '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
             '</button></td>'));
@@ -179,7 +195,7 @@ function limpiarForm() {
     mostrarMensaje("hiddenDiv", "", "");
 
     //Resetear el formulario
-    $('#formTrabajadores').trigger("reset");
+    $('#formularioAdministrarTrabajador').trigger("reset");
 }
 
 function guardar() {
@@ -210,7 +226,7 @@ function guardar() {
                 var tipoRespuesta = data.substring(0, 2);
                 if (tipoRespuesta === "C~") {
                     mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
-                    $("#formularioAdministrar").modal("hide");
+                    $("#formularioAdministrarTrabajador").modal("hide");
                     consultarTrabajadores();
                     limpiarForm();
                 } else {
@@ -285,18 +301,18 @@ function validar() {
     return validacion;
 }
 
-function mostrarMensaje(classCss, msg, neg) {
+function mostrarMensaje(modal, classCss, msg, neg) {
     //se le eliminan los estilos al mensaje
-    $("#mensajeResult").removeClass();
+    $("#"+modal).removeClass();
 
     //se setean los estilos
-    $("#mensajeResult").addClass(classCss);
+    $("#"+modal).addClass(classCss);
 
     //se muestra la capa del mensaje con los parametros del metodo
-    $("#mensajeResult").fadeIn("slow");
-    $("#mensajeResultNeg").html(neg);
-    $("#mensajeResultText").html(msg);
-    $("#mensajeResultText").html(msg);
+    $("#"+modal).fadeIn("slow");
+    $("#"+modal+"Neg").html(neg);
+    $("#"+modal+"Text").html(msg);
+    $("#"+modal+"Text").html(msg);
 }
 
 function buscar(idBoton) {
@@ -381,6 +397,7 @@ function limpiarBusqueda() {
 }
 
 function consultarPuestos() {
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los puestos");
     //Se envia la información por ajax
     $.ajax({
         url: 'PT_PUESTO_Servlet',
@@ -407,4 +424,319 @@ function dibujarComboPuestos(dataJson){
     for (var i = 0; i < dataJson.length; i++) {
         $("#ptPuesto").append($("<option value=\""+dataJson[i].ptCodigo+"\">"+dataJson[i].ptDescripcion+"</option>"));
     }
+}
+
+function consultarInformacionByCodigo(trUsuario){
+    
+    consultarCorreosByTrabajador(trUsuario);
+    consultarTelefonosByTrabajador(trUsuario);
+    consultarDireccionesFisicasByTrabajador(trUsuario);
+    dibujarInsertarBotones(trUsuario);
+    //se muestra el formulario
+    $("#formularioAdministrarInformacion").modal();
+}
+
+function consultarCorreosByTrabajador(trUsuario){
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los correos");
+    $.ajax({
+        url: 'CR_CORREO_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "trTrabajador",
+            valor: trUsuario,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+
+            //redibujar la tabla
+            dibujarTablaCorreos(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function dibujarTablaCorreos(dataJson){
+    $("#tablaCorreos").html("");
+
+    //muestra el enzabezado de la tabla
+    var head = $("<thead />");
+    var row = $("<tr />");
+    head.append(row);
+    $("#tablaCorreos").append(head);
+    row.append($('<th style="display: none"><b>CÓDIGO</b></th>'));
+    row.append($("<th><b>CORREO</b></th>"));
+    row.append($("<th><b>ESTADO</b></th>"));
+    row.append($("<th><b>MODIFICAR</th>"));
+
+    //carga la tabla con el json devuelto
+    for (var i = 0; i < dataJson.length; i++) {
+        dibujarFilaCorreos(dataJson[i]);
+    }
+}
+
+function dibujarFilaCorreos(rowData){
+    var row = $("<tr />");
+    $("#tablaCorreos").append(row);
+    row.append($('<td style="display: none">' + rowData.crCodigo + '</td>'));
+    row.append($("<td>" + rowData.crCorreo + "</td>"));
+    if (rowData.crEstado === "A") {
+        row.append($("<td> Activo </td>"));
+    }else if (rowData.crEstado === "I") {
+        row.append($("<td> Inactivo </td>"));
+    }
+    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarCorreoByCodigo(\'' + rowData.crCodigo + '\');">' +
+            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
+            '</button></td>'));
+}
+
+function consultarTelefonosByTrabajador(trUsuario){
+    
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los teléfonos");
+    $.ajax({
+        url: 'TL_TELEFONO_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "trTrabajador",
+            valor: trUsuario,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+
+            //redibujar la tabla
+            dibujarTablaTelefonos(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function dibujarTablaTelefonos(dataJson){
+    $("#tablaTelefonos").html("");
+
+    //muestra el enzabezado de la tabla
+    var head = $("<thead />");
+    var row = $("<tr />");
+    head.append(row);
+    $("#tablaTelefonos").append(head);
+    row.append($("<th><b>CÓDIGO</b></th>"));
+    row.append($("<th><b>TELÉFONO</b></th>"));
+    row.append($("<th><b>DESCRIPCIÓN</b></th>"));
+    row.append($("<th><b>ESTADO</b></th>"));
+    row.append($("<th><b>MODIFICAR</th>"));
+
+    //carga la tabla con el json devuelto
+    for (var i = 0; i < dataJson.length; i++) {
+        dibujarFilaTelefonos(dataJson[i]);
+    }
+}
+
+function dibujarFilaTelefonos(rowData){
+    var row = $("<tr />");
+    $("#tablaTelefonos").append(row);
+    row.append($("<td>" + rowData.tlCodigo + "</td>"));
+    row.append($("<td>" + rowData.tlTelefono + "</td>"));
+    row.append($("<td>" + rowData.tlDescripcion + "</td>"));
+    if (rowData.tlEstado === "A") {
+        row.append($("<td> Activo </td>"));
+    }else if (rowData.tlEstado === "I") {
+        row.append($("<td> Inactivo </td>"));
+    }
+    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarTelefonoByCodigo(\'' + rowData.tlCodigo + '\');">' +
+            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
+            '</button></td>'));
+}
+
+function consultarDireccionesFisicasByTrabajador(trUsuario){
+    
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando las direcciones físicas");
+    $.ajax({
+        url: 'DF_DIRECCION_FISICA_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "trTrabajador",
+            valor: trUsuario,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+
+            //redibujar la tabla
+            dibujarTablaDireccionesFisicas(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function dibujarTablaDireccionesFisicas(dataJson){
+    $("#tablaDirecciones").html("");
+
+    //muestra el enzabezado de la tabla
+    var head = $("<thead />");
+    var row = $("<tr />");
+    head.append(row);
+    $("#tablaDirecciones").append(head);
+    row.append($("<th><b>CÓDIGO</b></th>"));
+    row.append($("<th><b>DIRECCIÓN</b></th>"));
+    row.append($("<th><b>ESTADO</b></th>"));
+    row.append($("<th><b>DISTRITO</b></th>"));
+    row.append($("<th><b>MODIFICAR</th>"));
+
+    //carga la tabla con el json devuelto
+    for (var i = 0; i < dataJson.length; i++) {
+        dibujarFilaDireccionesFisicas(dataJson[i]);
+    }
+}
+
+function dibujarFilaDireccionesFisicas(rowData){
+    var row = $("<tr />");
+    $("#tablaDirecciones").append(row);
+    row.append($("<td>" + rowData.dfCodigo + "</td>"));
+    row.append($("<td>" + rowData.dfDireccion + "</td>"));
+    if (rowData.dfEstado === "A") {
+        row.append($("<td> Activo </td>"));
+    }else if (rowData.dfEstado === "I") {
+        row.append($("<td> Inactivo </td>"));
+    }
+    row.append($("<td>" + rowData.dsDistrito + "</td>"));
+    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarDireccionFisicaByCodigo(\'' + rowData.dfCodigo + '\');">' +
+            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
+            '</button></td>'));
+}
+
+function dibujarInsertarBotones(trUsuario){
+    
+    $("#btnInsertarCorreo").html("");
+    $("#btnInsertarCorreo").append($('<td><button type="button" class="btn btn-success" id="btnMostrarCorreoForm" onclick="insertarCorreo(\'' + trUsuario + '\');">Insertar Correo</button></td>'));
+}
+
+function insertarCorreo(trUsuario){
+    $("#correoTrabajador").val(trUsuario);
+    $('#formularioAdministrarCorreo').modal('show');
+}
+
+function guardarCorreo(){
+    if (validarCorreo()) {
+        //Se envia la información por ajax
+        $.ajax({
+            url: 'CR_CORREO_Servlet',
+            data: {
+                accion: $("#correosAction").val(),
+                crCodigo: $("#codigoCorreo").val(),
+                crCorreo: $("#correoCorreo").val(),
+                crEstado: $("#estadoCorreo").val(),
+                trTrabajador: $("#correoTrabajador").val()
+            },
+            error: function () { //si existe un error en la respuesta del ajax
+                mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
+            },
+            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+                var respuestaTxt = data.substring(2);
+                var tipoRespuesta = data.substring(0, 2);
+                if (tipoRespuesta === "C~") {
+                    mostrarMensaje("mensajeResult", "alert alert-success", respuestaTxt, "Correcto!");
+                    $("#formularioAdministrarCorreo").modal("hide");
+                    consultarCorreosByTrabajador($("#correoTrabajador").val());
+                    limpiarFormCorreo();
+                } else {
+                    if (tipoRespuesta === "E~") {
+                        mostrarMensaje("mensajeResult", "alert alert-danger", respuestaTxt, "Error!");
+                    } else {
+                        mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
+                    }
+                }
+
+            },
+            type: 'POST'
+        });
+    } else {
+        mostrarMensaje("mensajeResult", "alert alert-danger", "Debe digitar los campos del formulario", "Error!");
+    }
+}
+
+function limpiarFormCorreo(){
+    //setea el focus del formulario
+    $('#correoCorreo').focus();
+
+    //se cambia la accion por agregarDivision
+    $("#correosAction").val("agregarCorreo");
+
+    //esconde el div del mensaje
+    mostrarMensaje("hiddenDiv", "", "");
+
+    //Resetear el formulario
+    $('#formAdministrarCorreo').trigger("reset");
+    
+}
+
+function consultarCorreoByCodigo(crCodigo){
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando el correo seleccionado");
+
+    $.ajax({
+        url: 'CR_CORREO_Servlet',
+        data: {
+            accion: "consultarCorreoByCodigo",
+            crCodigo: crCodigo
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+            limpiarFormCorreo();
+
+            //se muestra el formulario
+            $("#formularioAdministrarCorreo").modal();
+
+            //************************************************************************
+            //carga información en el formulario
+            //************************************************************************
+            
+            //se modificar el hidden que indicar el tipo de accion que se esta realizando
+            $("#correosAction").val("modificarCorreo");
+
+            //se carga la información en el formulario
+            $("#codigoCorreo").val(data.crCodigo);
+            $("#correoCorreo").val(data.crCorreo);
+            $("#estadoCorreo").val(data.crEstado);
+            $("#correoTrabajador").val(data.trTrabajador);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function validarCorreo(){
+    
+    var validacion = true;
+
+    //quitar errores
+    $("#groupCorreoCorreo").removeClass("has-error");
+    $("#groupEstadoCorreo").removeClass("has-error");
+    
+    if ($("#correoCorreo").val() === "") {
+        $("#groupCorreoCorreo").addClass("has-error");
+        validacion = false;
+    }
+    if ($("#estadoCorreo").val() === "") {
+        $("#groupEstadoCorreo").addClass("has-error");
+        validacion = false;
+    }
+    return validacion;
 }

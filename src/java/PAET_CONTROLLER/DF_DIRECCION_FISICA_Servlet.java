@@ -5,8 +5,12 @@
  */
 package PAET_CONTROLLER;
 
+import PAET_BL.PAET_DF_DIRECCION_FISICA_BL;
+import PAET_DOMAIN.PaetDfDireccionFisica;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,17 +34,77 @@ public class DF_DIRECCION_FISICA_Servlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DF_DIRECCION_FISICA_Servlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DF_DIRECCION_FISICA_Servlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        try {
+            String json, campo, valor;
+            Boolean unico;
+            BigDecimal dfCodigo, dsDistrito;
+            PaetDfDireccionFisica direccionFisica = new PaetDfDireccionFisica();
+            PAET_DF_DIRECCION_FISICA_BL direccionFisicaBl = new PAET_DF_DIRECCION_FISICA_BL();
+
+            Thread.sleep(1000);
+
+            String accion = request.getParameter("accion");
+
+            switch (accion) {
+                case "consultarDireccionesFisicas":
+                    json = new Gson().toJson(direccionFisicaBl.findAll(PaetDfDireccionFisica.class.getName()));
+                    out.print(json);
+                    break;
+                case "consultarDireccionFisicaByCodigo":
+                    //se consulta el objeto por ID
+                    dfCodigo = new BigDecimal(request.getParameter("dfCodigo"));
+                    direccionFisica = direccionFisicaBl.findById(dfCodigo);
+
+                    //se pasa la informacion del objeto a formato JSON
+                    json = new Gson().toJson(direccionFisica);
+                    out.print(json);
+                    break;
+                case "agregarDireccionFisica":
+                case "modificarDireccionFisica":
+                    
+                    direccionFisica.setDfDireccion(request.getParameter("dfDireccion"));
+                    direccionFisica.setDfEstado(request.getParameter("dfEstado").charAt(0));
+                    dsDistrito = new BigDecimal(request.getParameter("dsDistrito"));
+                    direccionFisica.setDsDistrito(dsDistrito);
+                    direccionFisica.setTrTrabajador(request.getParameter("trUsuario"));
+                    
+                    if (accion.equals("agregarDireccionFisica")) { //es insertar
+                        
+                        //Se guarda el objeto
+                        direccionFisicaBl.save(direccionFisica);
+
+                        //Se imprime la respuesta con el response
+                        out.print("C~La direccion física fue agregada correctamente");
+
+                    } else {//es modificar 
+                        dfCodigo = new BigDecimal(request.getParameter("dfCodigo"));
+                        direccionFisica.setDfCodigo(dfCodigo);
+                        //Se guarda el objeto
+                        direccionFisicaBl.merge(direccionFisica);
+
+                        //Se imprime la respuesta con el response
+                        out.print("C~La dirección física fue modificada correctamente");
+                    }
+                    break;
+                case "consultaDinamica":
+                    campo = request.getParameter("campo");
+                    valor = request.getParameter("valor");
+                    unico = Boolean.valueOf(request.getParameter("unico"));
+
+                    //se consulta el objeto por el campo y el valor 
+                    json = new Gson().toJson(direccionFisicaBl.findDynamicFilter(campo, valor, unico, PaetDfDireccionFisica.class.getName()));
+                    out.print(json);
+                    break;
+                default:
+                    out.print("E~No se indicó la acción que se desea realizar");
+                    break;
+            }
+
+        } catch (NumberFormatException e) {
+            out.print("E~" + e.getMessage());
+        } catch (Exception e) {
+            out.print("E~" + e.getMessage());
         }
     }
 

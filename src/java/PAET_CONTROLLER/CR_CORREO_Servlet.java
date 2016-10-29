@@ -5,8 +5,13 @@
  */
 package PAET_CONTROLLER;
 
+import PAET_BL.PAET_CR_CORREO_BL;
+import PAET_DOMAIN.PaetCrCorreo;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,17 +35,75 @@ public class CR_CORREO_Servlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CR_CORREO_Servlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CR_CORREO_Servlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        try {
+            String json, campo, valor;
+            Boolean unico;
+            BigDecimal crCodigo;
+            PaetCrCorreo correo = new PaetCrCorreo();
+            PAET_CR_CORREO_BL correoBl = new PAET_CR_CORREO_BL();
+
+            Thread.sleep(1000);
+
+            String accion = request.getParameter("accion");
+
+            switch (accion) {
+                case "consultarCorreos":
+                    json = new Gson().toJson(correoBl.findAll(PaetCrCorreo.class.getName()));
+                    out.print(json);
+                    break;
+                case "consultarCorreoByCodigo":
+                    //se consulta el objeto por ID
+                    crCodigo = new BigDecimal(request.getParameter("crCodigo"));
+                    correo = correoBl.findById(crCodigo);
+
+                    //se pasa la informacion del objeto a formato JSON
+                    json = new Gson().toJson(correo);
+                    out.print(json);
+                    break;
+                case "agregarCorreo":
+                case "modificarCorreo":
+                    
+                    correo.setCrCorreo(request.getParameter("crCorreo"));
+                    correo.setCrEstado(request.getParameter("crEstado").charAt(0));
+                    correo.setTrTrabajador(request.getParameter("trTrabajador"));
+                    
+                    if (accion.equals("agregarCorreo")) { //es insertar
+                        
+                        //Se guarda el objeto
+                        correoBl.save(correo);
+
+                        //Se imprime la respuesta con el response
+                        out.print("C~El correo fue agregado correctamente");
+
+                    } else {//es modificar 
+                        crCodigo = new BigDecimal(request.getParameter("crCodigo"));
+                        correo.setCrCodigo(crCodigo);
+                        //Se guarda el objeto
+                        correoBl.merge(correo);
+
+                        //Se imprime la respuesta con el response
+                        out.print("C~El correo fue modificado correctamente");
+                    }
+                    break;
+                case "consultaDinamica":
+                    campo = request.getParameter("campo");
+                    valor = request.getParameter("valor");
+                    unico = Boolean.valueOf(request.getParameter("unico"));
+
+                    //se consulta el objeto por el campo y el valor 
+                    json = new Gson().toJson(correoBl.findDynamicFilter(campo, valor, unico, PaetCrCorreo.class.getName()));
+                    out.print(json);
+                    break;
+                default:
+                    out.print("E~No se indicó la acción que se desea realizar");
+                    break;
+            }
+
+        } catch (NumberFormatException e) {
+            out.print("E~" + e.getMessage());
+        } catch (Exception e) {
+        out.print("E~" + e.getMessage());
         }
     }
 

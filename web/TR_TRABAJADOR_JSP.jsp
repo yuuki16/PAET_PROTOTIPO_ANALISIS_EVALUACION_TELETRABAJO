@@ -107,9 +107,7 @@
                         </form>
                     </div>
                     <!-- TABLA -->
-
                     <table class="table table-hover table-condensed" id="tablaTrabajadores"></table>
-
                 </div>
                 <div class="panel-footer">Nota: Acciones validas dependeran del rol del usuario</div>
             </div>
@@ -220,43 +218,137 @@
                 </div>
             </div>
         </div>
-
         <!-- FORMULARIO EXTRAS-->
-        <div class="modal fade" id="formularioAdministrarInformación" role="dialog">
+        <div class="modal fade" id="formularioAdministrarInformacion" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" id="myModalTitle"> Administrar Información del Trabajador</h4>
                     </div>
-                    <div class="modal-body" id="myModalMessage">
-                        <h3>Correos</h3>
-                        <button type="button" class="btn btn-success">Insertar Correo</button>
-                        <table class="table table-bordered table-hover" id="tablaCorreos"></table>
-                        <h3>Teléfonos</h3>
-                        <button type="button" class="btn btn-success">Insertar Teléfono</button>
-                        <table class="table table-bordered table-hover" id="tablaTelefonos"></table>
-                        <h3>Direcciones</h3>
-                        <button type="button" class="btn btn-success">Insertar Dirección</button>
-                        <table class="table table-bordered table-hover" id="tablaDirecciones"></table>
-                    </div>
-                    <input type="hidden" value="agregarInformacionTrabajador" id="informacionTrabajadoresAction"/>
+                    <div class="modal-body" id="formularioAdministrarInformacionBody">
+                        <form class="form-horizontal" role="form">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                Correos
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <div id="btnInsertarCorreo"></div>
+                                            <br>
+                                            <table class="table table-bordered table-hover" id="tablaCorreos"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                Teléfonos
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <button type="button" class="btn btn-success" id="btnMostrarTelefonoForm" data-target="#formularioAdministrarTelefono">Insertar Teléfono</button>
+                                            <br>
+                                            <table class="table table-bordered table-hover" id="tablaTelefonos"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                Direcciones
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <button type="button" class="btn btn-success" id="btnMostrarDireccionForm" data-target="#formularioAdministrarDireccionFisica">Insertar Dirección</button>
+                                            <br>
+                                            <table class="table table-bordered table-hover" id="tablaDirecciones"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <button type="submit" class="btn btn-primary" id="guardarInfo">Guardar</button>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10" id="btnGuardarInfoTrabajador">
+                                    <button type="submit" class="btn btn-primary" id="guardarInfo">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-
         <!-- Mensajes -->
         <div class="modal fade" id="modalMensajes" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" id="modalMensajesTitle">Modal Header</h4>
                     </div>
                     <div class="modal-body" id="modalMensajesMessage">
                         <p>This is a small modal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FORM CORREO -->
+        <div class="modal fade" id="formularioAdministrarCorreo" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="formAdministrarCorreoTitle">Administrar Correos</h4>
+                    </div>
+                    <div class="modal-body" id="formAdministrarCorreoMessage">
+                        <form role="form" onsubmit="return false;" id="formTrabajadores">
+                            <div class="form-group" id="groupCodigoCorreo" style="display: none">
+                                <label for="codigoCorreo">Código:</label>
+                                <input type="text" class="form-control" id="codigoCorreo" autofocus="true" placeholder="Código" readonly="true">
+                            </div>
+
+                            <div class="form-group" id="groupCorreoCorreo">
+                                <label for="correoCorreo">Correo:</label>
+                                <input type="text" class="form-control" id="correoCorreo" placeholder="Correo" >
+                            </div>
+                            
+                            <div class="form-group" id="groupEstadoCorreo">
+                                <label for="estadoCorreo">Estado:</label>
+                                <select class="form-control" id="estadoCorreo">
+                                    <option value="A" selected="selected">Activo</option>
+                                    <option value="I">Inactivo</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" id="groupTrabajador" style="display: none">
+                                <input type="text" class="form-control" id="correoTrabajador">
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="hidden" value="agregarCorreo" id="correosAction"/>
+
+                                <button type="submit" class="btn btn-primary" id="guardarCorreo">Guardar</button>
+
+                                <button type="reset" class="btn btn-danger" id="cancelarCorreo">Cancelar</button>
+                            </div>
+
+                            <div class="form-group height25" >
+                                <div class="alert alert-success hiddenDiv" id="mensajeResultCorreo">
+                                    <strong id="mensajeResultNeg">Info!</strong> 
+                                    <span id="mensajeResultCorreoText">This alert box could indicate a neutral informative change or action.</span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
