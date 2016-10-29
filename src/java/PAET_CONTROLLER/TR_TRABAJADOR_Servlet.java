@@ -5,12 +5,20 @@
  */
 package PAET_CONTROLLER;
 
+import PAET_BL.PAET_TR_TRABAJADOR_BL;
+import PAET_DOMAIN.PaetTrTrabajador;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,18 +37,96 @@ public class TR_TRABAJADOR_Servlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet TR_TRABAJADOR_Servlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet TR_TRABAJADOR_Servlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+         response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            String json, campo, valor, fechaIngreso, fechaEntrada, trJefatura, trApellido2;
+            Boolean unico;
+            DateFormat format;
+            Date date;
+            PaetTrTrabajador trabajador = new PaetTrTrabajador();
+            PAET_TR_TRABAJADOR_BL trabajadorBl = new PAET_TR_TRABAJADOR_BL();
+
+            Thread.sleep(1000);
+
+            HttpSession session = request.getSession();
+            String accion = request.getParameter("accion");
+
+            switch (accion) {
+                case "consultarTrabajadores":
+                    json = new Gson().toJson(trabajadorBl.findAll(PaetTrTrabajador.class.getName()));
+                    out.print(json);
+                    break;
+                case "consultarTrabajadorByCodigo":
+                    //se consulta el objeto por ID
+                    trabajador = trabajadorBl.findById(request.getParameter("trUsuario"));
+
+                    //se pasa la informacion del objeto a formato JSON
+                    json = new Gson().toJson(trabajador);
+                    out.print(json);
+                    break;
+                case "agregarTrabajador":
+                case "modificarTrabajador":
+                    
+                    trApellido2 = request.getParameter("trApellido2");
+                    trJefatura = request.getParameter("trJefatura");
+                    
+                    trabajador.setTrUsuario(request.getParameter("trUsuario"));
+                    trabajador.setTrCedula(request.getParameter("trCedula"));
+                    trabajador.setTrNombre(request.getParameter("trNombre"));
+                    trabajador.setTrApellido1(request.getParameter("trApellido1"));
+                    if (!"".equals(trApellido2.trim())) {
+                        trabajador.setTrApellido2(trApellido2);
+                    }
+                    trabajador.setTrSexo(request.getParameter("trSexo"));
+                    fechaIngreso = request.getParameter("trFechaIngreso");
+                    format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                    date = format.parse(fechaIngreso);
+                    trabajador.setTrFechaIngreso(date);
+                    trabajador.setTrEstado(request.getParameter("trEstado").charAt(0));
+                    if (!"".equals(trJefatura.trim())) {
+                        trabajador.setTrApellido2(trJefatura);
+                    }
+                    trabajador.setPtPuesto(request.getParameter("ptPuesto"));
+                    fechaEntrada = request.getParameter("trFechaEntrada");
+                    format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                    date = format.parse(fechaEntrada);
+                    trabajador.setTrPtFechaEntrada(date);
+                  
+                    if (accion.equals("agregarTrabajador")) { //es insertar
+                        
+                        //Se guarda el objeto
+                        trabajadorBl.save(trabajador);
+
+                        //Se imprime la respuesta con el response
+                        out.print("C~El trabajador fue agregado correctamente");
+
+                    } else {//es modificar 
+                        //Se guarda el objeto
+                        trabajadorBl.merge(trabajador);
+
+                        //Se imprime la respuesta con el response
+                        out.print("C~El trabajador fue modificado correctamente");
+                    }
+                    break;
+                case "consultaDinamica":
+                    campo = request.getParameter("campo");
+                    valor = request.getParameter("valor");
+                    unico = Boolean.valueOf(request.getParameter("unico"));
+
+                    //se consulta el objeto por el campo y el valor 
+                    json = new Gson().toJson(trabajadorBl.findDynamicFilter(campo, valor, unico, PaetTrTrabajador.class.getName()));
+                    out.print(json);
+                    break;
+                default:
+                    out.print("E~No se indicó la acción que se desea realizar");
+                    break;
+            }
+
+        } catch (NumberFormatException e) {
+            out.print("E~" + e.getMessage());
+        } catch (Exception e) {
+            out.print("E~" + e.getMessage());
         }
     }
 

@@ -11,16 +11,16 @@
             </generator>
         </id>
         <property name="dfDireccion" type="string">
-            <column name="DF_DIRECCION" length="200" not-null="true" />
+            <column name="DF_DIRECCION" length="100" not-null="true" />
         </property>
         <property name="dfEstado" type="char">
             <column name="DF_ESTADO" length="1" not-null="true" />
         </property>
-        <property name="dsDistrito" type="big_decimal">
-            <column name="DF_CODIGO" precision="6" scale="0" />
-        </property>
         <property name="trTrabajador" type="string">
-            <column name="TR_TRABAJADOR" length="40" not-null="true" />
+            <column name="TR_TRABAJADOR" length="20" not-null="true" />
+        </property>
+        <property name="dsDistrito" type="big_decimal">
+            <column name="DS_DISTRITO" precision="6" scale="0" />
         </property>
     </class>
 </hibernate-mapping>

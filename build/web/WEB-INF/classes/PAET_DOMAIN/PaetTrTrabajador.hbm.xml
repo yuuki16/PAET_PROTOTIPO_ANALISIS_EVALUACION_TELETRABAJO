@@ -29,6 +29,9 @@
         <property name="trEstado" type="char">
             <column name="TR_ESTADO" length="1" not-null="true" />
         </property>
+        <property name="ptPuesto" type="string">
+            <column name="PT_PUESTO" length="3" not-null="true" />
+        </property>
         <property name="trPtFechaEntrada" type="date">
             <column name="TR_PT_FECHA_ENTRADA" length="7" not-null="true" />
         </property>

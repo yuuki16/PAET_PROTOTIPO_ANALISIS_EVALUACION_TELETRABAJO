@@ -14,13 +14,13 @@
             <column name="TL_TELEFONO" length="20" not-null="true" unique="true" />
         </property>
         <property name="tlDescripcion" type="string">
-            <column name="TL_DESCRIPCION" length="40" not-null="true" />
+            <column name="TL_DESCRIPCION" length="20" not-null="true" />
         </property>
         <property name="tlEstado" type="char">
             <column name="TL_ESTADO" length="1" not-null="true" />
         </property>
         <property name="trTrabajador" type="string">
-            <column name="TR_TRABAJADOR" length="40" not-null="true" />
+            <column name="TR_TRABAJADOR" length="20" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
