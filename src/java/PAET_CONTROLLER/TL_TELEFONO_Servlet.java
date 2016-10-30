@@ -63,10 +63,10 @@ public class TL_TELEFONO_Servlet extends HttpServlet {
                 case "agregarTelefono":
                 case "modificarTelefono":
                     
-                    telefono.setTlDescripcion(request.getParameter("tlDireccion"));
+                    telefono.setTlDescripcion(request.getParameter("tlDescripcion"));
                     telefono.setTlEstado(request.getParameter("tlEstado").charAt(0));
                     telefono.setTlTelefono(request.getParameter("tlTelefono"));
-                    telefono.setTrTrabajador(request.getParameter("trUsuario"));
+                    telefono.setTrTrabajador(request.getParameter("trTrabajador"));
                     
                     if (accion.equals("agregarTelefono")) { //es insertar
                         

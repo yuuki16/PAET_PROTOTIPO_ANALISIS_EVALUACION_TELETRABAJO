@@ -32,6 +32,10 @@ $(function () {
     $("#guardarCorreo").click(function () {
         guardarCorreo();
     });
+    
+    $("#guardarTelefono").click(function () {
+        guardarTelefono();
+    });
 
     $("#cancelar").click(function () {
         limpiarForm();
@@ -41,6 +45,11 @@ $(function () {
     $("#cancelarCorreo").click(function () {
         limpiarFormCorreo();
         $("#formularioAdministrarCorreo").modal("hide");
+    });
+    
+    $("#cancelarTelefono").click(function () {
+        limpiarFormTelefono();
+        $("#formularioAdministrarTelefono").modal("hide");
     });
 
     $("#btBusquedaTrUsuario, #btBusquedaTrCedula, #btBusquedaTrNombre, #btBusquedaTrJefatura, #btBusquedaPtPuesto").click(function () {
@@ -529,7 +538,7 @@ function dibujarTablaTelefonos(dataJson){
     var row = $("<tr />");
     head.append(row);
     $("#tablaTelefonos").append(head);
-    row.append($("<th><b>CÓDIGO</b></th>"));
+    row.append($('<th style="display: none"><b>CÓDIGO</b></th>'));
     row.append($("<th><b>TELÉFONO</b></th>"));
     row.append($("<th><b>DESCRIPCIÓN</b></th>"));
     row.append($("<th><b>ESTADO</b></th>"));
@@ -544,7 +553,7 @@ function dibujarTablaTelefonos(dataJson){
 function dibujarFilaTelefonos(rowData){
     var row = $("<tr />");
     $("#tablaTelefonos").append(row);
-    row.append($("<td>" + rowData.tlCodigo + "</td>"));
+    row.append($('<td style="display: none">' + rowData.tlCodigo + '</td>'));
     row.append($("<td>" + rowData.tlTelefono + "</td>"));
     row.append($("<td>" + rowData.tlDescripcion + "</td>"));
     if (rowData.tlEstado === "A") {
@@ -623,11 +632,19 @@ function dibujarInsertarBotones(trUsuario){
     
     $("#btnInsertarCorreo").html("");
     $("#btnInsertarCorreo").append($('<td><button type="button" class="btn btn-success" id="btnMostrarCorreoForm" onclick="insertarCorreo(\'' + trUsuario + '\');">Insertar Correo</button></td>'));
+    
+    $("#btnInsertarTelefono").html("");
+    $("#btnInsertarTelefono").append($('<td><button type="button" class="btn btn-success" id="btnMostrarTelefonoForm" onclick="insertarTelefono(\'' + trUsuario + '\');">Insertar Teléfono</button></td>'));
 }
 
 function insertarCorreo(trUsuario){
     $("#correoTrabajador").val(trUsuario);
     $('#formularioAdministrarCorreo').modal('show');
+}
+
+function insertarTelefono(trUsuario){
+    $("#telefonoTrabajador").val(trUsuario);    
+    $('#formularioAdministrarTelefono').modal('show');
 }
 
 function guardarCorreo(){
@@ -643,21 +660,21 @@ function guardarCorreo(){
                 trTrabajador: $("#correoTrabajador").val()
             },
             error: function () { //si existe un error en la respuesta del ajax
-                mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
+                mostrarMensaje("mensajeResultCorreo", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
             },
             success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
                 var respuestaTxt = data.substring(2);
                 var tipoRespuesta = data.substring(0, 2);
                 if (tipoRespuesta === "C~") {
-                    mostrarMensaje("mensajeResult", "alert alert-success", respuestaTxt, "Correcto!");
+                    mostrarMensaje("mensajeResultCorreo", "alert alert-success", respuestaTxt, "Correcto!");
                     $("#formularioAdministrarCorreo").modal("hide");
                     consultarCorreosByTrabajador($("#correoTrabajador").val());
                     limpiarFormCorreo();
                 } else {
                     if (tipoRespuesta === "E~") {
-                        mostrarMensaje("mensajeResult", "alert alert-danger", respuestaTxt, "Error!");
+                        mostrarMensaje("mensajeResultCorreo", "alert alert-danger", respuestaTxt, "Error!");
                     } else {
-                        mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
+                        mostrarMensaje("mensajeResultCorreo", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
                     }
                 }
 
@@ -665,7 +682,7 @@ function guardarCorreo(){
             type: 'POST'
         });
     } else {
-        mostrarMensaje("mensajeResult", "alert alert-danger", "Debe digitar los campos del formulario", "Error!");
+        mostrarMensaje("mensajeResultCorreo", "alert alert-danger", "Debe digitar los campos del formulario", "Error!");
     }
 }
 
@@ -677,10 +694,10 @@ function limpiarFormCorreo(){
     $("#correosAction").val("agregarCorreo");
 
     //esconde el div del mensaje
-    mostrarMensaje("hiddenDiv", "", "");
+    mostrarMensaje("mensajeResultCorreo", "hiddenDiv", "", "");
 
     //Resetear el formulario
-    $('#formAdministrarCorreo').trigger("reset");
+    $('#formCorreos').trigger("reset");
     
 }
 
@@ -736,6 +753,123 @@ function validarCorreo(){
     }
     if ($("#estadoCorreo").val() === "") {
         $("#groupEstadoCorreo").addClass("has-error");
+        validacion = false;
+    }
+    return validacion;
+}
+
+function guardarTelefono(){
+    if (validarTelefono()) {
+        //Se envia la información por ajax
+        $.ajax({
+            url: 'TL_TELEFONO_Servlet',
+            data: {
+                accion: $("#telefonosAction").val(),
+                tlCodigo: $("#telefonoCodigo").val(),
+                tlTelefono: $("#telefonoTelefono").val(),
+                tlDescripcion: $("#telefonoDescripcion").val(),
+                tlEstado: $("#telefonoEstado").val(),
+                trTrabajador: $("#telefonoTrabajador").val()
+            },
+            error: function () { //si existe un error en la respuesta del ajax
+                mostrarMensaje("mensajeResultTelefono", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
+            },
+            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+                var respuestaTxt = data.substring(2);
+                var tipoRespuesta = data.substring(0, 2);
+                if (tipoRespuesta === "C~") {
+                    mostrarMensaje("mensajeResultTelefono", "alert alert-success", respuestaTxt, "Correcto!");
+                    $("#formularioAdministrarTelefono").modal("hide");
+                    consultarTelefonosByTrabajador($("#telefonoTrabajador").val());
+                    limpiarFormTelefono();
+                } else {
+                    if (tipoRespuesta === "E~") {
+                        mostrarMensaje("mensajeResultTelefono", "alert alert-danger", respuestaTxt, "Error!");
+                    } else {
+                        mostrarMensaje("mensajeResultTelefono", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
+                    }
+                }
+
+            },
+            type: 'POST'
+        });
+    } else {
+        mostrarMensaje("mensajeResultTelefono", "alert alert-danger", "Debe digitar los campos del formulario", "Error!");
+    }
+}
+
+function limpiarFormTelefono(){
+    //setea el focus del formulario
+    $('#telefonoTelefono').focus();
+
+    //se cambia la accion por agregarDivision
+    $("#telefonosAction").val("agregarTelefono");
+
+    //esconde el div del mensaje
+    mostrarMensaje("mensajeResultTelefono", "hiddenDiv", "", "");
+
+    //Resetear el formulario
+    $('#formTelefonos').trigger("reset");
+}
+
+function consultarTelefonoByCodigo(tlCodigo){
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando el teléfono seleccionado");
+
+    $.ajax({
+        url: 'TL_TELEFONO_Servlet',
+        data: {
+            accion: "consultarTelefonoByCodigo",
+            tlCodigo: tlCodigo
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+            limpiarFormTelefono();
+
+            //se muestra el formulario
+            $("#formularioAdministrarTelefono").modal();
+
+            //************************************************************************
+            //carga información en el formulario
+            //************************************************************************
+            
+            //se modificar el hidden que indicar el tipo de accion que se esta realizando
+            $("#telefonosAction").val("modificarTelefono");
+
+            //se carga la información en el formulario
+            $("#telefonoCodigo").val(data.tlCodigo);
+            $("#telefonoTelefono").val(data.tlTelefono);
+            $("#telefonoDescripcion").val(data.tlDescripcion);
+            $("#telefonoEstado").val(data.tlEstado);
+            $("#telefonoTrabajador").val(data.trTrabajador);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function validarTelefono(){
+    
+    var validacion = true;
+
+    //quitar errores
+    $("#groupTelefonoTelefono").removeClass("has-error");
+    $("#groupTelefonoDescripcion").removeClass("has-error");
+    $("#groupTelefonoEstado").removeClass("has-error");
+    
+    if ($("#telefonoTelefono").val() === "") {
+        $("#groupTelefonoTelefono").addClass("has-error");
+        validacion = false;
+    }
+    if ($("#telefonoDescripcion").val() === "") {
+        $("#groupTelefonoDescripcion").addClass("has-error");
+        validacion = false;
+    }
+    if ($("#telefonoEstado").val() === "") {
+        $("#groupTelefonoEstado").addClass("has-error");
         validacion = false;
     }
     return validacion;
