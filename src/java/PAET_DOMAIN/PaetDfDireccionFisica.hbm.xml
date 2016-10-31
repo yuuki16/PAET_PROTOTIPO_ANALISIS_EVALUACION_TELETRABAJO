@@ -19,7 +19,7 @@
         <property name="trTrabajador" type="string">
             <column name="TR_TRABAJADOR" length="20" not-null="true" />
         </property>
-        <property name="dsDistrito" type="big_decimal">
+        <property name="dsDistrito" type="int">
             <column name="DS_DISTRITO" precision="6" scale="0" />
         </property>
     </class>

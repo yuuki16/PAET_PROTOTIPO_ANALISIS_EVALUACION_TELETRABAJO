@@ -48,6 +48,18 @@
         <servlet-name>DF_DIRECCION_FISICA_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.DF_DIRECCION_FISICA_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PR_PROVINCIA_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.PR_PROVINCIA_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CN_CANTON_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.CN_CANTON_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DS_DISTRITO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.DS_DISTRITO_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -95,6 +107,18 @@
     <servlet-mapping>
         <servlet-name>DF_DIRECCION_FISICA_Servlet</servlet-name>
         <url-pattern>/DF_DIRECCION_FISICA_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PR_PROVINCIA_Servlet</servlet-name>
+        <url-pattern>/PR_PROVINCIA_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CN_CANTON_Servlet</servlet-name>
+        <url-pattern>/CN_CANTON_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DS_DISTRITO_Servlet</servlet-name>
+        <url-pattern>/DS_DISTRITO_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

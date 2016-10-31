@@ -271,9 +271,9 @@
                                     </div>
                                     <div id="collapseThree" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <button type="button" class="btn btn-success" id="btnMostrarDireccionForm" data-target="#formularioAdministrarDireccionFisica">Insertar Dirección</button>
+                                            <div id="btnInsertarDireccionFisica"></div>
                                             <br>
-                                            <table class="table table-bordered table-hover" id="tablaDirecciones"></table>
+                                            <table class="table table-bordered table-hover" id="tablaDireccionesFisicas"></table>
                                         </div>
                                     </div>
                                 </div>
@@ -313,7 +313,6 @@
                     <div class="modal-body" id="formAdministrarCorreoMessage">
                         <form role="form" onsubmit="return false;" id="formCorreos">
                             <div class="form-group" id="groupCodigoCorreo" style="display: none">
-                                <label for="codigoCorreo">Código:</label>
                                 <input type="text" class="form-control" id="codigoCorreo" autofocus="true" placeholder="Código" readonly="true">
                             </div>
 
@@ -364,7 +363,6 @@
                     <div class="modal-body" id="formularioAdministrarTelefonoMessage">
                         <form role="form" onsubmit="return false;" id="formTelefonos">
                             <div class="form-group" id="groupTelefonoCodigo" style="display: none">
-                                <label for="telefonoCodigo">Código:</label>
                                 <input type="text" class="form-control" id="telefonoCodigo" autofocus="true" placeholder="Código" readonly="true">
                             </div>
 
@@ -402,6 +400,77 @@
                                 <div class="alert alert-success hiddenDiv" id="mensajeResultTelefono">
                                     <strong id="mensajeResultTelefonoNeg">Info!</strong> 
                                     <span id="mensajeResultTelefonoText">This alert box could indicate a neutral informative change or action.</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FORM DIRECCION -->
+        <div class="modal fade" id="formularioAdministrarDireccionFisica" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="formularioAdministrarDireccionFisicaTitle">Administrar Dirección</h4>
+                    </div>
+                    <div class="modal-body" id="formularioAdministrarDireccionFisicaMessage">
+                        <form role="form" onsubmit="return false;" id="formDireccionesFisicas">
+                            <div class="form-group" id="groupDireccionFisicaCodigo" style="display: none">
+                                <input type="text" class="form-control" id="direccionFisicaCodigo" autofocus="true">
+                            </div>
+                            
+                            <div class="form-group" id="groupProvincia">
+                                <label for="provincia">Provincia:</label>
+                                <select class="form-control" id="provincia">
+                                    <option value="" selected="selected"></option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" id="groupCanton">
+                                <label for="canton">Cantón:</label>
+                                <select class="form-control" id="canton">
+                                    <option value="" selected="selected"></option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" id="groupDistrito">
+                                <label for="distrito">Distrito:</label>
+                                <select class="form-control" id="distrito">
+                                    <option value="" selected="selected"></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="groupDireccionFisicaDireccion">
+                                <label for="direccionFisicaDireccion">Dirección exacta:</label>
+                                <input type="text" class="form-control" id="direccionFisicaDireccion" placeholder="Dirección exacta" >
+                            </div>
+                            
+                            <div class="form-group" id="groupDireccionFisicaEstado">
+                                <label for="direccionFisicaEstado">Estado:</label>
+                                <select class="form-control" id="direccionFisicaEstado">
+                                    <option value="A" selected="selected">Activo</option>
+                                    <option value="I">Inactivo</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" id="groupDireccionFisicaTrabajador" style="display: none">
+                                <input type="text" class="form-control" id="direccionFisicaTrabajador">
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="hidden" value="agregarDireccionFisica" id="direccionesFisicasAction"/>
+
+                                <button type="submit" class="btn btn-primary" id="guardarDireccionFisica">Guardar</button>
+
+                                <button type="reset" class="btn btn-danger" id="cancelarDireccionFisica">Cancelar</button>
+                            </div>
+
+                            <div class="form-group height25" >
+                                <div class="alert alert-success hiddenDiv" id="mensajeResultDireccionFisica">
+                                    <strong id="mensajeResultDireccionFisicaNeg">Info!</strong> 
+                                    <span id="mensajeResultDireccionFisicaText">This alert box could indicate a neutral informative change or action.</span>
                                 </div>
                             </div>
                         </form>

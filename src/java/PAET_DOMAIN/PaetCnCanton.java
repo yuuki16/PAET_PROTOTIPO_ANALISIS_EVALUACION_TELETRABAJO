@@ -12,58 +12,41 @@ public class PaetCnCanton  implements java.io.Serializable {
 
 
      private short cnCodigo;
-     private PaetPrProvincia paetPrProvincia;
      private String cnDescripcion;
-     private Set<PaetDsDistrito> paetDsDistritos = new HashSet<PaetDsDistrito>(0);
+     private short prProvincia;
 
     public PaetCnCanton() {
     }
 
-	
-    public PaetCnCanton(short cnCodigo, PaetPrProvincia paetPrProvincia, String cnDescripcion) {
+    public PaetCnCanton(short cnCodigo, String cnDescripcion, short prProvincia) {
         this.cnCodigo = cnCodigo;
-        this.paetPrProvincia = paetPrProvincia;
         this.cnDescripcion = cnDescripcion;
-    }
-    public PaetCnCanton(short cnCodigo, PaetPrProvincia paetPrProvincia, String cnDescripcion, Set<PaetDsDistrito> paetDsDistritos) {
-       this.cnCodigo = cnCodigo;
-       this.paetPrProvincia = paetPrProvincia;
-       this.cnDescripcion = cnDescripcion;
-       this.paetDsDistritos = paetDsDistritos;
-    }
-   
-    public short getCnCodigo() {
-        return this.cnCodigo;
+        this.prProvincia = prProvincia;
     }
     
     public void setCnCodigo(short cnCodigo) {
         this.cnCodigo = cnCodigo;
     }
-    public PaetPrProvincia getPaetPrProvincia() {
-        return this.paetPrProvincia;
-    }
     
-    public void setPaetPrProvincia(PaetPrProvincia paetPrProvincia) {
-        this.paetPrProvincia = paetPrProvincia;
-    }
-    public String getCnDescripcion() {
-        return this.cnDescripcion;
+    public short getCnCodigo() {
+        return this.cnCodigo;
     }
     
     public void setCnDescripcion(String cnDescripcion) {
         this.cnDescripcion = cnDescripcion;
     }
-    public Set<PaetDsDistrito> getPaetDsDistritos() {
-        return this.paetDsDistritos;
+    
+    public String getCnDescripcion() {
+        return this.cnDescripcion;
     }
     
-    public void setPaetDsDistritos(Set<PaetDsDistrito> paetDsDistritos) {
-        this.paetDsDistritos = paetDsDistritos;
+    public void setPrProvincia(short prProvincia) {
+        this.prProvincia = prProvincia;
     }
-
-
-
-
+    
+    public short getPrProvincia() {
+        return this.prProvincia;
+    }
 }
 
 

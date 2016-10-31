@@ -13,13 +13,13 @@ public class PaetDfDireccionFisica  implements java.io.Serializable {
      private BigDecimal dfCodigo;
      private String dfDireccion;
      private char dfEstado;
-     private BigDecimal dsDistrito;
+     private int dsDistrito;
      private String trTrabajador;
 
     public PaetDfDireccionFisica() {
     }
 
-    public PaetDfDireccionFisica(BigDecimal dfCodigo, String dfDireccion, char dfEstado, BigDecimal dsDistrito, String trTrabajador) {
+    public PaetDfDireccionFisica(BigDecimal dfCodigo, String dfDireccion, char dfEstado, int dsDistrito, String trTrabajador) {
        this.dfCodigo = dfCodigo;
        this.dfDireccion = dfDireccion;
        this.dfEstado = dfEstado;
@@ -50,11 +50,11 @@ public class PaetDfDireccionFisica  implements java.io.Serializable {
         this.dfEstado = dfEstado;
     }
     
-    public BigDecimal getDsDistrito() {
+    public int getDsDistrito() {
         return this.dsDistrito;
     }
     
-    public void setDsDistrito(BigDecimal dsDistrito) {
+    public void setDsDistrito(int dsDistrito) {
         this.dsDistrito = dsDistrito;
     }
     

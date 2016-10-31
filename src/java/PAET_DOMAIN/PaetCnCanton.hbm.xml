@@ -8,17 +8,11 @@
             <column name="CN_CODIGO" precision="3" scale="0" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="paetPrProvincia" class="PAET_DOMAIN.PaetPrProvincia" fetch="select">
-            <column name="PR_PROVINCIA" precision="1" scale="0" not-null="true" />
-        </many-to-one>
         <property name="cnDescripcion" type="string">
             <column name="CN_DESCRIPCION" length="40" not-null="true" />
         </property>
-        <set name="paetDsDistritos" table="PAET_DS_DISTRITO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="CN_CANTON" precision="3" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetDsDistrito" />
-        </set>
+        <property name="prProvincia" type="short">
+            <column name="PR_PROVINCIA" length="1" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

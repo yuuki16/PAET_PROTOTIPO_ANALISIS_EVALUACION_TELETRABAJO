@@ -3,23 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/web/DV_DIVISION_JSP.jsp</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_CONTROLLER/DV_DIVISION_Servlet.java</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_BL/PAET_PT_PUESTO_BL.java</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_DOMAIN/PaetDvDivision.hbm.xml</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/web/js/PT_PUESTO_JS.js</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_DOMAIN/PaetPtPuesto.java</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_DAO/PAET_PT_PUESTO_DAO.java</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_CONTROLLER/AR_AREA_Servlet.java</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/web/PT_PUESTO_JSP.jsp</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_BL/PAET_DV_DIVISION_BL.java</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_DOMAIN/PaetDvDivision.java</file>
+            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/web/js/TR_TRABAJADOR_JS.js</file>
             <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_BL/BaseBL.java</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_CONTROLLER/PT_PUESTO_Servlet.java</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/web/js/DV_DIVISION_JS.js</file>
             <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/web/HeaderJSP.jsp</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_DAO/PAET_DV_DIVISION_DAO.java</file>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_CONTROLLER/DR_DIRECCION_Servlet.java</file>
+            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/web/TR_TRABAJADOR_JSP.jsp</file>
         </group>
     </open-files>
 </project-private>

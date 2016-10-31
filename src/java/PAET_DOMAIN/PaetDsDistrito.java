@@ -12,58 +12,41 @@ public class PaetDsDistrito  implements java.io.Serializable {
 
 
      private int dsCodigo;
-     private PaetCnCanton paetCnCanton;
      private String dsDescripcion;
-     private Set<PaetDfDireccionFisica> paetDfDireccionFisicas = new HashSet<PaetDfDireccionFisica>(0);
+     private short cnCanton;
 
     public PaetDsDistrito() {
     }
 
-	
-    public PaetDsDistrito(int dsCodigo, PaetCnCanton paetCnCanton, String dsDescripcion) {
+    public PaetDsDistrito(int dsCodigo, String dsDescripcion, short cnCanton) {
         this.dsCodigo = dsCodigo;
-        this.paetCnCanton = paetCnCanton;
         this.dsDescripcion = dsDescripcion;
-    }
-    public PaetDsDistrito(int dsCodigo, PaetCnCanton paetCnCanton, String dsDescripcion, Set<PaetDfDireccionFisica> paetDfDireccionFisicas) {
-       this.dsCodigo = dsCodigo;
-       this.paetCnCanton = paetCnCanton;
-       this.dsDescripcion = dsDescripcion;
-       this.paetDfDireccionFisicas = paetDfDireccionFisicas;
+        this.cnCanton = cnCanton;
     }
    
-    public int getDsCodigo() {
-        return this.dsCodigo;
-    }
-    
     public void setDsCodigo(int dsCodigo) {
         this.dsCodigo = dsCodigo;
     }
-    public PaetCnCanton getPaetCnCanton() {
-        return this.paetCnCanton;
-    }
     
-    public void setPaetCnCanton(PaetCnCanton paetCnCanton) {
-        this.paetCnCanton = paetCnCanton;
-    }
-    public String getDsDescripcion() {
-        return this.dsDescripcion;
+    public int getDsCodigo() {
+        return this.dsCodigo;
     }
     
     public void setDsDescripcion(String dsDescripcion) {
         this.dsDescripcion = dsDescripcion;
     }
-    public Set<PaetDfDireccionFisica> getPaetDfDireccionFisicas() {
-        return this.paetDfDireccionFisicas;
+    
+    public String getDsDescripcion() {
+        return this.dsDescripcion;
     }
     
-    public void setPaetDfDireccionFisicas(Set<PaetDfDireccionFisica> paetDfDireccionFisicas) {
-        this.paetDfDireccionFisicas = paetDfDireccionFisicas;
+    public void setCnCanton(short cnCanton) {
+        this.cnCanton = cnCanton;
     }
-
-
-
-
+    
+    public short getCnCanton() {
+        return this.cnCanton;
+    }
 }
 
 

@@ -4,18 +4,12 @@
 <!-- Generated 19-oct-2016 22:10:24 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetPrProvincia" table="PAET_PR_PROVINCIA" schema="MMONGE" optimistic-lock="version">
-        <id name="prCodigo" type="boolean">
+        <id name="prCodigo" type="short">
             <column name="PR_CODIGO" precision="1" scale="0" />
             <generator class="assigned" />
         </id>
         <property name="prDescripcion" type="string">
             <column name="PR_DESCRIPCION" length="20" not-null="true" />
         </property>
-        <set name="paetCnCantons" table="PAET_CN_CANTON" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="PR_PROVINCIA" precision="1" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetCnCanton" />
-        </set>
     </class>
 </hibernate-mapping>

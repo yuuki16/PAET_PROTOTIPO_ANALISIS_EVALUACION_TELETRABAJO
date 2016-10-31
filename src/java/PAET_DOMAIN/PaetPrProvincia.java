@@ -11,49 +11,33 @@ import java.util.Set;
 public class PaetPrProvincia  implements java.io.Serializable {
 
 
-     private boolean prCodigo;
+     private short prCodigo;
      private String prDescripcion;
-     private Set<PaetCnCanton> paetCnCantons = new HashSet<PaetCnCanton>(0);
 
     public PaetPrProvincia() {
     }
 
 	
-    public PaetPrProvincia(boolean prCodigo, String prDescripcion) {
+    public PaetPrProvincia(short prCodigo, String prDescripcion) {
         this.prCodigo = prCodigo;
         this.prDescripcion = prDescripcion;
     }
-    public PaetPrProvincia(boolean prCodigo, String prDescripcion, Set<PaetCnCanton> paetCnCantons) {
-       this.prCodigo = prCodigo;
-       this.prDescripcion = prDescripcion;
-       this.paetCnCantons = paetCnCantons;
-    }
-   
-    public boolean isPrCodigo() {
-        return this.prCodigo;
-    }
     
-    public void setPrCodigo(boolean prCodigo) {
+    public void setPrCodigo(short prCodigo) {
         this.prCodigo = prCodigo;
     }
-    public String getPrDescripcion() {
-        return this.prDescripcion;
+    
+    public short getPrCodigo() {
+        return this.prCodigo;
     }
     
     public void setPrDescripcion(String prDescripcion) {
         this.prDescripcion = prDescripcion;
     }
-    public Set<PaetCnCanton> getPaetCnCantons() {
-        return this.paetCnCantons;
-    }
     
-    public void setPaetCnCantons(Set<PaetCnCanton> paetCnCantons) {
-        this.paetCnCantons = paetCnCantons;
+    public String getPrDescripcion() {
+        return this.prDescripcion;
     }
-
-
-
-
 }
 
 

@@ -31,6 +31,9 @@ public class BaseBL {
             daos.put("PAET_DOMAIN.PaetTlTelefono", new PAET_TL_TELEFONO_DAO());
             daos.put("PAET_DOMAIN.PaetCrCorreo", new PAET_CR_CORREO_DAO());
             daos.put("PAET_DOMAIN.PaetDfDireccionFisica", new PAET_DF_DIRECCION_FISICA_DAO());
+            daos.put("PAET_DOMAIN.PaetPrProvincia", new PAET_PR_PROVINCIA_DAO());
+            daos.put("PAET_DOMAIN.PaetCnCanton", new PAET_CN_CANTON_DAO());
+            daos.put("PAET_DOMAIN.PaetDsDistrito", new PAET_DS_DISTRITO_DAO());
     }
 
     public IBaseDAO getDao(String className) {

@@ -5,12 +5,11 @@
  */
 package PAET_CONTROLLER;
 
-import PAET_BL.PAET_DF_DIRECCION_FISICA_BL;
-import PAET_DOMAIN.PaetDfDireccionFisica;
+import PAET_BL.PAET_CN_CANTON_BL;
+import PAET_DOMAIN.PaetCnCanton;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Michelle
  */
-public class DF_DIRECCION_FISICA_Servlet extends HttpServlet {
+public class CN_CANTON_Servlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,57 +35,26 @@ public class DF_DIRECCION_FISICA_Servlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String json, campo, valor;
+            String json, campo, valor, cnCodigoStr;
             Boolean unico;
-            BigDecimal dfCodigo;
-            Integer dsDistrito;
-            PaetDfDireccionFisica direccionFisica = new PaetDfDireccionFisica();
-            PAET_DF_DIRECCION_FISICA_BL direccionFisicaBl = new PAET_DF_DIRECCION_FISICA_BL();
+            Short cnCodigo;
+            PaetCnCanton canton = new PaetCnCanton();
+            PAET_CN_CANTON_BL cantonBl = new PAET_CN_CANTON_BL();
 
             Thread.sleep(1000);
 
             String accion = request.getParameter("accion");
 
             switch (accion) {
-                case "consultarDireccionesFisicas":
-                    json = new Gson().toJson(direccionFisicaBl.findAll(PaetDfDireccionFisica.class.getName()));
-                    out.print(json);
-                    break;
-                case "consultarDireccionFisicaByCodigo":
+                case "consultarCantonByCodigo":
                     //se consulta el objeto por ID
-                    dfCodigo = new BigDecimal(request.getParameter("dfCodigo"));
-                    direccionFisica = direccionFisicaBl.findById(dfCodigo);
+                    cnCodigoStr = request.getParameter("cnCodigo");
+                    cnCodigo = new Short(cnCodigoStr);
+                    canton = cantonBl.findById(cnCodigo);
 
                     //se pasa la informacion del objeto a formato JSON
-                    json = new Gson().toJson(direccionFisica);
+                    json = new Gson().toJson(canton);
                     out.print(json);
-                    break;
-                case "agregarDireccionFisica":
-                case "modificarDireccionFisica":
-                    
-                    direccionFisica.setDfDireccion(request.getParameter("dfDireccion"));
-                    direccionFisica.setDfEstado(request.getParameter("dfEstado").charAt(0));
-                    dsDistrito = new Integer(request.getParameter("dsDistrito"));
-                    direccionFisica.setDsDistrito(dsDistrito);
-                    direccionFisica.setTrTrabajador(request.getParameter("trTrabajador"));
-                    
-                    if (accion.equals("agregarDireccionFisica")) { //es insertar
-                        
-                        //Se guarda el objeto
-                        direccionFisicaBl.save(direccionFisica);
-
-                        //Se imprime la respuesta con el response
-                        out.print("C~La direccion física fue agregada correctamente");
-
-                    } else {//es modificar 
-                        dfCodigo = new BigDecimal(request.getParameter("dfCodigo"));
-                        direccionFisica.setDfCodigo(dfCodigo);
-                        //Se guarda el objeto
-                        direccionFisicaBl.merge(direccionFisica);
-
-                        //Se imprime la respuesta con el response
-                        out.print("C~La dirección física fue modificada correctamente");
-                    }
                     break;
                 case "consultaDinamica":
                     campo = request.getParameter("campo");
@@ -94,7 +62,7 @@ public class DF_DIRECCION_FISICA_Servlet extends HttpServlet {
                     unico = Boolean.valueOf(request.getParameter("unico"));
 
                     //se consulta el objeto por el campo y el valor 
-                    json = new Gson().toJson(direccionFisicaBl.findDynamicFilter(campo, valor, unico, PaetDfDireccionFisica.class.getName()));
+                    json = new Gson().toJson(cantonBl.findDynamicFilter(campo, valor, unico, PaetCnCanton.class.getName()));
                     out.print(json);
                     break;
                 default:

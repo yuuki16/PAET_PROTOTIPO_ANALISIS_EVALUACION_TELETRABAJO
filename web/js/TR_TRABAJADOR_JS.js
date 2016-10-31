@@ -1,6 +1,7 @@
 $(document).ready(function () {
     consultarTrabajadores();
     consultarPuestos();
+    consultarProvincias();
 });
 
 $(function () {
@@ -25,33 +26,49 @@ $(function () {
         forceParse: 0
     });
 
+    //Eventos de los botones guardar
     $("#guardar").click(function () {
         guardar();
     });
-    
+
     $("#guardarCorreo").click(function () {
         guardarCorreo();
     });
-    
+
     $("#guardarTelefono").click(function () {
         guardarTelefono();
     });
 
+    $("#guardarDireccionFisica").click(function () {
+        guardarDireccionFisica();
+    });
+
+    $("#guardarInfo").click(function () {
+        $('#formularioAdministrarInformacion').modal('hide');
+    });
+
+    //Eventos de los botones cancelar
     $("#cancelar").click(function () {
         limpiarForm();
         $("#formularioAdministrarTrabajador").modal("hide");
     });
-    
+
     $("#cancelarCorreo").click(function () {
         limpiarFormCorreo();
         $("#formularioAdministrarCorreo").modal("hide");
     });
-    
+
     $("#cancelarTelefono").click(function () {
         limpiarFormTelefono();
         $("#formularioAdministrarTelefono").modal("hide");
     });
 
+    $("#cancelarDireccionFisica").click(function () {
+        limpiarFormDireccionFisica();
+        $("#formularioAdministrarDireccionFisica").modal("hide");
+    });
+
+    //Busquedas de la página
     $("#btBusquedaTrUsuario, #btBusquedaTrCedula, #btBusquedaTrNombre, #btBusquedaTrJefatura, #btBusquedaPtPuesto").click(function () {
         buscar(this.id);
     });
@@ -59,9 +76,13 @@ $(function () {
     $("#btLimpiarBusqueda").click(function () {
         limpiarBusqueda();
     });
+
+    $("#provincia").change(function () {
+        consultarCantonesByProvincia($( this ).val());
+    });
     
-    $("#guardarInfo").click(function () {
-        $('#formularioAdministrarInformacion').modal('hide');
+    $("#canton").change(function () {
+        consultarDistritosByCanton($( this ).val());
     });
 });
 
@@ -77,10 +98,8 @@ function consultarTrabajadores() {
             alert("Se presento un error a la hora de cargar la información de los trabajadores en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarTabla(data);
-            // se oculta el modal esta funcion se encuentra en el utils.js
             ocultarModal("modalMensajes");
-
+            dibujarTabla(data);
         },
         type: 'POST',
         dataType: "json"
@@ -127,13 +146,13 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.trApellido2 + "</td>"));
     if (rowData.trSexo === "MAS") {
         row.append($("<td> MASCULINO </td>"));
-    }else if (rowData.trSexo === "FEM") {
+    } else if (rowData.trSexo === "FEM") {
         row.append($("<td> FEMENINO </td>"));
     }
     row.append($("<td>" + rowData.trFechaIngreso + "</td>"));
     if (rowData.trEstado === "A") {
         row.append($("<td> Activo </td>"));
-    }else if (rowData.trEstado === "I") {
+    } else if (rowData.trEstado === "I") {
         row.append($("<td> Inactivo </td>"));
     }
     row.append($("<td>" + rowData.trJefatura + "</td>"));
@@ -163,10 +182,6 @@ function consultarTrabajadorByCodigo(trUsuario) {
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
             limpiarForm();
-
-            //se muestra el formulario
-            $("#formularioAdministrar").modal();
-
             //************************************************************************
             //carga información en el formulario
             //************************************************************************
@@ -186,6 +201,10 @@ function consultarTrabajadorByCodigo(trUsuario) {
             $("#jefatura").val(data.trJefatura);
             $("#puesto").val(data.ptPuesto);
             $("#fechaEntrada").val(data.trFechaEntrada);
+            
+            //se muestra el formulario
+            $("#formularioAdministrar").modal();
+
         },
         type: 'POST',
         dataType: "json"
@@ -195,7 +214,7 @@ function consultarTrabajadorByCodigo(trUsuario) {
 function limpiarForm() {
     //setea el focus del formulario
     $('#usuario').focus();
-    $("#usuario").removeAttr("readonly"); 
+    $("#usuario").removeAttr("readonly");
 
     //se cambia la accion por agregarDivision
     $("#trabajadoresAction").val("agregarTrabajador");
@@ -268,7 +287,7 @@ function validar() {
     $("#groupEstado").removeClass("has-error");
     $("#groupPuesto").removeClass("has-error");
     $("#groupFechaEntrada").removeClass("has-error");
-    
+
     if ($("#usuario").val() === "") {
         $("#groupUsuario").addClass("has-error");
         validacion = false;
@@ -305,23 +324,23 @@ function validar() {
         $("#groupFechaEntrada").addClass("has-error");
         validacion = false;
     }
-    
-    
+
+
     return validacion;
 }
 
 function mostrarMensaje(modal, classCss, msg, neg) {
     //se le eliminan los estilos al mensaje
-    $("#"+modal).removeClass();
+    $("#" + modal).removeClass();
 
     //se setean los estilos
-    $("#"+modal).addClass(classCss);
+    $("#" + modal).addClass(classCss);
 
     //se muestra la capa del mensaje con los parametros del metodo
-    $("#"+modal).fadeIn("slow");
-    $("#"+modal+"Neg").html(neg);
-    $("#"+modal+"Text").html(msg);
-    $("#"+modal+"Text").html(msg);
+    $("#" + modal).fadeIn("slow");
+    $("#" + modal + "Neg").html(neg);
+    $("#" + modal + "Text").html(msg);
+    $("#" + modal + "Text").html(msg);
 }
 
 function buscar(idBoton) {
@@ -338,11 +357,11 @@ function buscar(idBoton) {
         if (validarBusqueda("trNombre")) {
             enviarBusqueda("trNombre", $("#trNombre").val(), false);
         }
-    }else if (idBoton === "btBusquedaTrJefatura") {
+    } else if (idBoton === "btBusquedaTrJefatura") {
         if (validarBusqueda("trJefatura")) {
             enviarBusqueda("trJefatura", $("#trJefatura").val(), false);
         }
-    }else if (idBoton === "btBusquedaPtPuesto") {
+    } else if (idBoton === "btBusquedaPtPuesto") {
         if (validarBusqueda("ptPuesto")) {
             enviarBusqueda("ptPuesto", $("#ptPuesto").val(), false);
         }
@@ -398,17 +417,19 @@ function limpiarBusqueda() {
     consultarTrabajadores();
 
     //Limpiar txt
-     $('#trUsuario').val("");
-     $('#trCedula').val("");
-     $('#trNombre').val("");
-     $('#trJefatura').val("");
-     $('#ptPuesto').val("");
+    $('#trUsuario').val("");
+    $('#trCedula').val("");
+    $('#trNombre').val("");
+    $('#trJefatura').val("");
+    $('#ptPuesto').val("");
 }
 
+//funciones puestos
 function consultarPuestos() {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los puestos");
     //Se envia la información por ajax
     $.ajax({
+        asyn: false,
         url: 'PT_PUESTO_Servlet',
         data: {
             accion: "consultarPuestos"
@@ -418,25 +439,27 @@ function consultarPuestos() {
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             dibujarComboPuestos(data);
+            ocultarModal("modalMensajes");
         },
         type: 'POST',
         dataType: "json"
     });
 }
 
-function dibujarComboPuestos(dataJson){
-    
+function dibujarComboPuestos(dataJson) {
+
     for (var i = 0; i < dataJson.length; i++) {
-        $("#puesto").append($("<option value=\""+dataJson[i].ptCodigo+"\">"+dataJson[i].ptDescripcion+"</option>"));
+        $("#puesto").append($("<option value=\"" + dataJson[i].ptCodigo + "\">" + dataJson[i].ptDescripcion + "</option>"));
     }
-    
+
     for (var i = 0; i < dataJson.length; i++) {
-        $("#ptPuesto").append($("<option value=\""+dataJson[i].ptCodigo+"\">"+dataJson[i].ptDescripcion+"</option>"));
+        $("#ptPuesto").append($("<option value=\"" + dataJson[i].ptCodigo + "\">" + dataJson[i].ptDescripcion + "</option>"));
     }
 }
 
-function consultarInformacionByCodigo(trUsuario){
-    
+//funcionar informacion adicional
+function consultarInformacionByCodigo(trUsuario) {
+
     consultarCorreosByTrabajador(trUsuario);
     consultarTelefonosByTrabajador(trUsuario);
     consultarDireccionesFisicasByTrabajador(trUsuario);
@@ -445,7 +468,20 @@ function consultarInformacionByCodigo(trUsuario){
     $("#formularioAdministrarInformacion").modal();
 }
 
-function consultarCorreosByTrabajador(trUsuario){
+function dibujarInsertarBotones(trUsuario) {
+
+    $("#btnInsertarCorreo").html("");
+    $("#btnInsertarCorreo").append($('<td><button type="button" class="btn btn-success" id="btnMostrarCorreoForm" onclick="insertarCorreo(\'' + trUsuario + '\');">Insertar Correo</button></td>'));
+
+    $("#btnInsertarTelefono").html("");
+    $("#btnInsertarTelefono").append($('<td><button type="button" class="btn btn-success" id="btnMostrarTelefonoForm" onclick="insertarTelefono(\'' + trUsuario + '\');">Insertar Teléfono</button></td>'));
+
+    $("#btnInsertarDireccionFisica").html("");
+    $("#btnInsertarDireccionFisica").append($('<td><button type="button" class="btn btn-success" id="btnMostrarDireccionFisicaForm" onclick="insertarDireccionFisica(\'' + trUsuario + '\');">Insertar Dirección</button></td>'));
+}
+
+//Funciones correo
+function consultarCorreosByTrabajador(trUsuario) {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los correos");
     $.ajax({
         url: 'CR_CORREO_Servlet',
@@ -470,7 +506,7 @@ function consultarCorreosByTrabajador(trUsuario){
     });
 }
 
-function dibujarTablaCorreos(dataJson){
+function dibujarTablaCorreos(dataJson) {
     $("#tablaCorreos").html("");
 
     //muestra el enzabezado de la tabla
@@ -489,14 +525,14 @@ function dibujarTablaCorreos(dataJson){
     }
 }
 
-function dibujarFilaCorreos(rowData){
+function dibujarFilaCorreos(rowData) {
     var row = $("<tr />");
     $("#tablaCorreos").append(row);
     row.append($('<td style="display: none">' + rowData.crCodigo + '</td>'));
     row.append($("<td>" + rowData.crCorreo + "</td>"));
     if (rowData.crEstado === "A") {
         row.append($("<td> Activo </td>"));
-    }else if (rowData.crEstado === "I") {
+    } else if (rowData.crEstado === "I") {
         row.append($("<td> Inactivo </td>"));
     }
     row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarCorreoByCodigo(\'' + rowData.crCodigo + '\');">' +
@@ -504,150 +540,12 @@ function dibujarFilaCorreos(rowData){
             '</button></td>'));
 }
 
-function consultarTelefonosByTrabajador(trUsuario){
-    
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los teléfonos");
-    $.ajax({
-        url: 'TL_TELEFONO_Servlet',
-        data: {
-            accion: "consultaDinamica",
-            campo: "trTrabajador",
-            valor: trUsuario,
-            unico: true
-        },
-        error: function () { //si existe un error en la respuesta del ajax
-            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-        },
-        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            // se oculta el mensaje de espera
-            ocultarModal("modalMensajes");
-
-            //redibujar la tabla
-            dibujarTablaTelefonos(data);
-        },
-        type: 'POST',
-        dataType: "json"
-    });
-}
-
-function dibujarTablaTelefonos(dataJson){
-    $("#tablaTelefonos").html("");
-
-    //muestra el enzabezado de la tabla
-    var head = $("<thead />");
-    var row = $("<tr />");
-    head.append(row);
-    $("#tablaTelefonos").append(head);
-    row.append($('<th style="display: none"><b>CÓDIGO</b></th>'));
-    row.append($("<th><b>TELÉFONO</b></th>"));
-    row.append($("<th><b>DESCRIPCIÓN</b></th>"));
-    row.append($("<th><b>ESTADO</b></th>"));
-    row.append($("<th><b>MODIFICAR</th>"));
-
-    //carga la tabla con el json devuelto
-    for (var i = 0; i < dataJson.length; i++) {
-        dibujarFilaTelefonos(dataJson[i]);
-    }
-}
-
-function dibujarFilaTelefonos(rowData){
-    var row = $("<tr />");
-    $("#tablaTelefonos").append(row);
-    row.append($('<td style="display: none">' + rowData.tlCodigo + '</td>'));
-    row.append($("<td>" + rowData.tlTelefono + "</td>"));
-    row.append($("<td>" + rowData.tlDescripcion + "</td>"));
-    if (rowData.tlEstado === "A") {
-        row.append($("<td> Activo </td>"));
-    }else if (rowData.tlEstado === "I") {
-        row.append($("<td> Inactivo </td>"));
-    }
-    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarTelefonoByCodigo(\'' + rowData.tlCodigo + '\');">' +
-            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
-            '</button></td>'));
-}
-
-function consultarDireccionesFisicasByTrabajador(trUsuario){
-    
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando las direcciones físicas");
-    $.ajax({
-        url: 'DF_DIRECCION_FISICA_Servlet',
-        data: {
-            accion: "consultaDinamica",
-            campo: "trTrabajador",
-            valor: trUsuario,
-            unico: true
-        },
-        error: function () { //si existe un error en la respuesta del ajax
-            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-        },
-        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            // se oculta el mensaje de espera
-            ocultarModal("modalMensajes");
-
-            //redibujar la tabla
-            dibujarTablaDireccionesFisicas(data);
-        },
-        type: 'POST',
-        dataType: "json"
-    });
-}
-
-function dibujarTablaDireccionesFisicas(dataJson){
-    $("#tablaDirecciones").html("");
-
-    //muestra el enzabezado de la tabla
-    var head = $("<thead />");
-    var row = $("<tr />");
-    head.append(row);
-    $("#tablaDirecciones").append(head);
-    row.append($("<th><b>CÓDIGO</b></th>"));
-    row.append($("<th><b>DIRECCIÓN</b></th>"));
-    row.append($("<th><b>ESTADO</b></th>"));
-    row.append($("<th><b>DISTRITO</b></th>"));
-    row.append($("<th><b>MODIFICAR</th>"));
-
-    //carga la tabla con el json devuelto
-    for (var i = 0; i < dataJson.length; i++) {
-        dibujarFilaDireccionesFisicas(dataJson[i]);
-    }
-}
-
-function dibujarFilaDireccionesFisicas(rowData){
-    var row = $("<tr />");
-    $("#tablaDirecciones").append(row);
-    row.append($("<td>" + rowData.dfCodigo + "</td>"));
-    row.append($("<td>" + rowData.dfDireccion + "</td>"));
-    if (rowData.dfEstado === "A") {
-        row.append($("<td> Activo </td>"));
-    }else if (rowData.dfEstado === "I") {
-        row.append($("<td> Inactivo </td>"));
-    }
-    row.append($("<td>" + rowData.dsDistrito + "</td>"));
-    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarDireccionFisicaByCodigo(\'' + rowData.dfCodigo + '\');">' +
-            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
-            '</button></td>'));
-}
-
-function dibujarInsertarBotones(trUsuario){
-    
-    $("#btnInsertarCorreo").html("");
-    $("#btnInsertarCorreo").append($('<td><button type="button" class="btn btn-success" id="btnMostrarCorreoForm" onclick="insertarCorreo(\'' + trUsuario + '\');">Insertar Correo</button></td>'));
-    
-    $("#btnInsertarTelefono").html("");
-    $("#btnInsertarTelefono").append($('<td><button type="button" class="btn btn-success" id="btnMostrarTelefonoForm" onclick="insertarTelefono(\'' + trUsuario + '\');">Insertar Teléfono</button></td>'));
-}
-
-function insertarCorreo(trUsuario){
+function insertarCorreo(trUsuario) {
     $("#correoTrabajador").val(trUsuario);
     $('#formularioAdministrarCorreo').modal('show');
 }
 
-function insertarTelefono(trUsuario){
-    $("#telefonoTrabajador").val(trUsuario);    
-    $('#formularioAdministrarTelefono').modal('show');
-}
-
-function guardarCorreo(){
+function guardarCorreo() {
     if (validarCorreo()) {
         //Se envia la información por ajax
         $.ajax({
@@ -686,7 +584,7 @@ function guardarCorreo(){
     }
 }
 
-function limpiarFormCorreo(){
+function limpiarFormCorreo() {
     //setea el focus del formulario
     $('#correoCorreo').focus();
 
@@ -698,10 +596,10 @@ function limpiarFormCorreo(){
 
     //Resetear el formulario
     $('#formCorreos').trigger("reset");
-    
+
 }
 
-function consultarCorreoByCodigo(crCodigo){
+function consultarCorreoByCodigo(crCodigo) {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando el correo seleccionado");
 
     $.ajax({
@@ -717,14 +615,10 @@ function consultarCorreoByCodigo(crCodigo){
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
             limpiarFormCorreo();
-
-            //se muestra el formulario
-            $("#formularioAdministrarCorreo").modal();
-
             //************************************************************************
             //carga información en el formulario
             //************************************************************************
-            
+
             //se modificar el hidden que indicar el tipo de accion que se esta realizando
             $("#correosAction").val("modificarCorreo");
 
@@ -733,20 +627,24 @@ function consultarCorreoByCodigo(crCodigo){
             $("#correoCorreo").val(data.crCorreo);
             $("#estadoCorreo").val(data.crEstado);
             $("#correoTrabajador").val(data.trTrabajador);
+            
+            //se muestra el formulario
+            $("#formularioAdministrarCorreo").modal();
+
         },
         type: 'POST',
         dataType: "json"
     });
 }
 
-function validarCorreo(){
-    
+function validarCorreo() {
+
     var validacion = true;
 
     //quitar errores
     $("#groupCorreoCorreo").removeClass("has-error");
     $("#groupEstadoCorreo").removeClass("has-error");
-    
+
     if ($("#correoCorreo").val() === "") {
         $("#groupCorreoCorreo").addClass("has-error");
         validacion = false;
@@ -758,7 +656,75 @@ function validarCorreo(){
     return validacion;
 }
 
-function guardarTelefono(){
+//Funciones telefono
+function consultarTelefonosByTrabajador(trUsuario) {
+
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los teléfonos");
+    $.ajax({
+        url: 'TL_TELEFONO_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "trTrabajador",
+            valor: trUsuario,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+
+            //redibujar la tabla
+            dibujarTablaTelefonos(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function dibujarTablaTelefonos(dataJson) {
+    $("#tablaTelefonos").html("");
+
+    //muestra el enzabezado de la tabla
+    var head = $("<thead />");
+    var row = $("<tr />");
+    head.append(row);
+    $("#tablaTelefonos").append(head);
+    row.append($('<th style="display: none"><b>CÓDIGO</b></th>'));
+    row.append($("<th><b>TELÉFONO</b></th>"));
+    row.append($("<th><b>DESCRIPCIÓN</b></th>"));
+    row.append($("<th><b>ESTADO</b></th>"));
+    row.append($("<th><b>MODIFICAR</th>"));
+
+    //carga la tabla con el json devuelto
+    for (var i = 0; i < dataJson.length; i++) {
+        dibujarFilaTelefonos(dataJson[i]);
+    }
+}
+
+function dibujarFilaTelefonos(rowData) {
+    var row = $("<tr />");
+    $("#tablaTelefonos").append(row);
+    row.append($('<td style="display: none">' + rowData.tlCodigo + '</td>'));
+    row.append($("<td>" + rowData.tlTelefono + "</td>"));
+    row.append($("<td>" + rowData.tlDescripcion + "</td>"));
+    if (rowData.tlEstado === "A") {
+        row.append($("<td> Activo </td>"));
+    } else if (rowData.tlEstado === "I") {
+        row.append($("<td> Inactivo </td>"));
+    }
+    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarTelefonoByCodigo(\'' + rowData.tlCodigo + '\');">' +
+            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
+            '</button></td>'));
+}
+
+function insertarTelefono(trUsuario) {
+    $("#telefonoTrabajador").val(trUsuario);
+    $('#formularioAdministrarTelefono').modal('show');
+}
+
+function guardarTelefono() {
     if (validarTelefono()) {
         //Se envia la información por ajax
         $.ajax({
@@ -798,7 +764,7 @@ function guardarTelefono(){
     }
 }
 
-function limpiarFormTelefono(){
+function limpiarFormTelefono() {
     //setea el focus del formulario
     $('#telefonoTelefono').focus();
 
@@ -812,7 +778,7 @@ function limpiarFormTelefono(){
     $('#formTelefonos').trigger("reset");
 }
 
-function consultarTelefonoByCodigo(tlCodigo){
+function consultarTelefonoByCodigo(tlCodigo) {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando el teléfono seleccionado");
 
     $.ajax({
@@ -828,14 +794,10 @@ function consultarTelefonoByCodigo(tlCodigo){
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
             limpiarFormTelefono();
-
-            //se muestra el formulario
-            $("#formularioAdministrarTelefono").modal();
-
             //************************************************************************
             //carga información en el formulario
             //************************************************************************
-            
+
             //se modificar el hidden que indicar el tipo de accion que se esta realizando
             $("#telefonosAction").val("modificarTelefono");
 
@@ -845,21 +807,24 @@ function consultarTelefonoByCodigo(tlCodigo){
             $("#telefonoDescripcion").val(data.tlDescripcion);
             $("#telefonoEstado").val(data.tlEstado);
             $("#telefonoTrabajador").val(data.trTrabajador);
+            
+            //se muestra el formulario
+            $("#formularioAdministrarTelefono").modal();
         },
         type: 'POST',
         dataType: "json"
     });
 }
 
-function validarTelefono(){
-    
+function validarTelefono() {
+
     var validacion = true;
 
     //quitar errores
     $("#groupTelefonoTelefono").removeClass("has-error");
     $("#groupTelefonoDescripcion").removeClass("has-error");
     $("#groupTelefonoEstado").removeClass("has-error");
-    
+
     if ($("#telefonoTelefono").val() === "") {
         $("#groupTelefonoTelefono").addClass("has-error");
         validacion = false;
@@ -873,4 +838,377 @@ function validarTelefono(){
         validacion = false;
     }
     return validacion;
+}
+
+//Funciones direccion
+function consultarDireccionesFisicasByTrabajador(trUsuario) {
+
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando las direcciones físicas");
+    $.ajax({
+        url: 'DF_DIRECCION_FISICA_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "trTrabajador",
+            valor: trUsuario,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+
+            //redibujar la tabla
+            dibujarTablaDireccionesFisicas(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function dibujarTablaDireccionesFisicas(dataJson) {
+    $("#tablaDireccionesFisicas").html("");
+
+    //muestra el enzabezado de la tabla
+    var head = $("<thead />");
+    var row = $("<tr />");
+    head.append(row);
+    $("#tablaDireccionesFisicas").append(head);
+    row.append($('<th style="display: none"><b>CÓDIGO</b></th>'));
+    row.append($("<th><b>DIRECCIÓN</b></th>"));
+    row.append($("<th><b>ESTADO</b></th>"));
+    row.append($("<th><b>DISTRITO</b></th>"));
+    row.append($("<th><b>MODIFICAR</th>"));
+
+    //carga la tabla con el json devuelto
+    for (var i = 0; i < dataJson.length; i++) {
+        dibujarFilaDireccionesFisicas(dataJson[i]);
+    }
+}
+
+function dibujarFilaDireccionesFisicas(rowData) {
+    var row = $("<tr />");
+    $("#tablaDireccionesFisicas").append(row);
+    row.append($('<td style="display: none">' + rowData.dfCodigo + '</td>'));
+    row.append($("<td>" + rowData.dfDireccion + "</td>"));
+    if (rowData.dfEstado === "A") {
+        row.append($("<td> Activo </td>"));
+    } else if (rowData.dfEstado === "I") {
+        row.append($("<td> Inactivo </td>"));
+    }
+    row.append($("<td>" + rowData.dsDistrito + "</td>"));
+    row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarDireccionFisicaByCodigo(\'' + rowData.dfCodigo + '\');">' +
+            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
+            '</button></td>'));
+}
+
+function insertarDireccionFisica(trUsuario) {
+    $("#direccionFisicaTrabajador").val(trUsuario);
+    $('#formularioAdministrarDireccionFisica').modal('show');
+}
+
+function guardarDireccionFisica() {
+    if (validarDireccionFisica()) {
+        //Se envia la información por ajax
+        $.ajax({
+            url: 'DF_DIRECCION_FISICA_Servlet',
+            data: {
+                accion: $("#direccionesFisicasAction").val(),
+                dfCodigo: $("#direccionFisicaCodigo").val(),
+                dfDireccion: $("#direccionFisicaDireccion").val(),
+                dfEstado: $("#direccionFisicaEstado").val(),
+                dsDistrito: $("#distrito").val(),
+                trTrabajador: $("#direccionFisicaTrabajador").val()
+            },
+            error: function () { //si existe un error en la respuesta del ajax
+                mostrarMensaje("mensajeResultDireccionFisica", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
+            },
+            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+                var respuestaTxt = data.substring(2);
+                var tipoRespuesta = data.substring(0, 2);
+                if (tipoRespuesta === "C~") {
+                    mostrarMensaje("mensajeResultDireccionFisica", "alert alert-success", respuestaTxt, "Correcto!");
+                    $("#formularioAdministrarDireccionFisica").modal("hide");
+                    consultarDireccionesFisicasByTrabajador($("#direccionFisicaTrabajador").val());
+                    limpiarFormDireccionFisica();
+                } else {
+                    if (tipoRespuesta === "E~") {
+                        mostrarMensaje("mensajeResultDireccionFisica", "alert alert-danger", respuestaTxt, "Error!");
+                    } else {
+                        mostrarMensaje("mensajeResultDireccionFisica", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
+                    }
+                }
+
+            },
+            type: 'POST'
+        });
+    } else {
+        mostrarMensaje("mensajeResultDireccionFisica", "alert alert-danger", "Debe digitar los campos del formulario", "Error!");
+    }
+}
+
+function limpiarFormDireccionFisica() {
+    //setea el focus del formulario
+    $('#direccionFisicaDireccion').focus();
+
+    //se cambia la accion por agregarDivision
+    $("#direccionesFisicasAction").val("agregarDireccionFisica");
+
+    //esconde el div del mensaje
+    mostrarMensaje("mensajeResultDireccionFisica", "hiddenDiv", "", "");
+
+    //Resetear el formulario
+    $('#formDireccionFisicas').trigger("reset");
+
+}
+
+function consultarDireccionFisicaByCodigo(dfCodigo) {
+    
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando la dirección seleccionada");
+
+    $.ajax({
+        async: false,
+        url: 'DF_DIRECCION_FISICA_Servlet',
+        data: {
+            accion: "consultarDireccionFisicaByCodigo",
+            dfCodigo: dfCodigo
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            limpiarFormDireccionFisica();
+            //************************************************************************
+            //carga información en el formulario
+            //************************************************************************
+
+            //se modificar el hidden que indicar el tipo de accion que se esta realizando
+            $("#direccionFisicasAction").val("modificarDireccionFisica");
+
+            //se carga la información en el formulario
+            $("#direccionFisicaCodigo").val(data.dfCodigo);
+            $("#direccionFisicaDireccion").val(data.dfDireccion);
+            $("#direccionFisicaEstado").val(data.dfEstado);
+            consultarCantonByDistrito(data.dsDistrito);
+            $("#distrito").val(data.dsDistrito);
+            $("#direccionFisicaTrabajador").val(data.trTrabajador);
+            
+            //se muestra el formulario
+            $("#formularioAdministrarDireccionFisica").modal();
+            
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function validarDireccionFisica() {
+
+    var validacion = true;
+
+    //quitar errores
+    $("#groupDireccionFisicaDireccion").removeClass("has-error");
+    $("#groupDireccionFisicaEstado").removeClass("has-error");
+    $("#groupDistrito").removeClass("has-error");
+
+    if ($("#direccionFisicaDireccion").val() === "") {
+        $("#groupDireccionFisicaDireccion").addClass("has-error");
+        validacion = false;
+    }
+    if ($("#direccionFisicaEstado").val() === "") {
+        $("#groupDireccionFisicaEstado").addClass("has-error");
+        validacion = false;
+    }
+    if ($("#distrito").val() === "") {
+        $("#groupDistrito").addClass("has-error");
+        validacion = false;
+    }
+    return validacion;
+}
+
+//funciones provincias
+function consultarProvincias() {
+
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando las provincias");
+    //Se envia la información por ajax
+    $.ajax({
+        url: 'PR_PROVINCIA_Servlet',
+        data: {
+            accion: "consultarProvincias"
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            alert("Se presento un error a la hora de cargar la información de las provincias en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            ocultarModal("modalMensajes");
+            dibujarComboProvincias(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function dibujarComboProvincias(dataJson){
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#provincia").append($("<option value=\"" + dataJson[i].prCodigo + "\">" + dataJson[i].prDescripcion + "</option>"));
+    }
+}
+
+function consultarProvinciaByCanton(cnCanton) {
+
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando las provincias");
+
+    $.ajax({
+        async: false,
+        url: 'CN_CANTON_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "cnCodigo",
+            valor: cnCanton,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data$("#provincia").val(data[0].prProvincia);
+            $("#provincia").val(data[0].prProvincia);
+            consultarCantonesByProvincia(data[0].prProvincia);
+            $("#canton").val(cnCanton);    
+            consultarDistritosByCanton(cnCanton);
+            
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+//funciones cantones
+function consultarCantonesByProvincia(prProvincia) {
+
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los cantones");
+
+    $.ajax({
+        async: false,
+        url: 'CN_CANTON_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "prProvincia",
+            valor: prProvincia,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            dibujarComboCantones(data);
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function dibujarComboCantones(dataJson){
+    
+    var i;
+    var selectbox = document.getElementById("canton");
+    
+    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        if (selectbox.options[i].value !== "") {
+            selectbox.remove(i);   
+        }
+    }
+    
+    var boxDistrito = document.getElementById("distrito");
+    
+    for(i = boxDistrito.options.length - 1 ; i >= 0 ; i--)
+    {
+        if (boxDistrito.options[i].value !== "") {
+            boxDistrito.remove(i);   
+        }
+    }
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#canton").append($("<option value=\"" + dataJson[i].cnCodigo + "\">" + dataJson[i].cnDescripcion + "</option>"));
+    }
+}
+
+function consultarCantonByDistrito(dsDistrito) {
+
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los cantones");
+
+    $.ajax({
+        async: false,
+        url: 'DS_DISTRITO_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "dsCodigo",
+            valor: dsDistrito,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            consultarProvinciaByCanton(data[0].cnCanton);
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+//funciones distritos
+function consultarDistritosByCanton(cnCanton) {
+
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los distritos");
+
+    $.ajax({
+        async: false,
+        url: 'DS_DISTRITO_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "cnCanton",
+            valor: cnCanton,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            dibujarComboDistritos(data);
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function dibujarComboDistritos(dataJson){
+    
+    var i;
+    var selectbox = document.getElementById("distrito");
+    
+    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        if (selectbox.options[i].value !== "") {
+            selectbox.remove(i);   
+        }
+    }
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        $("#distrito").append($("<option value=\"" + dataJson[i].dsCodigo + "\">" + dataJson[i].dsDescripcion + "</option>"));
+    }
 }

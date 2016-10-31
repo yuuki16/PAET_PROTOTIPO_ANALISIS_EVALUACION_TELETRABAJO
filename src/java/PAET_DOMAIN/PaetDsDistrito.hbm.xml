@@ -8,17 +8,11 @@
             <column name="DS_CODIGO" precision="6" scale="0" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="paetCnCanton" class="PAET_DOMAIN.PaetCnCanton" fetch="select">
-            <column name="CN_CANTON" precision="3" scale="0" not-null="true" />
-        </many-to-one>
         <property name="dsDescripcion" type="string">
             <column name="DS_DESCRIPCION" length="200" not-null="true" />
         </property>
-        <set name="paetDfDireccionFisicas" table="PAET_DF_DIRECCION_FISICA" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="DS_DISTRITO" precision="6" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetDfDireccionFisica" />
-        </set>
+        <property name="cnCanton" type="short">
+            <column name="CN_CANTON" length="3" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>
