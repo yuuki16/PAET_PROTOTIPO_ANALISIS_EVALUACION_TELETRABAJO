@@ -8,11 +8,8 @@
             <column name="SL_CODIGO" precision="22" scale="0" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" fetch="select">
-            <column name="TR_TRABAJADOR" length="40" not-null="true" />
-        </many-to-one>
         <property name="slJustificacion" type="string">
-            <column name="SL_JUSTIFICACION" length="200" not-null="true" />
+            <column name="SL_JUSTIFICACION" length="100" not-null="true" />
         </property>
         <property name="slFecha" type="date">
             <column name="SL_FECHA" length="7" not-null="true" />
@@ -32,29 +29,11 @@
         <property name="slResultado" type="char">
             <column name="SL_RESULTADO" length="1" not-null="true" />
         </property>
-        <set name="paetEtSlEquipoSolicituds" table="PAET_ET_SL_EQUIPO_SOLICITUD" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetEtSlEquipoSolicitud" />
-        </set>
-        <set name="paetPsProcesoSolicituds" table="PAET_PS_PROCESO_SOLICITUD" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetPsProcesoSolicitud" />
-        </set>
-        <set name="paetDiSlDiaSolicituds" table="PAET_DI_SL_DIA_SOLICITUD" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetDiSlDiaSolicitud" />
-        </set>
-        <set name="paetTtTeletrabajadors" table="PAET_TT_TELETRABAJADOR" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetTtTeletrabajador" />
-        </set>
+        <property name="trTrabajador" type="string">
+            <column name="TR_TRABAJADOR" length="20" not-null="true" />
+        </property>
+        <property name="slBeneficios" type="string">
+            <column name="SL_BENEFICIOS" length="500" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

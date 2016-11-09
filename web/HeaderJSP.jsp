@@ -9,17 +9,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="Images/logo.png" alt="Logo" style="width: 50px; height: 40px"></a>
+                    <a class="navbar-brand" href="index.jsp"><img src="Images/logo.png" alt="Logo" style="width: 50px; height: 35px"></a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active glyphicon"><a href="#" class="">&#xe021;</a></li>
+                        <li class="active glyphicon"><a href="index.jsp" class="">&#xe021;</a></li>
                         <li class=" dropdown">
                             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrar <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <%--<li class=" dropdown">
-                                    <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Días</a>
-                                </li>--%>
                                 <li><a href="AR_AREA_JSP.jsp">Áreas</a></li>
                                 <li><a href="DI_DIA_JSP.jsp">Días</a></li>
                                 <li><a href="DR_DIRECCION_JSP.jsp">Direcciones</a></li>
@@ -31,25 +28,27 @@
                                 <li><a href="TR_TRABAJADOR_JSP.jsp">Trabajadores</a></li>
                             </ul>
                         </li>
-                        <%-- <li><a href="#">Add New</a></li>
-                        <li class=" dropdown"><a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Managers <span class="caret"></span></a>
+                        <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Procesos <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">View Managers</a></li>
-                                <li><a href="#">Add New</a></li>
+                                <li><a href="#">Procesos de Solicitud</a></li>
+                                <li><a href="#">Procesos de Seguimiento</a></li>
                             </ul>
                         </li>
-                        <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Staff <span class="caret"></span></a>
+                        <li class=" dropdown">
+                            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Solicitudes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">View Staff</a></li>
-                                <li><a href="#">Add New</a></li>
-                                <li><a href="#">Bulk Upload</a></li>
+                                <li><a href="SOLICITUD_TELETRABAJO.jsp">Solicitar Teletrabajo</a></li>
+                                <li><a href="REVISAR_PROCESO_SOLICITUD.jsp">Verificar Solicitud</a></li>
                             </ul>
-                        </li>--%>
+                        </li>
+                        <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teletrabajador <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Verificar Proceso de Seguimiento</a></li>
+                            </ul>
+                        </li>
                         <li class=" down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Áreas</a></li>
-                                <li><a href="#">Metas</a></li>
-                                <li><a href="#">Teletrabajadores</a></li>
+                                <li><a href="#">Reporte de Teletrabajadores</a></li>
                             </ul>
                         </li>
                     </ul>
