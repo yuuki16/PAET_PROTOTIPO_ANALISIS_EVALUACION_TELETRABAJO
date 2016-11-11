@@ -30,7 +30,7 @@
                         </li>
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Procesos <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Procesos de Solicitud</a></li>
+                                <li><a href="ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp">Procesos de Solicitud</a></li>
                                 <li><a href="#">Procesos de Seguimiento</a></li>
                             </ul>
                         </li>

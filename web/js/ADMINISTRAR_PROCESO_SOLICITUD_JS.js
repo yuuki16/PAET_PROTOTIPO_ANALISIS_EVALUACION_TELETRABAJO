@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 $(document).ready(function () {
-    $("#procesos").hide();
     $("#estados").hide();
+    consultarProcesos(null, false, null);
     consultarEstadosByProceso();
 });
 
@@ -34,8 +34,13 @@ $(function () {
     });
 });
 
+function redirect(solicitud)
+{
+    window.location = 'ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp?solicitud=' + solicitud;
+}
+
 //solicitud
-function consultarSolicitudesByTrabajador(trTrabajador)
+function consultarSolicitudesByTrabajador(trTrabajador, nombre)
 {
     $.ajax({
         async: false,
@@ -50,7 +55,7 @@ function consultarSolicitudesByTrabajador(trTrabajador)
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            consultarProcesos(data);
+            consultarProcesos(data, true, nombre);
         },
         type: 'POST',
         dataType: "json"
@@ -58,7 +63,8 @@ function consultarSolicitudesByTrabajador(trTrabajador)
 }
 
 //trabajador
-function consultarTrabajadorByCedula(trCedula) {
+function consultarTrabajadorByCedula(trCedula) 
+{
 
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los procesos del trabajador");
 
@@ -77,7 +83,7 @@ function consultarTrabajadorByCedula(trCedula) {
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
 
-            consultarSolicitudesByTrabajador(data[0].trUsuario);
+            consultarSolicitudesByTrabajador(data[0].trUsuario, data[0].trNombre + ' '+ data[0].trApellido1 +' '+ data[0].trApellido2);
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -85,9 +91,67 @@ function consultarTrabajadorByCedula(trCedula) {
     });
 }
 
-//proceso solicitud
-function consultarProcesos(dataSolicitudes)
+function consultarTrabajadorBySolicitud(fechaEntrada, solicitud)
 {
+    $.ajax({
+        async: false,
+        url: 'SL_SOLICITUD_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "slCodigo",
+            valor: solicitud,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            consultarTrabajadorByUsuario(fechaEntrada, solicitud, data[0].trTrabajador);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function consultarTrabajadorByUsuario(fecha, solicitud, usuario)
+{
+    $.ajax({
+        async: false,
+        url: 'TR_TRABAJADOR_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "trUsuario",
+            valor: usuario,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            $("#procesos").append($('<article class="timeline-entry">' +
+                    '<div class="timeline-entry-inner">' +
+                    '<div class="timeline-icon bg-secondary">' +
+                    ' <i class="entypo-suitcase"></i>' +
+                    '</div>' +
+                    ' <div class="timeline-label">' +
+                    '<p>' + data[0].trNombre +' '+ data[0].trApellido1 +' '+ data[0].trApellido2 + '</p>' +
+                    '<p>' + fecha + '</p>' +
+                    '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + solicitud + '\')">Revisar Proceso</a></h2>' +
+                    ' </div>' +
+                    ' </div>' +
+                    '</article>'));
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+    
+}
+
+//proceso solicitud
+function consultarProcesos(dataSolicitudes, porCedula, nombre)
+{
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los procesos de solicitud");
+    
     $.ajax({
         async: false,
         url: 'PS_PROCESO_SOLICITUD_Servlet',
@@ -111,18 +175,21 @@ function consultarProcesos(dataSolicitudes)
                 return 0;
             });
 
-            dibujarProcesos(sorted, dataSolicitudes);
+            if (porCedula) {
+                dibujarProcesos(sorted, dataSolicitudes, nombre);
+            } else
+            {
+                dibujarTodosProcesos(sorted);
+            }
         },
         type: 'POST',
         dataType: "json"
     });
 }
 
-function dibujarProcesos(dataProcesos, dataSolicitudes)
+function dibujarProcesos(dataProcesos, dataSolicitudes, nombre)
 {
-
     if (dataSolicitudes.length > 0) {
-
         for (var i = 0; i < dataProcesos.length; i++) {
             for (var j = 0; j < dataSolicitudes.length; j++) {
                 if (dataProcesos[i].slSolicitud === dataSolicitudes[j].slCodigo) {
@@ -133,6 +200,7 @@ function dibujarProcesos(dataProcesos, dataSolicitudes)
                                 ' <i class="entypo-suitcase"></i>' +
                                 '</div>' +
                                 ' <div class="timeline-label">' +
+                                '<p>' + nombre + '</p>' +
                                 '<p>' + dataProcesos[i].psFechaEntrada + '</p>' +
                                 '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + dataProcesos[i].slSolicitud + '\')">Verificar Proceso</a></h2>' +
                                 ' </div>' +
@@ -147,6 +215,19 @@ function dibujarProcesos(dataProcesos, dataSolicitudes)
     } else
     {
         alert("El trabajador no posee ningún proceso de solicitud.");
+    }
+}
+
+function dibujarTodosProcesos(dataProcesos)
+{
+    for (var i = 0; i < dataProcesos.length; i++) {
+        if (dataProcesos[i].psEstado === "P") {
+            for (var j = 0; j < dataProcesos.length; j++) {
+                if (dataProcesos[j].esEstado === 1 && dataProcesos[j].slSolicitud === dataProcesos[i].slSolicitud) {
+                    consultarTrabajadorBySolicitud(dataProcesos[i].psFechaEntrada, dataProcesos[i].slSolicitud);
+                }
+            }
+        }
     }
 }
 
@@ -213,9 +294,7 @@ function consultarEstadosByProcesoSolicitud(slSolicitud)
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            // se oculta el mensaje de espera
-
-            pintarEstados(data);
+            pintarEstados(data, slSolicitud);
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -223,7 +302,7 @@ function consultarEstadosByProcesoSolicitud(slSolicitud)
     });
 }
 
-function pintarEstados(dataJson)
+function pintarEstados(dataJson, solicitud)
 {
     var element = document.getElementsByName("borrar"), index;
 
@@ -243,9 +322,17 @@ function pintarEstados(dataJson)
             $("#" + dataJson[i].esEstado).append('<p name="borrar"> Fecha Finalización: ' + dataJson[i].psFechaAtendido + '</p>');
         }
     }
+    
+    var element = document.getElementById("AdministrarProceso"); 
+    if (element) {
+        element.parentNode.removeChild(element);
+    }
+    $("#estados").append('<button type="button" class="btn btn-info" id="AdministrarProceso" onclick="redirect('+solicitud+')">Administrar Solicitud</button>');
 
     $("#estados").show();
 }
+
+
 
 
 
