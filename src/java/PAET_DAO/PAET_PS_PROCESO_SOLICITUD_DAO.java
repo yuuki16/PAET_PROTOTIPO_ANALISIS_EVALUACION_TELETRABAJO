@@ -9,6 +9,8 @@ import PAET_DOMAIN.PaetPsProcesoSolicitud;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
 /**
  *
@@ -18,7 +20,17 @@ public class PAET_PS_PROCESO_SOLICITUD_DAO extends HibernateUtil implements IBas
 
     @Override
     public void save(PaetPsProcesoSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
     }
 
     @Override
@@ -38,12 +50,40 @@ public class PAET_PS_PROCESO_SOLICITUD_DAO extends HibernateUtil implements IBas
 
     @Override
     public List<PaetPsProcesoSolicitud> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<PaetPsProcesoSolicitud> listaProcesosSolicitud;
+        
+        try {
+            iniciaOperacion();
+            listaProcesosSolicitud = getSesion().createQuery("from PaetPsProcesoSolicitud").list();
+        } finally {
+            getSesion().close();
+        }
+
+        return listaProcesosSolicitud;
     }
 
     @Override
     public List<PaetPsProcesoSolicitud> findDynamicFilter(String filterBy, String filter, Boolean unique) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<PaetPsProcesoSolicitud> listaProcesosSolicitud;
+        Query query;
+        
+        try {
+            iniciaOperacion();
+            if (unique) {
+                query = getSesion().createQuery("from PaetPsProcesoSolicitud where "+filterBy+" = '"+filter+"'");
+            }
+            else
+            {
+                query = getSesion().createQuery("from PaetPsProcesoSolicitud where lower("+filterBy+") like ?");
+                query.setString(0, "%"+filter.toLowerCase()+"%");
+            }
+            listaProcesosSolicitud = query.list();
+            
+        } finally {
+            getSesion().close();
+        }
+
+        return listaProcesosSolicitud;
     }
     
 }

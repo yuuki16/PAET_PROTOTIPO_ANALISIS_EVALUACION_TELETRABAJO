@@ -33,7 +33,7 @@ public class PAET_SL_SOLICITUD_BL extends BaseBL implements IBaseBL<PaetSlSolici
     
     @Override
     public void save(PaetSlSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class PAET_SL_SOLICITUD_BL extends BaseBL implements IBaseBL<PaetSlSolici
 
     @Override
     public List<PaetSlSolicitud> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
     
 }

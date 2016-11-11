@@ -20,7 +20,7 @@ $(function () {
     });
 
     $("#guardar").click(function () {
-        guardar();
+        consultarSolicitudByTrabajador($("#usuario").val());
     });
 
     $("#tiempoIndefinido").change(function () {
@@ -386,19 +386,29 @@ function validarEquipoTecnologico()
 //solicitud
 function guardar() {
 
+    var tiempo;
+    
     if (validar()) {
+        if (document.getElementById('tiempoIndefinido').checked) {
+            tiempo = document.getElementById('tiempoIndefinido').value;
+        }
+        else
+        {
+            tiempo = $("#tiempo").val();
+        }
         //Se envia la información por ajax
         $.ajax({
+            asyn: false,
             url: 'SL_SOLICITUD_Servlet',
             data: {
                 accion: "agregarSolicitud",
                 slJustificacion: $("#justificacion").val(),
                 slFecha: Date.now(),
                 slModalidad: $("#modalidad").val(),
-                slTiempo: $("#tiempo").val(),
+                slTiempo: tiempo,
                 slConectividad: $("#conectividad").val(),
                 slTelefonia: $("#telefonia").val(),
-                trTrabajador: $("#usuario").data('date'),
+                trTrabajador: $("#usuario").val(),
                 slBeneficios: $("#beneficios").val(),
                 slResultado: "P"
             },
@@ -459,7 +469,7 @@ function validar() {
         $("#groupModalidad").addClass("has-error");
         validacion = false;
     }
-    if ($("#tiempo").val() === "") {
+    if ($("#tiempo").val() === "" && !document.getElementById('tiempoIndefinido').checked) {
         $("#groupTiempo").addClass("has-error");
         validacion = false;
     }
@@ -484,4 +494,68 @@ function validar() {
     }
 
     return validacion;
+}
+
+function mostrarMensaje(classCss, msg, neg) {
+    //se le eliminan los estilos al mensaje
+    $("#mensajeResult").removeClass();
+
+    //se setean los estilos
+    $("#mensajeResult").addClass(classCss);
+
+    //se muestra la capa del mensaje con los parametros del metodo
+    $("#mensajeResult").fadeIn("slow");
+    $("#mensajeResultNeg").html(neg);
+    $("#mensajeResultText").html(msg);
+    $("#mensajeResultText").html(msg);
+}
+
+function consultarSolicitudByTrabajador(trUsuario) {
+
+    mostrarModal("modalMensajes", "Espere por favor..", "Consultando las solicitudes");
+
+    $.ajax({
+        async: false,
+        url: 'SL_SOLICITUD_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "trTrabajador",
+            valor: trUsuario,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            ocultarModal("modalMensajes");
+            
+            revisarSolicitudesPendientes(data);
+
+            ocultarModal("modalMensajes");
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+
+    ocultarModal("modalMensajes");
+}
+
+function revisarSolicitudesPendientes(dataJson){
+    
+    var poseeSolicitud = false;
+    
+    for (var  i = 0;  i < dataJson.length;  i++) {
+        if (dataJson[i].slResultado === "P") {
+            poseeSolicitud = true;
+        }
+    }
+    
+    if (poseeSolicitud) {
+        alert("El candidato ya posee una solicitud pendiente.");
+    }
+    else
+    {
+        guardar();
+    }
 }

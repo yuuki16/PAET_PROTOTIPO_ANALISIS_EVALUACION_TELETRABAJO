@@ -18,7 +18,7 @@
         <!-- Referencias -->
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
         <script src="js/utils.js" type="text/javascript"></script>
-        <script src="js/REVISAR_PROCESO_SOLICITUD.js" type="text/javascript"></script>  
+        <script src="js/REVISAR_PROCESO_SOLICITUD_JS.js" type="text/javascript"></script>  
     </head>
     <body>
         <%@ include file="/HeaderJSP.jsp" %>
@@ -37,7 +37,7 @@
                                     <input type="text" class="form-control" id="trCedula" placeholder="Digite la cédula del trabajador">
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaTrCedu">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaTrCedula">
                                         Buscar <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                     <button type="button" class="btn btn-default centered" data-toggle="modal" id="btLimpiarBusqueda">Limpiar Búsqueda</button>        
@@ -50,152 +50,14 @@
         </div>
 
         <!-- Procesos -->
-        <div class="row" id="proceso" >
+        <div class="row" id="proceso">
             <!-- Procesos -->
             <div class="col-sm-4">
-                <div class="timeline-centered">
-                    <article class="timeline-entry">
-
-                        <div class="timeline-entry-inner">
-
-                            <div class="timeline-icon bg-secondary">
-                                <i class="entypo-suitcase"></i>
-                            </div>
-
-                            <div class="timeline-label">
-                                <p>09 - Octubre - 2016</p>
-                                <h2><a href="#">Verificar Proceso</a></h2>
-                            </div>
-                        </div>
-
-                    </article>
-
-                    <article class="timeline-entry">
-
-                        <div class="timeline-entry-inner">
-
-                            <div class="timeline-icon bg-secondary">
-                                <i class="entypo-suitcase"></i>
-                            </div>
-
-                            <div class="timeline-label">
-                                <p>03 - Marzo - 2010</p>
-                                <h2><a href="#">Verificar Proceso</a></h2>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                <div class="timeline-centered" id ="procesos"></div>
             </div>
             <!-- Estados -->
-            <div class="col-sm-4">
-                <div class="timeline-centered">
-                    <article class="timeline-entry">
-
-                        <div class="timeline-entry-inner">
-
-                            <div class="timeline-icon finished">
-                                <i class="entypo-suitcase"></i>
-                            </div>
-
-                            <div class="timeline-label">
-                                <p>Estado 1</p>
-                                <p>Entrada: 05 - Octubre - 2016</p>
-                                <p>Finalizado: 06 - Octubre - 2016</p>
-                            </div>
-                        </div>
-
-                    </article>
-
-                    <article class="timeline-entry">
-
-                        <div class="timeline-entry-inner">
-
-                            <div class="timeline-icon finished">
-                                <i class="entypo-suitcase"></i>
-                            </div>
-
-                            <div class="timeline-label">
-                                <p>Estado 2</p>
-                                <p>Entrada: 05 - Octubre - 2016</p>
-                                <p>Finalizado: 06 - Octubre - 2016</p>
-                            </div>
-                        </div>
-
-                    </article>
-
-                    <article class="timeline-entry">
-
-                        <div class="timeline-entry-inner">
-
-                            <div class="timeline-icon pending">
-                                <i class="entypo-suitcase"></i>
-                            </div>
-
-                            <div class="timeline-label">
-                                <p>Estado 3</p>
-                                <p>Entrada: 05 - Octubre - 2016</p>
-                                <p>Pendiente</p>
-                            </div>
-                        </div>
-
-                    </article>
-                    <article class="timeline-entry">
-
-                        <div class="timeline-entry-inner">
-
-                            <div class="timeline-icon bg-gray">
-                                <i class="entypo-suitcase"></i>
-                            </div>
-
-                            <div class="timeline-label">
-                                <p>Estado 4</p>
-                            </div>
-                        </div>
-
-                    </article>
-                    <article class="timeline-entry">
-
-                        <div class="timeline-entry-inner">
-
-                            <div class="timeline-icon bg-gray">
-                                <i class="entypo-suitcase"></i>
-                            </div>
-
-                            <div class="timeline-label">
-                                <p>Estado 5</p>
-                            </div>
-                        </div>
-
-                    </article>
-                    <article class="timeline-entry">
-
-                        <div class="timeline-entry-inner">
-
-                            <div class="timeline-icon bg-gray">
-                                <i class="entypo-suitcase"></i>
-                            </div>
-
-                            <div class="timeline-label">
-                                <p>Estado 6</p>
-                            </div>
-                        </div>
-
-                    </article>
-                    <article class="timeline-entry">
-
-                        <div class="timeline-entry-inner">
-
-                            <div class="timeline-icon bg-gray">
-                                <i class="entypo-suitcase"></i>
-                            </div>
-
-                            <div class="timeline-label">
-                                <p>Estado 7</p>
-                            </div>
-                        </div>
-
-                    </article>
-
+            <div class="col-sm-4" >
+                <div class="timeline-centered" id="estados">
                 </div>
             </div>
         </div>

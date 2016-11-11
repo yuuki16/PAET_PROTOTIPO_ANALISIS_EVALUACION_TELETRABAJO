@@ -16,11 +16,15 @@
  */
 package PAET_DAO;
 
+import PAET_BL.PAET_PS_PROCESO_SOLICITUD_BL;
+import PAET_DOMAIN.PaetPsProcesoSolicitud;
 import PAET_DOMAIN.PaetSlSolicitud;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
 /**
  *
@@ -30,10 +34,27 @@ public class PAET_SL_SOLICITUD_DAO extends HibernateUtil implements IBaseDAO<Pae
 
     @Override
     public void save(PaetSlSolicitud o) {
+        PaetPsProcesoSolicitud procesoSolicitud = new PaetPsProcesoSolicitud();
+        PAET_PS_PROCESO_SOLICITUD_BL procesoSolicitudBl = new PAET_PS_PROCESO_SOLICITUD_BL();
+        
         try {
             iniciaOperacion();
             getSesion().save(o);
             getTransac().commit();
+            //insertar proceso solicitud finalizado
+            procesoSolicitud.setPsFechaEntrada(o.getSlFecha());
+            procesoSolicitud.setSlSolicitud(o.getSlCodigo());
+            procesoSolicitud.setEsEstado(new BigDecimal(1));
+            procesoSolicitud.setPsFechaAtendido(o.getSlFecha());
+            procesoSolicitud.setPsEstado('F');
+            procesoSolicitudBl.save(procesoSolicitud);
+            //insertar proceso solicitud pendiente
+            procesoSolicitud = new PaetPsProcesoSolicitud();
+            procesoSolicitud.setPsFechaEntrada(o.getSlFecha());
+            procesoSolicitud.setSlSolicitud(o.getSlCodigo());
+            procesoSolicitud.setEsEstado(new BigDecimal(2));
+            procesoSolicitud.setPsEstado('P');
+            procesoSolicitudBl.save(procesoSolicitud);
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
@@ -64,7 +85,26 @@ public class PAET_SL_SOLICITUD_DAO extends HibernateUtil implements IBaseDAO<Pae
 
     @Override
     public List<PaetSlSolicitud> findDynamicFilter(String filterBy, String filter, Boolean unique) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<PaetSlSolicitud> listaSolicitudes;
+        Query query;
+        
+        try {
+            iniciaOperacion();
+            if (unique) {
+                query = getSesion().createQuery("from PaetSlSolicitud where "+filterBy+" = '"+filter+"'");
+            }
+            else
+            {
+                query = getSesion().createQuery("from PaetSlSolicitud where lower("+filterBy+") like ?");
+                query.setString(0, "%"+filter.toLowerCase()+"%");
+            }
+            listaSolicitudes = query.list();
+            
+        } finally {
+            getSesion().close();
+        }
+
+        return listaSolicitudes;
     }
     
 }

@@ -64,6 +64,14 @@
         <servlet-name>SL_SOLICITUD_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.SL_SOLICITUD_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PS_PROCESO_SOLICITUD_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.PS_PROCESO_SOLICITUD_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ES_ESTADO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.ES_ESTADO_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -127,6 +135,14 @@
     <servlet-mapping>
         <servlet-name>SL_SOLICITUD_Servlet</servlet-name>
         <url-pattern>/SL_SOLICITUD_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PS_PROCESO_SOLICITUD_Servlet</servlet-name>
+        <url-pattern>/PS_PROCESO_SOLICITUD_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ES_ESTADO_Servlet</servlet-name>
+        <url-pattern>/ES_ESTADO_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
