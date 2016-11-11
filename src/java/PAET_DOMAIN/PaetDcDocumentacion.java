@@ -15,15 +15,19 @@ public class PaetDcDocumentacion  implements java.io.Serializable {
      private String dcNombre;
      private String dcOrigen;
      private Date dcFecha;
+     private char dcTipoProceso;
+     private BigDecimal dcProceso;
 
     public PaetDcDocumentacion() {
     }
 
-    public PaetDcDocumentacion(BigDecimal dcCodigo, String dcNombre, String dcOrigen, Date dcFecha) {
+    public PaetDcDocumentacion(BigDecimal dcCodigo, String dcNombre, String dcOrigen, Date dcFecha, char dcTipoProceso, BigDecimal dcProceso) {
        this.dcCodigo = dcCodigo;
        this.dcNombre = dcNombre;
        this.dcOrigen = dcOrigen;
        this.dcFecha = dcFecha;
+       this.dcTipoProceso = dcTipoProceso;
+       this.dcProceso = dcProceso;
     }
    
     public BigDecimal getDcCodigo() {
@@ -55,9 +59,21 @@ public class PaetDcDocumentacion  implements java.io.Serializable {
         this.dcFecha = dcFecha;
     }
 
-
-
-
+    public char getDcTipoProceso() {
+        return this.dcTipoProceso;
+    }
+    
+    public void setDcTipoProceso(char dcTipoProceso) {
+        this.dcTipoProceso = dcTipoProceso;
+    }
+    
+    public BigDecimal getDcProceso() {
+        return this.dcProceso;
+    }
+    
+    public void setDcProceso(BigDecimal dcProceso) {
+        this.dcProceso = dcProceso;
+    }
 }
 
 

@@ -15,8 +15,6 @@ public class PaetAcActividad  implements java.io.Serializable {
      private BigDecimal acCodigo;
      private String acDescripcion;
      private char acAlineamiento;
-     private Set<PaetAcPtActividadPuesto> paetAcPtActividadPuestos = new HashSet<PaetAcPtActividadPuesto>(0);
-     private Set<PaetAcCaActCaract> paetAcCaActCaracts = new HashSet<PaetAcCaActCaract>(0);
 
     public PaetAcActividad() {
     }
@@ -26,13 +24,6 @@ public class PaetAcActividad  implements java.io.Serializable {
         this.acCodigo = acCodigo;
         this.acDescripcion = acDescripcion;
         this.acAlineamiento = acAlineamiento;
-    }
-    public PaetAcActividad(BigDecimal acCodigo, String acDescripcion, char acAlineamiento, Set<PaetAcPtActividadPuesto> paetAcPtActividadPuestos, Set<PaetAcCaActCaract> paetAcCaActCaracts) {
-       this.acCodigo = acCodigo;
-       this.acDescripcion = acDescripcion;
-       this.acAlineamiento = acAlineamiento;
-       this.paetAcPtActividadPuestos = paetAcPtActividadPuestos;
-       this.paetAcCaActCaracts = paetAcCaActCaracts;
     }
    
     public BigDecimal getAcCodigo() {
@@ -56,24 +47,6 @@ public class PaetAcActividad  implements java.io.Serializable {
     public void setAcAlineamiento(char acAlineamiento) {
         this.acAlineamiento = acAlineamiento;
     }
-    public Set<PaetAcPtActividadPuesto> getPaetAcPtActividadPuestos() {
-        return this.paetAcPtActividadPuestos;
-    }
-    
-    public void setPaetAcPtActividadPuestos(Set<PaetAcPtActividadPuesto> paetAcPtActividadPuestos) {
-        this.paetAcPtActividadPuestos = paetAcPtActividadPuestos;
-    }
-    public Set<PaetAcCaActCaract> getPaetAcCaActCaracts() {
-        return this.paetAcCaActCaracts;
-    }
-    
-    public void setPaetAcCaActCaracts(Set<PaetAcCaActCaract> paetAcCaActCaracts) {
-        this.paetAcCaActCaracts = paetAcCaActCaracts;
-    }
-
-
-
-
 }
 
 

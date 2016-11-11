@@ -14,38 +14,25 @@ public class PaetEvEvaluacion  implements java.io.Serializable {
 
 
      private BigDecimal evCodigo;
-     private PaetPgProcesoSeguimiento paetPgProcesoSeguimiento;
      private Date evFecha;
      private Date evFechaDesde;
      private Date evFechaHasta;
      private Character evLogro;
      private Short evResultado;
-     private Set<PaetCuCausa> paetCuCausas = new HashSet<PaetCuCausa>(0);
-     private Set<PaetMtMeta> paetMtMetas = new HashSet<PaetMtMeta>(0);
-     private Set<PaetAmAccionMejora> paetAmAccionMejoras = new HashSet<PaetAmAccionMejora>(0);
+     private BigDecimal pgProcesoSeguimiento;
 
     public PaetEvEvaluacion() {
     }
 
 	
-    public PaetEvEvaluacion(BigDecimal evCodigo, PaetPgProcesoSeguimiento paetPgProcesoSeguimiento, Date evFecha, Date evFechaDesde, Date evFechaHasta) {
+    public PaetEvEvaluacion(BigDecimal evCodigo, Date evFecha, Date evFechaDesde, Date evFechaHasta, Character evLogro, Short evResultado, BigDecimal pgProcesoSeguimiento) {
         this.evCodigo = evCodigo;
-        this.paetPgProcesoSeguimiento = paetPgProcesoSeguimiento;
         this.evFecha = evFecha;
         this.evFechaDesde = evFechaDesde;
         this.evFechaHasta = evFechaHasta;
-    }
-    public PaetEvEvaluacion(BigDecimal evCodigo, PaetPgProcesoSeguimiento paetPgProcesoSeguimiento, Date evFecha, Date evFechaDesde, Date evFechaHasta, Character evLogro, Short evResultado, Set<PaetCuCausa> paetCuCausas, Set<PaetMtMeta> paetMtMetas, Set<PaetAmAccionMejora> paetAmAccionMejoras) {
-       this.evCodigo = evCodigo;
-       this.paetPgProcesoSeguimiento = paetPgProcesoSeguimiento;
-       this.evFecha = evFecha;
-       this.evFechaDesde = evFechaDesde;
-       this.evFechaHasta = evFechaHasta;
-       this.evLogro = evLogro;
-       this.evResultado = evResultado;
-       this.paetCuCausas = paetCuCausas;
-       this.paetMtMetas = paetMtMetas;
-       this.paetAmAccionMejoras = paetAmAccionMejoras;
+        this.evLogro = evLogro;
+        this.evResultado = evResultado;
+        this.pgProcesoSeguimiento = pgProcesoSeguimiento;
     }
    
     public BigDecimal getEvCodigo() {
@@ -55,13 +42,7 @@ public class PaetEvEvaluacion  implements java.io.Serializable {
     public void setEvCodigo(BigDecimal evCodigo) {
         this.evCodigo = evCodigo;
     }
-    public PaetPgProcesoSeguimiento getPaetPgProcesoSeguimiento() {
-        return this.paetPgProcesoSeguimiento;
-    }
     
-    public void setPaetPgProcesoSeguimiento(PaetPgProcesoSeguimiento paetPgProcesoSeguimiento) {
-        this.paetPgProcesoSeguimiento = paetPgProcesoSeguimiento;
-    }
     public Date getEvFecha() {
         return this.evFecha;
     }
@@ -97,31 +78,14 @@ public class PaetEvEvaluacion  implements java.io.Serializable {
     public void setEvResultado(Short evResultado) {
         this.evResultado = evResultado;
     }
-    public Set<PaetCuCausa> getPaetCuCausas() {
-        return this.paetCuCausas;
+    
+    public BigDecimal getPgProcesoSeguimiento() {
+        return this.pgProcesoSeguimiento;
     }
     
-    public void setPaetCuCausas(Set<PaetCuCausa> paetCuCausas) {
-        this.paetCuCausas = paetCuCausas;
+    public void setPgProcesoSeguimiento(BigDecimal pgProcesoSeguimiento) {
+        this.pgProcesoSeguimiento = pgProcesoSeguimiento;
     }
-    public Set<PaetMtMeta> getPaetMtMetas() {
-        return this.paetMtMetas;
-    }
-    
-    public void setPaetMtMetas(Set<PaetMtMeta> paetMtMetas) {
-        this.paetMtMetas = paetMtMetas;
-    }
-    public Set<PaetAmAccionMejora> getPaetAmAccionMejoras() {
-        return this.paetAmAccionMejoras;
-    }
-    
-    public void setPaetAmAccionMejoras(Set<PaetAmAccionMejora> paetAmAccionMejoras) {
-        this.paetAmAccionMejoras = paetAmAccionMejoras;
-    }
-
-
-
-
 }
 
 

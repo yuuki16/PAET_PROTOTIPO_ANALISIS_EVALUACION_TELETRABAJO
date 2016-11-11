@@ -11,17 +11,17 @@ public class PaetAcCaActCaract  implements java.io.Serializable {
 
 
      private BigDecimal acCaCodigo;
-     private PaetCaCaracteristica paetCaCaracteristica;
-     private PaetAcActividad paetAcActividad;
+     private BigDecimal acActividad;
+     private BigDecimal caCaracteristica;
      private char acCaTeletrabajable;
 
     public PaetAcCaActCaract() {
     }
 
-    public PaetAcCaActCaract(BigDecimal acCaCodigo, PaetCaCaracteristica paetCaCaracteristica, PaetAcActividad paetAcActividad, char acCaTeletrabajable) {
+    public PaetAcCaActCaract(BigDecimal acCaCodigo, BigDecimal acActividad, BigDecimal caCaracteristica, char acCaTeletrabajable) {
        this.acCaCodigo = acCaCodigo;
-       this.paetCaCaracteristica = paetCaCaracteristica;
-       this.paetAcActividad = paetAcActividad;
+       this.acActividad = acActividad;
+       this.caCaracteristica = caCaracteristica;
        this.acCaTeletrabajable = acCaTeletrabajable;
     }
    
@@ -32,20 +32,23 @@ public class PaetAcCaActCaract  implements java.io.Serializable {
     public void setAcCaCodigo(BigDecimal acCaCodigo) {
         this.acCaCodigo = acCaCodigo;
     }
-    public PaetCaCaracteristica getPaetCaCaracteristica() {
-        return this.paetCaCaracteristica;
+    
+    public BigDecimal getAcActividad() {
+        return this.acActividad;
     }
     
-    public void setPaetCaCaracteristica(PaetCaCaracteristica paetCaCaracteristica) {
-        this.paetCaCaracteristica = paetCaCaracteristica;
-    }
-    public PaetAcActividad getPaetAcActividad() {
-        return this.paetAcActividad;
+    public void setAcActividad(BigDecimal acActividad) {
+        this.acActividad = acActividad;
     }
     
-    public void setPaetAcActividad(PaetAcActividad paetAcActividad) {
-        this.paetAcActividad = paetAcActividad;
+    public BigDecimal getCaCaracteristica() {
+        return this.caCaracteristica;
     }
+    
+    public void setCaCaracteristica(BigDecimal caCaracteristica) {
+        this.caCaracteristica = caCaracteristica;
+    }
+    
     public char getAcCaTeletrabajable() {
         return this.acCaTeletrabajable;
     }
@@ -53,10 +56,6 @@ public class PaetAcCaActCaract  implements java.io.Serializable {
     public void setAcCaTeletrabajable(char acCaTeletrabajable) {
         this.acCaTeletrabajable = acCaTeletrabajable;
     }
-
-
-
-
 }
 
 

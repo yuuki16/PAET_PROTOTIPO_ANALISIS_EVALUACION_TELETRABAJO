@@ -11,16 +11,16 @@ public class PaetAcPtActividadPuesto  implements java.io.Serializable {
 
 
      private BigDecimal acPtCodigo;
-     private PaetAcActividad paetAcActividad;
-     private PaetPtPuesto paetPtPuesto;
+     private BigDecimal acActividad;
+     private String ptPuesto;
 
     public PaetAcPtActividadPuesto() {
     }
 
-    public PaetAcPtActividadPuesto(BigDecimal acPtCodigo, PaetAcActividad paetAcActividad, PaetPtPuesto paetPtPuesto) {
+    public PaetAcPtActividadPuesto(BigDecimal acPtCodigo, BigDecimal acActividad, String ptPuesto) {
        this.acPtCodigo = acPtCodigo;
-       this.paetAcActividad = paetAcActividad;
-       this.paetPtPuesto = paetPtPuesto;
+       this.acActividad = acActividad;
+       this.ptPuesto = ptPuesto;       
     }
    
     public BigDecimal getAcPtCodigo() {
@@ -30,24 +30,22 @@ public class PaetAcPtActividadPuesto  implements java.io.Serializable {
     public void setAcPtCodigo(BigDecimal acPtCodigo) {
         this.acPtCodigo = acPtCodigo;
     }
-    public PaetAcActividad getPaetAcActividad() {
-        return this.paetAcActividad;
+    
+    public BigDecimal getAcActividad() {
+        return this.acActividad;
     }
     
-    public void setPaetAcActividad(PaetAcActividad paetAcActividad) {
-        this.paetAcActividad = paetAcActividad;
-    }
-    public PaetPtPuesto getPaetPtPuesto() {
-        return this.paetPtPuesto;
+    public void setAcActividad(BigDecimal acActividad) {
+        this.acActividad = acActividad;
     }
     
-    public void setPaetPtPuesto(PaetPtPuesto paetPtPuesto) {
-        this.paetPtPuesto = paetPtPuesto;
+    public String getPtPuesto() {
+        return this.ptPuesto;
     }
-
-
-
-
+    
+    public void setPtPuesto(String ptPuesto) {
+        this.ptPuesto = ptPuesto;
+    }
 }
 
 

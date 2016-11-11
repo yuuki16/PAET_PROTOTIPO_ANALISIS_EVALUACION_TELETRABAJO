@@ -5,7 +5,7 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetPtPuesto" table="PAET_PT_PUESTO" schema="MMONGE" optimistic-lock="version">
         <id name="ptCodigo" type="string">
-            <column name="PT_CODIGO" length="3" />
+            <column name="PT_CODIGO" length="5" />
             <generator class="assigned"/>
         </id>
         <property name="ptDescripcion" type="string">

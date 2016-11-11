@@ -11,16 +11,16 @@ public class PaetAmAccionMejora  implements java.io.Serializable {
 
 
      private BigDecimal amCodigo;
-     private PaetEvEvaluacion paetEvEvaluacion;
      private String amDescripcion;
+     private BigDecimal evEvaluacion;
 
     public PaetAmAccionMejora() {
     }
 
-    public PaetAmAccionMejora(BigDecimal amCodigo, PaetEvEvaluacion paetEvEvaluacion, String amDescripcion) {
+    public PaetAmAccionMejora(BigDecimal amCodigo, String amDescripcion, BigDecimal evEvaluacion) {
        this.amCodigo = amCodigo;
-       this.paetEvEvaluacion = paetEvEvaluacion;
        this.amDescripcion = amDescripcion;
+       this.evEvaluacion = evEvaluacion;
     }
    
     public BigDecimal getAmCodigo() {
@@ -30,13 +30,7 @@ public class PaetAmAccionMejora  implements java.io.Serializable {
     public void setAmCodigo(BigDecimal amCodigo) {
         this.amCodigo = amCodigo;
     }
-    public PaetEvEvaluacion getPaetEvEvaluacion() {
-        return this.paetEvEvaluacion;
-    }
     
-    public void setPaetEvEvaluacion(PaetEvEvaluacion paetEvEvaluacion) {
-        this.paetEvEvaluacion = paetEvEvaluacion;
-    }
     public String getAmDescripcion() {
         return this.amDescripcion;
     }
@@ -44,10 +38,14 @@ public class PaetAmAccionMejora  implements java.io.Serializable {
     public void setAmDescripcion(String amDescripcion) {
         this.amDescripcion = amDescripcion;
     }
-
-
-
-
+    
+    public BigDecimal getEvEvaluacion() {
+        return this.evEvaluacion;
+    }
+    
+    public void setEvEvaluacion(BigDecimal evEvaluacion) {
+        this.evEvaluacion = evEvaluacion;
+    }
 }
 
 

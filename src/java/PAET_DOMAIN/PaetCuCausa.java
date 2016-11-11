@@ -11,16 +11,16 @@ public class PaetCuCausa  implements java.io.Serializable {
 
 
      private BigDecimal cuCodigo;
-     private PaetEvEvaluacion paetEvEvaluacion;
      private String cuDescripcion;
+     private BigDecimal evEvaluacion;
 
     public PaetCuCausa() {
     }
 
-    public PaetCuCausa(BigDecimal cuCodigo, PaetEvEvaluacion paetEvEvaluacion, String cuDescripcion) {
+    public PaetCuCausa(BigDecimal cuCodigo, String cuDescripcion, BigDecimal evEvaluacion) {
        this.cuCodigo = cuCodigo;
-       this.paetEvEvaluacion = paetEvEvaluacion;
        this.cuDescripcion = cuDescripcion;
+       this.evEvaluacion = evEvaluacion;
     }
    
     public BigDecimal getCuCodigo() {
@@ -30,13 +30,7 @@ public class PaetCuCausa  implements java.io.Serializable {
     public void setCuCodigo(BigDecimal cuCodigo) {
         this.cuCodigo = cuCodigo;
     }
-    public PaetEvEvaluacion getPaetEvEvaluacion() {
-        return this.paetEvEvaluacion;
-    }
     
-    public void setPaetEvEvaluacion(PaetEvEvaluacion paetEvEvaluacion) {
-        this.paetEvEvaluacion = paetEvEvaluacion;
-    }
     public String getCuDescripcion() {
         return this.cuDescripcion;
     }
@@ -45,9 +39,13 @@ public class PaetCuCausa  implements java.io.Serializable {
         this.cuDescripcion = cuDescripcion;
     }
 
-
-
-
+    public BigDecimal getEvEvaluacion() {
+        return this.evEvaluacion;
+    }
+    
+    public void setEvEvaluacion(BigDecimal evEvaluacion) {
+        this.evEvaluacion = evEvaluacion;
+    }
 }
 
 

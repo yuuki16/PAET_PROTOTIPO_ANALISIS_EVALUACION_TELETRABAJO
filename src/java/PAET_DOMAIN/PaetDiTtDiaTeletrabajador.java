@@ -11,18 +11,18 @@ public class PaetDiTtDiaTeletrabajador  implements java.io.Serializable {
 
 
      private BigDecimal diTtCodigo;
-     private PaetDiDia paetDiDia;
-     private PaetTtTeletrabajador paetTtTeletrabajador;
      private char diTtEstado;
+     private char diDia;
+     private BigDecimal ttTeletrabajador;
 
     public PaetDiTtDiaTeletrabajador() {
     }
 
-    public PaetDiTtDiaTeletrabajador(BigDecimal diTtCodigo, PaetDiDia paetDiDia, PaetTtTeletrabajador paetTtTeletrabajador, char diTtEstado) {
+    public PaetDiTtDiaTeletrabajador(BigDecimal diTtCodigo, char diTtEstado, char diDia, BigDecimal ttTeletrabajador) {
        this.diTtCodigo = diTtCodigo;
-       this.paetDiDia = paetDiDia;
-       this.paetTtTeletrabajador = paetTtTeletrabajador;
        this.diTtEstado = diTtEstado;
+       this.diDia = diDia;
+       this.ttTeletrabajador = ttTeletrabajador;
     }
    
     public BigDecimal getDiTtCodigo() {
@@ -32,20 +32,7 @@ public class PaetDiTtDiaTeletrabajador  implements java.io.Serializable {
     public void setDiTtCodigo(BigDecimal diTtCodigo) {
         this.diTtCodigo = diTtCodigo;
     }
-    public PaetDiDia getPaetDiDia() {
-        return this.paetDiDia;
-    }
     
-    public void setPaetDiDia(PaetDiDia paetDiDia) {
-        this.paetDiDia = paetDiDia;
-    }
-    public PaetTtTeletrabajador getPaetTtTeletrabajador() {
-        return this.paetTtTeletrabajador;
-    }
-    
-    public void setPaetTtTeletrabajador(PaetTtTeletrabajador paetTtTeletrabajador) {
-        this.paetTtTeletrabajador = paetTtTeletrabajador;
-    }
     public char getDiTtEstado() {
         return this.diTtEstado;
     }
@@ -54,9 +41,21 @@ public class PaetDiTtDiaTeletrabajador  implements java.io.Serializable {
         this.diTtEstado = diTtEstado;
     }
 
-
-
-
+    public char getDiDia() {
+        return this.diDia;
+    }
+    
+    public void setDiDia(char diDia) {
+        this.diDia = diDia;
+    }
+    
+    public BigDecimal getTtTeletrabajador() {
+        return this.ttTeletrabajador;
+    }
+    
+    public void setTtTeletrabajador(BigDecimal ttTeletrabajador) {
+        this.ttTeletrabajador = ttTeletrabajador;
+    }
 }
 
 

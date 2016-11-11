@@ -15,7 +15,6 @@ public class PaetCaCaracteristica  implements java.io.Serializable {
      private BigDecimal caCodigo;
      private String caDescripicion;
      private char caEstado;
-     private Set<PaetAcCaActCaract> paetAcCaActCaracts = new HashSet<PaetAcCaActCaract>(0);
 
     public PaetCaCaracteristica() {
     }
@@ -25,12 +24,6 @@ public class PaetCaCaracteristica  implements java.io.Serializable {
         this.caCodigo = caCodigo;
         this.caDescripicion = caDescripicion;
         this.caEstado = caEstado;
-    }
-    public PaetCaCaracteristica(BigDecimal caCodigo, String caDescripicion, char caEstado, Set<PaetAcCaActCaract> paetAcCaActCaracts) {
-       this.caCodigo = caCodigo;
-       this.caDescripicion = caDescripicion;
-       this.caEstado = caEstado;
-       this.paetAcCaActCaracts = paetAcCaActCaracts;
     }
    
     public BigDecimal getCaCodigo() {
@@ -54,17 +47,6 @@ public class PaetCaCaracteristica  implements java.io.Serializable {
     public void setCaEstado(char caEstado) {
         this.caEstado = caEstado;
     }
-    public Set<PaetAcCaActCaract> getPaetAcCaActCaracts() {
-        return this.paetAcCaActCaracts;
-    }
-    
-    public void setPaetAcCaActCaracts(Set<PaetAcCaActCaract> paetAcCaActCaracts) {
-        this.paetAcCaActCaracts = paetAcCaActCaracts;
-    }
-
-
-
-
 }
 
 

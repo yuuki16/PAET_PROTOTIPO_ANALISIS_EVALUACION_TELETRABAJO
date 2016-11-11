@@ -11,18 +11,18 @@ public class PaetFcPtFactorPuesto  implements java.io.Serializable {
 
 
      private BigDecimal fcPtCodigo;
-     private PaetPtPuesto paetPtPuesto;
-     private PaetFcFactorComplementario paetFcFactorComplementario;
-     private boolean fcPtGrado;
+     private Short fcPtGrado;
+     private BigDecimal fcFactor;
+     private String ptPuesto;
 
     public PaetFcPtFactorPuesto() {
     }
 
-    public PaetFcPtFactorPuesto(BigDecimal fcPtCodigo, PaetPtPuesto paetPtPuesto, PaetFcFactorComplementario paetFcFactorComplementario, boolean fcPtGrado) {
+    public PaetFcPtFactorPuesto(BigDecimal fcPtCodigo, Short fcPtGrado, BigDecimal fcFactor, String ptPuesto) {
        this.fcPtCodigo = fcPtCodigo;
-       this.paetPtPuesto = paetPtPuesto;
-       this.paetFcFactorComplementario = paetFcFactorComplementario;
        this.fcPtGrado = fcPtGrado;
+       this.fcFactor = fcFactor;
+       this.ptPuesto = ptPuesto;
     }
    
     public BigDecimal getFcPtCodigo() {
@@ -32,31 +32,30 @@ public class PaetFcPtFactorPuesto  implements java.io.Serializable {
     public void setFcPtCodigo(BigDecimal fcPtCodigo) {
         this.fcPtCodigo = fcPtCodigo;
     }
-    public PaetPtPuesto getPaetPtPuesto() {
-        return this.paetPtPuesto;
-    }
     
-    public void setPaetPtPuesto(PaetPtPuesto paetPtPuesto) {
-        this.paetPtPuesto = paetPtPuesto;
-    }
-    public PaetFcFactorComplementario getPaetFcFactorComplementario() {
-        return this.paetFcFactorComplementario;
-    }
-    
-    public void setPaetFcFactorComplementario(PaetFcFactorComplementario paetFcFactorComplementario) {
-        this.paetFcFactorComplementario = paetFcFactorComplementario;
-    }
-    public boolean isFcPtGrado() {
+    public Short isFcPtGrado() {
         return this.fcPtGrado;
     }
     
-    public void setFcPtGrado(boolean fcPtGrado) {
+    public void setFcPtGrado(Short fcPtGrado) {
         this.fcPtGrado = fcPtGrado;
     }
 
+    public BigDecimal getFcFactor() {
+        return this.fcPtCodigo;
+    }
+    
+    public void setFcFactor(BigDecimal fcFactor) {
+        this.fcFactor = fcFactor;
+    }
 
-
-
+    public String getPtPuesto() {
+        return this.ptPuesto;
+    }
+    
+    public void setPtPuesto(String ptPuesto) {
+        this.ptPuesto = ptPuesto;
+    }
 }
 
 

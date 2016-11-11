@@ -5,17 +5,19 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetDiTtDiaTeletrabajador" table="PAET_DI_TT_DIA_TELETRABAJADOR" schema="MMONGE" optimistic-lock="version">
         <id name="diTtCodigo" type="big_decimal">
-            <column name="DI_TT_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="DI_TT_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_DI_TT_DIA_TELETRABAJADOR1</param>
+            </generator>
         </id>
-        <many-to-one name="paetDiDia" class="PAET_DOMAIN.PaetDiDia" fetch="select">
-            <column name="DI_DIA" length="1" not-null="true" />
-        </many-to-one>
-        <many-to-one name="paetTtTeletrabajador" class="PAET_DOMAIN.PaetTtTeletrabajador" fetch="select">
-            <column name="TT_TELETRABAJADOR" precision="22" scale="0" not-null="true" />
-        </many-to-one>
         <property name="diTtEstado" type="char">
             <column name="DI_TT_ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="diDia" type="char">
+            <column name="DI_DIA" length="1" not-null="true" />
+        </property>
+        <property name="ttTeletrabajador" type="big_decimal">
+            <column name="TT_TELETRABAJADOR" length="38" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

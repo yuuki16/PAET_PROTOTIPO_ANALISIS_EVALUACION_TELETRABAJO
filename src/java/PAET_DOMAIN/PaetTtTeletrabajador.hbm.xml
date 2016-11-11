@@ -5,15 +5,11 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetTtTeletrabajador" table="PAET_TT_TELETRABAJADOR" schema="MMONGE" optimistic-lock="version">
         <id name="ttCodigo" type="big_decimal">
-            <column name="TT_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="TT_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_TT_TELETRABAJADOR_SEQ</param>
+            </generator>
         </id>
-        <many-to-one name="paetTrTrabajador" class="PAET_DOMAIN.PaetTrTrabajador" fetch="select">
-            <column name="TR_TRABAJADOR" length="40" not-null="true" />
-        </many-to-one>
-        <many-to-one name="paetSlSolicitud" class="PAET_DOMAIN.PaetSlSolicitud" fetch="select">
-            <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
-        </many-to-one>
         <property name="ttFechaInicio" type="date">
             <column name="TT_FECHA_INICIO" length="7" not-null="true" />
         </property>
@@ -23,17 +19,11 @@
         <property name="ttEstado" type="char">
             <column name="TT_ESTADO" length="1" not-null="true" />
         </property>
-        <set name="paetPgProcesoSeguimientos" table="PAET_PG_PROCESO_SEGUIMIENTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="TT_TELETRABAJADOR" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetPgProcesoSeguimiento" />
-        </set>
-        <set name="paetDiTtDiaTeletrabajadors" table="PAET_DI_TT_DIA_TELETRABAJADOR" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="TT_TELETRABAJADOR" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetDiTtDiaTeletrabajador" />
-        </set>
+        <property name="trTrabajador" type="string">
+            <column name="TR_TRABAJADOR" length="20" not-null="true" />
+        </property>
+        <property name="slSolicitud" type="big_decimal">
+            <column name="SL_SOLICITUD" precision="38"  not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

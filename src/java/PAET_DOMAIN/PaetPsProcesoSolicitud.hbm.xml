@@ -5,32 +5,28 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetPsProcesoSolicitud" table="PAET_PS_PROCESO_SOLICITUD" schema="MMONGE" optimistic-lock="version">
         <id name="psCodigo" type="big_decimal">
-            <column name="PS_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="PS_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_PS_PROCESO_SOLICITUD_SEQ</param>
+            </generator>
         </id>
-        <many-to-one name="paetSlSolicitud" class="PAET_DOMAIN.PaetSlSolicitud" fetch="select">
-            <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
-        </many-to-one>
-        <many-to-one name="paetEsEstado" class="PAET_DOMAIN.PaetEsEstado" fetch="select">
-            <column name="ES_ESTADO" precision="22" scale="0" not-null="true" />
-        </many-to-one>
         <property name="psFechaEntrada" type="date">
             <column name="PS_FECHA_ENTRADA" length="7" not-null="true" />
         </property>
         <property name="psObservacion" type="string">
-            <column name="PS_OBSERVACION" length="200" />
+            <column name="PS_OBSERVACION" length="100" />
         </property>
-        <property name="pfFechaAtendido" type="date">
-            <column name="PF_FECHA_ATENDIDO" length="7" />
+        <property name="slSolicitud" type="big_decimal">
+            <column name="SL_SOLICITUD" precision="38" scale="0" not-null="true" />
+        </property>
+        <property name="esEstado" type="big_decimal">
+            <column name="ES_ESTADO" precision="38" scale="0" not-null="true" />
+        </property>
+        <property name="psFechaAtendido" type="date">
+            <column name="PS_FECHA_ATENDIDO" length="7" />
         </property>
         <property name="psEstado" type="char">
             <column name="PS_ESTADO" length="1" not-null="true" />
         </property>
-        <set name="paetAnAnalisisPuestos" table="PAET_AN_ANALISIS_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="PS_PROCESO_SOLICITUD" precision="22" scale="0" not-null="true" unique="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetAnAnalisisPuesto" />
-        </set>
     </class>
 </hibernate-mapping>

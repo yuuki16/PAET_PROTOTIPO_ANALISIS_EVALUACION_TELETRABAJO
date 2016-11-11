@@ -33,46 +33,53 @@
                                     <p><b>Buscar datos del Candidato/a:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="grCodigo" placeholder="Digite la cédula del candidato a verificar">
+                                    <input type="text" class="form-control" id="trCandidato" placeholder="Digite la cédula del candidato a verificar">
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaCandidate">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaCandidato">
                                         Buscar <span class="glyphicon glyphicon-search"></span>
                                     </button>
+                                    <button type="button" class="btn btn-default centered" data-toggle="modal" id="btLimpiarBusqueda">Limpiar Búsqueda</button>
                                 </div>
                             </div>
 
                             <div class="form-group" id="groupGerencia">
                                 <label for="gerencia">Gerencia:</label>
-                                <select class="form-control" id="gerencia">
+                                <select class="form-control" id="gerencia" readonly="true">
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
 
                             <div class="form-group" id="groupDivision">
                                 <label for="division">División:</label>
-                                <select class="form-control" id="division">
+                                <select class="form-control" id="division" readonly="true">
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
 
                             <div class="form-group" id="groupGerencia">
-                                <label for="gerencia">Dirección:</label>
-                                <select class="form-control" id="gerencia">
+                                <label for="direccion">Dirección:</label>
+                                <select class="form-control" id="direccion" readonly="true">
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
 
                             <div class="form-group" id="groupArea">
                                 <label for="area">Área:</label>
-                                <select class="form-control" id="area">
+                                <select class="form-control" id="area" readonly="true">
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
 
                             <div class="form-group" id="groupJefaturaInmediata">
                                 <label for="jefatura">Jefatura Inmediata:</label>
-                                <input type="text" class="form-control" id="jefatura" readonly="true">
+                                <select class="form-control" id="jefatura">
+                                    <option value="" selected="selected"></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="groupUsuario" style="display: none">
+                                <input type="text" class="form-control" id="usuario" readonly="true">
                             </div>
 
                             <div class="form-group" id="groupNombre">
@@ -87,7 +94,9 @@
 
                             <div class="form-group" id="groupPuesto">
                                 <label for="puesto">Puesto:</label>
-                                <input type="text" class="form-control" id="puesto" readonly="true">
+                                <select class="form-control" id="puesto" readonly="true">
+                                    <option value="" selected="selected"></option>
+                                </select>
                             </div>
 
                             <div class="form-group" id="groupFechaEntradaPuesto">
@@ -120,14 +129,12 @@
 
                             <div class="form-group" id="groupTiempo">
                                 <label for="tiempo">Tiempo:</label>
-                                <input id="tiempo" type="Indefinido" value="SIN" name="tiempo">
+                                <input id="tiempo" type="number" min="1"/>meses
+                                <input type="checkbox" id="tiempoIndefinido" value="SIN">Tiempo Indefinido<br>
                             </div>
 
                             <div class="form-group" id="groupDias">
                                 <label for="dias">Definir los días en Teletrabajo:</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
                             </div>
 
                             <div class="form-group" id="groupConectividad">
@@ -138,7 +145,7 @@
                                     <option value="P">Personal</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group" id="groupTelefonia">
                                 <label for="telefonia">Comunicación Telefónica:</label>
                                 <select class="form-control" id="telefonia">
@@ -147,17 +154,13 @@
                                     <option value="P">Personal</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group" id="groupEquipoTecnologico">
                                 <label for="equipoTecnologico">Equipo Tecnológico:</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
                             </div>
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
-                                <button type="reset" class="btn btn-danger" id="cancelar">Cancelar</button>
                             </div>
 
                             <div class="form-group height25" >

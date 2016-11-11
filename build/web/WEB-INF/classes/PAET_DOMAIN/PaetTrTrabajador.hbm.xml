@@ -5,20 +5,20 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetTrTrabajador" table="PAET_TR_TRABAJADOR" schema="MMONGE" optimistic-lock="version">
         <id name="trUsuario" type="string">
-            <column name="TR_USUARIO" length="40" />
+            <column name="TR_USUARIO" length="20" />
             <generator class="assigned" />
         </id>
         <property name="trCedula" type="string">
-            <column name="TR_CEDULA" length="40" not-null="true" unique="true" />
+            <column name="TR_CEDULA" length="20" not-null="true" unique="true" />
         </property>
         <property name="trNombre" type="string">
-            <column name="TR_NOMBRE" length="100" not-null="true" />
+            <column name="TR_NOMBRE" length="50" not-null="true" />
         </property>
         <property name="trApellido1" type="string">
-            <column name="TR_APELLIDO1" length="100" not-null="true" />
+            <column name="TR_APELLIDO1" length="50" not-null="true" />
         </property>
         <property name="trApellido2" type="string">
-            <column name="TR_APELLIDO2" length="100" />
+            <column name="TR_APELLIDO2" length="50" />
         </property>
         <property name="trSexo" type="string">
             <column name="TR_SEXO" length="3" not-null="true" />

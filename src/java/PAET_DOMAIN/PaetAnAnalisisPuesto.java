@@ -11,25 +11,20 @@ public class PaetAnAnalisisPuesto  implements java.io.Serializable {
 
 
      private BigDecimal anCodigo;
-     private PaetPsProcesoSolicitud paetPsProcesoSolicitud;
      private Short anResultadoFactores;
      private Short anResultadoActividades;
      private Short anResultadoFinal;
+     private BigDecimal psProcesoSolicitud;
 
     public PaetAnAnalisisPuesto() {
     }
 
-	
-    public PaetAnAnalisisPuesto(BigDecimal anCodigo, PaetPsProcesoSolicitud paetPsProcesoSolicitud) {
-        this.anCodigo = anCodigo;
-        this.paetPsProcesoSolicitud = paetPsProcesoSolicitud;
-    }
-    public PaetAnAnalisisPuesto(BigDecimal anCodigo, PaetPsProcesoSolicitud paetPsProcesoSolicitud, Short anResultadoFactores, Short anResultadoActividades, Short anResultadoFinal) {
+    public PaetAnAnalisisPuesto(BigDecimal anCodigo, Short anResultadoFactores, Short anResultadoActividades, Short anResultadoFinal, BigDecimal psProcesoSolicitud) {
        this.anCodigo = anCodigo;
-       this.paetPsProcesoSolicitud = paetPsProcesoSolicitud;
        this.anResultadoFactores = anResultadoFactores;
        this.anResultadoActividades = anResultadoActividades;
        this.anResultadoFinal = anResultadoFinal;
+       this.psProcesoSolicitud = psProcesoSolicitud;
     }
    
     public BigDecimal getAnCodigo() {
@@ -39,13 +34,7 @@ public class PaetAnAnalisisPuesto  implements java.io.Serializable {
     public void setAnCodigo(BigDecimal anCodigo) {
         this.anCodigo = anCodigo;
     }
-    public PaetPsProcesoSolicitud getPaetPsProcesoSolicitud() {
-        return this.paetPsProcesoSolicitud;
-    }
     
-    public void setPaetPsProcesoSolicitud(PaetPsProcesoSolicitud paetPsProcesoSolicitud) {
-        this.paetPsProcesoSolicitud = paetPsProcesoSolicitud;
-    }
     public Short getAnResultadoFactores() {
         return this.anResultadoFactores;
     }
@@ -67,10 +56,14 @@ public class PaetAnAnalisisPuesto  implements java.io.Serializable {
     public void setAnResultadoFinal(Short anResultadoFinal) {
         this.anResultadoFinal = anResultadoFinal;
     }
-
-
-
-
+    
+    public BigDecimal getPsProcesoSolicitud() {
+        return this.psProcesoSolicitud;
+    }
+    
+    public void setPsProcesoSolicitud(BigDecimal psProcesoSolicitud) {
+        this.psProcesoSolicitud = psProcesoSolicitud;
+    }
 }
 
 

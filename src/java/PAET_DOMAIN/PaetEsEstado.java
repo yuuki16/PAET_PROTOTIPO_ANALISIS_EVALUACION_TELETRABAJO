@@ -16,9 +16,6 @@ public class PaetEsEstado  implements java.io.Serializable {
      private BigDecimal esSecuencia;
      private String esDescripcion;
      private char esProceso;
-     private Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos = new HashSet<PaetPgProcesoSeguimiento>(0);
-     private Set<PaetPsProcesoSolicitud> paetPsProcesoSolicituds = new HashSet<PaetPsProcesoSolicitud>(0);
-     private Set<PaetPfProcesoFinalizacion> paetPfProcesoFinalizacions = new HashSet<PaetPfProcesoFinalizacion>(0);
 
     public PaetEsEstado() {
     }
@@ -29,15 +26,6 @@ public class PaetEsEstado  implements java.io.Serializable {
         this.esSecuencia = esSecuencia;
         this.esDescripcion = esDescripcion;
         this.esProceso = esProceso;
-    }
-    public PaetEsEstado(BigDecimal esCodigo, BigDecimal esSecuencia, String esDescripcion, char esProceso, Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos, Set<PaetPsProcesoSolicitud> paetPsProcesoSolicituds, Set<PaetPfProcesoFinalizacion> paetPfProcesoFinalizacions) {
-       this.esCodigo = esCodigo;
-       this.esSecuencia = esSecuencia;
-       this.esDescripcion = esDescripcion;
-       this.esProceso = esProceso;
-       this.paetPgProcesoSeguimientos = paetPgProcesoSeguimientos;
-       this.paetPsProcesoSolicituds = paetPsProcesoSolicituds;
-       this.paetPfProcesoFinalizacions = paetPfProcesoFinalizacions;
     }
    
     public BigDecimal getEsCodigo() {
@@ -68,31 +56,6 @@ public class PaetEsEstado  implements java.io.Serializable {
     public void setEsProceso(char esProceso) {
         this.esProceso = esProceso;
     }
-    public Set<PaetPgProcesoSeguimiento> getPaetPgProcesoSeguimientos() {
-        return this.paetPgProcesoSeguimientos;
-    }
-    
-    public void setPaetPgProcesoSeguimientos(Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos) {
-        this.paetPgProcesoSeguimientos = paetPgProcesoSeguimientos;
-    }
-    public Set<PaetPsProcesoSolicitud> getPaetPsProcesoSolicituds() {
-        return this.paetPsProcesoSolicituds;
-    }
-    
-    public void setPaetPsProcesoSolicituds(Set<PaetPsProcesoSolicitud> paetPsProcesoSolicituds) {
-        this.paetPsProcesoSolicituds = paetPsProcesoSolicituds;
-    }
-    public Set<PaetPfProcesoFinalizacion> getPaetPfProcesoFinalizacions() {
-        return this.paetPfProcesoFinalizacions;
-    }
-    
-    public void setPaetPfProcesoFinalizacions(Set<PaetPfProcesoFinalizacion> paetPfProcesoFinalizacions) {
-        this.paetPfProcesoFinalizacions = paetPfProcesoFinalizacions;
-    }
-
-
-
-
 }
 
 

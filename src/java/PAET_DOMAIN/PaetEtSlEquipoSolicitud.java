@@ -11,16 +11,16 @@ public class PaetEtSlEquipoSolicitud  implements java.io.Serializable {
 
 
      private BigDecimal etSlCodigo;
-     private PaetSlSolicitud paetSlSolicitud;
-     private PaetEtEquipoTecnologico paetEtEquipoTecnologico;
+     private BigDecimal etEquipo;
+     private BigDecimal slSolicitud;
 
     public PaetEtSlEquipoSolicitud() {
     }
 
-    public PaetEtSlEquipoSolicitud(BigDecimal etSlCodigo, PaetSlSolicitud paetSlSolicitud, PaetEtEquipoTecnologico paetEtEquipoTecnologico) {
+    public PaetEtSlEquipoSolicitud(BigDecimal etSlCodigo, BigDecimal etEquipo, BigDecimal slSolicitud) {
        this.etSlCodigo = etSlCodigo;
-       this.paetSlSolicitud = paetSlSolicitud;
-       this.paetEtEquipoTecnologico = paetEtEquipoTecnologico;
+       this.etEquipo = etEquipo;
+       this.slSolicitud = slSolicitud;
     }
    
     public BigDecimal getEtSlCodigo() {
@@ -30,24 +30,22 @@ public class PaetEtSlEquipoSolicitud  implements java.io.Serializable {
     public void setEtSlCodigo(BigDecimal etSlCodigo) {
         this.etSlCodigo = etSlCodigo;
     }
-    public PaetSlSolicitud getPaetSlSolicitud() {
-        return this.paetSlSolicitud;
+    
+    public BigDecimal getEtEquipo() {
+        return this.etEquipo;
     }
     
-    public void setPaetSlSolicitud(PaetSlSolicitud paetSlSolicitud) {
-        this.paetSlSolicitud = paetSlSolicitud;
-    }
-    public PaetEtEquipoTecnologico getPaetEtEquipoTecnologico() {
-        return this.paetEtEquipoTecnologico;
+    public void setEtEquipo(BigDecimal etEquipo) {
+        this.etEquipo = etEquipo;
     }
     
-    public void setPaetEtEquipoTecnologico(PaetEtEquipoTecnologico paetEtEquipoTecnologico) {
-        this.paetEtEquipoTecnologico = paetEtEquipoTecnologico;
+    public BigDecimal getSlSolicitud() {
+        return this.slSolicitud;
     }
-
-
-
-
+    
+    public void setSlSolicitud(BigDecimal slSolicitud) {
+        this.slSolicitud = slSolicitud;
+    }
 }
 
 

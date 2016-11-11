@@ -5,14 +5,16 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetAcPtActividadPuesto" table="PAET_AC_PT_ACTIVIDAD_PUESTO" schema="MMONGE" optimistic-lock="version">
         <id name="acPtCodigo" type="big_decimal">
-            <column name="AC_PT_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="AC_PT_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_AC_PT_ACTIVIDAD_PUESTO_S2</param>
+            </generator>
         </id>
-        <many-to-one name="paetAcActividad" class="PAET_DOMAIN.PaetAcActividad" fetch="select">
-            <column name="AC_ACTIVIDAD" precision="22" scale="0" not-null="true" />
-        </many-to-one>
-        <many-to-one name="paetPtPuesto" class="PAET_DOMAIN.PaetPtPuesto" fetch="select">
-            <column name="PT_PUESTO" length="3" not-null="true" />
-        </many-to-one>
+        <property name="acActividad" type="big_decimal">
+            <column name="AC_ACTIVIDAD" length="38" not-null="true" />
+        </property>
+        <property name="ptPuesto" type="string">
+            <column name="PT_PUESTO" length="5" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

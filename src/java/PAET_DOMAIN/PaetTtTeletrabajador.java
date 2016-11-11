@@ -14,34 +14,23 @@ public class PaetTtTeletrabajador  implements java.io.Serializable {
 
 
      private BigDecimal ttCodigo;
-     private PaetTrTrabajador paetTrTrabajador;
-     private PaetSlSolicitud paetSlSolicitud;
      private Date ttFechaInicio;
      private Date ttFechaFin;
      private char ttEstado;
-     private Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos = new HashSet<PaetPgProcesoSeguimiento>(0);
-     private Set<PaetDiTtDiaTeletrabajador> paetDiTtDiaTeletrabajadors = new HashSet<PaetDiTtDiaTeletrabajador>(0);
+     private String trTrabajador;
+     private BigDecimal slSolicitud;
 
     public PaetTtTeletrabajador() {
     }
 
 	
-    public PaetTtTeletrabajador(BigDecimal ttCodigo, PaetTrTrabajador paetTrTrabajador, PaetSlSolicitud paetSlSolicitud, Date ttFechaInicio, char ttEstado) {
+    public PaetTtTeletrabajador(BigDecimal ttCodigo, Date ttFechaInicio, Date ttFechaFin, char ttEstado, String trTrabajador, BigDecimal slSolicitud) {
         this.ttCodigo = ttCodigo;
-        this.paetTrTrabajador = paetTrTrabajador;
-        this.paetSlSolicitud = paetSlSolicitud;
         this.ttFechaInicio = ttFechaInicio;
+        this.ttFechaFin = ttFechaFin;
         this.ttEstado = ttEstado;
-    }
-    public PaetTtTeletrabajador(BigDecimal ttCodigo, PaetTrTrabajador paetTrTrabajador, PaetSlSolicitud paetSlSolicitud, Date ttFechaInicio, Date ttFechaFin, char ttEstado, Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos, Set<PaetDiTtDiaTeletrabajador> paetDiTtDiaTeletrabajadors) {
-       this.ttCodigo = ttCodigo;
-       this.paetTrTrabajador = paetTrTrabajador;
-       this.paetSlSolicitud = paetSlSolicitud;
-       this.ttFechaInicio = ttFechaInicio;
-       this.ttFechaFin = ttFechaFin;
-       this.ttEstado = ttEstado;
-       this.paetPgProcesoSeguimientos = paetPgProcesoSeguimientos;
-       this.paetDiTtDiaTeletrabajadors = paetDiTtDiaTeletrabajadors;
+        this.trTrabajador = trTrabajador;
+        this.slSolicitud = slSolicitud;
     }
    
     public BigDecimal getTtCodigo() {
@@ -51,20 +40,7 @@ public class PaetTtTeletrabajador  implements java.io.Serializable {
     public void setTtCodigo(BigDecimal ttCodigo) {
         this.ttCodigo = ttCodigo;
     }
-    public PaetTrTrabajador getPaetTrTrabajador() {
-        return this.paetTrTrabajador;
-    }
     
-    public void setPaetTrTrabajador(PaetTrTrabajador paetTrTrabajador) {
-        this.paetTrTrabajador = paetTrTrabajador;
-    }
-    public PaetSlSolicitud getPaetSlSolicitud() {
-        return this.paetSlSolicitud;
-    }
-    
-    public void setPaetSlSolicitud(PaetSlSolicitud paetSlSolicitud) {
-        this.paetSlSolicitud = paetSlSolicitud;
-    }
     public Date getTtFechaInicio() {
         return this.ttFechaInicio;
     }
@@ -86,24 +62,22 @@ public class PaetTtTeletrabajador  implements java.io.Serializable {
     public void setTtEstado(char ttEstado) {
         this.ttEstado = ttEstado;
     }
-    public Set<PaetPgProcesoSeguimiento> getPaetPgProcesoSeguimientos() {
-        return this.paetPgProcesoSeguimientos;
+    
+    public String getTrTrabajador() {
+        return this.trTrabajador;
     }
     
-    public void setPaetPgProcesoSeguimientos(Set<PaetPgProcesoSeguimiento> paetPgProcesoSeguimientos) {
-        this.paetPgProcesoSeguimientos = paetPgProcesoSeguimientos;
-    }
-    public Set<PaetDiTtDiaTeletrabajador> getPaetDiTtDiaTeletrabajadors() {
-        return this.paetDiTtDiaTeletrabajadors;
+    public void setTrTrabajador(String trTrabajador) {
+        this.trTrabajador = trTrabajador;
     }
     
-    public void setPaetDiTtDiaTeletrabajadors(Set<PaetDiTtDiaTeletrabajador> paetDiTtDiaTeletrabajadors) {
-        this.paetDiTtDiaTeletrabajadors = paetDiTtDiaTeletrabajadors;
+    public BigDecimal getSlSolicitud() {
+        return this.slSolicitud;
     }
-
-
-
-
+    
+    public void setSlSolicitud(BigDecimal slSolicitud) {
+        this.slSolicitud = slSolicitud;
+    }
 }
 
 

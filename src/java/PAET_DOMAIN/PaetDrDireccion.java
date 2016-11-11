@@ -15,15 +15,17 @@ public class PaetDrDireccion  implements java.io.Serializable {
      private String drDescripcion;
      private char drEstado;
      private BigDecimal dvDivision;
+     private String trDirector;
 
     public PaetDrDireccion() {
     }
 
-    public PaetDrDireccion(BigDecimal drCodigo, String drDescripcion, char drEstado, BigDecimal dvDivision) {
+    public PaetDrDireccion(BigDecimal drCodigo, String drDescripcion, char drEstado, BigDecimal dvDivision, String trDirector) {
         this.drCodigo = drCodigo;
         this.drDescripcion = drDescripcion;
         this.drEstado = drEstado;
         this.dvDivision = dvDivision;
+        this.trDirector = trDirector;
     }
    
     public BigDecimal getDrCodigo() {
@@ -54,6 +56,14 @@ public class PaetDrDireccion  implements java.io.Serializable {
     
     public void setDvDivision(BigDecimal dvDivision) {
         this.dvDivision = dvDivision;
+    }
+    
+    public String getTrDirector() {
+        return this.trDirector;
+    }
+    
+    public void setTrDirector(String trDirector) {
+        this.trDirector = trDirector;
     }
 }
 

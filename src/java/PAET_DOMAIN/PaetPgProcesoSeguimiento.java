@@ -14,39 +14,27 @@ public class PaetPgProcesoSeguimiento  implements java.io.Serializable {
 
 
      private BigDecimal pgCodigo;
-     private PaetEsEstado paetEsEstado;
-     private PaetTtTeletrabajador paetTtTeletrabajador;
      private Date pgFecha;
      private BigDecimal pgNumero;
      private String pgObservacion;
+     private BigDecimal ttTeletrabajador;
+     private BigDecimal esEstado;
      private Date pgFechaAtendido;
      private char pgEstado;
-     private Set<PaetEvEvaluacion> paetEvEvaluacions = new HashSet<PaetEvEvaluacion>(0);
-     private Set<PaetReRecomendacion> paetReRecomendacions = new HashSet<PaetReRecomendacion>(0);
 
     public PaetPgProcesoSeguimiento() {
     }
 
 	
-    public PaetPgProcesoSeguimiento(BigDecimal pgCodigo, PaetEsEstado paetEsEstado, PaetTtTeletrabajador paetTtTeletrabajador, Date pgFecha, BigDecimal pgNumero, char pgEstado) {
+    public PaetPgProcesoSeguimiento(BigDecimal pgCodigo, Date pgFecha, BigDecimal pgNumero, String pgObservacion, BigDecimal ttTeletrabajador, BigDecimal esEstado, Date pgFechaAtendido, char pgEstado) {
         this.pgCodigo = pgCodigo;
-        this.paetEsEstado = paetEsEstado;
-        this.paetTtTeletrabajador = paetTtTeletrabajador;
         this.pgFecha = pgFecha;
         this.pgNumero = pgNumero;
+        this.pgObservacion = pgObservacion;
+        this.ttTeletrabajador = ttTeletrabajador;
+        this.esEstado = esEstado;
+        this.pgFechaAtendido = pgFechaAtendido;
         this.pgEstado = pgEstado;
-    }
-    public PaetPgProcesoSeguimiento(BigDecimal pgCodigo, PaetEsEstado paetEsEstado, PaetTtTeletrabajador paetTtTeletrabajador, Date pgFecha, BigDecimal pgNumero, String pgObservacion, Date pgFechaAtendido, char pgEstado, Set<PaetEvEvaluacion> paetEvEvaluacions, Set<PaetReRecomendacion> paetReRecomendacions) {
-       this.pgCodigo = pgCodigo;
-       this.paetEsEstado = paetEsEstado;
-       this.paetTtTeletrabajador = paetTtTeletrabajador;
-       this.pgFecha = pgFecha;
-       this.pgNumero = pgNumero;
-       this.pgObservacion = pgObservacion;
-       this.pgFechaAtendido = pgFechaAtendido;
-       this.pgEstado = pgEstado;
-       this.paetEvEvaluacions = paetEvEvaluacions;
-       this.paetReRecomendacions = paetReRecomendacions;
     }
    
     public BigDecimal getPgCodigo() {
@@ -56,20 +44,7 @@ public class PaetPgProcesoSeguimiento  implements java.io.Serializable {
     public void setPgCodigo(BigDecimal pgCodigo) {
         this.pgCodigo = pgCodigo;
     }
-    public PaetEsEstado getPaetEsEstado() {
-        return this.paetEsEstado;
-    }
     
-    public void setPaetEsEstado(PaetEsEstado paetEsEstado) {
-        this.paetEsEstado = paetEsEstado;
-    }
-    public PaetTtTeletrabajador getPaetTtTeletrabajador() {
-        return this.paetTtTeletrabajador;
-    }
-    
-    public void setPaetTtTeletrabajador(PaetTtTeletrabajador paetTtTeletrabajador) {
-        this.paetTtTeletrabajador = paetTtTeletrabajador;
-    }
     public Date getPgFecha() {
         return this.pgFecha;
     }
@@ -91,6 +66,23 @@ public class PaetPgProcesoSeguimiento  implements java.io.Serializable {
     public void setPgObservacion(String pgObservacion) {
         this.pgObservacion = pgObservacion;
     }
+    
+    public BigDecimal getTtTeletrabajador() {
+        return this.ttTeletrabajador;
+    }
+    
+    public void setTtTeletrabajador(BigDecimal ttTeletrabajador) {
+        this.ttTeletrabajador = ttTeletrabajador;
+    }
+    
+    public BigDecimal getEsEstado() {
+        return this.esEstado;
+    }
+    
+    public void setEsEstado(BigDecimal esEstado) {
+        this.esEstado = esEstado;
+    }
+    
     public Date getPgFechaAtendido() {
         return this.pgFechaAtendido;
     }
@@ -105,24 +97,6 @@ public class PaetPgProcesoSeguimiento  implements java.io.Serializable {
     public void setPgEstado(char pgEstado) {
         this.pgEstado = pgEstado;
     }
-    public Set<PaetEvEvaluacion> getPaetEvEvaluacions() {
-        return this.paetEvEvaluacions;
-    }
-    
-    public void setPaetEvEvaluacions(Set<PaetEvEvaluacion> paetEvEvaluacions) {
-        this.paetEvEvaluacions = paetEvEvaluacions;
-    }
-    public Set<PaetReRecomendacion> getPaetReRecomendacions() {
-        return this.paetReRecomendacions;
-    }
-    
-    public void setPaetReRecomendacions(Set<PaetReRecomendacion> paetReRecomendacions) {
-        this.paetReRecomendacions = paetReRecomendacions;
-    }
-
-
-
-
 }
 
 

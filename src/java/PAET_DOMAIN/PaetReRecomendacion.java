@@ -12,30 +12,23 @@ public class PaetReRecomendacion  implements java.io.Serializable {
 
 
      private BigDecimal reCodigo;
-     private PaetPgProcesoSeguimiento paetPgProcesoSeguimiento;
      private Date reFechaLimite;
      private Date reFechaRealizada;
      private String reDescripcion;
      private char reEstado;
+     private BigDecimal pgProcesoSeguimiento;
 
     public PaetReRecomendacion() {
     }
 
 	
-    public PaetReRecomendacion(BigDecimal reCodigo, PaetPgProcesoSeguimiento paetPgProcesoSeguimiento, Date reFechaLimite, String reDescripcion, char reEstado) {
+    public PaetReRecomendacion(BigDecimal reCodigo, Date reFechaLimite, Date reFechaRealizada, String reDescripcion, char reEstado, BigDecimal pgProcesoSeguimiento) {
         this.reCodigo = reCodigo;
-        this.paetPgProcesoSeguimiento = paetPgProcesoSeguimiento;
         this.reFechaLimite = reFechaLimite;
+        this.reFechaRealizada = reFechaRealizada;
         this.reDescripcion = reDescripcion;
         this.reEstado = reEstado;
-    }
-    public PaetReRecomendacion(BigDecimal reCodigo, PaetPgProcesoSeguimiento paetPgProcesoSeguimiento, Date reFechaLimite, Date reFechaRealizada, String reDescripcion, char reEstado) {
-       this.reCodigo = reCodigo;
-       this.paetPgProcesoSeguimiento = paetPgProcesoSeguimiento;
-       this.reFechaLimite = reFechaLimite;
-       this.reFechaRealizada = reFechaRealizada;
-       this.reDescripcion = reDescripcion;
-       this.reEstado = reEstado;
+        this.pgProcesoSeguimiento = pgProcesoSeguimiento;
     }
    
     public BigDecimal getReCodigo() {
@@ -45,13 +38,7 @@ public class PaetReRecomendacion  implements java.io.Serializable {
     public void setReCodigo(BigDecimal reCodigo) {
         this.reCodigo = reCodigo;
     }
-    public PaetPgProcesoSeguimiento getPaetPgProcesoSeguimiento() {
-        return this.paetPgProcesoSeguimiento;
-    }
     
-    public void setPaetPgProcesoSeguimiento(PaetPgProcesoSeguimiento paetPgProcesoSeguimiento) {
-        this.paetPgProcesoSeguimiento = paetPgProcesoSeguimiento;
-    }
     public Date getReFechaLimite() {
         return this.reFechaLimite;
     }
@@ -81,9 +68,13 @@ public class PaetReRecomendacion  implements java.io.Serializable {
         this.reEstado = reEstado;
     }
 
-
-
-
+    public BigDecimal getPgProcesoSeguimiento() {
+        return this.pgProcesoSeguimiento;
+    }
+    
+    public void setPgProcesoSeguimiento(BigDecimal pgProcesoSeguimiento) {
+        this.pgProcesoSeguimiento = pgProcesoSeguimiento;
+    }
 }
 
 

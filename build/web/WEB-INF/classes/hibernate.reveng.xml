@@ -10,7 +10,6 @@
   <table-filter match-name="PAET_CU_CAUSA"/>
   <table-filter match-name="PAET_PR_PROVINCIA"/>
   <table-filter match-name="PAET_TL_TELEFONO"/>
-  <table-filter match-name="PAET_MT_PT_META_PUESTO"/>
   <table-filter match-name="PAET_ES_ESTADO"/>
   <table-filter match-name="PAET_CR_CORREO"/>
   <table-filter match-name="PAET_PG_PROCESO_SEGUIMIENTO"/>
@@ -24,7 +23,6 @@
   <table-filter match-name="PAET_PT_PUESTO"/>
   <table-filter match-name="PAET_GR_GERENCIA"/>
   <table-filter match-name="PAET_DI_TT_DIA_TELETRABAJADOR"/>
-  <table-filter match-name="PAET_PF_PROCESO_FINALIZACION"/>
   <table-filter match-name="PAET_ET_EQUIPO_TECNOLOGICO"/>
   <table-filter match-name="PAET_AC_PT_ACTIVIDAD_PUESTO"/>
   <table-filter match-name="PAET_EV_EVALUACION"/>

@@ -5,19 +5,22 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetDrDireccion" table="PAET_DR_DIRECCION" schema="MMONGE" optimistic-lock="version">
         <id name="drCodigo" type="big_decimal">
-            <column name="DR_CODIGO" precision="22" scale="0" />
+            <column name="DR_CODIGO" precision="38" scale="0" />
             <generator class="sequence">
                 <param name="sequence">PAET_DR_DIRECCION_SEQ</param>
             </generator>
         </id>
         <property name="drDescripcion" type="string">
-            <column name="DR_DESCRIPCION" length="100" not-null="true" unique="true" />
+            <column name="DR_DESCRIPCION" length="50" not-null="true" unique="true" />
         </property>
         <property name="drEstado" type="char">
             <column name="DR_ESTADO" length="1" not-null="true" />
         </property>
         <property name="dvDivision" type="big_decimal">
-            <column name="DV_DIVISION" precision="22" scale="0" not-null="true" />
+            <column name="DV_DIVISION" precision="38" scale="0" not-null="true" />
+        </property>
+        <property name="trDirector" type="string">
+            <column name="TR_DIRECTOR" length="20" not-null="true" unique="true" />
         </property>
     </class>
 </hibernate-mapping>

@@ -11,16 +11,16 @@ public class PaetDiSlDiaSolicitud  implements java.io.Serializable {
 
 
      private BigDecimal diSlCodigo;
-     private PaetDiDia paetDiDia;
-     private PaetSlSolicitud paetSlSolicitud;
+     private char diDia;
+     private BigDecimal slSolicitud;
 
     public PaetDiSlDiaSolicitud() {
     }
 
-    public PaetDiSlDiaSolicitud(BigDecimal diSlCodigo, PaetDiDia paetDiDia, PaetSlSolicitud paetSlSolicitud) {
+    public PaetDiSlDiaSolicitud(BigDecimal diSlCodigo, char diDia, BigDecimal slSolicitud) {
        this.diSlCodigo = diSlCodigo;
-       this.paetDiDia = paetDiDia;
-       this.paetSlSolicitud = paetSlSolicitud;
+       this.diDia = diDia;
+       this.slSolicitud = slSolicitud;
     }
    
     public BigDecimal getDiSlCodigo() {
@@ -30,24 +30,22 @@ public class PaetDiSlDiaSolicitud  implements java.io.Serializable {
     public void setDiSlCodigo(BigDecimal diSlCodigo) {
         this.diSlCodigo = diSlCodigo;
     }
-    public PaetDiDia getPaetDiDia() {
-        return this.paetDiDia;
+    
+    public char getDiDia() {
+        return this.diDia;
     }
     
-    public void setPaetDiDia(PaetDiDia paetDiDia) {
-        this.paetDiDia = paetDiDia;
-    }
-    public PaetSlSolicitud getPaetSlSolicitud() {
-        return this.paetSlSolicitud;
+    public void setDiDia(char diDia) {
+        this.diDia = diDia;
     }
     
-    public void setPaetSlSolicitud(PaetSlSolicitud paetSlSolicitud) {
-        this.paetSlSolicitud = paetSlSolicitud;
+    public BigDecimal getSlSolicitud() {
+        return this.slSolicitud;
     }
-
-
-
-
+    
+    public void setSlSolicitud(BigDecimal slSolicitud) {
+        this.slSolicitud = slSolicitud;
+    }
 }
 
 

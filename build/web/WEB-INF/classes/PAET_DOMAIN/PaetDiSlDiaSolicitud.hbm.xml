@@ -5,14 +5,16 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetDiSlDiaSolicitud" table="PAET_DI_SL_DIA_SOLICITUD" schema="MMONGE" optimistic-lock="version">
         <id name="diSlCodigo" type="big_decimal">
-            <column name="DI_SL_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="DI_SL_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_DI_SL_DIA_SOLICITUD_SEQ</param>
+            </generator>
         </id>
-        <many-to-one name="paetDiDia" class="PAET_DOMAIN.PaetDiDia" fetch="select">
+        <property name="diDia" type="char">
             <column name="DI_DIA" length="1" not-null="true" />
-        </many-to-one>
-        <many-to-one name="paetSlSolicitud" class="PAET_DOMAIN.PaetSlSolicitud" fetch="select">
-            <column name="SL_SOLICITUD" precision="22" scale="0" not-null="true" />
-        </many-to-one>
+        </property>
+        <property name="slSolicitud" type="big_decimal">
+            <column name="SL_SOLICITUD" length="38" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -5,17 +5,19 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetFcPtFactorPuesto" table="PAET_FC_PT_FACTOR_PUESTO" schema="MMONGE" optimistic-lock="version">
         <id name="fcPtCodigo" type="big_decimal">
-            <column name="FC_PT_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="FC_PT_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_FC_PT_FACTOR_PUESTO_SEQ2</param>
+            </generator>
         </id>
-        <many-to-one name="paetPtPuesto" class="PAET_DOMAIN.PaetPtPuesto" fetch="select">
-            <column name="PT_PUESTO" length="3" not-null="true" />
-        </many-to-one>
-        <many-to-one name="paetFcFactorComplementario" class="PAET_DOMAIN.PaetFcFactorComplementario" fetch="select">
-            <column name="FC_FACTOR" precision="22" scale="0" not-null="true" />
-        </many-to-one>
-        <property name="fcPtGrado" type="boolean">
+        <property name="fcPtGrado" type="java.lang.Short">
             <column name="FC_PT_GRADO" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="fcFactor" type="big_decimal">
+            <column name="FC_FACTOR" precision="38" scale="0" not-null="true"/>
+        </property>
+        <property name="ptPuesto" type="string">
+            <column name="PT_PUESTO" length="3" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

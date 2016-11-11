@@ -5,20 +5,19 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetMtMeta" table="PAET_MT_META" schema="MMONGE" optimistic-lock="version">
         <id name="mtCodigo" type="big_decimal">
-            <column name="MT_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="MT_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_MT_META_SEQ1</param>
+            </generator>
         </id>
-        <many-to-one name="paetEvEvaluacion" class="PAET_DOMAIN.PaetEvEvaluacion" fetch="select">
-            <column name="EV_EVALUACION" precision="22" scale="0" not-null="true" />
-        </many-to-one>
         <property name="mtDescripcion" type="string">
-            <column name="MT_DESCRIPCION" length="400" not-null="true" />
+            <column name="MT_DESCRIPCION" length="200" not-null="true" />
         </property>
         <property name="mtLimite" type="short">
             <column name="MT_LIMITE" precision="4" scale="0" not-null="true" />
         </property>
         <property name="mtPeso" type="short">
-            <column name="MT_PESO" precision="3" scale="0" not-null="true" />
+            <column name="MT_PESO" precision="3" scale="1" not-null="true" />
         </property>
         <property name="mtLimiteSobresaliente" type="short">
             <column name="MT_LIMITE_SOBRESALIENTE" precision="4" scale="0" not-null="true" />
@@ -26,20 +25,23 @@
         <property name="mtLimiteBajo" type="short">
             <column name="MT_LIMITE_BAJO" precision="4" scale="0" not-null="true" />
         </property>
-        <property name="mtPorcentajeSobresaliente" type="big_decimal">
-            <column name="MT_PORCENTAJE_SOBRESALIENTE" precision="3" not-null="true" />
+        <property name="mtPorcentajeSobresaliente" type="short">
+            <column name="MT_PORCENTAJE_SOBRESALIENTE" precision="3" scale="1" not-null="true" />
         </property>
-        <property name="mtPorcentajeBajo" type="big_decimal">
-            <column name="MT_PORCENTAJE_BAJO" precision="3" not-null="true" />
+        <property name="mtPorcentajeBajo" type="short">
+            <column name="MT_PORCENTAJE_BAJO" precision="3" scale="1" not-null="true" />
         </property>
         <property name="mtComentario" type="string">
-            <column name="MT_COMENTARIO" length="100" />
+            <column name="MT_COMENTARIO" length="50" />
         </property>
-        <set name="paetMtPtMetaPuestos" table="PAET_MT_PT_META_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="MT_META" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetMtPtMetaPuesto" />
-        </set>
+        <property name="evEvaluacion" type="big_decimal">
+            <column name="EV_EVALUACION" precision="38" not-null="true"  />
+        </property>
+        <property name="mtLogroAlcanzado" type="short">
+            <column name="MT_LOGRO_ALCANZADO" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="mtPorcentajeAlcanzado" type="short">
+            <column name="MT_PORCENTAJE_ALCANZADO" precision="3" scale="1" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

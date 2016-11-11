@@ -5,12 +5,11 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetAnAnalisisPuesto" table="PAET_AN_ANALISIS_PUESTO" schema="MMONGE" optimistic-lock="version">
         <id name="anCodigo" type="big_decimal">
-            <column name="AN_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="AN_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_AN_ANALISIS_PUESTO_SEQ</param>
+            </generator>
         </id>
-        <many-to-one name="paetPsProcesoSolicitud" class="PAET_DOMAIN.PaetPsProcesoSolicitud" fetch="select">
-            <column name="PS_PROCESO_SOLICITUD" precision="22" scale="0" not-null="true" unique="true" />
-        </many-to-one>
         <property name="anResultadoFactores" type="java.lang.Short">
             <column name="AN_RESULTADO_FACTORES" precision="3" scale="0" />
         </property>
@@ -19,6 +18,9 @@
         </property>
         <property name="anResultadoFinal" type="java.lang.Short">
             <column name="AN_RESULTADO_FINAL" precision="3" scale="0" />
+        </property>
+        <property name="psProcesoSolicitud" type="big_decimal">
+            <column name="PS_PROCESO_SOLICITUD" length="38" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

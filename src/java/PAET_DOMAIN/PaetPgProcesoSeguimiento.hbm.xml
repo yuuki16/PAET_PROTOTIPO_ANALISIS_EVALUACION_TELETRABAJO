@@ -5,23 +5,25 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetPgProcesoSeguimiento" table="PAET_PG_PROCESO_SEGUIMIENTO" schema="MMONGE" optimistic-lock="version">
         <id name="pgCodigo" type="big_decimal">
-            <column name="PG_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="PG_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_PG_PROCESO_SEGUIMIENTO_S</param>
+            </generator>
         </id>
-        <many-to-one name="paetEsEstado" class="PAET_DOMAIN.PaetEsEstado" fetch="select">
-            <column name="ES_ESTADO" precision="22" scale="0" not-null="true" />
-        </many-to-one>
-        <many-to-one name="paetTtTeletrabajador" class="PAET_DOMAIN.PaetTtTeletrabajador" fetch="select">
-            <column name="TT_TELETRABAJADOR" precision="22" scale="0" not-null="true" />
-        </many-to-one>
         <property name="pgFecha" type="date">
             <column name="PG_FECHA" length="7" not-null="true" />
         </property>
         <property name="pgNumero" type="big_decimal">
-            <column name="PG_NUMERO" precision="22" scale="0" not-null="true" />
+            <column name="PG_NUMERO" precision="38" scale="0" not-null="true" />
         </property>
         <property name="pgObservacion" type="string">
-            <column name="PG_OBSERVACION" length="200" />
+            <column name="PG_OBSERVACION" length="100" />
+        </property>
+        <property name="ttTeletrabajador" type="big_decimal">
+            <column name="TT_TELETRABAJADOR" precision="38" scale="0" not-null="true" />
+        </property>
+        <property name="esEstado" type="big_decimal">
+            <column name="ES_ESTADO" precision="38" scale="0" not-null="true" />
         </property>
         <property name="pgFechaAtendido" type="date">
             <column name="PG_FECHA_ATENDIDO" length="7" />
@@ -29,17 +31,5 @@
         <property name="pgEstado" type="char">
             <column name="PG_ESTADO" length="1" not-null="true" />
         </property>
-        <set name="paetEvEvaluacions" table="PAET_EV_EVALUACION" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="PG_PROCESO_SEGUIMIENTO" precision="22" scale="0" not-null="true" unique="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetEvEvaluacion" />
-        </set>
-        <set name="paetReRecomendacions" table="PAET_RE_RECOMENDACION" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="PG_PROCESO_SEGUIMIENTO" precision="22" scale="0" not-null="true" unique="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetReRecomendacion" />
-        </set>
     </class>
 </hibernate-mapping>

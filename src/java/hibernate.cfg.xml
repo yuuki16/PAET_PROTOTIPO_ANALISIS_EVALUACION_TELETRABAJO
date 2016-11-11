@@ -18,7 +18,6 @@
     <mapping resource="PAET_DOMAIN/PaetDiTtDiaTeletrabajador.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetEtEquipoTecnologico.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetPtPuesto.hbm.xml"/>
-    <mapping resource="PAET_DOMAIN/PaetMtPtMetaPuesto.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetFcPtFactorPuesto.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetSlSolicitud.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetEvEvaluacion.hbm.xml"/>
@@ -36,7 +35,6 @@
     <mapping resource="PAET_DOMAIN/PaetDiSlDiaSolicitud.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetAmAccionMejora.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetAcActividad.hbm.xml"/>
-    <mapping resource="PAET_DOMAIN/PaetPfProcesoFinalizacion.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetDvDivision.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetCaCaracteristica.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetCrCorreo.hbm.xml"/>

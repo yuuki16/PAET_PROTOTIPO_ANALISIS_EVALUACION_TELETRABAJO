@@ -5,26 +5,16 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetAcActividad" table="PAET_AC_ACTIVIDAD" schema="MMONGE" optimistic-lock="version">
         <id name="acCodigo" type="big_decimal">
-            <column name="AC_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="AC_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_AC_ACTIVIDAD_SEQ2</param>
+            </generator>
         </id>
         <property name="acDescripcion" type="string">
-            <column name="AC_DESCRIPCION" length="200" not-null="true" unique="true" />
+            <column name="AC_DESCRIPCION" length="100" not-null="true" unique="true" />
         </property>
         <property name="acAlineamiento" type="char">
             <column name="AC_ALINEAMIENTO" length="1" not-null="true" />
         </property>
-        <set name="paetAcPtActividadPuestos" table="PAET_AC_PT_ACTIVIDAD_PUESTO" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="AC_ACTIVIDAD" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetAcPtActividadPuesto" />
-        </set>
-        <set name="paetAcCaActCaracts" table="PAET_AC_CA_ACT_CARACT" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="AC_ACTIVIDAD" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetAcCaActCaract" />
-        </set>
     </class>
 </hibernate-mapping>

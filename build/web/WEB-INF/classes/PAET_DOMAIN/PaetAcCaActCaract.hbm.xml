@@ -5,15 +5,17 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetAcCaActCaract" table="PAET_AC_CA_ACT_CARACT" schema="MMONGE" optimistic-lock="version">
         <id name="acCaCodigo" type="big_decimal">
-            <column name="AC_CA_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="AC_CA_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_AC_CA_ACT_CARACT_SEQ</param>
+            </generator>
         </id>
-        <many-to-one name="paetCaCaracteristica" class="PAET_DOMAIN.PaetCaCaracteristica" fetch="select">
-            <column name="CA_CARACTERISTICA" precision="22" scale="0" not-null="true" />
-        </many-to-one>
-        <many-to-one name="paetAcActividad" class="PAET_DOMAIN.PaetAcActividad" fetch="select">
-            <column name="AC_ACTIVIDAD" precision="22" scale="0" not-null="true" />
-        </many-to-one>
+        <property name="acActividad" type="big_decimal">
+            <column name="AC_ACTIVIDAD" length="38" not-null="true" />
+        </property>
+        <property name="caCaracteristica" type="big_decimal">
+            <column name="CA_CARACTERISTICA" length="38" not-null="true" />
+        </property>
         <property name="acCaTeletrabajable" type="char">
             <column name="AC_CA_TELETRABAJABLE" length="1" not-null="true" />
         </property>

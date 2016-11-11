@@ -5,11 +5,13 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetSlSolicitud" table="PAET_SL_SOLICITUD" schema="MMONGE" optimistic-lock="version">
         <id name="slCodigo" type="big_decimal">
-            <column name="SL_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="SL_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_SL_SOLICITUD_SEQ</param>
+            </generator>
         </id>
         <property name="slJustificacion" type="string">
-            <column name="SL_JUSTIFICACION" length="100" not-null="true" />
+            <column name="SL_JUSTIFICACION" length="500" not-null="true" />
         </property>
         <property name="slFecha" type="date">
             <column name="SL_FECHA" length="7" not-null="true" />

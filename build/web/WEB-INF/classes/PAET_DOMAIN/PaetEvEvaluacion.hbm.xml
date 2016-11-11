@@ -5,12 +5,11 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetEvEvaluacion" table="PAET_EV_EVALUACION" schema="MMONGE" optimistic-lock="version">
         <id name="evCodigo" type="big_decimal">
-            <column name="EV_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="EV_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_EV_EVALUACION_SEQ1</param>
+            </generator>
         </id>
-        <many-to-one name="paetPgProcesoSeguimiento" class="PAET_DOMAIN.PaetPgProcesoSeguimiento" fetch="select">
-            <column name="PG_PROCESO_SEGUIMIENTO" precision="22" scale="0" not-null="true" unique="true" />
-        </many-to-one>
         <property name="evFecha" type="date">
             <column name="EV_FECHA" length="7" not-null="true" />
         </property>
@@ -26,23 +25,8 @@
         <property name="evResultado" type="java.lang.Short">
             <column name="EV_RESULTADO" precision="3" scale="0" />
         </property>
-        <set name="paetCuCausas" table="PAET_CU_CAUSA" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="EV_EVALUACION" precision="22" scale="0" not-null="true" unique="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetCuCausa" />
-        </set>
-        <set name="paetMtMetas" table="PAET_MT_META" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="EV_EVALUACION" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetMtMeta" />
-        </set>
-        <set name="paetAmAccionMejoras" table="PAET_AM_ACCION_MEJORA" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="EV_EVALUACION" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="PAET_DOMAIN.PaetAmAccionMejora" />
-        </set>
+        <property name="pgProcesoSeguimiento" type="big_decimal">
+            <column name="PG_PROCESO_SEGUIMIENTO" precision="38" scale="0" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>

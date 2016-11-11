@@ -5,17 +5,25 @@
 <hibernate-mapping>
     <class name="PAET_DOMAIN.PaetDcDocumentacion" table="PAET_DC_DOCUMENTACION" schema="MMONGE" optimistic-lock="version">
         <id name="dcCodigo" type="big_decimal">
-            <column name="DC_CODIGO" precision="22" scale="0" />
-            <generator class="assigned" />
+            <column name="DC_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_DC_DOCUMENTACION_SEQ</param>
+            </generator>
         </id>
         <property name="dcNombre" type="string">
-            <column name="DC_NOMBRE" length="200" not-null="true" unique="true" />
+            <column name="DC_NOMBRE" length="100" not-null="true" unique="true" />
         </property>
         <property name="dcOrigen" type="string">
-            <column name="DC_ORIGEN" length="200" not-null="true" />
+            <column name="DC_ORIGEN" length="100" not-null="true" />
         </property>
         <property name="dcFecha" type="date">
             <column name="DC_FECHA" length="7" not-null="true" />
+        </property>
+        <property name="dcTipoProceso" type="char">
+            <column name="DC_TIPO_PROCESO" length="1" not-null="true" />
+        </property>
+        <property name="dcProceso" type="big_decimal">
+            <column name="DC_PROCESO" length="38" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
