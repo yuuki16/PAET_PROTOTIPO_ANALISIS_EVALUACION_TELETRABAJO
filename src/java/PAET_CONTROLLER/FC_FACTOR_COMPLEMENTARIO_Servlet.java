@@ -42,10 +42,7 @@ public class FC_FACTOR_COMPLEMENTARIO_Servlet extends HttpServlet {
             Boolean unico;
             PaetFcFactorComplementario factorComplementario = new PaetFcFactorComplementario();
             PAET_FC_FACTOR_COMPLEMENTARIO_BL factorComplementarioBl = new PAET_FC_FACTOR_COMPLEMENTARIO_BL();
-
-            Thread.sleep(1000);
-
-            HttpSession session = request.getSession();
+            
             String accion = request.getParameter("accion");
 
             switch (accion) {

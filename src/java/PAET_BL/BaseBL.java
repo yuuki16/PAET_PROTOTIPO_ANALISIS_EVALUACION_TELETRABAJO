@@ -21,7 +21,7 @@ public class BaseBL {
             daos = new HashMap();
             daos.put("PAET_DOMAIN.PaetAcActividad", new PAET_AC_ACTIVIDAD_DAO());
             daos.put("PAET_DOMAIN.PaetAcCaActCaract", new PAET_AC_CA_ACT_CARACT_DAO());
-            daos.put("PAET_DOMAIN.PaetAcPtActividadPuesto", new PAET_AC_PT_ACTIVIDAD_PUESTO_DAO());
+            daos.put("PAET_DOMAIN.PaetAcPtActividadPuesto", new PAET_AC_AN_ACTIVIDAD_ANALISIS_DAO());
             daos.put("PAET_DOMAIN.PaetAmAccionMejora", new PAET_AM_ACCION_MEJORA_DAO());
             daos.put("PAET_DOMAIN.PaetArArea", new PAET_AR_AREA_DAO());
             daos.put("PAET_DOMAIN.PaetCaCaracteristica", new PAET_CA_CARACTERISTICA_DAO());
@@ -41,7 +41,7 @@ public class BaseBL {
             daos.put("PAET_DOMAIN.PaetEtSlEquipoSolicitud", new PAET_ET_SL_EQUIPO_SOLICITUD_DAO());
             daos.put("PAET_DOMAIN.PaetEvEvaluacion", new PAET_EV_EVALUACION_DAO());
             daos.put("PAET_DOMAIN.PaetFcFactorComplementario", new PAET_FC_FACTOR_COMPLEMENTARIO_DAO());
-            daos.put("PAET_DOMAIN.PaetFcPtFactorPuesto", new PAET_FC_PT_FACTOR_PUESTO_DAO());
+            daos.put("PAET_DOMAIN.PaetFcPtFactorPuesto", new PAET_FC_AN_FACTOR_ANALISIS_DAO());
             daos.put("PAET_DOMAIN.PaetGrGerencia", new PAET_GR_GERENCIA_DAO());
             daos.put("PAET_DOMAIN.PaetMtMeta", new PAET_MT_META_DAO());
             daos.put("PAET_DOMAIN.PaetPgProcesoSeguimiento", new PAET_PG_PROCESO_SEGUIMIENTO_DAO());

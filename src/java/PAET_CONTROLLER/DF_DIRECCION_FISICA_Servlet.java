@@ -43,8 +43,6 @@ public class DF_DIRECCION_FISICA_Servlet extends HttpServlet {
             PaetDfDireccionFisica direccionFisica = new PaetDfDireccionFisica();
             PAET_DF_DIRECCION_FISICA_BL direccionFisicaBl = new PAET_DF_DIRECCION_FISICA_BL();
 
-            Thread.sleep(1000);
-
             String accion = request.getParameter("accion");
 
             switch (accion) {

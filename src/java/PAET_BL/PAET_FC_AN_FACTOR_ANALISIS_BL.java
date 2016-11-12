@@ -16,7 +16,7 @@
  */
 package PAET_BL;
 
-import PAET_DOMAIN.PaetAcPtActividadPuesto;
+import PAET_DOMAIN.PaetFcAnFactorAnalisis;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -24,40 +24,40 @@ import java.util.List;
  *
  * @author Michelle
  */
-public class PAET_AC_PT_ACTIVIDAD_PUESTO_BL extends BaseBL implements IBaseBL<PaetAcPtActividadPuesto, BigDecimal>{
+public class PAET_FC_AN_FACTOR_ANALISIS_BL extends BaseBL implements IBaseBL<PaetFcAnFactorAnalisis, BigDecimal>{
 
-    public PAET_AC_PT_ACTIVIDAD_PUESTO_BL()
+    public PAET_FC_AN_FACTOR_ANALISIS_BL()
     {
         super();
     }
     
     @Override
-    public void save(PaetAcPtActividadPuesto o) {
+    public void save(PaetFcAnFactorAnalisis o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public PaetAcPtActividadPuesto merge(PaetAcPtActividadPuesto o) {
+    public PaetFcAnFactorAnalisis merge(PaetFcAnFactorAnalisis o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(PaetAcPtActividadPuesto o) {
+    public void delete(PaetFcAnFactorAnalisis o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public PaetAcPtActividadPuesto findById(BigDecimal o) {
+    public PaetFcAnFactorAnalisis findById(BigDecimal o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<PaetAcPtActividadPuesto> findAll(String className) {
+    public List<PaetFcAnFactorAnalisis> findAll(String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<PaetAcPtActividadPuesto> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
+    public List<PaetFcAnFactorAnalisis> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

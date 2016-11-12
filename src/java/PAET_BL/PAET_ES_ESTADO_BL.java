@@ -48,7 +48,7 @@ public class PAET_ES_ESTADO_BL extends BaseBL implements IBaseBL<PaetEsEstado, B
 
     @Override
     public PaetEsEstado findById(BigDecimal o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (PaetEsEstado) this.getDao(PaetEsEstado.class.getName()).findById(o);
     }
 
     @Override

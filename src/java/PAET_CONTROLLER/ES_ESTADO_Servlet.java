@@ -53,8 +53,6 @@ public class ES_ESTADO_Servlet extends HttpServlet {
             PaetEsEstado estado = new PaetEsEstado();
             PAET_ES_ESTADO_BL estadoBl = new PAET_ES_ESTADO_BL();
 
-            Thread.sleep(1000);
-
             String accion = request.getParameter("accion");
 
             switch (accion) {

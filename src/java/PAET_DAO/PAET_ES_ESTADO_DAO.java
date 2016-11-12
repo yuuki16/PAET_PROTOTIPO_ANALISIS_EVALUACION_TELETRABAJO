@@ -34,7 +34,15 @@ public class PAET_ES_ESTADO_DAO extends HibernateUtil implements IBaseDAO<PaetEs
 
     @Override
     public PaetEsEstado findById(BigDecimal o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PaetEsEstado estado = null;
+
+        try {
+            iniciaOperacion();
+            estado = (PaetEsEstado) getSesion().get(PaetEsEstado.class, o);
+        } finally {
+            getSesion().close();
+        }
+        return estado;
     }
 
     @Override

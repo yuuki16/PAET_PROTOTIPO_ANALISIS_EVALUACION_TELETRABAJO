@@ -11,16 +11,25 @@
             </generator>
         </id>
         <property name="anResultadoFactores" type="java.lang.Short">
-            <column name="AN_RESULTADO_FACTORES" precision="3" scale="0" />
+            <column name="AN_RESULTADO_FACTORES" precision="3" scale="0" not-null="true"/>
         </property>
         <property name="anResultadoActividades" type="java.lang.Short">
-            <column name="AN_RESULTADO_ACTIVIDADES" precision="3" scale="0" />
+            <column name="AN_RESULTADO_ACTIVIDADES" precision="3" scale="0" not-null="true"/>
         </property>
         <property name="anResultadoFinal" type="java.lang.Short">
-            <column name="AN_RESULTADO_FINAL" precision="3" scale="0" />
+            <column name="AN_RESULTADO_FINAL" precision="3" scale="0" not-null="true"/>
         </property>
         <property name="psProcesoSolicitud" type="big_decimal">
             <column name="PS_PROCESO_SOLICITUD" length="38" not-null="true" />
+        </property>
+        <property name="anDiasRecomendados" type="java.lang.Short">
+            <column name="AN_DIAS_RECOMENDADOS" precision="1" scale="0" not-null="true"/>
+        </property>
+        <property name="anModalidad" type="char">
+            <column name="AN_MODALIDAD" length="1" not-null="true" />
+        </property>
+        <property name="anTipoPuesto" type="char">
+            <column name="AN_TIPO_PUESTO" length="1" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

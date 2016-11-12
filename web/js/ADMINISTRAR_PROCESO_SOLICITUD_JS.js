@@ -36,7 +36,7 @@ $(function () {
 
 function redirect(solicitud)
 {
-    window.location = 'ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp?solicitud=' + solicitud;
+    window.location = 'ADMINISTRAR_ESTADOS_SOLICITUD_JSP.jsp?solicitud=' + solicitud;
 }
 
 //solicitud
@@ -63,7 +63,7 @@ function consultarSolicitudesByTrabajador(trTrabajador, nombre)
 }
 
 //trabajador
-function consultarTrabajadorByCedula(trCedula) 
+function consultarTrabajadorByCedula(trCedula)
 {
 
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los procesos del trabajador");
@@ -83,7 +83,7 @@ function consultarTrabajadorByCedula(trCedula)
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
 
-            consultarSolicitudesByTrabajador(data[0].trUsuario, data[0].trNombre + ' '+ data[0].trApellido1 +' '+ data[0].trApellido2);
+            consultarSolicitudesByTrabajador(data[0].trUsuario, data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2);
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -134,7 +134,7 @@ function consultarTrabajadorByUsuario(fecha, solicitud, usuario)
                     ' <i class="entypo-suitcase"></i>' +
                     '</div>' +
                     ' <div class="timeline-label">' +
-                    '<p>' + data[0].trNombre +' '+ data[0].trApellido1 +' '+ data[0].trApellido2 + '</p>' +
+                    '<p>' + data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2 + '</p>' +
                     '<p>' + fecha + '</p>' +
                     '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + solicitud + '\')">Revisar Proceso</a></h2>' +
                     ' </div>' +
@@ -144,14 +144,14 @@ function consultarTrabajadorByUsuario(fecha, solicitud, usuario)
         type: 'POST',
         dataType: "json"
     });
-    
+
 }
 
 //proceso solicitud
 function consultarProcesos(dataSolicitudes, porCedula, nombre)
 {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los procesos de solicitud");
-    
+
     $.ajax({
         async: false,
         url: 'PS_PROCESO_SOLICITUD_Servlet',
@@ -249,7 +249,17 @@ function consultarEstadosByProceso()
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarEstados(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.esSecuencia > b.esSecuencia) {
+                    return 1;
+                }
+                if (a.esSecuencia < b.esSecuencia) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarEstados(sorted);
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -259,21 +269,17 @@ function consultarEstadosByProceso()
 
 function dibujarEstados(dataJson)
 {
-    var secuencia = 1;
     for (var i = 0; i < dataJson.length; i++) {
-        if (dataJson[i].esSecuencia === secuencia) {
-            $("#estados").append($('<article class="timeline-entry">' +
-                    '<div class="timeline-entry-inner">' +
-                    '<div class="timeline-icon bg-gray" id="' + dataJson[i].esSecuencia + 'Circulo"' +
-                    '<i class="entypo-suitcase"></i>' +
-                    '</div>' +
-                    '<div class="timeline-label" id="' + dataJson[i].esSecuencia + '">' +
-                    '<p>' + dataJson[i].esDescripcion + '</p>' +
-                    '</div>' +
-                    '</div>' +
-                    '</article>'));
-            secuencia++;
-        }
+        $("#estados").append($('<article class="timeline-entry">' +
+                '<div class="timeline-entry-inner">' +
+                '<div class="timeline-icon bg-gray" id="' + dataJson[i].esSecuencia + 'Circulo"' +
+                '<i class="entypo-suitcase"></i>' +
+                '</div>' +
+                '<div class="timeline-label" id="' + dataJson[i].esSecuencia + '">' +
+                '<p>' + dataJson[i].esDescripcion + '</p>' +
+                '</div>' +
+                '</div>' +
+                '</article>'));
     }
 }
 
@@ -322,12 +328,12 @@ function pintarEstados(dataJson, solicitud)
             $("#" + dataJson[i].esEstado).append('<p name="borrar"> Fecha Finalización: ' + dataJson[i].psFechaAtendido + '</p>');
         }
     }
-    
-    var element = document.getElementById("AdministrarProceso"); 
+
+    var element = document.getElementById("AdministrarProceso");
     if (element) {
         element.parentNode.removeChild(element);
     }
-    $("#estados").append('<button type="button" class="btn btn-info" id="AdministrarProceso" onclick="redirect('+solicitud+')">Administrar Solicitud</button>');
+    $("#estados").append('<button type="button" class="btn btn-info" id="AdministrarProceso" onclick="redirect(' + solicitud + ')">Administrar Solicitud</button>');
 
     $("#estados").show();
 }

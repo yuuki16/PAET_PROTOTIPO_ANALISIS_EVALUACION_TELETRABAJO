@@ -1,14 +1,23 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2016 Michelle
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package PAET_CONTROLLER;
 
-import PAET_BL.PAET_AR_AREA_BL;
-import PAET_BL.PAET_DV_DIVISION_BL;
-import PAET_DOMAIN.PaetArArea;
-import PAET_DOMAIN.PaetDrDireccion;
+import PAET_BL.PAET_CA_CARACTERISTICA_BL;
+import PAET_DOMAIN.PaetCaCaracteristica;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,13 +26,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Michelle
  */
-public class AR_AREA_Servlet extends HttpServlet {
+public class CA_CARACTERISTICA_Servlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,64 +48,33 @@ public class AR_AREA_Servlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String json, campo, valor;
-            Boolean unique;
-            BigDecimal arCodigo, drDireccion;
-            PaetArArea area = new PaetArArea();
-            PAET_AR_AREA_BL areaBl = new PAET_AR_AREA_BL();
-            PAET_DV_DIVISION_BL direccionBl = new PAET_DV_DIVISION_BL();
+            BigDecimal caCodigo;
+            Boolean unico;
+            PaetCaCaracteristica caracteristica = new PaetCaCaracteristica();
+            PAET_CA_CARACTERISTICA_BL caracteristicaBl = new PAET_CA_CARACTERISTICA_BL();
 
-            HttpSession session = request.getSession();
             String accion = request.getParameter("accion");
 
             switch (accion) {
-                case "consultarAreas":
-                    json = new Gson().toJson(areaBl.findAll(PaetArArea.class.getName()));
+                case "consultarCaracteristicas":
+                    json = new Gson().toJson(caracteristicaBl.findAll(PaetCaCaracteristica.class.getName()));
                     out.print(json);
                     break;
-                case "consultarAreaByCodigo":
-                    arCodigo = new BigDecimal(request.getParameter("arCodigo"));
+                case "consultarCaracteristicaByCodigo":
+                    caCodigo = new BigDecimal(request.getParameter("caCodigo"));
                     //se consulta el objeto por ID
-                    area = areaBl.findById(arCodigo);
+                    caracteristica = caracteristicaBl.findById(caCodigo);
 
                     //se pasa la informacion del objeto a formato JSON
-                    json = new Gson().toJson(area);
+                    json = new Gson().toJson(caracteristica);
                     out.print(json);
-                    break;
-                case "agregarArea":
-                case "modificarArea":
-
-                    drDireccion = new BigDecimal(request.getParameter("drDireccion"));
-
-                    if (accion.equals("agregarArea")) {
-                        area.setArDescripcion(request.getParameter("arDescripcion"));
-                        area.setArEstado(request.getParameter("arEstado").charAt(0));
-                        area.setDrDireccion(drDireccion);
-                        
-                        //Se guarda el objeto
-                        areaBl.save(area);
-                        //Se imprime la respuesta con el response
-                        out.print("C~El área fue agregado correctamente");
-                        
-                    } else {
-                        arCodigo = new BigDecimal(request.getParameter("arCodigo"));
-                        area.setArCodigo(arCodigo);
-                        area.setArDescripcion(request.getParameter("arDescripcion"));
-                        area.setArEstado(request.getParameter("arEstado").charAt(0));
-                        area.setDrDireccion(drDireccion);
-                        
-                        //Se guarda el objeto
-                        areaBl.merge(area);
-
-                        //Se imprime la respuesta con el response
-                        out.print("C~El área fue modificado correctamente");
-                    }
                     break;
                 case "consultaDinamica":
                     campo = request.getParameter("campo");
                     valor = request.getParameter("valor");
-                    unique = Boolean.valueOf(request.getParameter("unico"));
+                    unico = Boolean.valueOf(request.getParameter("unico"));
                     //se consulta el objeto por el campo y el valor 
-                    json = new Gson().toJson(areaBl.findDynamicFilter(campo, valor, unique, PaetArArea.class.getName()));
+                    json = new Gson().toJson(caracteristicaBl.findDynamicFilter(campo, valor, unico, PaetCaCaracteristica.class.getName()));
                     out.print(json);
                     break;
                 default:

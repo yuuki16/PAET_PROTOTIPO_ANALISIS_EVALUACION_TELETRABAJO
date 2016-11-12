@@ -42,9 +42,6 @@ public class DI_DIA_Servlet extends HttpServlet {
             PaetDiDia dia = new PaetDiDia();
             PAET_DI_DIA_BL diaBl = new PAET_DI_DIA_BL();
 
-            Thread.sleep(1000);
-
-            HttpSession session = request.getSession();
             String accion = request.getParameter("accion");
 
             switch (accion) {

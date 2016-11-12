@@ -72,6 +72,10 @@
         <servlet-name>ES_ESTADO_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.ES_ESTADO_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CA_CARACTERISTICA_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.CA_CARACTERISTICA_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>ES_ESTADO_Servlet</servlet-name>
         <url-pattern>/ES_ESTADO_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CA_CARACTERISTICA_Servlet</servlet-name>
+        <url-pattern>/CA_CARACTERISTICA_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

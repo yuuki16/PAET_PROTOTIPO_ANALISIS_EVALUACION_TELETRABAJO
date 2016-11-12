@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-oct-2016 22:10:24 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="PAET_DOMAIN.PaetAcAnActividadAnalisis" optimistic-lock="version" schema="MMONGE" table="PAET_AC_PT_ACTIVIDAD_PUESTO">
+    <id name="acAnCodigo" type="big_decimal">
+      <column name="AC_AN_CODIGO" precision="38" scale="0"/>
+      <generator class="sequence">
+        <param name="sequence">PAET_AC_AN_ACTIVIDAD_ANALISIS_SEQ</param>
+      </generator>
+    </id>
+    <property name="acActividad" type="big_decimal">
+      <column length="38" name="AC_ACTIVIDAD" not-null="true"/>
+    </property>
+    <property name="anAnalisis" type="big_decimal">
+      <column length="38" name="AN_ANALISIS" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

@@ -53,8 +53,6 @@ public class PS_PROCESO_SOLICITUD_Servlet extends HttpServlet {
             PaetPsProcesoSolicitud procesoSolicitud = new PaetPsProcesoSolicitud();
             PAET_PS_PROCESO_SOLICITUD_BL procesoSolicitudBl = new PAET_PS_PROCESO_SOLICITUD_BL();
 
-            Thread.sleep(1000);
-
             String accion = request.getParameter("accion");
 
             switch (accion) {

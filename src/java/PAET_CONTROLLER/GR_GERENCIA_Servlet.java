@@ -42,10 +42,7 @@ public class GR_GERENCIA_Servlet extends HttpServlet {
             Boolean unico;
             PaetGrGerencia gerencia = new PaetGrGerencia();
             PAET_GR_GERENCIA_BL gerenciaBl = new PAET_GR_GERENCIA_BL();
-
-            Thread.sleep(1000);
-
-            HttpSession session = request.getSession();
+            
             String accion = request.getParameter("accion");
 
             switch (accion) {

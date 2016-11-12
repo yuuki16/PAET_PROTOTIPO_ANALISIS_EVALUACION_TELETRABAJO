@@ -46,10 +46,7 @@ public class TR_TRABAJADOR_Servlet extends HttpServlet {
             Date date;
             PaetTrTrabajador trabajador = new PaetTrTrabajador();
             PAET_TR_TRABAJADOR_BL trabajadorBl = new PAET_TR_TRABAJADOR_BL();
-
-            Thread.sleep(1000);
-
-            HttpSession session = request.getSession();
+            
             String accion = request.getParameter("accion");
 
             switch (accion) {

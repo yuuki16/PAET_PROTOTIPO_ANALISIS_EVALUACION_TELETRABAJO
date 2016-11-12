@@ -42,8 +42,6 @@ public class TL_TELEFONO_Servlet extends HttpServlet {
             PaetTlTelefono telefono = new PaetTlTelefono();
             PAET_TL_TELEFONO_BL telefonoBl = new PAET_TL_TELEFONO_BL();
 
-            Thread.sleep(1000);
-
             String accion = request.getParameter("accion");
 
             switch (accion) {

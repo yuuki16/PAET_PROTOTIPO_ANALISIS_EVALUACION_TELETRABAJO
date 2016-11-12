@@ -38,7 +38,16 @@ public class PAET_CA_CARACTERISTICA_DAO extends HibernateUtil implements IBaseDA
 
     @Override
     public List<PaetCaCaracteristica> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<PaetCaCaracteristica> listaCaracteristicas;
+        
+        try {
+            iniciaOperacion();
+            listaCaracteristicas = getSesion().createQuery("from PaetCaCaracteristica").list();
+        } finally {
+            getSesion().close();
+        }
+
+        return listaCaracteristicas;
     }
 
     @Override

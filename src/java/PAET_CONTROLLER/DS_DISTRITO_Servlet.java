@@ -41,8 +41,6 @@ public class DS_DISTRITO_Servlet extends HttpServlet {
             PaetDsDistrito distrito = new PaetDsDistrito();
             PAET_DS_DISTRITO_BL distritoBl = new PAET_DS_DISTRITO_BL();
 
-            Thread.sleep(1000);
-
             String accion = request.getParameter("accion");
 
             switch (accion) {

@@ -43,9 +43,6 @@ public class ET_EQUIPO_TECNOLOGICO_Servlet extends HttpServlet {
             PaetEtEquipoTecnologico equipoTecnologico = new PaetEtEquipoTecnologico();
             PAET_ET_EQUIPO_TECNOLOGICO_BL equipoTecnologicoBl = new PAET_ET_EQUIPO_TECNOLOGICO_BL();
 
-            Thread.sleep(1000);
-
-            HttpSession session = request.getSession();
             String accion = request.getParameter("accion");
 
             switch (accion) {

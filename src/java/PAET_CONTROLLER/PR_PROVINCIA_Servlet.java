@@ -41,8 +41,6 @@ public class PR_PROVINCIA_Servlet extends HttpServlet {
             PaetPrProvincia provincia = new PaetPrProvincia();
             PAET_PR_PROVINCIA_BL provinciaBl = new PAET_PR_PROVINCIA_BL();
 
-            Thread.sleep(1000);
-
             String accion = request.getParameter("accion");
 
             switch (accion) {

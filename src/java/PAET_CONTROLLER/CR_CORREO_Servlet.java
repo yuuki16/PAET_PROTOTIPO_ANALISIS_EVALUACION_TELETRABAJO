@@ -43,8 +43,6 @@ public class CR_CORREO_Servlet extends HttpServlet {
             PaetCrCorreo correo = new PaetCrCorreo();
             PAET_CR_CORREO_BL correoBl = new PAET_CR_CORREO_BL();
 
-            Thread.sleep(1000);
-
             String accion = request.getParameter("accion");
 
             switch (accion) {

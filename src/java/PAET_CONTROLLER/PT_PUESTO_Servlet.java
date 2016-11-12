@@ -42,10 +42,7 @@ public class PT_PUESTO_Servlet extends HttpServlet {
             BigDecimal arArea, drDireccion, dvDivision, grGerencia;
             PaetPtPuesto puesto = new PaetPtPuesto();
             PAET_PT_PUESTO_BL puestoBl = new PAET_PT_PUESTO_BL();
-
-            Thread.sleep(1000);
-
-            HttpSession session = request.getSession();
+            
             String accion = request.getParameter("accion");
 
             switch (accion) {

@@ -53,7 +53,7 @@ public class PAET_CA_CARACTERISTICA_BL extends BaseBL implements IBaseBL<PaetCaC
 
     @Override
     public List<PaetCaCaracteristica> findAll(String className) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getDao(className).findAll();
     }
 
     @Override

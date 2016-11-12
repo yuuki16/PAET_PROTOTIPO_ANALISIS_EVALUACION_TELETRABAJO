@@ -56,8 +56,6 @@ public class SL_SOLICITUD_Servlet extends HttpServlet {
             PaetSlSolicitud solicitud = new PaetSlSolicitud();
             PAET_SL_SOLICITUD_BL solicitudBl = new PAET_SL_SOLICITUD_BL();
 
-            Thread.sleep(1000);
-
             String accion = request.getParameter("accion");
 
             switch (accion) {

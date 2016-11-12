@@ -45,10 +45,7 @@ public class DR_DIRECCION_Servlet extends HttpServlet {
             PaetDrDireccion direccion = new PaetDrDireccion();
             PAET_DR_DIRECCION_BL direccionBl = new PAET_DR_DIRECCION_BL();
             PAET_DV_DIVISION_BL divisionBl = new PAET_DV_DIVISION_BL();
-
-            Thread.sleep(1000);
-
-            HttpSession session = request.getSession();
+            
             String accion = request.getParameter("accion");
 
             switch (accion) {

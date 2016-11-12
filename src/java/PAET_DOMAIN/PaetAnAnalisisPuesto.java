@@ -15,16 +15,22 @@ public class PaetAnAnalisisPuesto  implements java.io.Serializable {
      private Short anResultadoActividades;
      private Short anResultadoFinal;
      private BigDecimal psProcesoSolicitud;
+     private Short anDiasRecomendados;
+     private char anModalidad;
+     private char anTipoPuesto;
 
     public PaetAnAnalisisPuesto() {
     }
 
-    public PaetAnAnalisisPuesto(BigDecimal anCodigo, Short anResultadoFactores, Short anResultadoActividades, Short anResultadoFinal, BigDecimal psProcesoSolicitud) {
+    public PaetAnAnalisisPuesto(BigDecimal anCodigo, Short anResultadoFactores, Short anResultadoActividades, Short anResultadoFinal, BigDecimal psProcesoSolicitud, Short anDiasRecomendados, char anModalidad, char anTipoPuesto) {
        this.anCodigo = anCodigo;
        this.anResultadoFactores = anResultadoFactores;
        this.anResultadoActividades = anResultadoActividades;
        this.anResultadoFinal = anResultadoFinal;
        this.psProcesoSolicitud = psProcesoSolicitud;
+       this.anDiasRecomendados = anDiasRecomendados;
+       this.anModalidad = anModalidad;
+       this.anTipoPuesto = anTipoPuesto;
     }
    
     public BigDecimal getAnCodigo() {
@@ -63,6 +69,30 @@ public class PaetAnAnalisisPuesto  implements java.io.Serializable {
     
     public void setPsProcesoSolicitud(BigDecimal psProcesoSolicitud) {
         this.psProcesoSolicitud = psProcesoSolicitud;
+    }
+    
+    public Short getAnDiasRecomendados() {
+        return this.anDiasRecomendados;
+    }
+    
+    public void setAnDiasRecomendados(Short anDiasRecomendados) {
+        this.anDiasRecomendados = anDiasRecomendados;
+    }
+    
+    public char getAnModalidad() {
+        return this.anModalidad;
+    }
+    
+    public void setAnModalidad(char anModalidad) {
+        this.anModalidad = anModalidad;
+    }
+    
+    public char getAnTipoPuesto() {
+        return this.anTipoPuesto;
+    }
+    
+    public void setAnTipoPuesto(char anTipoPuesto) {
+        this.anTipoPuesto = anTipoPuesto;
     }
 }
 

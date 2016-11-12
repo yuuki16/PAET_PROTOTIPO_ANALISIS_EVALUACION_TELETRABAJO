@@ -40,9 +40,7 @@ public class CN_CANTON_Servlet extends HttpServlet {
             Short cnCodigo;
             PaetCnCanton canton = new PaetCnCanton();
             PAET_CN_CANTON_BL cantonBl = new PAET_CN_CANTON_BL();
-
-            Thread.sleep(1000);
-
+            
             String accion = request.getParameter("accion");
 
             switch (accion) {

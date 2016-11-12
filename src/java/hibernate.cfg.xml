@@ -18,7 +18,7 @@
     <mapping resource="PAET_DOMAIN/PaetDiTtDiaTeletrabajador.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetEtEquipoTecnologico.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetPtPuesto.hbm.xml"/>
-    <mapping resource="PAET_DOMAIN/PaetFcPtFactorPuesto.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetFcAnFactorAnalisis.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetSlSolicitud.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetEvEvaluacion.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetDcDocumentacion.hbm.xml"/>
@@ -42,7 +42,7 @@
     <mapping resource="PAET_DOMAIN/PaetArArea.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetMtMeta.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetEtSlEquipoSolicitud.hbm.xml"/>
-    <mapping resource="PAET_DOMAIN/PaetAcPtActividadPuesto.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetAcAnActividadAnalisis.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetGrGerencia.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
