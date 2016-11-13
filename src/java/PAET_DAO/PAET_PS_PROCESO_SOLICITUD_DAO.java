@@ -35,7 +35,23 @@ public class PAET_PS_PROCESO_SOLICITUD_DAO extends HibernateUtil implements IBas
 
     @Override
     public PaetPsProcesoSolicitud merge(PaetPsProcesoSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            String hql = "update PaetPsProcesoSolicitud ps set ps.psObservacion = :observacion, ps.psFechaAtendido = :fecha, ps.psEstado = :estado where ps.psCodigo = :psCodigo";
+            int updatedEntities = getSesion().createQuery(hql)
+                    .setString("observacion", o.getPsObservacion())
+                    .setDate("fecha", o.getPsFechaAtendido())
+                    .setCharacter("estado", o.getPsEstado())
+                    .setBigDecimal("psCodigo", o.getPsCodigo())
+                    .executeUpdate();
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+        return o;
     }
 
     @Override

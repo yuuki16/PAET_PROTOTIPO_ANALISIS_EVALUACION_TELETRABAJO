@@ -33,7 +33,7 @@ public class PAET_DC_DOCUMENTACION_BL extends BaseBL implements IBaseBL<PaetDcDo
     
     @Override
     public void save(PaetDcDocumentacion o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override

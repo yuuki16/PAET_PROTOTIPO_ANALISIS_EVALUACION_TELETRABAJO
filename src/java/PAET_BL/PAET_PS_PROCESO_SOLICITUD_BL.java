@@ -38,7 +38,7 @@ public class PAET_PS_PROCESO_SOLICITUD_BL extends BaseBL implements IBaseBL<Paet
 
     @Override
     public PaetPsProcesoSolicitud merge(PaetPsProcesoSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (PaetPsProcesoSolicitud) this.getDao(o.getClass().getName()).merge(o);
     }
 
     @Override

@@ -14,6 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+var psProcesoSolicitud, slSolicitud, trTrabajador;
+
+
 $(document).ready(function () {
     consultarEstadosByProceso();
     //acciones barra proceso
@@ -69,7 +72,7 @@ $(document).ready(function () {
         if (solicitud) {
             if (validarDocumentacion()) {
                 consultarEstadosBySolicitud(solicitud, false);
-                guardarDocumentacion();
+
             } else
             {
                 alert("Debe adjuntar la nota del gerente para continuar");
@@ -81,13 +84,8 @@ $(document).ready(function () {
     $(':file').on('fileselect', function (event, numFiles, label) {
         $("#archivo").html();
         $("#archivo").html(label);
-        
-    });
 
-//    $('#formDocumento').on('submit', function (e) {
-//        e.preventDefault();
-//        $(this).submit();
-//    });
+    });
 });
 
 $(document).on('change', ':file', function () {
@@ -116,7 +114,6 @@ function mostrarMensaje(modal, classCss, msg, neg) {
     $("#" + modal + "Text").html(msg);
     $("#" + modal + "Text").html(msg);
 }
-
 
 function ocultarMensaje() {
     $("#mensajeResult").removeClass();
@@ -172,6 +169,7 @@ function dibujarEstados(dataJson)
     }
 
     var solicitud = getParameterByName('solicitud', null);
+    slSolicitud = solicitud;
     consultarEstadosBySolicitud(solicitud, true);
 }
 
@@ -196,7 +194,6 @@ function consultarEstadosBySolicitud(slSolicitud, funcion)
             {
                 revisarProcesoSolicitud(data);
             }
-
         },
         type: 'POST',
         dataType: "json"
@@ -207,6 +204,7 @@ function pintarEstadoPendiente(dataJson)
 {
     for (var i = 0; i < dataJson.length; i++) {
         if (dataJson[i].psEstado === "P") {
+            psProcesoSolicitud = dataJson[i].psCodigo;
             $("#" + dataJson[i].esEstado).removeClass();
             $("#" + dataJson[i].esEstado).addClass("active");
             consultarEstadoByCodigo(dataJson[i].esEstado);
@@ -503,6 +501,8 @@ function guardarAnalisisPuesto(psProcesoSolicitud)
                 anCodigo = data;
                 guardarActividades(anCodigo);
                 guardarFactoresAnalisis(anCodigo);
+                guardarDocumentacion();
+                avanzarPsProcesoSolicitud(3, psProcesoSolicitud);
                 ocultarMensaje();
             },
             type: 'POST'
@@ -534,6 +534,33 @@ function revisarProcesoSolicitud(dataJson)
             guardarAnalisisPuesto(dataJson[i].psCodigo);
         }
     }
+}
+
+function avanzarPsProcesoSolicitud(estadoSiguiente, psProcesoSolicitud)
+{
+    var observacion = $("#observacion2").val();
+    
+    $.ajax({
+        async: false,
+        url: 'PS_PROCESO_SOLICITUD_Servlet',
+        data: {
+            accion: "avanzarProcesoSolicitud",
+            psProcesoSolicitud: psProcesoSolicitud,
+            psObservacion: observacion,
+            psEstadoNuevo: estadoSiguiente,
+            slSolicitud: slSolicitud
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            var $active = $('.wizard .nav-tabs li.active');
+            ($active).addClass("disabled");
+            $active.next().removeClass('disabled');
+            nextTab($active);
+        },
+        type: 'POST'
+    });
 }
 
 //actividadAnalisis
@@ -676,20 +703,19 @@ function guardarDocumentacion()
 {
     var datos = new FormData();
     datos.append('file', document.getElementById('notaGerente').files[0]);
+    datos.append('psProcesoSolicitud', psProcesoSolicitud);
     $.ajax({
         url: 'DC_DOCUMENTACION_Servlet',
         processData: false,
         contentType: false,
         dataType: 'json',
+        cache: false,
         data: datos,
         error: function () { //si existe un error en la respuesta del ajax
-            mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
+
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            var $active = $('.wizard .nav-tabs li.active');
-            ($active).addClass("disabled");
-            $active.next().removeClass('disabled');
-            nextTab($active);
+
         },
         type: 'POST'
     });

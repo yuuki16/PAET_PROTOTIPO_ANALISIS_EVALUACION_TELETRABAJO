@@ -218,19 +218,22 @@
                                                     <br>
                                                     <br>
                                                     <li>
-                                                        <h4>Adjuntar nota de aprobación del gerente</h4>
+                                                        <h5>Adjuntar nota de aprobación del gerente</h5>
                                                     </li>
+                                                    <br>
                                                     <li>
                                                         <br>
-                                                        <form action="DC_DOCUMENTACION_Servlet"  method="post" enctype="multipart/form-data">
                                                         <label class="btn btn-info btn-file">
                                                             Adjuntar archivo <input type="file" style="display: none;" id="notaGerente" name="filetoupload">
                                                         </label>
-                                                            <input type="submit" value="Upload file"> 
                                                         <label id="archivo"></label>
-                                                        </form>
                                                     </li>
                                                     <br>
+                                                    <li>
+                                                        <br>
+                                                        <h5>Observación:</h5>
+                                                        <textarea class="form-control" rows="5" id="observacion2" style="width: 830px"></textarea>
+                                                    </li>
                                                     <br>
                                                     <br>
                                                     <li><button type="button" class="btn btn-success next-step" style="position: absolute; right: 100px" id="guardar2">Avanzar Proceso</button></li>

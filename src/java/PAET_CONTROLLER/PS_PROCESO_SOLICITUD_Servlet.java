@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,8 +49,9 @@ public class PS_PROCESO_SOLICITUD_Servlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String json, campo, valor;
-            BigDecimal psCodigo;
+            BigDecimal psCodigo, slSolicitud, esEstado;
             Boolean unico;
+            Date fechaHoy = new Date();
             PaetPsProcesoSolicitud procesoSolicitud = new PaetPsProcesoSolicitud();
             PAET_PS_PROCESO_SOLICITUD_BL procesoSolicitudBl = new PAET_PS_PROCESO_SOLICITUD_BL();
 
@@ -70,24 +72,12 @@ public class PS_PROCESO_SOLICITUD_Servlet extends HttpServlet {
                     out.print(json);
                     break;
                 case "agregarProcesoSolicitud":
-                case "modificarProcesoSolicitud":
-
-                    if (accion.equals("agregarProcesoSolicitud")) { //es insertar
                         //Se guarda el objeto
                         procesoSolicitudBl.save(procesoSolicitud);
 
                         //Se imprime la respuesta con el response
                         out.print("C~El proceso de solicitud fue agregado correctamente");
 
-                    } else {//es modificar 
-                        psCodigo = new BigDecimal(request.getParameter("psCodigo"));
-
-                        //Se guarda el objeto
-                        procesoSolicitudBl.merge(procesoSolicitud);
-
-                        //Se imprime la respuesta con el response
-                        out.print("C~El proceso de solicitud fue modificado correctamente");
-                    }
                     break;
                 case "consultaDinamica":
                     campo = request.getParameter("campo");
@@ -96,6 +86,27 @@ public class PS_PROCESO_SOLICITUD_Servlet extends HttpServlet {
                     //se consulta el objeto por el campo y el valor 
                     json = new Gson().toJson(procesoSolicitudBl.findDynamicFilter(campo, valor, unico, PaetPsProcesoSolicitud.class.getName()));
                     out.print(json);
+                    break;
+                case "avanzarProcesoSolicitud":
+                    psCodigo = new BigDecimal(request.getParameter("psProcesoSolicitud"));
+                    slSolicitud = new BigDecimal(request.getParameter("slSolicitud"));
+                    esEstado = new BigDecimal(request.getParameter("psEstadoNuevo"));
+                    if (!"".equals(request.getParameter("psObservacion").trim())) {
+                        procesoSolicitud.setPsObservacion(request.getParameter("psObservacion"));
+                    }
+                    procesoSolicitud.setPsFechaAtendido(fechaHoy);
+                    procesoSolicitud.setPsEstado('F');
+                    procesoSolicitud.setPsCodigo(psCodigo);
+                    
+                    procesoSolicitudBl.merge(procesoSolicitud);
+                    
+                    procesoSolicitud = new PaetPsProcesoSolicitud();
+                    procesoSolicitud.setPsFechaEntrada(fechaHoy);
+                    procesoSolicitud.setSlSolicitud(slSolicitud);
+                    procesoSolicitud.setEsEstado(esEstado);
+                    procesoSolicitud.setPsEstado('P');
+                    
+                    procesoSolicitudBl.save(procesoSolicitud);
                     break;
                 default:
                     out.print("E~No se indico la acción que se desea realizare");
