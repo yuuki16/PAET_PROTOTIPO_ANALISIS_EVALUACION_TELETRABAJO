@@ -102,5 +102,10 @@ public class PAET_TL_TELEFONO_DAO extends HibernateUtil implements IBaseDAO<Paet
 
         return listaTelefonos;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetTlTelefono o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

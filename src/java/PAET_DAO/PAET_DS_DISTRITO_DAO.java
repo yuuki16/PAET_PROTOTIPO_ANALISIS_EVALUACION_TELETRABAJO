@@ -72,5 +72,10 @@ public class PAET_DS_DISTRITO_DAO extends HibernateUtil implements IBaseDAO<Paet
 
         return listaDistritos;
     }
+
+    @Override
+    public Integer saveWithReturn(PaetDsDistrito o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

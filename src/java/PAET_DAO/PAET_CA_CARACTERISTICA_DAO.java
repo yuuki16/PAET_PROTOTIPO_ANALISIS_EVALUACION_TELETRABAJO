@@ -9,6 +9,7 @@ import PAET_DOMAIN.PaetCaCaracteristica;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -18,7 +19,16 @@ public class PAET_CA_CARACTERISTICA_DAO extends HibernateUtil implements IBaseDA
 
     @Override
     public void save(PaetCaCaracteristica o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
     }
 
     @Override
@@ -52,6 +62,11 @@ public class PAET_CA_CARACTERISTICA_DAO extends HibernateUtil implements IBaseDA
 
     @Override
     public List<PaetCaCaracteristica> findDynamicFilter(String filterBy, String filter, Boolean unique) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetCaCaracteristica o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

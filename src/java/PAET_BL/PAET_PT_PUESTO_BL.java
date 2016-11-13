@@ -49,5 +49,10 @@ public class PAET_PT_PUESTO_BL extends BaseBL implements IBaseBL<PaetPtPuesto, S
     public List<PaetPtPuesto> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public String saveWithReturn(PaetPtPuesto o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

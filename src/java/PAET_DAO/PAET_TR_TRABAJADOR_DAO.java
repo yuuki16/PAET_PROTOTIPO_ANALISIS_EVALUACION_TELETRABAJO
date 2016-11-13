@@ -96,5 +96,10 @@ public class PAET_TR_TRABAJADOR_DAO extends HibernateUtil implements IBaseDAO<Pa
 
         return listaTrabajadores;
     }
+
+    @Override
+    public String saveWithReturn(PaetTrTrabajador o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

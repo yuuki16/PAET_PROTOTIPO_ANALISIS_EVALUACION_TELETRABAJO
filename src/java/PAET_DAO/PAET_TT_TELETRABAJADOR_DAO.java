@@ -56,5 +56,10 @@ public class PAET_TT_TELETRABAJADOR_DAO extends HibernateUtil implements IBaseDA
     public List<PaetTtTeletrabajador> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetTtTeletrabajador o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

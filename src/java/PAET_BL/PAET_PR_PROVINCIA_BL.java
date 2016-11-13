@@ -48,5 +48,10 @@ public class PAET_PR_PROVINCIA_BL extends BaseBL implements IBaseBL<PaetPrProvin
     public List<PaetPrProvincia> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Short saveWithReturn(PaetPrProvincia o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

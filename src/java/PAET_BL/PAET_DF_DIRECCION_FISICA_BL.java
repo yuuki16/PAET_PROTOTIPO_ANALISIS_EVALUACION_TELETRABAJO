@@ -49,5 +49,10 @@ public class PAET_DF_DIRECCION_FISICA_BL extends BaseBL implements IBaseBL<PaetD
     public List<PaetDfDireccionFisica> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetDfDireccionFisica o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

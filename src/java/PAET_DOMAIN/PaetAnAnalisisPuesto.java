@@ -13,7 +13,6 @@ public class PaetAnAnalisisPuesto  implements java.io.Serializable {
      private BigDecimal anCodigo;
      private Short anResultadoFactores;
      private Short anResultadoActividades;
-     private Short anResultadoFinal;
      private BigDecimal psProcesoSolicitud;
      private Short anDiasRecomendados;
      private char anModalidad;
@@ -22,11 +21,10 @@ public class PaetAnAnalisisPuesto  implements java.io.Serializable {
     public PaetAnAnalisisPuesto() {
     }
 
-    public PaetAnAnalisisPuesto(BigDecimal anCodigo, Short anResultadoFactores, Short anResultadoActividades, Short anResultadoFinal, BigDecimal psProcesoSolicitud, Short anDiasRecomendados, char anModalidad, char anTipoPuesto) {
+    public PaetAnAnalisisPuesto(BigDecimal anCodigo, Short anResultadoFactores, Short anResultadoActividades, BigDecimal psProcesoSolicitud, Short anDiasRecomendados, char anModalidad, char anTipoPuesto) {
        this.anCodigo = anCodigo;
        this.anResultadoFactores = anResultadoFactores;
        this.anResultadoActividades = anResultadoActividades;
-       this.anResultadoFinal = anResultadoFinal;
        this.psProcesoSolicitud = psProcesoSolicitud;
        this.anDiasRecomendados = anDiasRecomendados;
        this.anModalidad = anModalidad;
@@ -54,13 +52,6 @@ public class PaetAnAnalisisPuesto  implements java.io.Serializable {
     
     public void setAnResultadoActividades(Short anResultadoActividades) {
         this.anResultadoActividades = anResultadoActividades;
-    }
-    public Short getAnResultadoFinal() {
-        return this.anResultadoFinal;
-    }
-    
-    public void setAnResultadoFinal(Short anResultadoFinal) {
-        this.anResultadoFinal = anResultadoFinal;
     }
     
     public BigDecimal getPsProcesoSolicitud() {

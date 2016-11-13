@@ -49,5 +49,10 @@ public class PAET_TL_TELEFONO_BL extends BaseBL implements IBaseBL<PaetTlTelefon
     public List<PaetTlTelefono> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetTlTelefono o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

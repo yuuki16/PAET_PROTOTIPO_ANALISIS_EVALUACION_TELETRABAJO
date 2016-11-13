@@ -59,5 +59,12 @@ public class PAET_AC_ACTIVIDAD_BL extends BaseBL implements IBaseBL<PaetAcActivi
     public List<PaetAcActividad> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetAcActividad o) {
+        BigDecimal acCodigo;
+        acCodigo = (BigDecimal) this.getDao(o.getClass().getName()).saveWithReturn(o);
+        return acCodigo;
+    }
     
 }

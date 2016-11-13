@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 19-oct-2016 22:10:24 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="PAET_DOMAIN.PaetFcAnFactorAnalisis" optimistic-lock="version" schema="MMONGE" table="PAET_FC_PT_FACTOR_PUESTO">
+  <class name="PAET_DOMAIN.PaetFcAnFactorAnalisis" optimistic-lock="version" schema="MMONGE" table="PAET_FC_AN_FACTOR_ANALISIS">
     <id name="fcAnCodigo" type="big_decimal">
       <column name="FC_AN_CODIGO" precision="38" scale="0"/>
       <generator class="sequence">

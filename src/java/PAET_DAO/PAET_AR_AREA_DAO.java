@@ -102,5 +102,10 @@ public class PAET_AR_AREA_DAO extends HibernateUtil implements IBaseDAO<PaetArAr
 
         return listaAreas;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetArArea o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

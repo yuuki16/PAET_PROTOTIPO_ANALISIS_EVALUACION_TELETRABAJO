@@ -33,7 +33,7 @@ public class PAET_AC_CA_ACT_CARACT_BL extends BaseBL implements IBaseBL<PaetAcCa
     
     @Override
     public void save(PaetAcCaActCaract o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override
@@ -58,6 +58,11 @@ public class PAET_AC_CA_ACT_CARACT_BL extends BaseBL implements IBaseBL<PaetAcCa
 
     @Override
     public List<PaetAcCaActCaract> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetAcCaActCaract o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

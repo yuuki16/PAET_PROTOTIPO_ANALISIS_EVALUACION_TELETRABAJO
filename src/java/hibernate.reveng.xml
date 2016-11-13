@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-schema="MMONGE"/>
-  <table-filter match-name="PAET_FC_PT_FACTOR_PUESTO"/>
+  <table-filter match-name="PAET_FC_AN_FACTOR_ANALISIS"/>
   <table-filter match-name="PAET_CA_CARACTERISTICA"/>
   <table-filter match-name="PAET_AN_ANALISIS_PUESTO"/>
   <table-filter match-name="PAET_TT_TELETRABAJADOR"/>
@@ -24,7 +24,7 @@
   <table-filter match-name="PAET_GR_GERENCIA"/>
   <table-filter match-name="PAET_DI_TT_DIA_TELETRABAJADOR"/>
   <table-filter match-name="PAET_ET_EQUIPO_TECNOLOGICO"/>
-  <table-filter match-name="PAET_AC_PT_ACTIVIDAD_PUESTO"/>
+  <table-filter match-name="PAET_AC_AN_ACTIVIDAD_ANALISIS"/>
   <table-filter match-name="PAET_EV_EVALUACION"/>
   <table-filter match-name="PAET_DS_DISTRITO"/>
   <table-filter match-name="PAET_SL_SOLICITUD"/>

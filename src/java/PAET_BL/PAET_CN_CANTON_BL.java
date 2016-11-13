@@ -43,5 +43,10 @@ public class PAET_CN_CANTON_BL extends BaseBL implements IBaseBL<PaetCnCanton, j
     public List<PaetCnCanton> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public Short saveWithReturn(PaetCnCanton o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

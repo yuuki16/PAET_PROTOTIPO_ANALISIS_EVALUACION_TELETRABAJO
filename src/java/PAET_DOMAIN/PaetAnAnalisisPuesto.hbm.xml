@@ -16,9 +16,6 @@
         <property name="anResultadoActividades" type="java.lang.Short">
             <column name="AN_RESULTADO_ACTIVIDADES" precision="3" scale="0" not-null="true"/>
         </property>
-        <property name="anResultadoFinal" type="java.lang.Short">
-            <column name="AN_RESULTADO_FINAL" precision="3" scale="0" not-null="true"/>
-        </property>
         <property name="psProcesoSolicitud" type="big_decimal">
             <column name="PS_PROCESO_SOLICITUD" length="38" not-null="true" />
         </property>

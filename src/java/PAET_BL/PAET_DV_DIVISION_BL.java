@@ -49,4 +49,9 @@ public class PAET_DV_DIVISION_BL extends BaseBL implements IBaseBL<PaetDvDivisio
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
 
+    @Override
+    public BigDecimal saveWithReturn(PaetDvDivision o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

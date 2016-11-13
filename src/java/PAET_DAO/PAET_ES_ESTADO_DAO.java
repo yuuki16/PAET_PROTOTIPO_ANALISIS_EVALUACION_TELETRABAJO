@@ -73,5 +73,10 @@ public class PAET_ES_ESTADO_DAO extends HibernateUtil implements IBaseDAO<PaetEs
 
         return listaEstados;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetEsEstado o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

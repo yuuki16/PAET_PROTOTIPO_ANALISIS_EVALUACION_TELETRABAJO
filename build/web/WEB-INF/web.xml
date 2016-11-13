@@ -76,6 +76,30 @@
         <servlet-name>CA_CARACTERISTICA_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.CA_CARACTERISTICA_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AN_ANALISIS_PUESTO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.AN_ANALISIS_PUESTO_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AC_ACTIVIDAD_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.AC_ACTIVIDAD_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AC_AN_ACTIVIDAD_ANALISIS_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.AC_AN_ACTIVIDAD_ANALISIS_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AC_CA_ACTIVIDAD_CARACTERISTICA_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.AC_CA_ACTIVIDAD_CARACTERISTICA_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FC_AN_FACTOR_ANALISIS_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.FC_AN_FACTOR_ANALISIS_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DC_DOCUMENTACION_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.DC_DOCUMENTACION_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -151,6 +175,30 @@
     <servlet-mapping>
         <servlet-name>CA_CARACTERISTICA_Servlet</servlet-name>
         <url-pattern>/CA_CARACTERISTICA_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AN_ANALISIS_PUESTO_Servlet</servlet-name>
+        <url-pattern>/AN_ANALISIS_PUESTO_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AC_ACTIVIDAD_Servlet</servlet-name>
+        <url-pattern>/AC_ACTIVIDAD_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AC_AN_ACTIVIDAD_ANALISIS_Servlet</servlet-name>
+        <url-pattern>/AC_AN_ACTIVIDAD_ANALISIS_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AC_CA_ACTIVIDAD_CARACTERISTICA_Servlet</servlet-name>
+        <url-pattern>/AC_CA_ACTIVIDAD_CARACTERISTICA_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FC_AN_FACTOR_ANALISIS_Servlet</servlet-name>
+        <url-pattern>/FC_AN_FACTOR_ANALISIS_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DC_DOCUMENTACION_Servlet</servlet-name>
+        <url-pattern>/DC_DOCUMENTACION_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

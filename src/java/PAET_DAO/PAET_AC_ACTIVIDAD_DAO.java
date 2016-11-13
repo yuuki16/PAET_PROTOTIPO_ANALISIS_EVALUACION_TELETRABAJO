@@ -9,6 +9,7 @@ import PAET_DOMAIN.PaetAcActividad;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -44,6 +45,25 @@ public class PAET_AC_ACTIVIDAD_DAO extends HibernateUtil implements IBaseDAO<Pae
     @Override
     public List<PaetAcActividad> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetAcActividad o) {
+        BigDecimal acCodigo;
+        
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+            acCodigo = o.getAcCodigo();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+        
+        return acCodigo;
     }
     
 }

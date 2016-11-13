@@ -102,5 +102,10 @@ public class PAET_DF_DIRECCION_FISICA_DAO extends HibernateUtil implements IBase
 
         return listaDireccionesFísicas;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetDfDireccionFisica o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -33,7 +33,7 @@ public class PAET_FC_AN_FACTOR_ANALISIS_BL extends BaseBL implements IBaseBL<Pae
     
     @Override
     public void save(PaetFcAnFactorAnalisis o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override
@@ -58,6 +58,11 @@ public class PAET_FC_AN_FACTOR_ANALISIS_BL extends BaseBL implements IBaseBL<Pae
 
     @Override
     public List<PaetFcAnFactorAnalisis> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetFcAnFactorAnalisis o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

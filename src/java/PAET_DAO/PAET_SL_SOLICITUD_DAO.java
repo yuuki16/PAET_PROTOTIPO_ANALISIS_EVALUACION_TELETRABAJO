@@ -106,5 +106,10 @@ public class PAET_SL_SOLICITUD_DAO extends HibernateUtil implements IBaseDAO<Pae
 
         return listaSolicitudes;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetSlSolicitud o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

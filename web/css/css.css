@@ -12,6 +12,14 @@
 
 }
 
+.colorResultado{
+    width: 30px;
+    height: 30px;
+    float: right;
+    border-radius: 8px;
+    border: 2px solid black;
+}
+
 .nav>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .dropdown-menu>li>a, .dropdown-menu>li{
     border-bottom: 3px solid transparent;
 }
@@ -197,18 +205,20 @@ body {
 .wizard {
     margin: 20px auto;
     background: #fff;
+    position: relative;
+    padding-right: 80px;
 }
 
-    .wizard .nav-tabs {
-        position: relative;
-        margin: 40px auto;
-        margin-bottom: 0;
-        border-bottom-color: #e0e0e0;
-    }
+.wizard .nav-tabs {
+    position: relative;
+    margin: 40px auto;
+    margin-bottom: 0;
+    border-bottom-color: #e0e0e0;
+}
 
-    .wizard > div.wizard-inner {
-        position: relative;
-    }
+.wizard > div.wizard-inner {
+    position: relative;
+}
 
 .connecting-line {
     height: 2px;
@@ -216,7 +226,6 @@ body {
     position: absolute;
     width: 90%;
     margin: 0 auto;
-    left: 0;
     right: 0;
     top: 50%;
     z-index: 1;
@@ -249,7 +258,7 @@ span.round-tab i{
 .wizard li.active span.round-tab {
     background: #fff;
     border: 2px solid #5bc0de;
-    
+
 }
 .wizard li.active span.round-tab i{
     color: #5bc0de;
@@ -295,9 +304,9 @@ span.round-tab:hover {
     padding: 0;
 }
 
-    .wizard .nav-tabs > li a:hover {
-        background: transparent;
-    }
+.wizard .nav-tabs > li a:hover {
+    background: transparent;
+}
 
 .wizard .tab-pane {
     position: relative;
@@ -335,4 +344,24 @@ span.round-tab:hover {
         position: absolute;
         left: 35%;
     }
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }

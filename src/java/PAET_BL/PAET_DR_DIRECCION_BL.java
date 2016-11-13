@@ -49,5 +49,10 @@ public class PAET_DR_DIRECCION_BL extends BaseBL implements IBaseBL<PaetDrDirecc
     public List<PaetDrDireccion> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetDrDireccion o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

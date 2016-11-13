@@ -102,5 +102,10 @@ public class PAET_DR_DIRECCION_DAO  extends HibernateUtil implements IBaseDAO<Pa
 
         return listaDirecciones;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetDrDireccion o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -60,5 +60,10 @@ public class PAET_SL_SOLICITUD_BL extends BaseBL implements IBaseBL<PaetSlSolici
     public List<PaetSlSolicitud> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetSlSolicitud o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

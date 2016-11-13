@@ -72,5 +72,10 @@ public class PAET_CN_CANTON_DAO extends HibernateUtil implements IBaseDAO<PaetCn
 
         return listaCantones;
     }
+
+    @Override
+    public Short saveWithReturn(PaetCnCanton o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

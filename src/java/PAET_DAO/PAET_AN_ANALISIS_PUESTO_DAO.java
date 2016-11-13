@@ -16,50 +16,76 @@
  */
 package PAET_DAO;
 
-import PAET_DOMAIN.PaetEtSlEquipoSolicitud;
+import PAET_DOMAIN.PaetAnAnalisisPuesto;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
+import org.hibernate.HibernateException;
 
 /**
  *
  * @author Michelle
  */
-public class PAET_ET_SL_EQUIPO_SOLICITUD_DAO extends HibernateUtil implements IBaseDAO<PaetEtSlEquipoSolicitud, BigDecimal> {
+public class PAET_AN_ANALISIS_PUESTO_DAO extends HibernateUtil implements IBaseDAO<PaetAnAnalisisPuesto, BigDecimal> {
 
     @Override
-    public void save(PaetEtSlEquipoSolicitud o) {
+    public void save(PaetAnAnalisisPuesto o) {
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+    }
+
+    @Override
+    public PaetAnAnalisisPuesto merge(PaetAnAnalisisPuesto o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public PaetEtSlEquipoSolicitud merge(PaetEtSlEquipoSolicitud o) {
+    public void delete(PaetAnAnalisisPuesto o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(PaetEtSlEquipoSolicitud o) {
+    public PaetAnAnalisisPuesto findById(BigDecimal o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public PaetEtSlEquipoSolicitud findById(BigDecimal o) {
+    public List<PaetAnAnalisisPuesto> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<PaetEtSlEquipoSolicitud> findAll() {
+    public List<PaetAnAnalisisPuesto> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<PaetEtSlEquipoSolicitud> findDynamicFilter(String filterBy, String filter, Boolean unique) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public BigDecimal saveWithReturn(PaetEtSlEquipoSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public BigDecimal saveWithReturn(PaetAnAnalisisPuesto o) {
+        
+        BigDecimal anCodigo;
+        
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+            anCodigo = o.getAnCodigo();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+        
+        return anCodigo;
     }
     
 }

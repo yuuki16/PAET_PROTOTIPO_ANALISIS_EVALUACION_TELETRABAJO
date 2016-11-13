@@ -45,5 +45,10 @@ public class PAET_CU_CAUSA_DAO extends HibernateUtil implements IBaseDAO<PaetCuC
     public List<PaetCuCausa> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetCuCausa o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

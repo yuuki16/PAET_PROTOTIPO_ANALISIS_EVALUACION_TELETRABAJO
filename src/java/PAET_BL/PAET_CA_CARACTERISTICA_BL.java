@@ -60,5 +60,10 @@ public class PAET_CA_CARACTERISTICA_BL extends BaseBL implements IBaseBL<PaetCaC
     public List<PaetCaCaracteristica> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetCaCaracteristica o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

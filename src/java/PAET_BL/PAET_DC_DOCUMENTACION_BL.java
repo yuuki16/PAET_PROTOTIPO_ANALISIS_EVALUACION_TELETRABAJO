@@ -60,5 +60,10 @@ public class PAET_DC_DOCUMENTACION_BL extends BaseBL implements IBaseBL<PaetDcDo
     public List<PaetDcDocumentacion> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetDcDocumentacion o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

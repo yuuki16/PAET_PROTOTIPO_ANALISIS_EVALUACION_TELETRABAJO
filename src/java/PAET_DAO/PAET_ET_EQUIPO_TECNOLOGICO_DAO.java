@@ -102,5 +102,10 @@ public class PAET_ET_EQUIPO_TECNOLOGICO_DAO extends HibernateUtil implements IBa
 
         return listaEquipoTecnologico;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetEtEquipoTecnologico o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

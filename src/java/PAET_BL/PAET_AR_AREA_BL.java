@@ -49,5 +49,10 @@ public class PAET_AR_AREA_BL extends BaseBL implements IBaseBL<PaetArArea, BigDe
     public List<PaetArArea> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetArArea o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -49,5 +49,10 @@ public class PAET_GR_GERENCIA_BL extends BaseBL implements IBaseBL<PaetGrGerenci
     public List<PaetGrGerencia> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetGrGerencia o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

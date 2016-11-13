@@ -60,5 +60,10 @@ public class PAET_PS_PROCESO_SOLICITUD_BL extends BaseBL implements IBaseBL<Paet
     public List<PaetPsProcesoSolicitud> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetPsProcesoSolicitud o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

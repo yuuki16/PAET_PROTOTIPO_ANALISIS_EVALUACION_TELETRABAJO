@@ -60,5 +60,10 @@ public class PAET_ET_SL_EQUIPO_SOLICITUD_BL extends BaseBL implements IBaseBL<Pa
     public List<PaetEtSlEquipoSolicitud> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetEtSlEquipoSolicitud o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

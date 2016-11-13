@@ -48,5 +48,10 @@ public class PAET_TR_TRABAJADOR_BL extends BaseBL implements IBaseBL<PaetTrTraba
     public List<PaetTrTrabajador> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public String saveWithReturn(PaetTrTrabajador o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

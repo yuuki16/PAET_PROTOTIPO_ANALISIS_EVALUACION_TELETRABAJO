@@ -9,6 +9,7 @@ import PAET_DOMAIN.PaetFcAnFactorAnalisis;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -18,7 +19,16 @@ public class PAET_FC_AN_FACTOR_ANALISIS_DAO extends HibernateUtil implements IBa
 
     @Override
     public void save(PaetFcAnFactorAnalisis o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
     }
 
     @Override
@@ -43,6 +53,11 @@ public class PAET_FC_AN_FACTOR_ANALISIS_DAO extends HibernateUtil implements IBa
 
     @Override
     public List<PaetFcAnFactorAnalisis> findDynamicFilter(String filterBy, String filter, Boolean unique) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetFcAnFactorAnalisis o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -85,5 +85,10 @@ public class PAET_PS_PROCESO_SOLICITUD_DAO extends HibernateUtil implements IBas
 
         return listaProcesosSolicitud;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetPsProcesoSolicitud o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -102,5 +102,10 @@ public class PAET_GR_GERENCIA_DAO extends HibernateUtil implements IBaseDAO<Paet
 
         return listaGerencias;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetGrGerencia o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

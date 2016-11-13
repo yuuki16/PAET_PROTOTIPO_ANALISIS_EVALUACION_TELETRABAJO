@@ -102,4 +102,9 @@ public class PAET_DV_DIVISION_DAO extends HibernateUtil implements IBaseDAO<Paet
 
         return listaDivisiones;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetDvDivision o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

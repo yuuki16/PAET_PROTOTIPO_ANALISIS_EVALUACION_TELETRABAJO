@@ -98,5 +98,10 @@ public class PAET_CR_CORREO_DAO extends HibernateUtil implements IBaseDAO<PaetCr
 
         return listaCorreos;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetCrCorreo o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

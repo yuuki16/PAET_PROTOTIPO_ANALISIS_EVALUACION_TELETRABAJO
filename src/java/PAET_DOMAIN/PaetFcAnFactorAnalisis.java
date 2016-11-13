@@ -37,7 +37,7 @@ public class PaetFcAnFactorAnalisis  implements java.io.Serializable {
         return this.fcAnGrado;
     }
     
-    public void seFcAnGrado(Short fcAnGrado) {
+    public void setFcAnGrado(Short fcAnGrado) {
         this.fcAnGrado = fcAnGrado;
     }
 

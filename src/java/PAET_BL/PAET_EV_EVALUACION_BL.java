@@ -60,5 +60,10 @@ public class PAET_EV_EVALUACION_BL extends BaseBL implements IBaseBL<PaetEvEvalu
     public List<PaetEvEvaluacion> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetEvEvaluacion o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

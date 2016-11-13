@@ -60,5 +60,10 @@ public class PAET_ES_ESTADO_BL extends BaseBL implements IBaseBL<PaetEsEstado, B
     public List<PaetEsEstado> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetEsEstado o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

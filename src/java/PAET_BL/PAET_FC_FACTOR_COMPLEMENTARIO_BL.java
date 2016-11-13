@@ -49,5 +49,10 @@ public class PAET_FC_FACTOR_COMPLEMENTARIO_BL extends BaseBL implements IBaseBL<
     public List<PaetFcFactorComplementario> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetFcFactorComplementario o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

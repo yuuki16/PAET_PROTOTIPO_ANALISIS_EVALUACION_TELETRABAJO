@@ -56,5 +56,10 @@ public class PAET_PG_PROCESO_SEGUIMIENTO_DAO extends HibernateUtil implements IB
     public List<PaetPgProcesoSeguimiento> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetPgProcesoSeguimiento o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

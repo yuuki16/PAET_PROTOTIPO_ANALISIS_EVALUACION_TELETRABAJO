@@ -33,7 +33,7 @@ public class PAET_AC_AN_ACTIVIDAD_ANALISIS_BL extends BaseBL implements IBaseBL<
     
     @Override
     public void save(PaetAcAnActividadAnalisis o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override
@@ -58,6 +58,11 @@ public class PAET_AC_AN_ACTIVIDAD_ANALISIS_BL extends BaseBL implements IBaseBL<
 
     @Override
     public List<PaetAcAnActividadAnalisis> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetAcAnActividadAnalisis o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

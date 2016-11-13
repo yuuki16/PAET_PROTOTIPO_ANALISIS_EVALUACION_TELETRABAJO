@@ -56,5 +56,10 @@ public class PAET_EV_EVALUACION_DAO extends HibernateUtil implements IBaseDAO<Pa
     public List<PaetEvEvaluacion> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetEvEvaluacion o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

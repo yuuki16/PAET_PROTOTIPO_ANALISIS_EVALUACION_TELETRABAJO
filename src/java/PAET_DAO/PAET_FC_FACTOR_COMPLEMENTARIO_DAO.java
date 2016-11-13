@@ -102,5 +102,10 @@ public class PAET_FC_FACTOR_COMPLEMENTARIO_DAO extends HibernateUtil implements 
 
         return listaFactores;
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetFcFactorComplementario o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -60,5 +60,10 @@ public class PAET_DI_TT_DIA_SOLICITUD_BL extends BaseBL implements IBaseBL<PaetD
     public List<PaetDiTtDiaTeletrabajador> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetDiTtDiaTeletrabajador o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -60,5 +60,10 @@ public class PAET_AM_ACCION_MEJORA_BL extends BaseBL implements IBaseBL<PaetAmAc
     public List<PaetAmAccionMejora> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetAmAccionMejora o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

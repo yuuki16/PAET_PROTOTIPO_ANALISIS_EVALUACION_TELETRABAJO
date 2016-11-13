@@ -60,5 +60,10 @@ public class PAET_RE_RECOMENDACION_BL extends BaseBL implements IBaseBL<PaetReRe
     public List<PaetReRecomendacion> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetReRecomendacion o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

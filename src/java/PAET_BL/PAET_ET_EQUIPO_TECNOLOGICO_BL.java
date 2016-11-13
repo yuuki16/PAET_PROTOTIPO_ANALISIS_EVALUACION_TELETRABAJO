@@ -49,5 +49,10 @@ public class PAET_ET_EQUIPO_TECNOLOGICO_BL extends BaseBL implements IBaseBL<Pae
     public List<PaetEtEquipoTecnologico> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
         return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetEtEquipoTecnologico o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

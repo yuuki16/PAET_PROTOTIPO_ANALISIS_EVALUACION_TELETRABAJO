@@ -101,4 +101,9 @@ public class PAET_DI_DIA_DAO extends HibernateUtil implements IBaseDAO<PaetDiDia
 
         return listaDias;
     }
+
+    @Override
+    public Character saveWithReturn(PaetDiDia o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

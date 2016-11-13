@@ -102,5 +102,10 @@ public class PAET_PT_PUESTO_DAO extends HibernateUtil implements IBaseDAO<PaetPt
 
         return listaPuestos;
     }
+
+    @Override
+    public String saveWithReturn(PaetPtPuesto o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
