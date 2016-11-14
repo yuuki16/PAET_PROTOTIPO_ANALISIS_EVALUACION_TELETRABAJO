@@ -1,3 +1,5 @@
+var trTrabajador;
+
 $(document).ready(function () {
     consultarGerencias();
     consultarDivisiones();
@@ -80,7 +82,6 @@ function consultarTrabajadorByCedula(trCedula) {
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
-            ocultarModal("modalMensajes");
             $('#formSolicitudTeletrabajo').trigger("reset");
 
             //se carga la información en el formulario
@@ -93,6 +94,8 @@ function consultarTrabajadorByCedula(trCedula) {
                 $("#puesto").val(data[0].ptPuesto);
                 $("#fechaEntradaPuesto").val(data[0].trPtFechaEntrada);
                 $("#fechaIngreso").val(data[0].trFechaIngreso);
+                
+                trTrabajador = data[0].trUsuario;
             }
 
             ocultarModal("modalMensajes");
@@ -100,8 +103,6 @@ function consultarTrabajadorByCedula(trCedula) {
         type: 'POST',
         dataType: "json"
     });
-
-    ocultarModal("modalMensajes");
 }
 
 //gerencias
@@ -255,7 +256,6 @@ function dibujarComboPuestos(dataJson) {
 }
 
 function consultarPuestoByCodigo(ptCodigo) {
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando el puesto seleccionado");
 
     $.ajax({
         url: 'PT_PUESTO_Servlet',
@@ -268,20 +268,16 @@ function consultarPuestoByCodigo(ptCodigo) {
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
-            ocultarModal("modalMensajes");
             //se carga la información en el formulario
             $("#gerencia").val(data.grGerencia);
             $("#division").val(data.dvDivision);
             $("#direccion").val(data.drDireccion);
             $("#area").val(data.arArea);
 
-            ocultarModal("modalMensajes");
         },
         type: 'POST',
         dataType: "json"
     });
-
-    ocultarModal("modalMensajes");
 }
 
 //dias
@@ -512,8 +508,6 @@ function mostrarMensaje(classCss, msg, neg) {
 
 function consultarSolicitudByTrabajador(trUsuario) {
 
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando las solicitudes");
-
     $.ajax({
         async: false,
         url: 'SL_SOLICITUD_Servlet',
@@ -528,17 +522,13 @@ function consultarSolicitudByTrabajador(trUsuario) {
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
-            ocultarModal("modalMensajes");
             
             revisarSolicitudesPendientes(data);
 
-            ocultarModal("modalMensajes");
         },
         type: 'POST',
         dataType: "json"
     });
-
-    ocultarModal("modalMensajes");
 }
 
 function revisarSolicitudesPendientes(dataJson){
@@ -554,8 +544,37 @@ function revisarSolicitudesPendientes(dataJson){
     if (poseeSolicitud) {
         alert("El candidato ya posee una solicitud pendiente.");
     }
-    else
+    else if (revisarTeletrabajadores()) {
+        alert("El candidato se encuentra teletrabajando en la actualidad.");
+    }else
     {
         guardar();
     }
+    
+}
+
+function revisarTeletrabajadores()
+{
+    var validacion = false;
+    $.ajax({
+        async: false,
+        url: 'TT_TELETRABAJADOR_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "trTrabajador",
+            valor: trTrabajador,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            if (data.length > 0) {
+                validacion = true;
+            }
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+    return validacion;
 }

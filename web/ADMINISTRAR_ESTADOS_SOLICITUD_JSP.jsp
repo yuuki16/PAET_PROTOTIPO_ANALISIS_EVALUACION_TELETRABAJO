@@ -313,6 +313,7 @@
                                                 <button type="button" class="btn btn-success" id="aprobarSolicitud">Aprobar Solicitud</button>
                                                 <button type="button" class="btn btn-danger" id="negarSolicitud">Denegar Solicitud</button>
                                                 <input type="text" id="resultadoSolicitud" style="display: none">
+                                                <label id="labelDenegada" style="color: red"></label>
                                             </li>
                                             <br>
                                             <br>

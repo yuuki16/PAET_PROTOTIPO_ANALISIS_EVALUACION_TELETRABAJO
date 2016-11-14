@@ -38,7 +38,7 @@ public class PAET_SL_SOLICITUD_BL extends BaseBL implements IBaseBL<PaetSlSolici
 
     @Override
     public PaetSlSolicitud merge(PaetSlSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (PaetSlSolicitud) this.getDao(o.getClass().getName()).merge(o);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class PAET_SL_SOLICITUD_BL extends BaseBL implements IBaseBL<PaetSlSolici
 
     @Override
     public PaetSlSolicitud findById(BigDecimal o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (PaetSlSolicitud) this.getDao(PaetSlSolicitud.class.getName()).findById(o);
     }
 
     @Override

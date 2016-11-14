@@ -72,11 +72,26 @@ public class PS_PROCESO_SOLICITUD_Servlet extends HttpServlet {
                     out.print(json);
                     break;
                 case "agregarProcesoSolicitud":
-                        //Se guarda el objeto
-                        procesoSolicitudBl.save(procesoSolicitud);
+                    //Se guarda el objeto
+                    procesoSolicitudBl.save(procesoSolicitud);
 
-                        //Se imprime la respuesta con el response
-                        out.print("C~El proceso de solicitud fue agregado correctamente");
+                    //Se imprime la respuesta con el response
+                    out.print("C~El proceso de solicitud fue agregado correctamente");
+
+                    break;
+                case "modificarProcesoSolicitud":
+                    psCodigo = new BigDecimal(request.getParameter("psProcesoSolicitud"));
+                    if (!"".equals(request.getParameter("psObservacion").trim())) {
+                        procesoSolicitud.setPsObservacion(request.getParameter("psObservacion"));
+                    }
+                    procesoSolicitud.setPsCodigo(psCodigo);
+                    procesoSolicitud.setPsFechaAtendido(fechaHoy);
+                    procesoSolicitud.setPsEstado('F');
+                    //Se guarda el objeto
+                    procesoSolicitudBl.merge(procesoSolicitud);
+
+                    //Se imprime la respuesta con el response
+                    out.print("C~El proceso de solicitud fue modificado correctamente");
 
                     break;
                 case "consultaDinamica":
@@ -97,15 +112,15 @@ public class PS_PROCESO_SOLICITUD_Servlet extends HttpServlet {
                     procesoSolicitud.setPsFechaAtendido(fechaHoy);
                     procesoSolicitud.setPsEstado('F');
                     procesoSolicitud.setPsCodigo(psCodigo);
-                    
+
                     procesoSolicitudBl.merge(procesoSolicitud);
-                    
+
                     procesoSolicitud = new PaetPsProcesoSolicitud();
                     procesoSolicitud.setPsFechaEntrada(fechaHoy);
                     procesoSolicitud.setSlSolicitud(slSolicitud);
                     procesoSolicitud.setEsEstado(esEstado);
                     procesoSolicitud.setPsEstado('P');
-                    
+
                     psCodigo = procesoSolicitudBl.saveWithReturn(procesoSolicitud);
                     out.print(psCodigo);
                     break;

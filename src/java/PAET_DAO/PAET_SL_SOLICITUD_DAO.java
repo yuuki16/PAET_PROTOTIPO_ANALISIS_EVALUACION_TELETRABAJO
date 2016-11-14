@@ -65,7 +65,21 @@ public class PAET_SL_SOLICITUD_DAO extends HibernateUtil implements IBaseDAO<Pae
 
     @Override
     public PaetSlSolicitud merge(PaetSlSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            String hql = "update PaetSlSolicitud sl set sl.slResultado = :slResultado where sl.slCodigo = :slCodigo";
+            int updatedEntities = getSesion().createQuery(hql)
+                    .setCharacter("slResultado", o.getSlResultado())
+                    .setBigDecimal("slCodigo", o.getSlCodigo())
+                    .executeUpdate();
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+        return o;
     }
 
     @Override
@@ -75,7 +89,15 @@ public class PAET_SL_SOLICITUD_DAO extends HibernateUtil implements IBaseDAO<Pae
 
     @Override
     public PaetSlSolicitud findById(BigDecimal o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PaetSlSolicitud solicitud = null;
+
+        try {
+            iniciaOperacion();
+            solicitud = (PaetSlSolicitud) getSesion().get(PaetSlSolicitud.class, o);
+        } finally {
+            getSesion().close();
+        }
+        return solicitud;
     }
 
     @Override

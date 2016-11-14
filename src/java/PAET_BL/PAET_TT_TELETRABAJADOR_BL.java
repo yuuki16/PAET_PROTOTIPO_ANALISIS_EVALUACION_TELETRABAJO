@@ -58,12 +58,14 @@ public class PAET_TT_TELETRABAJADOR_BL extends BaseBL implements IBaseBL<PaetTtT
 
     @Override
     public List<PaetTtTeletrabajador> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
 
     @Override
     public BigDecimal saveWithReturn(PaetTtTeletrabajador o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BigDecimal ttCodigo;
+        ttCodigo = (BigDecimal) this.getDao(o.getClass().getName()).saveWithReturn(o);
+        return ttCodigo;
     }
     
 }

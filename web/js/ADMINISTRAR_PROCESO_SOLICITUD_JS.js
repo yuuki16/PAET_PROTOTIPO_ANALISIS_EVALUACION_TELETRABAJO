@@ -272,7 +272,7 @@ function dibujarEstados(dataJson)
     for (var i = 0; i < dataJson.length; i++) {
         $("#estados").append($('<article class="timeline-entry">' +
                 '<div class="timeline-entry-inner">' +
-                '<div class="timeline-icon bg-gray" id="' + dataJson[i].esSecuencia + 'Circulo"' +
+                '<div name="circulo" class="timeline-icon bg-gray" id="' + dataJson[i].esSecuencia + 'Circulo"' +
                 '<i class="entypo-suitcase"></i>' +
                 '</div>' +
                 '<div class="timeline-label" id="' + dataJson[i].esSecuencia + '">' +
@@ -308,8 +308,19 @@ function consultarEstadosByProcesoSolicitud(slSolicitud)
     });
 }
 
+function limpiarEstados()
+{
+    var circulos = document.getElementsByName("circulo");
+    for (i = circulos.length - 1; i >= 0; i--) {
+        circulos[i].className = "";
+        circulos[i].className = "timeline-icon bg-gray";
+    }
+}
+
 function pintarEstados(dataJson, solicitud)
 {
+    limpiarEstados();
+    
     var element = document.getElementsByName("borrar"), index;
 
     for (index = element.length - 1; index >= 0; index--) {

@@ -16,8 +16,10 @@
  */
 package PAET_CONTROLLER;
 
-import PAET_BL.PAET_SL_SOLICITUD_BL;
-import PAET_DOMAIN.PaetSlSolicitud;
+import PAET_BL.PAET_TT_TELETRABAJADOR_BL;
+import PAET_DAO.PAET_DI_TT_DIA_TELETRABAJADOR_DAO;
+import PAET_DOMAIN.PaetDiTtDiaTeletrabajador;
+import PAET_DOMAIN.PaetTtTeletrabajador;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Michelle
  */
-public class SL_SOLICITUD_Servlet extends HttpServlet {
+public class TT_TELETRABAJADOR_Servlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,62 +51,54 @@ public class SL_SOLICITUD_Servlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String json, campo, valor;
-            BigDecimal slCodigo;
-            Date slFecha;
-            long slFechal;
+            BigDecimal ttCodigo, slSolicitud;
             Boolean unico;
-            PaetSlSolicitud solicitud = new PaetSlSolicitud();
-            PAET_SL_SOLICITUD_BL solicitudBl = new PAET_SL_SOLICITUD_BL();
-
+            Date fechaHoy = new Date();
+            PaetTtTeletrabajador teletrabajador = new PaetTtTeletrabajador();
+            PaetDiTtDiaTeletrabajador diaTeletrabajador = new PaetDiTtDiaTeletrabajador();
+            PAET_TT_TELETRABAJADOR_BL teletrabajadorBl = new PAET_TT_TELETRABAJADOR_BL();
+            PAET_DI_TT_DIA_TELETRABAJADOR_DAO diaTeletrabajadorBl = new PAET_DI_TT_DIA_TELETRABAJADOR_DAO();
+                
+            
             String accion = request.getParameter("accion");
 
             switch (accion) {
-                case "consultarSolicitudes":
-                    json = new Gson().toJson(solicitudBl.findAll(PaetSlSolicitud.class.getName()));
+                case "consultarTeletrabajadores":
+                    json = new Gson().toJson(teletrabajadorBl.findAll(PaetTtTeletrabajador.class.getName()));
                     out.print(json);
                     break;
-                case "consultarSolicitudByCodigo":
-                    slCodigo = new BigDecimal(request.getParameter("slCodigo"));
+                case "consultarTeletrabajadorByCodigo":
+                    ttCodigo = new BigDecimal(request.getParameter("ttCodigo"));
                     //se consulta el objeto por ID
-                    solicitud = solicitudBl.findById(slCodigo);
+                    teletrabajador = teletrabajadorBl.findById(ttCodigo);
 
                     //se pasa la informacion del objeto a formato JSON
-                    json = new Gson().toJson(solicitud);
+                    json = new Gson().toJson(teletrabajador);
                     out.print(json);
                     break;
-                case "agregarSolicitud":
-                case "modificarSolicitud":
+                case "agregarTeletrabajador":
+                case "modificarTeletrabajador":
 
-                    if (accion.equals("agregarSolicitud")) { //es insertar
-                        slFechal = new Long(request.getParameter("slFecha"));
-                        slFecha = new Date(slFechal);
-                        
-                        solicitud.setSlJustificacion(request.getParameter("slJustificacion"));
-                        solicitud.setSlFecha(slFecha);
-                        solicitud.setSlModalidad(request.getParameter("slModalidad").charAt(0));
-                        solicitud.setSlTiempo(request.getParameter("slTiempo"));
-                        solicitud.setSlConectividad(request.getParameter("slConectividad").charAt(0));
-                        solicitud.setSlTelefonia(request.getParameter("slTelefonia").charAt(0));
-                        solicitud.setSlResultado(request.getParameter("slResultado").charAt(0));
-                        solicitud.setTrTrabajador(request.getParameter("trTrabajador"));
-                        solicitud.setSlBeneficios(request.getParameter("slBeneficios"));
-                        
+                    if (accion.equals("agregarTeletrabajador")) { //es insertar
+                        slSolicitud = new BigDecimal(request.getParameter("slSolicitud"));
+                        teletrabajador.setSlSolicitud(slSolicitud);
+                        teletrabajador.setTtFechaInicio(fechaHoy);
+                        teletrabajador.setTrTrabajador(request.getParameter("trTrabajador"));
+                        teletrabajador.setTtEstado('A');
                         //Se guarda el objeto
-                        solicitudBl.save(solicitud);
+                        ttCodigo = teletrabajadorBl.saveWithReturn(teletrabajador);
 
                         //Se imprime la respuesta con el response
-                        out.print("C~La solicitud fue enviada correctamente");
+                        out.print(ttCodigo);
 
                     } else {//es modificar 
-                        slCodigo = new BigDecimal(request.getParameter("slCodigo"));
+                        ttCodigo = new BigDecimal(request.getParameter("ttCodigo"));
 
-                        solicitud.setSlCodigo(slCodigo);
-                        solicitud.setSlResultado(request.getParameter("slResultado").charAt(0));
                         //Se guarda el objeto
-                        solicitudBl.merge(solicitud);
+                        teletrabajadorBl.merge(teletrabajador);
 
                         //Se imprime la respuesta con el response
-                        out.print("C~La solicitud fue modificada correctamente");
+                        out.print("C~La gerencia fue modificado correctamente");
                     }
                     break;
                 case "consultaDinamica":
@@ -112,13 +106,24 @@ public class SL_SOLICITUD_Servlet extends HttpServlet {
                     valor = request.getParameter("valor");
                     unico = Boolean.valueOf(request.getParameter("unico"));
                     //se consulta el objeto por el campo y el valor 
-                    json = new Gson().toJson(solicitudBl.findDynamicFilter(campo, valor, unico, PaetSlSolicitud.class.getName()));
+                    json = new Gson().toJson(teletrabajadorBl.findDynamicFilter(campo, valor, unico, PaetTtTeletrabajador.class.getName()));
                     out.print(json);
+                    break;
+                case "agregarDiasTeletrabajador":
+                    ttCodigo = new BigDecimal(request.getParameter("ttTeletrabajador"));
+                    diaTeletrabajador.setDiTtEstado('A');
+                    diaTeletrabajador.setDiDia(request.getParameter("diDia").charAt(0));
+                    diaTeletrabajador.setTtTeletrabajador(ttCodigo);
+                    
+                    diaTeletrabajadorBl.save(diaTeletrabajador);
+                    
+                    out.print("C~El día fue agregado correctamente");
                     break;
                 default:
                     out.print("E~No se indico la acción que se desea realizare");
                     break;
             }
+
         } catch (NumberFormatException e) {
             out.print("E~" + e.getMessage());
         } catch (Exception e) {

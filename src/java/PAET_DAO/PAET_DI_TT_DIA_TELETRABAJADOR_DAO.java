@@ -9,6 +9,7 @@ import PAET_DOMAIN.PaetDiTtDiaTeletrabajador;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -18,7 +19,16 @@ public class PAET_DI_TT_DIA_TELETRABAJADOR_DAO extends HibernateUtil implements 
 
     @Override
     public void save(PaetDiTtDiaTeletrabajador o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
     }
 
     @Override
