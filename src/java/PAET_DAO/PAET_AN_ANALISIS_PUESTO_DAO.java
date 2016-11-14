@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
 /**
  *
@@ -65,7 +66,26 @@ public class PAET_AN_ANALISIS_PUESTO_DAO extends HibernateUtil implements IBaseD
 
     @Override
     public List<PaetAnAnalisisPuesto> findDynamicFilter(String filterBy, String filter, Boolean unique) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<PaetAnAnalisisPuesto> listaAnalisisPuesto;
+        Query query;
+        
+        try {
+            iniciaOperacion();
+            if (unique) {
+                query = getSesion().createQuery("from PaetAnAnalisisPuesto where "+filterBy+" = '"+filter+"'");
+            }
+            else
+            {
+                query = getSesion().createQuery("from PaetAnAnalisisPuesto where lower("+filterBy+") like ?");
+                query.setString(0, "%"+filter.toLowerCase()+"%");
+            }
+            listaAnalisisPuesto = query.list();
+            
+        } finally {
+            getSesion().close();
+        }
+
+        return listaAnalisisPuesto;
     }
 
     @Override

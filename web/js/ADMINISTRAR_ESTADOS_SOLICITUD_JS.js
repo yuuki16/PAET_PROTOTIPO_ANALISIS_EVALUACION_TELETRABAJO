@@ -16,7 +16,6 @@
  */
 var psProcesoSolicitud, slSolicitud, trTrabajador;
 
-
 $(document).ready(function () {
     consultarEstadosByProceso();
     //acciones barra proceso
@@ -28,16 +27,7 @@ $(document).ready(function () {
             return false;
         }
     });
-
-    $(".prev-step").click(function (e) {
-
-        var $active = $('.wizard .nav-tabs li.active');
-        prevTab($active);
-    });
-
-    consultarFactoresComplementarios();
-
-    consultarCaracteristicas();
+    
     //acciones agregar/borrar fila
     var i = 1;
     $("#add_row").click(function () {
@@ -67,11 +57,12 @@ $(document).ready(function () {
         resultadoFactores();
     });
 
+    //evento botones avanzar proceso
     $("#guardar2").click(function () {
         var solicitud = getParameterByName('solicitud', null);
         if (solicitud) {
             if (validarDocumentacion()) {
-                consultarEstadosBySolicitud(solicitud, false);
+                consultarEstadosBySolicitud(solicitud, 2);
 
             } else
             {
@@ -81,14 +72,49 @@ $(document).ready(function () {
         }
     });
 
-    $(':file').on('fileselect', function (event, numFiles, label) {
+    $("#guardar3").click(function () {
+        if (validarDocumentacion3()) {
+            guardarDocumentacion("documentoPsicometrico");
+            guardarDocumentacion("documentoPsicosocial");
+            avanzarPsProcesoSolicitud(4, 3);
+        } else
+        {
+            alert("Debe adjuntar el resultados de los análisis para poder continuar.");
+        }
+    });
+
+    //previsualizar archivo adjuntado
+    $('#notaGerente').on('fileselect', function (event, numFiles, label) {
         $("#archivo").html();
         $("#archivo").html(label);
+    });
 
+    $('#documentoPsicometrico').on('fileselect', function (event, numFiles, label) {
+        $("#archivoPsicometrico").html();
+        $("#archivoPsicometrico").html(label);
+    });
+
+    $('#documentoPsicosocial').on('fileselect', function (event, numFiles, label) {
+        $("#archivoPsicosocial").html();
+        $("#archivoPsicosocial").html(label);
     });
 });
 
-$(document).on('change', ':file', function () {
+$(document).on('change', '#notaGerente', function () {
+    var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).on('change', '#documentoPsicometrico', function () {
+    var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).on('change', '#documentoPsicosocial', function () {
     var input = $(this),
             numFiles = input.get(0).files ? input.get(0).files.length : 1,
             label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
@@ -170,7 +196,7 @@ function dibujarEstados(dataJson)
 
     var solicitud = getParameterByName('solicitud', null);
     slSolicitud = solicitud;
-    consultarEstadosBySolicitud(solicitud, true);
+    consultarEstadosBySolicitud(solicitud, 1);
 }
 
 function consultarEstadosBySolicitud(slSolicitud, funcion)
@@ -188,11 +214,17 @@ function consultarEstadosBySolicitud(slSolicitud, funcion)
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            if (funcion) {
-                pintarEstadoPendiente(data);
-            } else
+            switch (funcion)
             {
-                revisarProcesoSolicitud(data);
+                case 1:
+                    pintarEstadoPendiente(data);
+                    break;
+                case 2:
+                    revisarProcesoSolicitud(data);
+                    break;
+                case 3:
+                    consultarAnalisisPuestoByProcesoSolicitud(data);
+                    break;
             }
         },
         type: 'POST',
@@ -208,6 +240,13 @@ function pintarEstadoPendiente(dataJson)
             $("#" + dataJson[i].esEstado).removeClass();
             $("#" + dataJson[i].esEstado).addClass("active");
             consultarEstadoByCodigo(dataJson[i].esEstado);
+            if (dataJson[i].psEstado === 2) {
+                consultarFactoresComplementarios();
+                consultarCaracteristicas();
+            }else if (dataJson[i].psEstado === 4) {
+                consultarEstadosBySolicitud(3);
+                $("#diasTeletrabajo").hide();
+            }
         }
     }
 }
@@ -501,8 +540,8 @@ function guardarAnalisisPuesto(psProcesoSolicitud)
                 anCodigo = data;
                 guardarActividades(anCodigo);
                 guardarFactoresAnalisis(anCodigo);
-                guardarDocumentacion();
-                avanzarPsProcesoSolicitud(3, psProcesoSolicitud);
+                guardarDocumentacion("notaGerente");
+                avanzarPsProcesoSolicitud(3, 2);
                 ocultarMensaje();
             },
             type: 'POST'
@@ -526,6 +565,75 @@ function validarAnalisisPuesto()
     return validacion;
 }
 
+function consultarAnalisisPuestoByProcesoSolicitud(dataJson)
+{
+    var numeroProceso;
+    for (var i = 0; i < dataJson.length; i++) {
+        if (dataJson[i].esEstado === 2) {
+            numeroProceso = dataJson[i].psCodigo;
+        }
+    }
+
+    if (numeroProceso) {
+        $.ajax({
+            async: false,
+            url: 'AN_ANALISIS_PUESTO_Servlet',
+            data: {
+                accion: "consultaDinamica",
+                campo: "psProcesoSolicitud",
+                valor: numeroProceso,
+                unico: true
+            },
+            error: function () { //si existe un error en la respuesta del ajax
+                cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+            },
+            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+                var resultadoFactores = data[0].anResultadoFactores;
+                $("#resultadoFactores").val(resultadoFactores);
+                if (resultadoFactores > 75) {
+                    $("#resultadoFactoresColor").css("background", "#42f448");
+                    $("#recomendacionResultadoFactores").empty();
+                    $("#recomendacionResultadoFactores").append("Los aspectos de gestión relacionados con el puesto FAVORECEN la aplicación de la MODALIDAD DE TELETRABAJO");
+                } else if (resultadoFactores < 25) {
+                    $("#resultadoFactoresColor").css("background", "#e01a1a");
+                    $("#recomendacionResultadoFactores").empty();
+                    $("#recomendacionResultadoFactores").append("Los aspectos de gestión relacionados con el puesto, evidencian la necesidad de aplicar MEJORAS para la aplicación de la MODALIDAD DE TELETRABAJO");
+                } else
+                {
+                    $("#resultadoFactoresColor").css("background", "#f7f71b");
+                    $("#recomendacionResultadoFactores").empty();
+                    $("#recomendacionResultadoFactores").append("Los aspectos de gestión relacionados con el puesto indican SUSCEPTIBILIDAD de aplicar la MODALIDAD DE TELETRABAJO");
+                }
+                var resultadoActividades = data[0].anResultadoActividades;
+                $("#resultadoActividades").val(resultadoActividades + "%");
+                if (resultadoActividades === 100) {
+                    $("#resultadoActividadesColor").css("background", "#42f448");
+                } else if (resultadoActividades < 20) {
+                    $("#resultadoActividadesColor").css("background", "#e01a1a");
+                } else
+                {
+                    $("#resultadoActividadesColor").css("background", "#f7f71b");
+                }
+                $("#diasResultado").val(data[0].anDiasRecomendados + " DIAS");
+                var modalidad = data[0].anModalidad;
+                if (modalidad === "T") {
+                    $("#modalidadResultado").val("TOTAL");
+                } else if (modalidad === "P") {
+                    $("#modalidadResultado").val("PARCIAL");
+                }
+                var tipoPuesto = data[0].anTipoPuesto;
+                if (tipoPuesto === "T") {
+                    $("#tipoPuestoResultado").val("ES TELETRABAJABLE");
+                } else if (tipoPuesto === "N") {
+                    $("#tipoPuestoResultado").val("NO ES TELETRABAJABLE");
+                }
+            },
+            type: 'POST',
+            dataType: "json"
+        });
+    }
+}
+
 //proceso solicitud
 function revisarProcesoSolicitud(dataJson)
 {
@@ -536,10 +644,10 @@ function revisarProcesoSolicitud(dataJson)
     }
 }
 
-function avanzarPsProcesoSolicitud(estadoSiguiente, psProcesoSolicitud)
+function avanzarPsProcesoSolicitud(estadoSiguiente, numeroObservacion)
 {
-    var observacion = $("#observacion2").val();
-    
+    var observacion = $("#observacion" + numeroObservacion).val();
+
     $.ajax({
         async: false,
         url: 'PS_PROCESO_SOLICITUD_Servlet',
@@ -554,6 +662,11 @@ function avanzarPsProcesoSolicitud(estadoSiguiente, psProcesoSolicitud)
             mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            psProcesoSolicitud = data;
+            if (estadoSiguiente === 4) {
+                consultarEstadosBySolicitud(3);
+                $("#diasTeletrabajo").hide();
+            }
             var $active = $('.wizard .nav-tabs li.active');
             ($active).addClass("disabled");
             $active.next().removeClass('disabled');
@@ -699,10 +812,10 @@ function guardarFactoresAnalisis(anCodigo)
 }
 
 //documentacion
-function guardarDocumentacion()
+function guardarDocumentacion(nombreCampo)
 {
     var datos = new FormData();
-    datos.append('file', document.getElementById('notaGerente').files[0]);
+    datos.append('file', document.getElementById(nombreCampo).files[0]);
     datos.append('psProcesoSolicitud', psProcesoSolicitud);
     $.ajax({
         url: 'DC_DOCUMENTACION_Servlet',
@@ -721,12 +834,25 @@ function guardarDocumentacion()
     });
 }
 
-
 function validarDocumentacion()
 {
     var validacion = true;
 
     if (document.getElementById("notaGerente").files.length === 0) {
+        validacion = false;
+    }
+
+    return validacion;
+}
+
+function validarDocumentacion3()
+{
+    var validacion = true;
+
+    if (document.getElementById("documentoPsicometrico").files.length === 0) {
+        validacion = false;
+    }
+    if (document.getElementById("documentoPsicosocial").files.length === 0) {
         validacion = false;
     }
 

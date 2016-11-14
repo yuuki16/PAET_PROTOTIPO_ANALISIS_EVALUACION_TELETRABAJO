@@ -106,7 +106,8 @@ public class PS_PROCESO_SOLICITUD_Servlet extends HttpServlet {
                     procesoSolicitud.setEsEstado(esEstado);
                     procesoSolicitud.setPsEstado('P');
                     
-                    procesoSolicitudBl.save(procesoSolicitud);
+                    psCodigo = procesoSolicitudBl.saveWithReturn(procesoSolicitud);
+                    out.print(psCodigo);
                     break;
                 default:
                     out.print("E~No se indico la acción que se desea realizare");

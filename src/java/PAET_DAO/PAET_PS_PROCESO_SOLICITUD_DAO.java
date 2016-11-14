@@ -104,7 +104,21 @@ public class PAET_PS_PROCESO_SOLICITUD_DAO extends HibernateUtil implements IBas
 
     @Override
     public BigDecimal saveWithReturn(PaetPsProcesoSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BigDecimal psCodigo;
+        
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+            psCodigo = o.getPsCodigo();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+        
+        return psCodigo;
     }
     
 }

@@ -22,19 +22,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import javax.mail.Multipart;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -45,8 +39,6 @@ import org.apache.commons.io.FilenameUtils;
  *
  * @author Michelle
  */
-@WebServlet(urlPatterns = {"/DC_DOCUMENTACION_Sevlet"})
-@MultipartConfig(location = "/DC_DOCUMENTACION_Sevlet", maxFileSize = 10485760L) // 10MB
 public class DC_DOCUMENTACION_Servlet extends HttpServlet {
 
     String carpetaDestino = "C:/uploads/";

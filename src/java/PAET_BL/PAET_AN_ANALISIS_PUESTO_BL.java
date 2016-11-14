@@ -58,7 +58,7 @@ public class PAET_AN_ANALISIS_PUESTO_BL extends BaseBL implements IBaseBL<PaetAn
 
     @Override
     public List<PaetAnAnalisisPuesto> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
 
     @Override
