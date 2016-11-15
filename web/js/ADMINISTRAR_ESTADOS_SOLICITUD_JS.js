@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-var psProcesoSolicitud, slSolicitud, trTrabajador;
+var psProcesoSolicitud, slSolicitud, trTrabajador, ttTeletrabajador;
 
 $(document).ready(function () {
     consultarEstadosByProceso();
@@ -69,11 +69,22 @@ $(document).ready(function () {
         $("#resultadoSolicitud").val("R");
     });
 
+    $("#salarioTotal").change(function () {
+        var salarioTotal, salarioLey, salarioTeletrabajo, porciento;
+
+        salarioTotal = $("#salarioTotal").val();
+        porciento = salarioTotal * 0.1524;
+        salarioLey = parseInt(salarioTotal - porciento);
+        $("#salarioRebajosLey").val(salarioLey);
+        salarioTeletrabajo = parseInt(salarioLey / 20 * $("#diasTeletrabajando").val());
+        $("#salarioTeletrabajo").val(salarioTeletrabajo);
+    });
+
     //evento botones avanzar proceso
     $("#guardar2").click(function () {
         var solicitud = getParameterByName('solicitud', null);
         if (solicitud) {
-            if (validarDocumentacion()) {
+            if (validarDocumentacion("notaGerente")) {
                 consultarEstadosBySolicitud(2);
 
             } else
@@ -85,13 +96,18 @@ $(document).ready(function () {
     });
 
     $("#guardar3").click(function () {
-        if (validarDocumentacion3()) {
-            guardarDocumentacion("documentoPsicometrico");
-            guardarDocumentacion("documentoPsicosocial");
-            avanzarPsProcesoSolicitud(4, 3);
+        if (validarDocumentacion("documentoPsicometrico")) {
+            if (validarDocumentacion("documentoPsicosocial")) {
+                guardarDocumentacion("documentoPsicometrico");
+                guardarDocumentacion("documentoPsicosocial");
+                avanzarPsProcesoSolicitud(4, 3);
+            } else
+            {
+                alert("Debe adjuntar el resultado del análisis psicosocial para poder continuar.");
+            }
         } else
         {
-            alert("Debe adjuntar el resultados de los análisis para poder continuar.");
+            alert("Debe adjuntar el resultado del análisis psicométrico para poder continuar.");
         }
     });
 
@@ -106,6 +122,41 @@ $(document).ready(function () {
         } else
         {
             alert("Debe de aprobar o denegar la solicitud antes de continuar.");
+        }
+    });
+
+    $("#guardar5").click(function () {
+        if (validarDocumentacion("requerimientos")) {
+            guardarDocumentacion("requerimientos");
+            avanzarPsProcesoSolicitud(6, 5);
+        } else
+        {
+            alert("Debe de adjuntar el formulario de requerimientos tecnológicos antes de continuar.");
+        }
+    });
+
+    $("#guardar6").click(function () {
+        if (validarDocumentacion("visita")) {
+            if (validarCalculoAhorro()) {
+                guardarCalculoAhorro();
+            } else
+            {
+                alert("Debe ingresar la información correspondiente al cálculo de ahorro para poder continuar.");
+            }
+        } else
+        {
+            alert("Debe de adjuntar el documento de la visita realizada antes de continuar.");
+        }
+    });
+    
+    $("#guardar7").click(function () {
+        if (validarDocumentacion("adenda")) {
+            guardarDocumentacion("adenda");
+            modificarPsProcesoSolicitud(7);
+            window.location = 'ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp';
+        } else
+        {
+        alert("Debe de adjuntar la adenda firmada para finalizar el proceso.");
         }
     });
 
@@ -124,6 +175,21 @@ $(document).ready(function () {
         $("#archivoPsicosocial").html();
         $("#archivoPsicosocial").html(label);
     });
+
+    $('#requerimientos').on('fileselect', function (event, numFiles, label) {
+        $("#archivorequerimientos").html();
+        $("#archivorequerimientos").html(label);
+    });
+
+    $('#visita').on('fileselect', function (event, numFiles, label) {
+        $("#archivoVisita").html();
+        $("#archivoVisita").html(label);
+    });
+    
+    $('#adenda').on('fileselect', function (event, numFiles, label) {
+        $("#archivoadenda").html();
+        $("#archivoadenda").html(label);
+    });
 });
 
 $(document).on('change', '#notaGerente', function () {
@@ -141,6 +207,27 @@ $(document).on('change', '#documentoPsicometrico', function () {
 });
 
 $(document).on('change', '#documentoPsicosocial', function () {
+    var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).on('change', '#requerimientos', function () {
+    var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).on('change', '#visita', function () {
+    var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).on('change', '#adenda', function () {
     var input = $(this),
             numFiles = input.get(0).files ? input.get(0).files.length : 1,
             label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
@@ -233,6 +320,7 @@ function dibujarEstados(dataJson)
 
     var solicitud = getParameterByName('solicitud', null);
     slSolicitud = solicitud;
+    consultarSolicitudByCodigo(false);
     consultarEstadosBySolicitud(1);
 }
 
@@ -283,6 +371,11 @@ function pintarEstadoPendiente(dataJson)
             } else if (dataJson[i].esEstado === 4) {
                 consultarEstadosBySolicitud(3);
                 $("#diasTeletrabajo").hide();
+            } else if (dataJson[i].esEstado > 4) {
+                consultarTeletrabajadorByTrabajador();
+                if (dataJson[i].esEstado === 6) {
+                    consultarDiasTeletrabajadorByTeletrabajador();
+                }
             }
         }
     }
@@ -713,11 +806,12 @@ function avanzarPsProcesoSolicitud(estadoSiguiente, numeroObservacion)
     });
 }
 
-function modificarPsProcesoSolicitud()
+function modificarPsProcesoSolicitud(estado)
 {
-    var observacion = $("#observacion4").val();
-    
+    var observacion = $("#observacion"+estado).val();
+
     $.ajax({
+        asyn: false,
         url: 'PS_PROCESO_SOLICITUD_Servlet',
         data: {
             accion: "modificarProcesoSolicitud",
@@ -728,7 +822,7 @@ function modificarPsProcesoSolicitud()
             mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-             window.location = 'ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp';
+            window.location = 'ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp';
         },
         type: 'POST'
     });
@@ -876,6 +970,7 @@ function guardarDocumentacion(nombreCampo)
     datos.append('file', document.getElementById(nombreCampo).files[0]);
     datos.append('psProcesoSolicitud', psProcesoSolicitud);
     $.ajax({
+        asyn: false,
         url: 'DC_DOCUMENTACION_Servlet',
         processData: false,
         contentType: false,
@@ -892,25 +987,11 @@ function guardarDocumentacion(nombreCampo)
     });
 }
 
-function validarDocumentacion()
+function validarDocumentacion(archivo)
 {
     var validacion = true;
 
-    if (document.getElementById("notaGerente").files.length === 0) {
-        validacion = false;
-    }
-
-    return validacion;
-}
-
-function validarDocumentacion3()
-{
-    var validacion = true;
-
-    if (document.getElementById("documentoPsicometrico").files.length === 0) {
-        validacion = false;
-    }
-    if (document.getElementById("documentoPsicosocial").files.length === 0) {
+    if (document.getElementById(archivo).files.length === 0) {
         validacion = false;
     }
 
@@ -939,7 +1020,7 @@ function validarDias()
 function modificarSolicitud()
 {
     var resultado = $("#resultadoSolicitud").val();
-    
+
     $.ajax({
         async: false,
         url: 'SL_SOLICITUD_Servlet',
@@ -953,16 +1034,16 @@ function modificarSolicitud()
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             if (resultado === "A") {
-                consultarSolicitudByCodigo();   
-            }else if (resultado === "R") {
-                modificarPsProcesoSolicitud();
+                consultarSolicitudByCodigo(true);
+            } else if (resultado === "R") {
+                modificarPsProcesoSolicitud(4);
             }
         },
         type: 'POST'
     });
 }
 
-function consultarSolicitudByCodigo()
+function consultarSolicitudByCodigo(estado4)
 {
     $.ajax({
         async: false,
@@ -975,7 +1056,10 @@ function consultarSolicitudByCodigo()
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            guardarTeletrabajador(data.trTrabajador);
+            trTrabajador = data.trTrabajador;
+            if (estado4) {
+                guardarTeletrabajador(data.trTrabajador);
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -997,7 +1081,34 @@ function guardarTeletrabajador(trTrabajador)
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            ttTeletrabajador = data;
             guardarDiasTeletrabajador(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function consultarTeletrabajadorByTrabajador()
+{
+    $.ajax({
+        async: false,
+        url: 'TT_TELETRABAJADOR_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "trTrabajador",
+            valor: trTrabajador,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].ttEstado === "A") {
+                    ttTeletrabajador = data[i].ttCodigo;
+                }
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -1009,7 +1120,7 @@ function guardarDiasTeletrabajador(ttTeletrabajador)
 {
     var chckbxDias = document.getElementsByName("dia");
     var dia;
-    
+
     for (var i = 0, l = chckbxDias.length; i < l; i++)
     {
         if (chckbxDias[i].checked)
@@ -1028,13 +1139,78 @@ function guardarDiasTeletrabajador(ttTeletrabajador)
                     cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
                 },
                 success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                    
+                    avanzarPsProcesoSolicitud(5, 4);
                 },
                 type: 'POST',
-                dataType: "json"
+                dataType: "text"
             });
         }
     }
-    
-    avanzarPsProcesoSolicitud(5, 4);
+}
+
+function consultarDiasTeletrabajadorByTeletrabajador()
+{
+    $.ajax({
+        async: false,
+        url: 'TT_TELETRABAJADOR_Servlet',
+        data: {
+            accion: "consultarDiasTeletrabajador",
+            campo: "ttTeletrabajador",
+            valor: ttTeletrabajador,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            var dias = parseInt(data.length * 4);
+            $("#diasTeletrabajando").val(dias);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+//calculoAhorro
+function validarCalculoAhorro()
+{
+    var validacion = true;
+
+    if ($("#salarioTotal").val() === "") {
+        validacion = false;
+    }
+
+    if ($("#salarioTeletrabajo").val() === "") {
+        validacion = false;
+    }
+
+    if ($("#costoUnidad").val().trim() === "") {
+        validacion = false;
+    }
+
+    return validacion;
+}
+
+function guardarCalculoAhorro()
+{
+    $.ajax({
+        async: false,
+        url: 'CH_CALCULO_AHORRO_Servlet',
+        data: {
+            accion: "agregarCalculoAhorro",
+            chSalarioTotal: $("#salarioTotal").val(),
+            chSalarioLey: $("#salarioRebajosLey").val(),
+            chCostoEventos: $("#costoUnidad").val(),
+            psProcesoSolicitud: psProcesoSolicitud
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            guardarDocumentacion("visita");
+            avanzarPsProcesoSolicitud(7, 6);
+        },
+        type: 'POST',
+        dataType: "text"
+    });
 }

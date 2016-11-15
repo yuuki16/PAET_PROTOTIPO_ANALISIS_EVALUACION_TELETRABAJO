@@ -104,6 +104,10 @@
         <servlet-name>TT_TELETRABAJADOR_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.TT_TELETRABAJADOR_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CH_CALCULO_AHORRO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.CH_CALCULO_AHORRO_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>TT_TELETRABAJADOR_Servlet</servlet-name>
         <url-pattern>/TT_TELETRABAJADOR_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CH_CALCULO_AHORRO_Servlet</servlet-name>
+        <url-pattern>/CH_CALCULO_AHORRO_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

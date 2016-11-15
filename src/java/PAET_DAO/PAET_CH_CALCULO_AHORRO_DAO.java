@@ -14,55 +14,61 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package PAET_BL;
+package PAET_DAO;
 
-import PAET_DOMAIN.PaetDiTtDiaTeletrabajador;
+import PAET_DOMAIN.PaetChCalculoAhorro;
+import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.HibernateException;
 
 /**
  *
  * @author Michelle
  */
-public class PAET_DI_TT_DIA_SOLICITUD_BL extends BaseBL implements IBaseBL<PaetDiTtDiaTeletrabajador, BigDecimal>{
-
-    public PAET_DI_TT_DIA_SOLICITUD_BL()
-    {
-        super();
-    }
-    
-    @Override
-    public void save(PaetDiTtDiaTeletrabajador o) {
-        this.getDao(o.getClass().getName()).save(o);
-    }
+public class PAET_CH_CALCULO_AHORRO_DAO extends HibernateUtil implements IBaseDAO<PaetChCalculoAhorro, BigDecimal> {
 
     @Override
-    public PaetDiTtDiaTeletrabajador merge(PaetDiTtDiaTeletrabajador o) {
+    public void save(PaetChCalculoAhorro o) {
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+    }
+
+    @Override
+    public BigDecimal saveWithReturn(PaetChCalculoAhorro o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(PaetDiTtDiaTeletrabajador o) {
+    public PaetChCalculoAhorro merge(PaetChCalculoAhorro o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public PaetDiTtDiaTeletrabajador findById(BigDecimal o) {
+    public void delete(PaetChCalculoAhorro o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<PaetDiTtDiaTeletrabajador> findAll(String className) {
+    public PaetChCalculoAhorro findById(BigDecimal o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<PaetDiTtDiaTeletrabajador> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
+    public List<PaetChCalculoAhorro> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public BigDecimal saveWithReturn(PaetDiTtDiaTeletrabajador o) {
+    public List<PaetChCalculoAhorro> findDynamicFilter(String filterBy, String filter, Boolean unique) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

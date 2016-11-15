@@ -10,6 +10,7 @@ import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
 /**
  *
@@ -53,7 +54,26 @@ public class PAET_DI_TT_DIA_TELETRABAJADOR_DAO extends HibernateUtil implements 
 
     @Override
     public List<PaetDiTtDiaTeletrabajador> findDynamicFilter(String filterBy, String filter, Boolean unique) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<PaetDiTtDiaTeletrabajador> listaDiasTeletrabajador;
+        Query query;
+        
+        try {
+            iniciaOperacion();
+            if (unique) {
+                query = getSesion().createQuery("from PaetDiTtDiaTeletrabajador where "+filterBy+" = '"+filter+"'");
+            }
+            else
+            {
+                query = getSesion().createQuery("from PaetDiTtDiaTeletrabajador where lower("+filterBy+") like ?");
+                query.setString(0, "%"+filter.toLowerCase()+"%");
+            }
+            listaDiasTeletrabajador = query.list();
+            
+        } finally {
+            getSesion().close();
+        }
+
+        return listaDiasTeletrabajador;
     }
 
     @Override

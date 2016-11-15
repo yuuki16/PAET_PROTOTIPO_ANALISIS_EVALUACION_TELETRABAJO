@@ -212,6 +212,7 @@ body {
 .wizard .nav-tabs {
     position: relative;
     margin: 40px auto;
+    left: 50px;
     margin-bottom: 0;
     border-bottom-color: #e0e0e0;
 }
@@ -226,7 +227,7 @@ body {
     position: absolute;
     width: 90%;
     margin: 0 auto;
-    right: 0;
+    left: 70px;
     top: 50%;
     z-index: 1;
 }
@@ -364,4 +365,11 @@ span.round-tab:hover {
     background: white;
     cursor: inherit;
     display: block;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }

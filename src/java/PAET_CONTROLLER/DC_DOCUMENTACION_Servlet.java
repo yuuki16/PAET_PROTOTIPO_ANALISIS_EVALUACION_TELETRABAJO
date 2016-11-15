@@ -19,6 +19,7 @@ package PAET_CONTROLLER;
 import PAET_BL.PAET_DC_DOCUMENTACION_BL;
 import PAET_DOMAIN.PaetDcDocumentacion;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -110,7 +111,22 @@ public class DC_DOCUMENTACION_Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        String filename = "Requerimientos.docx";
+        String filepath = "C:\\downloads\\";
+        response.setContentType("APPLICATION/OCTET-STREAM");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+
+        FileInputStream fileInputStream = new FileInputStream(filepath + filename);
+
+        int i;
+        while ((i = fileInputStream.read()) != -1) {
+            out.write(i);
+        }
+        fileInputStream.close();
+        out.close();
+
     }
 
     /**

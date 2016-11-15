@@ -33,7 +33,7 @@
                                     <p><b>Buscar datos del Candidato/a:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="trCandidato" placeholder="Digite la cédula del candidato a verificar">
+                                    <input type="number" class="form-control" id="trCandidato" placeholder="Digite la cédula del candidato a verificar">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaCandidato">

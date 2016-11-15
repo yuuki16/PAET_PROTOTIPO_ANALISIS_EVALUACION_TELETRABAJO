@@ -38,7 +38,7 @@
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="drCodigo" placeholder="Digite el código de la dirección">
+                                    <input type="number" class="form-control" id="drCodigo" placeholder="Digite el código de la dirección">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDrCodigo">

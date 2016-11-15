@@ -37,4 +37,5 @@
   <table-filter match-name="PAET_DF_DIRECCION_FISICA"/>
   <table-filter match-name="PAET_AC_CA_ACT_CARACT"/>
   <table-filter match-name="PAET_DV_DIVISION"/>
+  <table-filter match-name="PAET_CH_CALCULO_AHORRO"/>
 </hibernate-reverse-engineering>

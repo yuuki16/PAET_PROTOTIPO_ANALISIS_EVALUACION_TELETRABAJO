@@ -26,6 +26,7 @@ public class BaseBL {
             daos.put("PAET_DOMAIN.PaetAmAccionMejora", new PAET_AM_ACCION_MEJORA_DAO());
             daos.put("PAET_DOMAIN.PaetArArea", new PAET_AR_AREA_DAO());
             daos.put("PAET_DOMAIN.PaetCaCaracteristica", new PAET_CA_CARACTERISTICA_DAO());
+            daos.put("PAET_DOMAIN.PaetChCalculoAhorro", new PAET_CH_CALCULO_AHORRO_DAO());
             daos.put("PAET_DOMAIN.PaetCnCanton", new PAET_CN_CANTON_DAO());
             daos.put("PAET_DOMAIN.PaetCrCorreo", new PAET_CR_CORREO_DAO());
             daos.put("PAET_DOMAIN.PaetCuCausa", new PAET_CU_CAUSA_DAO());

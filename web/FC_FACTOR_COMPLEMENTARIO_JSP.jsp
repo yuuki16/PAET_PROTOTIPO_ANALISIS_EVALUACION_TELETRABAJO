@@ -38,7 +38,7 @@
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="fcCodigo" placeholder="Digite el código del factor complementario">
+                                    <input type="number" class="form-control" id="fcCodigo" placeholder="Digite el código del factor complementario">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaFcCodigo">

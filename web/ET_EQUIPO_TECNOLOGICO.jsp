@@ -38,7 +38,7 @@
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="etCodigo" placeholder="Digite el código del equipo tecnológico">
+                                    <input type="number" class="form-control" id="etCodigo" placeholder="Digite el código del equipo tecnológico">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaEtCodigo">

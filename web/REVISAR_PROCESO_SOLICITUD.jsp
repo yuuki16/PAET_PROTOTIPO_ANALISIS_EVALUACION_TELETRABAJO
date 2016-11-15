@@ -34,7 +34,7 @@
                                     <p><b>Buscar procesos por cédula del trabajador:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="trCedula" placeholder="Digite la cédula del trabajador">
+                                    <input type="number" class="form-control" id="trCedula" placeholder="Digite la cédula del trabajador">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaTrCedula">

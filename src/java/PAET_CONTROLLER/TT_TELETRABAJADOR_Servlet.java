@@ -16,8 +16,8 @@
  */
 package PAET_CONTROLLER;
 
+import PAET_BL.PAET_DI_TT_DIA_TELETRABAJADOR_BL;
 import PAET_BL.PAET_TT_TELETRABAJADOR_BL;
-import PAET_DAO.PAET_DI_TT_DIA_TELETRABAJADOR_DAO;
 import PAET_DOMAIN.PaetDiTtDiaTeletrabajador;
 import PAET_DOMAIN.PaetTtTeletrabajador;
 import com.google.gson.Gson;
@@ -57,7 +57,7 @@ public class TT_TELETRABAJADOR_Servlet extends HttpServlet {
             PaetTtTeletrabajador teletrabajador = new PaetTtTeletrabajador();
             PaetDiTtDiaTeletrabajador diaTeletrabajador = new PaetDiTtDiaTeletrabajador();
             PAET_TT_TELETRABAJADOR_BL teletrabajadorBl = new PAET_TT_TELETRABAJADOR_BL();
-            PAET_DI_TT_DIA_TELETRABAJADOR_DAO diaTeletrabajadorBl = new PAET_DI_TT_DIA_TELETRABAJADOR_DAO();
+            PAET_DI_TT_DIA_TELETRABAJADOR_BL diaTeletrabajadorBl = new PAET_DI_TT_DIA_TELETRABAJADOR_BL();
                 
             
             String accion = request.getParameter("accion");
@@ -118,6 +118,14 @@ public class TT_TELETRABAJADOR_Servlet extends HttpServlet {
                     diaTeletrabajadorBl.save(diaTeletrabajador);
                     
                     out.print("C~El día fue agregado correctamente");
+                    break;
+                 case "consultarDiasTeletrabajador":
+                    campo = request.getParameter("campo");
+                    valor = request.getParameter("valor");
+                    unico = Boolean.valueOf(request.getParameter("unico"));
+                    //se consulta el objeto por el campo y el valor 
+                    json = new Gson().toJson(diaTeletrabajadorBl.findDynamicFilter(campo, valor, unico, PaetDiTtDiaTeletrabajador.class.getName()));
+                    out.print(json);
                     break;
                 default:
                     out.print("E~No se indico la acción que se desea realizare");

@@ -130,7 +130,7 @@
 
                             <div class="form-group" id="groupCedula">
                                 <label for="cedula">Cédula:</label>
-                                <input type="text" class="form-control" id="cedula" placeholder="Cédula" >
+                                <input type="number" class="form-control" id="cedula" placeholder="Cédula" >
                             </div>
 
                             <div class="form-group" id="groupNombre">
@@ -167,6 +167,16 @@
                                 </div>
                             </div>
 
+                            <div class="form-group" id="groupFechaEntrada">
+                                <label for="fechaEntrada">Fecha de Entrada al Puesto:</label>
+                                <div id="fechaEntrada" class="input-group date form_date" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="dd/mm/yyyy">
+                                    <input class="form-control" type="text" value="" readonly placeholder="dd/mm/aaaa" id="fechaEntradaText">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            
                             <div class="form-group" id="groupEstado">
                                 <label for="estado">Estado:</label>
                                 <select class="form-control" id="estado">
@@ -187,16 +197,6 @@
                                 <select class="form-control" id="puesto">
                                     <option value="" selected="selected"></option>
                                 </select>
-                            </div>
-
-                            <div class="form-group" id="groupFechaEntrada">
-                                <label for="fechaEntrada">Fecha de Entrada al Puesto:</label>
-                                <div id="fechaEntrada" class="input-group date form_date" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="dd/mm/yyyy">
-                                    <input class="form-control" type="text" value="" readonly placeholder="dd/mm/aaaa" id="fechaEntradaText">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
                             </div>
 
                             <div class="form-group">
@@ -318,7 +318,7 @@
 
                             <div class="form-group" id="groupCorreoCorreo">
                                 <label for="correoCorreo">Correo:</label>
-                                <input type="text" class="form-control" id="correoCorreo" placeholder="Correo" >
+                                <input type="email" class="form-control" id="correoCorreo" placeholder="Correo" >
                             </div>
                             
                             <div class="form-group" id="groupEstadoCorreo">
@@ -368,7 +368,7 @@
 
                             <div class="form-group" id="groupTelefonoTelefono">
                                 <label for="telefonoTelefono">Teléfono:</label>
-                                <input type="text" class="form-control" id="telefonoTelefono" placeholder="Teléfono" >
+                                <input type="number" class="form-control" id="telefonoTelefono" placeholder="Teléfono" >
                             </div>
                             
                             <div class="form-group" id="groupTelefonoDescripcion">
