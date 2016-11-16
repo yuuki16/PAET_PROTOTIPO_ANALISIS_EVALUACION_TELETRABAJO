@@ -48,7 +48,7 @@ public class CH_CALCULO_AHORRO_Servlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String json, campo, valor;
-            BigDecimal psProcesoSolicitud, chSalarioTotal, chSalarioLey, chCostoEventos;
+            BigDecimal psProcesoSolicitud, chSalarioTotal, chSalarioLey, chCostoEventos, chSalarioTeletrabajo;
             Boolean unico;
             PaetChCalculoAhorro calculoAhorro = new PaetChCalculoAhorro();
             PAET_CH_CALCULO_AHORRO_BL calculoAhorroBl = new PAET_CH_CALCULO_AHORRO_BL();
@@ -59,12 +59,14 @@ public class CH_CALCULO_AHORRO_Servlet extends HttpServlet {
                 case "agregarCalculoAhorro":
                     chSalarioTotal = new BigDecimal(request.getParameter("chSalarioTotal"));
                     chSalarioLey = new BigDecimal(request.getParameter("chSalarioLey"));
+                    chSalarioTeletrabajo = new BigDecimal(request.getParameter("chSalarioTeletrabajo"));
                     chCostoEventos = new BigDecimal(request.getParameter("chCostoEventos"));
                     psProcesoSolicitud = new BigDecimal(request.getParameter("psProcesoSolicitud"));
                     
                     calculoAhorro.setChCostoEventos(chCostoEventos);
                     calculoAhorro.setChSalarioLey(chSalarioLey);
                     calculoAhorro.setChSalarioTotal(chSalarioTotal);
+                    calculoAhorro.setChSalarioTeletrabajo(chSalarioTeletrabajo);
                     calculoAhorro.setPsProcesoSolicitud(psProcesoSolicitud);
                     //Se guarda el objeto
                     calculoAhorroBl.save(calculoAhorro);

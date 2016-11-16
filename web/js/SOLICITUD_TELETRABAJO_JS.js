@@ -394,7 +394,7 @@ function guardar() {
         }
         //Se envia la información por ajax
         $.ajax({
-            asyn: false,
+            async: false,
             url: 'SL_SOLICITUD_Servlet',
             data: {
                 accion: "agregarSolicitud",

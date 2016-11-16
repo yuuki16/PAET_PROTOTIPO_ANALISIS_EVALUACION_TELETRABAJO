@@ -1200,6 +1200,7 @@ function guardarCalculoAhorro()
             accion: "agregarCalculoAhorro",
             chSalarioTotal: $("#salarioTotal").val(),
             chSalarioLey: $("#salarioRebajosLey").val(),
+            chSalarioTeletrabajo: $("#salarioTeletrabajo").val(),
             chCostoEventos: $("#costoUnidad").val(),
             psProcesoSolicitud: psProcesoSolicitud
         },

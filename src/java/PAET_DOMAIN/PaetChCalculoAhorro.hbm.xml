@@ -14,6 +14,9 @@
         <property name="chSalarioLey" type="big_decimal">
             <column name="CH_SALARIO_LEY" length="38" not-null="true" />
         </property>
+        <property name="chSalarioTeletrabajo" type="big_decimal">
+            <column name="CH_SALARIO_TELETRABAJO" length="38" not-null="true" />
+        </property>
         <property name="chCostoEventos" type="big_decimal">
             <column name="CH_COSTO_EVENTOS" length="38" not-null="true" />
         </property>

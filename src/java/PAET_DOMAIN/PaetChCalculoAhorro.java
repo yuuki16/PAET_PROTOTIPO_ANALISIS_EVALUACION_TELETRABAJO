@@ -27,18 +27,20 @@ public class PaetChCalculoAhorro {
     private BigDecimal chCodigo;
     private BigDecimal chSalarioTotal;
     private BigDecimal chSalarioLey;
+    private BigDecimal chSalarioTeletrabajo;
     private BigDecimal chCostoEventos;
     private BigDecimal psProcesoSolicitud;
     
     public PaetChCalculoAhorro() {
     }
 
-    public PaetChCalculoAhorro(BigDecimal chCodigo, BigDecimal chSalarioTotal, BigDecimal chSalarioLey, BigDecimal chCostoEventos, BigDecimal psProcesoSolicitud) {
+    public PaetChCalculoAhorro(BigDecimal chCodigo, BigDecimal chSalarioTotal, BigDecimal chSalarioLey, BigDecimal chCostoEventos, BigDecimal psProcesoSolicitud, BigDecimal chSalarioTeletrabajo) {
        this.chCodigo = chCodigo;
        this.chSalarioTotal = chSalarioTotal;
        this.chSalarioLey = chSalarioLey;
        this.chCostoEventos = chCostoEventos;
        this.psProcesoSolicitud = psProcesoSolicitud;
+       this.chSalarioTeletrabajo = chSalarioTeletrabajo;
     }
    
     public BigDecimal getChCodigo() {
@@ -79,5 +81,13 @@ public class PaetChCalculoAhorro {
     
     public void setChCostoEventos(BigDecimal chCostoEventos) {
         this.chCostoEventos = chCostoEventos;
+    }
+    
+    public BigDecimal getChSalarioTeletrabajo() {
+        return this.chSalarioTeletrabajo;
+    }
+    
+    public void setChSalarioTeletrabajo(BigDecimal chSalarioTeletrabajo) {
+        this.chSalarioTeletrabajo = chSalarioTeletrabajo;
     }
 }
