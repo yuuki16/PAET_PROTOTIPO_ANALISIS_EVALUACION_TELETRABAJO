@@ -20,6 +20,8 @@ import PAET_DOMAIN.PaetPgProcesoSeguimiento;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
 /**
  *
@@ -29,12 +31,37 @@ public class PAET_PG_PROCESO_SEGUIMIENTO_DAO extends HibernateUtil implements IB
 
     @Override
     public void save(PaetPgProcesoSeguimiento o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
     }
 
     @Override
     public PaetPgProcesoSeguimiento merge(PaetPgProcesoSeguimiento o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            String hql = "update PaetPgProcesoSeguimiento pg set pg.pgObservacion = :observacion, pg.pgFecha = :fecha, pg.pgEstado = :estado where pg.pgCodigo = :pgCodigo";
+            int updatedEntities = getSesion().createQuery(hql)
+                    .setString("observacion", o.getPgObservacion())
+                    .setDate("fecha", o.getPgFechaAtendido())
+                    .setCharacter("estado", o.getPgEstado())
+                    .setBigDecimal("pgCodigo", o.getPgCodigo())
+                    .executeUpdate();
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+        return o;
     }
 
     @Override
@@ -49,17 +76,57 @@ public class PAET_PG_PROCESO_SEGUIMIENTO_DAO extends HibernateUtil implements IB
 
     @Override
     public List<PaetPgProcesoSeguimiento> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<PaetPgProcesoSeguimiento> listaProcesosSeguimiento;
+
+        try {
+            iniciaOperacion();
+            listaProcesosSeguimiento = getSesion().createQuery("from PaetPgProcesoSeguimiento").list();
+        } finally {
+            getSesion().close();
+        }
+
+        return listaProcesosSeguimiento;
     }
 
     @Override
     public List<PaetPgProcesoSeguimiento> findDynamicFilter(String filterBy, String filter, Boolean unique) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<PaetPgProcesoSeguimiento> listaProcesosSeguimiento;
+        Query query;
+
+        try {
+            iniciaOperacion();
+            if (unique) {
+                query = getSesion().createQuery("from PaetPgProcesoSeguimiento where " + filterBy + " = '" + filter + "'");
+            } else {
+                query = getSesion().createQuery("from PaetPgProcesoSeguimiento where lower(" + filterBy + ") like ?");
+                query.setString(0, "%" + filter.toLowerCase() + "%");
+            }
+            listaProcesosSeguimiento = query.list();
+
+        } finally {
+            getSesion().close();
+        }
+
+        return listaProcesosSeguimiento;
     }
 
     @Override
     public BigDecimal saveWithReturn(PaetPgProcesoSeguimiento o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BigDecimal pgCodigo;
+
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+            pgCodigo = o.getPgCodigo();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+
+        return pgCodigo;
     }
-    
+
 }

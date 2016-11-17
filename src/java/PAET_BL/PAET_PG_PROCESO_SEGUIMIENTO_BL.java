@@ -33,12 +33,12 @@ public class PAET_PG_PROCESO_SEGUIMIENTO_BL extends BaseBL implements IBaseBL<Pa
     
     @Override
     public void save(PaetPgProcesoSeguimiento o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override
     public PaetPgProcesoSeguimiento merge(PaetPgProcesoSeguimiento o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (PaetPgProcesoSeguimiento) this.getDao(o.getClass().getName()).merge(o);
     }
 
     @Override
@@ -53,17 +53,19 @@ public class PAET_PG_PROCESO_SEGUIMIENTO_BL extends BaseBL implements IBaseBL<Pa
 
     @Override
     public List<PaetPgProcesoSeguimiento> findAll(String className) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getDao(className).findAll();
     }
 
     @Override
     public List<PaetPgProcesoSeguimiento> findDynamicFilter(String filterBy, String filter, Boolean unique, String className) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getDao(className).findDynamicFilter(filterBy, filter, unique);
     }
 
     @Override
     public BigDecimal saveWithReturn(PaetPgProcesoSeguimiento o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BigDecimal pgCodigo;
+        pgCodigo = (BigDecimal) this.getDao(o.getClass().getName()).saveWithReturn(o);
+        return pgCodigo;
     }
     
 }

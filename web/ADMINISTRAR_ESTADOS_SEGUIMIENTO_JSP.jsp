@@ -20,7 +20,7 @@
         <link href="css/datetimepicker.min.css" rel="stylesheet" type="text/css"/>
         <script src="js/datetimepicker.js" type="text/javascript"></script>
         <script src="js/utils.js" type="text/javascript"></script>
-        <!-- <script src="js/ADMINISTRAR_ESTADOS_SOLICITUD_JS.js" type="text/javascript"></script>-->
+        <script src="js/ADMINISTRAR_ESTADOS_SEGUIMIENTO_JS.js" type="text/javascript"></script>
 
     </head>
     <body>

@@ -14,9 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+var pgProcesoSeguimiento, trTrabajador, ttTeletrabajador;
+
 $(document).ready(function () {
     $("#estados").hide();
-    consultarProcesos(null, false, null);
+    consultarProcesos();
     consultarEstadosByProceso();
 });
 
@@ -29,33 +31,61 @@ $(function () {
     });
 
     $("#btLimpiarBusqueda").click(function () {
-        $("#procesos").hide();
+        $("#procesos").html("");
         $("#estados").hide();
+        consultarProcesos();
     });
 });
 
-function redirect(solicitud)
+function redirect(teletrabajador, numero)
 {
-    window.location = 'ADMINISTRAR_ESTADOS_SOLICITUD_JSP.jsp?solicitud=' + solicitud;
+    window.location = 'ADMINISTRAR_ESTADOS_SEGUIMIENTO_JSP.jsp?teletrabajador=' + teletrabajador + '&numero=' + numero;
 }
 
-//solicitud
-function consultarSolicitudesByTrabajador(trTrabajador, nombre)
+//teletrabajador
+function consultarTeletrabajadorByTrabajador(trUsuario, nombre)
 {
     $.ajax({
         async: false,
-        url: 'SL_SOLICITUD_Servlet',
+        url: 'TT_TELETRABAJADOR_Servlet',
         data: {
             accion: "consultaDinamica",
             campo: "trTrabajador",
-            valor: trTrabajador,
+            valor: trUsuario,
             unico: true
         },
         error: function () { //si existe un error en la respuesta del ajax
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            consultarProcesos(data, true, nombre);
+            if (data.length > 0) {
+                ttTeletrabajador = data[0].ttCodigo;
+                consultarProcesosByTeletrabajador(data[0].ttCodigo, nombre);
+            } else
+            {
+                alert("El trabajador seleccionado no es un teletrabajador.");
+            }
+
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function consultarTeletrabajadorByCodigo(fechaEntrada, teletrabajador, numero)
+{
+    $.ajax({
+        async: false,
+        url: 'TT_TELETRABAJADOR_Servlet',
+        data: {
+            accion: "consultarTeletrabajadorByCodigo",
+            ttCodigo: teletrabajador
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            consultarTrabajadorByUsuario(fechaEntrada, data.trTrabajador, numero, teletrabajador);
         },
         type: 'POST',
         dataType: "json"
@@ -65,7 +95,6 @@ function consultarSolicitudesByTrabajador(trTrabajador, nombre)
 //trabajador
 function consultarTrabajadorByCedula(trCedula)
 {
-
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los procesos del trabajador");
 
     $.ajax({
@@ -81,39 +110,23 @@ function consultarTrabajadorByCedula(trCedula)
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            // se oculta el mensaje de espera
-
-            consultarSolicitudesByTrabajador(data[0].trUsuario, data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2);
-            ocultarModal("modalMensajes");
+            if (data.length > 0) {
+                // se oculta el mensaje de espera
+                trTrabajador = data[0].trUsuario;
+                consultarTeletrabajadorByTrabajador(data[0].trUsuario, data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2);
+                ocultarModal("modalMensajes");
+            } else
+            {
+                alert("La cédula ingresada no corresponde a ninguno de nuestros trabajadores.");
+                ocultarModal("modalMensajes");
+            }
         },
         type: 'POST',
         dataType: "json"
     });
 }
 
-function consultarTrabajadorBySolicitud(fechaEntrada, solicitud)
-{
-    $.ajax({
-        async: false,
-        url: 'SL_SOLICITUD_Servlet',
-        data: {
-            accion: "consultaDinamica",
-            campo: "slCodigo",
-            valor: solicitud,
-            unico: true
-        },
-        error: function () { //si existe un error en la respuesta del ajax
-            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-        },
-        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            consultarTrabajadorByUsuario(fechaEntrada, solicitud, data[0].trTrabajador);
-        },
-        type: 'POST',
-        dataType: "json"
-    });
-}
-
-function consultarTrabajadorByUsuario(fecha, solicitud, usuario)
+function consultarTrabajadorByUsuario(fecha, usuario, numero, teletrabajador)
 {
     $.ajax({
         async: false,
@@ -136,10 +149,11 @@ function consultarTrabajadorByUsuario(fecha, solicitud, usuario)
                     ' <div class="timeline-label">' +
                     '<p>' + data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2 + '</p>' +
                     '<p>' + fecha + '</p>' +
-                    '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + solicitud + '\')">Revisar Proceso</a></h2>' +
+                    '  <h2><a onclick="consultarEstadosByTeletrabajador(\'' + teletrabajador + '\', \'' + numero + '\')">Revisar Proceso</a></h2>' +
                     ' </div>' +
                     ' </div>' +
                     '</article>'));
+            ocultarModal("modalMensajes");
         },
         type: 'POST',
         dataType: "json"
@@ -147,8 +161,8 @@ function consultarTrabajadorByUsuario(fecha, solicitud, usuario)
 
 }
 
-//proceso solicitud
-function consultarProcesos(dataSolicitudes, porCedula, nombre)
+//proceso seguimiento
+function consultarProcesos()
 {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los procesos de seguimiento");
 
@@ -165,84 +179,142 @@ function consultarProcesos(dataSolicitudes, porCedula, nombre)
             // Sorting: typeof json === Array
 
             var sorted = data.sort(function (a, b) {
-                if (a.pgFechaEntrada > b.pgFechaEntrada) {
+                if (a.pgFecha > b.pgFecha) {
                     return 1;
                 }
-                if (a.pgFechaEntrada < b.pgFechaEntrada) {
+                if (a.pgFecha < b.pgFecha) {
                     return -1;
                 }
 
                 return 0;
             });
 
-            if (porCedula) {
-                dibujarProcesos(sorted, dataSolicitudes, nombre);
-            } else
-            {
-                dibujarTodosProcesos(sorted);
-            }
+            dibujarTodosProcesos(sorted);
+
         },
         type: 'POST',
         dataType: "json"
     });
 }
 
-function dibujarProcesos(dataProcesos, dataSolicitudes, nombre)
+function dibujarProcesos(dataProcesos, nombre)
 {
-    if (dataSolicitudes.length > 0) {
+    var procesoPendiente = false;
+    var numero;
+    var numeroMayor = 0;
+
+    if (dataProcesos.length > 0) {
         for (var i = 0; i < dataProcesos.length; i++) {
-            for (var j = 0; j < dataSolicitudes.length; j++) {
-                if (dataProcesos[i].slSolicitud === dataSolicitudes[j].slCodigo) {
-                    if (dataProcesos[i].esEstado === 1) {
-                        $("#procesos").append($('<article class="timeline-entry">' +
-                                '<div class="timeline-entry-inner">' +
-                                '<div class="timeline-icon bg-secondary">' +
-                                ' <i class="entypo-suitcase"></i>' +
-                                '</div>' +
-                                ' <div class="timeline-label">' +
-                                '<p>' + nombre + '</p>' +
-                                '<p>' + dataProcesos[i].psFechaEntrada + '</p>' +
-                                '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + dataProcesos[i].slSolicitud + '\')">Verificar Proceso</a></h2>' +
-                                ' </div>' +
-                                ' </div>' +
-                                '</article>'));
-                    }
+            if (dataProcesos[i].pgNumero > numeroMayor) {
+                numeroMayor = dataProcesos[i].pgNumero;
+            }
+            if (dataProcesos[i].pgEstado === "P") {
+                procesoPendiente = true;
+                numero = dataProcesos[i].pgNumero;
+            }
+        }
+
+        if (procesoPendiente) {
+            for (var i = 0; i < dataProcesos.length; i++) {
+                if (dataProcesos[i].esEstado === 8 && dataProcesos[i].pgNumero === numero) {
+                    $("#procesos").append($('<article class="timeline-entry">' +
+                            '<div class="timeline-entry-inner">' +
+                            '<div class="timeline-icon bg-secondary">' +
+                            ' <i class="entypo-suitcase"></i>' +
+                            '</div>' +
+                            ' <div class="timeline-label">' +
+                            '<p>' + nombre + '</p>' +
+                            '<p>' + dataProcesos[i].pgFecha + '</p>' +
+                            '  <h2><a onclick="consultarEstadosByTeletrabajador(\'' + ttTeletrabajador + '\', \'' + numero + '\')">Verificar Proceso</a></h2>' +
+                            ' </div>' +
+                            ' </div>' +
+                            '</article>'));
                 }
             }
+        } else
+        {
+            $("#procesos").append($('<button class="btn btn-info" onclick="insertarProcesoSeguimiento(\'' + ttTeletrabajador + '\', \'' + numeroMayor + 1 + '\')" style="position: relative; left: 500px">Iniciar Proceso de Seguimiento</button>'));
         }
 
         $("#procesos").show();
     } else
     {
-        alert("El trabajador no posee ningún proceso de solicitud.");
+        $("#procesos").append($('<button class="btn btn-info" onclick="insertarProcesoSeguimiento(\'' + ttTeletrabajador + '\', \'' + 1 + '\')" style="position: relative; left: 500px">Iniciar Proceso de Seguimiento</button>'));
     }
 }
 
 function dibujarTodosProcesos(dataProcesos)
 {
+    var numero;
+
     for (var i = 0; i < dataProcesos.length; i++) {
-        if (dataProcesos[i].psEstado === "P") {
-            for (var j = 0; j < dataProcesos.length; j++) {
-                if (dataProcesos[j].esEstado === 1 && dataProcesos[j].slSolicitud === dataProcesos[i].slSolicitud) {
-                    consultarTrabajadorBySolicitud(dataProcesos[i].psFechaEntrada, dataProcesos[i].slSolicitud);
-                }
-            }
+        if (dataProcesos[i].pgEstado === "P") {
+            numero = dataProcesos[i].pgNumero;
         }
     }
+
+    for (var j = 0; j < dataProcesos.length; j++) {
+        if (dataProcesos[j].esEstado === 8 && dataProcesos[j].pgNumero === numero) {
+            consultarTeletrabajadorByCodigo(dataProcesos[j].pgFecha, dataProcesos[j].ttTeletrabajador, dataProcesos[j].pgNumero);
+        }
+    }
+}
+
+function consultarProcesosByTeletrabajador(ttTeletrabajador, nombre)
+{
+    $.ajax({
+        async: false,
+        url: 'PG_PROCESO_SEGUIMIENTO_Servlet',
+        data: {
+            accion: "consultaDinamica",
+            campo: "ttTeletrabajador",
+            valor: ttTeletrabajador,
+            unico: true
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            dibujarProcesos(data, nombre);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function insertarProcesoSeguimiento(teletrabajador, numero)
+{
+    $.ajax({
+        async: false,
+        url: 'PG_PROCESO_SEGUIMIENTO_Servlet',
+        data: {
+            accion: "agregarProcesoSeguimiento",
+            pgNumero: numero,
+            ttTeletrabajador: teletrabajador
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            // se oculta el mensaje de espera
+            location.reload();
+        },
+        type: 'POST',
+        dataType: "text"
+    });
 }
 
 //estados
 function consultarEstadosByProceso()
 {
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los estados del proceso");
-
     $.ajax({
         async: false,
         url: 'ES_ESTADO_Servlet',
         data: {
             accion: "consultaDinamica",
             campo: "esProceso",
-            valor: "S",
+            valor: "G",
             unico: true
         },
         error: function () { //si existe un error en la respuesta del ajax
@@ -272,10 +344,10 @@ function dibujarEstados(dataJson)
     for (var i = 0; i < dataJson.length; i++) {
         $("#estados").append($('<article class="timeline-entry">' +
                 '<div class="timeline-entry-inner">' +
-                '<div name="circulo" class="timeline-icon bg-gray" id="' + dataJson[i].esSecuencia + 'Circulo"' +
+                '<div name="circulo" class="timeline-icon bg-gray" id="' + dataJson[i].esCodigo + 'Circulo"' +
                 '<i class="entypo-suitcase"></i>' +
                 '</div>' +
-                '<div class="timeline-label" id="' + dataJson[i].esSecuencia + '">' +
+                '<div class="timeline-label" id="' + dataJson[i].esCodigo + '">' +
                 '<p>' + dataJson[i].esDescripcion + '</p>' +
                 '</div>' +
                 '</div>' +
@@ -283,24 +355,29 @@ function dibujarEstados(dataJson)
     }
 }
 
-function consultarEstadosByProcesoSolicitud(slSolicitud)
+function consultarEstadosByTeletrabajador(teletrabajador, numero)
 {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los estados del proceso");
 
     $.ajax({
         async: false,
-        url: 'PS_PROCESO_SOLICITUD_Servlet',
+        url: 'PG_PROCESO_SEGUIMIENTO_Servlet',
         data: {
             accion: "consultaDinamica",
-            campo: "slSolicitud",
-            valor: slSolicitud,
+            campo: "ttTeletrabajador",
+            valor: teletrabajador,
             unico: true
         },
         error: function () { //si existe un error en la respuesta del ajax
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            pintarEstados(data, slSolicitud);
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].pgNumero === parseInt(numero)) {
+                    pintarEstados(data, teletrabajador, numero);
+                }
+            }
+
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -317,26 +394,26 @@ function limpiarEstados()
     }
 }
 
-function pintarEstados(dataJson, solicitud)
+function pintarEstados(dataJson, teletrabajador, numero)
 {
     limpiarEstados();
-    
+
     var element = document.getElementsByName("borrar"), index;
 
     for (index = element.length - 1; index >= 0; index--) {
         element[index].parentNode.removeChild(element[index]);
     }
     for (var i = 0; i < dataJson.length; i++) {
-        if (dataJson[i].psEstado === "P") {
+        if (dataJson[i].pgEstado === "P") {
             $("#" + dataJson[i].esEstado + "Circulo").removeClass();
             $("#" + dataJson[i].esEstado + "Circulo").addClass("timeline-icon pending");
-            $("#" + dataJson[i].esEstado).append('<p name="borrar"> Fecha de Entrada: ' + dataJson[i].psFechaEntrada + '</p>');
+            $("#" + dataJson[i].esEstado).append('<p name="borrar"> Fecha de Entrada: ' + dataJson[i].pgFecha + '</p>');
             $("#" + dataJson[i].esEstado).append('<p name="borrar"> Pendiente</p>');
-        } else if (dataJson[i].psEstado === "F") {
+        } else if (dataJson[i].pgEstado === "F") {
             $("#" + dataJson[i].esEstado + "Circulo").removeClass();
             $("#" + dataJson[i].esEstado + "Circulo").addClass("timeline-icon finished");
-            $("#" + dataJson[i].esEstado).append('<p name="borrar"> Fecha de Entrada: ' + dataJson[i].psFechaEntrada + '</p>');
-            $("#" + dataJson[i].esEstado).append('<p name="borrar"> Fecha Finalización: ' + dataJson[i].psFechaAtendido + '</p>');
+            $("#" + dataJson[i].esEstado).append('<p name="borrar"> Fecha de Entrada: ' + dataJson[i].pgFecha + '</p>');
+            $("#" + dataJson[i].esEstado).append('<p name="borrar"> Fecha Finalización: ' + dataJson[i].pgFechaAtendido + '</p>');
         }
     }
 
@@ -344,7 +421,7 @@ function pintarEstados(dataJson, solicitud)
     if (element) {
         element.parentNode.removeChild(element);
     }
-    $("#estados").append('<button type="button" class="btn btn-info" id="AdministrarProceso" onclick="redirect(' + solicitud + ')">Administrar Solicitud</button>');
+    $("#estados").append('<button type="button" class="btn btn-info" id="AdministrarProceso" onclick="redirect(' + teletrabajador + ', ' + numero + ')">Administrar Proceso</button>');
 
     $("#estados").show();
 }

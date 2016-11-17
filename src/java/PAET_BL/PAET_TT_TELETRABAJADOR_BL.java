@@ -48,7 +48,7 @@ public class PAET_TT_TELETRABAJADOR_BL extends BaseBL implements IBaseBL<PaetTtT
 
     @Override
     public PaetTtTeletrabajador findById(BigDecimal o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (PaetTtTeletrabajador) this.getDao(PaetTtTeletrabajador.class.getName()).findById(o);
     }
 
     @Override

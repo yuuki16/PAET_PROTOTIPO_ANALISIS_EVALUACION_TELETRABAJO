@@ -18,7 +18,7 @@
         <!-- Referencias -->
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
         <script src="js/utils.js" type="text/javascript"></script>
-        <!--<script src="js/ADMINISTRAR_PROCESO_SEGUIMIENTO_JS.js" type="text/javascript"></script>  -->
+        <script src="js/ADMINISTRAR_PROCESO_SEGUIMIENTO_JS.js" type="text/javascript"></script>
     </head>
     <body>
         <%@ include file="/HeaderJSP.jsp" %>

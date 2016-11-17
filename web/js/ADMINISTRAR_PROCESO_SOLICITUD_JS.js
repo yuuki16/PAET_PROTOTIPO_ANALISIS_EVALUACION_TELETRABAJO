@@ -29,8 +29,9 @@ $(function () {
     });
 
     $("#btLimpiarBusqueda").click(function () {
-        $("#procesos").hide();
+        $("#procesos").html("");
         $("#estados").hide();
+        consultarProcesos(null, false, null);
     });
 });
 
@@ -82,8 +83,14 @@ function consultarTrabajadorByCedula(trCedula)
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
-
-            consultarSolicitudesByTrabajador(data[0].trUsuario, data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2);
+            if (data.length > 0) {
+                consultarSolicitudesByTrabajador(data[0].trUsuario, data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2);
+            }
+            else
+            {
+                alert("La cédula ingresada no corresponde a ninguno de nuestros trabajadores.");
+            }
+            
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -140,6 +147,7 @@ function consultarTrabajadorByUsuario(fecha, solicitud, usuario)
                     ' </div>' +
                     ' </div>' +
                     '</article>'));
+            ocultarModal("modalMensajes");
         },
         type: 'POST',
         dataType: "json"
@@ -181,6 +189,8 @@ function consultarProcesos(dataSolicitudes, porCedula, nombre)
             {
                 dibujarTodosProcesos(sorted);
             }
+            
+            
         },
         type: 'POST',
         dataType: "json"
@@ -234,8 +244,6 @@ function dibujarTodosProcesos(dataProcesos)
 //estados
 function consultarEstadosByProceso()
 {
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los estados del proceso");
-
     $.ajax({
         async: false,
         url: 'ES_ESTADO_Servlet',

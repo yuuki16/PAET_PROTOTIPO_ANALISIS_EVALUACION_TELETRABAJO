@@ -46,7 +46,15 @@ public class PAET_TT_TELETRABAJADOR_DAO extends HibernateUtil implements IBaseDA
 
     @Override
     public PaetTtTeletrabajador findById(BigDecimal o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PaetTtTeletrabajador teletrabajador = null;
+
+        try {
+            iniciaOperacion();
+            teletrabajador = (PaetTtTeletrabajador) getSesion().get(PaetTtTeletrabajador.class, o);
+        } finally {
+            getSesion().close();
+        }
+        return teletrabajador;
     }
 
     @Override
