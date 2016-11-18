@@ -17,12 +17,19 @@
 package PAET_CONTROLLER;
 
 import PAET_BL.PAET_PG_PROCESO_SEGUIMIENTO_BL;
+import PAET_BL.PAET_RE_RECOMENDACION_BL;
 import PAET_DOMAIN.PaetPgProcesoSeguimiento;
+import PAET_DOMAIN.PaetReRecomendacion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.String.format;
+import static java.lang.String.format;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,13 +55,17 @@ public class PG_PROCESO_SEGUIMIENTO_Servlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String json, campo, valor;
+            String json, campo, valor, fechaLimiteStr;
             BigDecimal pgCodigo, pgNumero, ttTeletrabajador, esEstado;
             Boolean unico;
             Date fechaHoy = new Date();
+            Date fechaLimite;
+            DateFormat format;
             PaetPgProcesoSeguimiento procesoSeguimiento = new PaetPgProcesoSeguimiento();
+            PaetReRecomendacion recomendacion = new PaetReRecomendacion();
             PAET_PG_PROCESO_SEGUIMIENTO_BL procesoSeguimientoBl = new PAET_PG_PROCESO_SEGUIMIENTO_BL();
-            
+            PAET_RE_RECOMENDACION_BL recomendacionBl = new PAET_RE_RECOMENDACION_BL();
+
             String accion = request.getParameter("accion");
 
             switch (accion) {
@@ -84,12 +95,12 @@ public class PG_PROCESO_SEGUIMIENTO_Servlet extends HttpServlet {
                         procesoSeguimiento.setPgEstado('F');
                         //Se guarda el objeto
                         procesoSeguimientoBl.save(procesoSeguimiento);
-                        
+
                         procesoSeguimiento.setEsEstado(new BigDecimal(8));
                         procesoSeguimiento.setPgEstado('P');
 
                         procesoSeguimientoBl.save(procesoSeguimiento);
-                         
+
                         //Se imprime la respuesta con el response
                         out.print("C~El proceso de seguimiento fue agregado correctamente");
 
@@ -111,12 +122,13 @@ public class PG_PROCESO_SEGUIMIENTO_Servlet extends HttpServlet {
                     json = new Gson().toJson(procesoSeguimientoBl.findDynamicFilter(campo, valor, unico, PaetPgProcesoSeguimiento.class.getName()));
                     out.print(json);
                     break;
-                case "avanzarProcesoSolicitud":
+                case "avanzarProcesoSeguimiento":
                     pgCodigo = new BigDecimal(request.getParameter("pgCodigo"));
                     pgNumero = new BigDecimal(request.getParameter("pgNumero"));
                     esEstado = new BigDecimal(request.getParameter("pgEstadoNuevo"));
+                    ttTeletrabajador = new BigDecimal(request.getParameter("ttTeletrabajador"));
                     if (!"".equals(request.getParameter("pgObservacion").trim())) {
-                        procesoSeguimiento.setPgObservacion(request.getParameter("psObservacion"));
+                        procesoSeguimiento.setPgObservacion(request.getParameter("pgObservacion"));
                     }
                     procesoSeguimiento.setPgFechaAtendido(fechaHoy);
                     procesoSeguimiento.setPgEstado('F');
@@ -129,9 +141,24 @@ public class PG_PROCESO_SEGUIMIENTO_Servlet extends HttpServlet {
                     procesoSeguimiento.setPgNumero(pgNumero);
                     procesoSeguimiento.setEsEstado(esEstado);
                     procesoSeguimiento.setPgEstado('P');
+                    procesoSeguimiento.setTtTeletrabajador(ttTeletrabajador);
 
                     pgCodigo = procesoSeguimientoBl.saveWithReturn(procesoSeguimiento);
                     out.print(pgCodigo);
+                    break;
+                case "guardarRecomendacion":
+                    pgCodigo = new BigDecimal(request.getParameter("pgProcesoSeguimiento"));
+                    fechaLimiteStr = request.getParameter("reFechaLimite");
+                    format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                    fechaLimite = format.parse(fechaLimiteStr);
+                    recomendacion.setReFechaLimite(fechaLimite);
+                    recomendacion.setPgProcesoSeguimiento(pgCodigo);
+                    recomendacion.setReDescripcion(request.getParameter("reDescripcion"));
+                    recomendacion.setReEstado('P');
+                    
+                    recomendacionBl.save(recomendacion);
+                    
+                    out.print("C~El proceso de seguimiento fue agregado correctamente");
                     break;
                 default:
                     out.print("E~No se indico la acción que se desea realizare");

@@ -968,6 +968,7 @@ function guardarDocumentacion(nombreCampo)
 {
     var datos = new FormData();
     datos.append('file', document.getElementById(nombreCampo).files[0]);
+    datos.append('proceso', 'S');
     datos.append('psProcesoSolicitud', psProcesoSolicitud);
     $.ajax({
         asyn: false,

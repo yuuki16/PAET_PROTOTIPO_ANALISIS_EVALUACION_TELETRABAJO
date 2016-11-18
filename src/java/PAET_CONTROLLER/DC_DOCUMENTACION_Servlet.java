@@ -43,7 +43,7 @@ import org.apache.commons.io.FilenameUtils;
 public class DC_DOCUMENTACION_Servlet extends HttpServlet {
 
     String carpetaDestino = "C:/uploads/";
-    String nombreArchivo;
+    String nombreArchivo, proceso, parte;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -77,9 +77,15 @@ public class DC_DOCUMENTACION_Servlet extends HttpServlet {
                 Iterator itr = items.iterator();
                 while (itr.hasNext()) {
                     FileItem item = (FileItem) itr.next();
-
+                    
                     if (item.isFormField()) {
-                        guardarDocumento(item, out);
+                        parte = item.getFieldName();
+                        if (parte.equals("proceso")) {
+                            proceso = item.getString();
+                        }
+                        else if (parte.equals("psProcesoSolicitud")) {
+                             guardarDocumento(item, out);
+                        }
                     } else {
                         String itemname = item.getName();
                         if ((itemname == null) || itemname.equals("")) {
@@ -176,7 +182,7 @@ public class DC_DOCUMENTACION_Servlet extends HttpServlet {
             psProcesoSolicitud = new BigDecimal(item.getString());
             documentacion.setDcFecha(fecha);
             documentacion.setDcOrigen(carpetaDestino);
-            documentacion.setDcTipoProceso('S');
+            documentacion.setDcTipoProceso(proceso.charAt(0));
             documentacion.setDcNombre(nombreArchivo);
             documentacion.setDcProceso(psProcesoSolicitud);
 

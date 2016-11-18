@@ -17,6 +17,27 @@
 var pgProcesoSeguimiento, ttTeletrabajador, trTrabajador, pgNumero;
 
 $(document).ready(function () {
+    //Genera el datapicker
+    $('#fechaLimite').datetimepicker({
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+
+    $('#fechaLimite').datetimepicker({
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+
     consultarEstadosByProceso();
     //acciones barra proceso
     $('.nav-tabs > li a[title]').tooltip();
@@ -31,82 +52,51 @@ $(document).ready(function () {
     //acciones agregar/borrar fila
     var i = 1;
     $("#add_row").click(function () {
-        $('#act' + i).html('<td><input type="text" id="actividad' + i + '" style="width: 200px"></td>' +
-                '<td><input type="radio" name="alineamiento' + i + '" value="A"></td>' +
-                '<td><input type="radio" name="alineamiento' + i + '" value="N"></td>' +
-                '<td><input type="radio" name="alineamiento' + i + '" value="D"></td>' +
-                '<td><input type="radio" name="alineamiento' + i + '" value="V"></td>' +
-                '<td><input type="checkbox" value="1" name="caracteristicas' + i + '" onclick="verificarActividad(' + i + ')"></td>' +
-                '<td><input type="checkbox" value="2" name="caracteristicas' + i + '" onclick="verificarActividad(' + i + ')"></td>' +
-                '<td><input type="checkbox" value="21" name="caracteristicas' + i + '" onclick="verificarActividad(' + i + ')"></td>' +
-                '<td><input type="checkbox" value="22" name="caracteristicas' + i + '" onclick="verificarActividad(' + i + ')"></td>' +
-                '<td><input type="text" id="resultado' + i + '" style="width: 50px" readonly="true"></td>');
-        $('#tablaActividades').append('<tr id="act' + (i + 1) + '"></tr>');
+        $('#mt' + i).html('<td>' + parseInt(i + 1) + '</td>' +
+                '<td><input type="text" id="descripcion' + i + '" style="width: 200px"></td>' +
+                '<td><input type="text" class="cuanto" id="limite' + i + '" style="width: 50px"></td>' +
+                '<td><input type="text" class="cuanto" id="peso' + i + '" style="width: 50px"></td>' +
+                '<td><input type="text" class="cuanto" id="limiteSobre' + i + '" style="width: 50px"></td>' +
+                '<td><input type="text" readonly="true" id="pesoSobre' + i + '" style="width: 50px; color: red"></td>' +
+                '<td><input type="text" class="cuanto" id="limiteBajo' + i + '" style="width: 50px"></td>' +
+                '<td><input type="text" readonly="true" id="pesoBajo' + i + '" style="width: 50px; color: red"></td>' +
+                '<td><select class="form-control" id="logica' + i + '" style="width: 90px">' +
+                '<option value="MAS" selected="selected">Más es más</option>' +
+                '<option value="MEN">Menos es más</option>' +
+                '</select></td>' +
+                '<td><input type="text" class="cuanto" id="logro' + i + '" style="width: 50px"></td>' +
+                '<td><input type="text" readonly="true" id="porcentaje' + i + '" style="width: 50px; color: red"></td>');
+        $('#tablaMetas').append('<tr id="mt' + (i + 1) + '"></tr>');
         i++;
     });
 
     $("#delete_row").click(function () {
         if (i > 1) {
-            $("#act" + (i - 1)).html('');
+            $("#mt" + (i - 1)).html('');
             i--;
         }
     });
 
-//    $("#generarAnalisis").click(function () {
-//        resultadoActividades();
-//        resultadoFactores();
-//    });
-//
-//    $("#aprobarSolicitud").click(function () {
-//        $("#diasTeletrabajo").show();
-//        $("#labelDenegada").html("");
-//        $("#resultadoSolicitud").val("A");
-//    });
-//
-//    $("#negarSolicitud").click(function () {
-//        $("#labelDenegada").html("La solicitud será denegada.");
-//        $("#diasTeletrabajo").hide();
-//        $("#resultadoSolicitud").val("R");
-//    });
-//
-//    $("#salarioTotal").change(function () {
-//        var salarioTotal, salarioLey, salarioTeletrabajo, porciento;
-//
-//        salarioTotal = $("#salarioTotal").val();
-//        porciento = salarioTotal * 0.1524;
-//        salarioLey = parseInt(salarioTotal - porciento);
-//        $("#salarioRebajosLey").val(salarioLey);
-//        salarioTeletrabajo = parseInt(salarioLey / 20 * $("#diasTeletrabajando").val());
-//        $("#salarioTeletrabajo").val(salarioTeletrabajo);
-//    });
-//
     //evento botones avanzar proceso
     $("#guardar2").click(function () {
-        
+
         if (validarDocumentacion("auditoria")) {
             guardarDocumentacion("auditoria");
-            
+            avanzarPgProcesoSeguimiento(9, 2);
         } else
         {
             alert("Debe adjuntar el archivo de auditoría para poder continuar.");
         }
     });
-//
-//    $("#guardar3").click(function () {
-//        if (validarDocumentacion("documentoPsicometrico")) {
-//            if (validarDocumentacion("documentoPsicosocial")) {
-//                guardarDocumentacion("documentoPsicometrico");
-//                guardarDocumentacion("documentoPsicosocial");
-//                avanzarPsProcesoSolicitud(4, 3);
-//            } else
-//            {
-//                alert("Debe adjuntar el resultado del análisis psicosocial para poder continuar.");
-//            }
-//        } else
-//        {
-//            alert("Debe adjuntar el resultado del análisis psicométrico para poder continuar.");
-//        }
-//    });
+
+    $("#guardar3").click(function () {
+        if (validarRecomendacion()) {
+            guardarRecomendacion();
+        } else
+        {
+            alert("Debe ingresar una recomendación para poder continuar.");
+        }
+    });
 //
 //    $("#guardar4").click(function () {
 //        if (validarAprobacion()) {
@@ -168,11 +158,6 @@ $(document).ready(function () {
         $("#archivoauditoria").html(label);
     });
 //
-//    $('#documentoPsicosocial').on('fileselect', function (event, numFiles, label) {
-//        $("#archivoPsicosocial").html();
-//        $("#archivoPsicosocial").html(label);
-//    });
-//
 //    $('#requerimientos').on('fileselect', function (event, numFiles, label) {
 //        $("#archivorequerimientos").html();
 //        $("#archivorequerimientos").html(label);
@@ -189,47 +174,58 @@ $(document).ready(function () {
 //    });
 });
 
-//$(document).on('change', '#notaGerente', function () {
-//    var input = $(this),
-//            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-//            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-//    input.trigger('fileselect', [numFiles, label]);
-//});
-//
 $(document).on('change', '#auditoria', function () {
     var input = $(this),
             numFiles = input.get(0).files ? input.get(0).files.length : 1,
             label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
     input.trigger('fileselect', [numFiles, label]);
 });
-//
-//$(document).on('change', '#documentoPsicosocial', function () {
-//    var input = $(this),
-//            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-//            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-//    input.trigger('fileselect', [numFiles, label]);
-//});
-//
-//$(document).on('change', '#requerimientos', function () {
-//    var input = $(this),
-//            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-//            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-//    input.trigger('fileselect', [numFiles, label]);
-//});
-//
-//$(document).on('change', '#visita', function () {
-//    var input = $(this),
-//            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-//            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-//    input.trigger('fileselect', [numFiles, label]);
-//});
-//
-//$(document).on('change', '#adenda', function () {
-//    var input = $(this),
-//            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-//            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-//    input.trigger('fileselect', [numFiles, label]);
-//});
+
+$(document).on('change', '.cuanto', function () {
+    var id = $(this).attr('id');
+    var indice = id.replace('limite', '');
+    var indice = indice.replace('Sobre', '');
+    var indice = indice.replace('Bajo', '');
+    var indice = indice.replace('peso', '');
+    var indice = indice.replace('logro', '');
+    var logroSobre, logroBajo, limiteSobre, limiteBajo, peso, logroAlcanzado, logro, limite;
+
+    if ($("#descripcion" + indice).val().trim() !== "") {
+        if ($("#limite" + indice).val().trim() !== "") {
+            limite = $("#limite" + indice).val();
+            if ($("#limiteSobre" + indice).val().trim() !== "") {
+                limiteSobre = $("#limiteSobre" + indice).val();
+                if ($("#limiteBajo" + indice).val().trim() !== "") {
+                    limiteBajo = $("#limiteBajo" + indice).val();
+                    if ($("#peso" + indice).val().trim() !== "") {
+                        peso = $("#peso" + indice).val();
+                        if ($("#logro" + indice).val().trim() !== "") {
+                            logro = $("#logro" + indice).val();
+                            if ($("#logica" + indice).val() === "MAS") {
+                                logroSobre = parseInt(limiteSobre) / parseInt(limite) * parseInt(peso);
+                                $("#pesoSobre" + indice).val(Math.round(logroSobre * 10) / 10);
+                                logroBajo = parseInt(limiteBajo) / parseInt(limite) * parseInt(peso);
+                                $("#pesoBajo" + indice).val(Math.round(logroBajo * 10) / 10);
+                                logroAlcanzado = parseInt(logro) / parseInt(limite) * parseInt(peso);
+                                $("#porcentaje" + indice).val(Math.round(logroAlcanzado * 10) / 10);
+                            } else if ($("#logica" + indice).val() === "MEN") {
+                                logroSobre = ((parseInt(limite) - parseInt(limiteSobre)) / parseInt(limite) * parseInt(peso)) + parseInt(peso);
+                                $("#pesoSobre" + indice).val(Math.round(logroSobre * 10) / 10);
+                                logroBajo = ((parseInt(limite) - parseInt(limiteBajo)) / parseInt(limite) * parseInt(peso)) + parseInt(peso);
+                                $("#pesoBajo" + indice).val(Math.round(logroBajo * 10) / 10);
+                                logroAlcanzado = ((parseInt(limite) - parseInt(logro)) / parseInt(limite) * parseInt(peso)) + parseInt(peso);
+                                $("#porcentaje" + indice).val(Math.round(logroAlcanzado * 10) / 10);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } else
+    {
+        alert("Para generar el evaluación de la meta ingresa su descripción.");
+    }
+});
 
 function nextTab(elem) {
     $(elem).next().find('a[data-toggle="tab"]').click();
@@ -255,17 +251,6 @@ function ocultarMensaje() {
     $("#mensajeResult").removeClass();
     //se setean los estilos
     $("#mensajeResult").addClass("alert alert-success hiddenDiv");
-}
-
-function validarAprobacion()
-{
-    var validacion = true;
-
-    if ($("#resultadoSolicitud").val() === "") {
-        validacion = false;
-    }
-
-    return validacion;
 }
 
 //estados
@@ -359,23 +344,11 @@ function consultarEstadosByNumero(funcion)
 function pintarEstadoPendiente(dataJson)
 {
     for (var i = 0; i < dataJson.length; i++) {
-        if (dataJson[i].pgEstado === "P") {
+        if (dataJson[i].pgEstado === "P" && dataJson[i].ttTeletrabajador === parseInt(ttTeletrabajador)) {
             pgProcesoSeguimiento = dataJson[i].pgCodigo;
             $("#" + dataJson[i].esEstado).removeClass();
             $("#" + dataJson[i].esEstado).addClass("active");
             consultarEstadoByCodigo(dataJson[i].esEstado);
-//            if (dataJson[i].esEstado === 2) {
-//                consultarFactoresComplementarios();
-//                consultarCaracteristicas();
-//            } else if (dataJson[i].esEstado === 4) {
-//                consultarEstadosByNumero(3);
-//                $("#diasTeletrabajo").hide();
-//            } else if (dataJson[i].esEstado > 4) {
-//                consultarTeletrabajadorByTrabajador();
-//                if (dataJson[i].esEstado === 6) {
-//                    consultarDiasTeletrabajadorByTeletrabajador();
-//                }
-//            }
         }
     }
 }
@@ -401,368 +374,6 @@ function consultarEstadoByCodigo(esCodigo)
     });
 }
 
-//factores complementarios
-function consultarFactoresComplementarios()
-{
-    $.ajax({
-        url: 'FC_FACTOR_COMPLEMENTARIO_Servlet',
-        data: {
-            accion: "consultarFactoresComplementarios"
-        },
-        error: function () { //si existe un error en la respuesta del ajax
-            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-        },
-        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarFactoresComplementarios(data);
-        },
-        type: 'POST',
-        dataType: "json"
-    });
-}
-
-function dibujarFactoresComplementarios(dataJson)
-{
-    var nombre = 0;
-    for (var i = 0; i < dataJson.length; i++) {
-        if (dataJson[i].fcEstado === "A") {
-            $("#factoresComplementarios").append('<tr>' +
-                    '<td name="' + dataJson[i].fcCodigo + '" id="descripcion' + nombre + '">' + dataJson[i].fcDescripcion + '</td>' +
-                    '<td><input type="radio" name="factor' + nombre + '" value="20"></td>' +
-                    '<td><input type="radio" name="factor' + nombre + '" value="40"></td>' +
-                    '<td><input type="radio" name="factor' + nombre + '" value="60"></td>' +
-                    '<td><input type="radio" name="factor' + nombre + '" value="80"></td>' +
-                    '<td><input type="radio" name="factor' + nombre + '" value="100"></td>' +
-                    '</tr>');
-            nombre++;
-        }
-    }
-}
-
-function resultadoFactores()
-{
-    var rowCount = $('#tablaFactores tr').length;
-    var todos = false;
-    var sumatoria = 0;
-    var resultadoFactores = 0;
-    var cantidadFactores = rowCount - 1;
-    for (var i = 0; i < cantidadFactores; i++) {
-        if ($('input[name=factor' + i + ']:checked').length > 0) {
-            todos = true;
-        } else
-        {
-            todos = false;
-            alert("Seleccione una opción para todos los factores.");
-            break;
-        }
-    }
-
-    if (todos) {
-        for (var i = 0; i < cantidadFactores; i++) {
-            sumatoria += parseInt($('input[name=factor' + i + ']:checked').val());
-        }
-
-        resultadoFactores = sumatoria / cantidadFactores;
-        $("#puntajeFactores").val(resultadoFactores);
-        if (resultadoFactores > 75) {
-            $("#puntajeFactoresColor").css("background", "#42f448");
-            $("#recomendacionFactores").empty();
-            $("#recomendacionFactores").append("Los aspectos de gestión relacionados con el puesto FAVORECEN la aplicación de la MODALIDAD DE TELETRABAJO");
-        } else if (resultadoFactores < 25) {
-            $("#puntajeFactoresColor").css("background", "#e01a1a");
-            $("#recomendacionFactores").empty();
-            $("#recomendacionFactores").append("Los aspectos de gestión relacionados con el puesto, evidencian la necesidad de aplicar MEJORAS para la aplicación de la MODALIDAD DE TELETRABAJO");
-        } else
-        {
-            $("#puntajeFactoresColor").css("background", "#f7f71b");
-            $("#recomendacionFactores").empty();
-            $("#recomendacionFactores").append("Los aspectos de gestión relacionados con el puesto indican SUSCEPTIBILIDAD de aplicar la MODALIDAD DE TELETRABAJO");
-        }
-    }
-}
-
-//caracteristicas
-function consultarCaracteristicas()
-{
-    $.ajax({
-        url: 'CA_CARACTERISTICA_Servlet',
-        data: {
-            accion: "consultarCaracteristicas"
-        },
-        error: function () { //si existe un error en la respuesta del ajax
-            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-        },
-        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarCaracteristicas(data);
-        },
-        type: 'POST',
-        dataType: "json"
-    });
-}
-
-function dibujarCaracteristicas(dataJson)
-{
-    for (var i = 0; i < dataJson.length; i++) {
-        if (dataJson[i].caEstado === "A") {
-            $("#caracteristicas").append('<th style="font-size: 10px" value="' + dataJson[i].caCodigo + '">' + dataJson[i].caDescripicion + '</th>');
-        }
-    }
-
-    $("#caracteristicas").append('<th style="font-size: 10px" id="resultado"> Teletrabajable </th>');
-}
-
-//actividades
-function verificarActividad(numeroCheckboxes)
-{
-    var checkboxes = document.getElementsByName("caracteristicas" + numeroCheckboxes);
-    var todosSeleccionados = false;
-    var seleccionados = 0;
-    for (var i = 0, l = checkboxes.length; i < l; i++)
-    {
-        if (checkboxes[i].checked)
-        {
-            seleccionados++;
-        }
-    }
-
-    if (seleccionados === checkboxes.length) {
-        todosSeleccionados = true;
-    }
-
-    if ($("#actividad" + numeroCheckboxes).val() === "") {
-        alert("Inserte la descripción de la actividad si desea que sea analizada.");
-    } else
-    {
-        if ($('input[name=alineamiento' + numeroCheckboxes + ']:checked').length > 0) {
-            if (todosSeleccionados) {
-                $("#resultado" + numeroCheckboxes).val("Si");
-            } else
-            {
-                $("#resultado" + numeroCheckboxes).val("No");
-            }
-        } else
-        {
-            alert("Escoja el alineamiento de la actividad si desea que sea analizada.");
-        }
-
-    }
-}
-
-function resultadoActividades()
-{
-    var rowCount = $('#tablaActividades tr').length;
-    var cantidadActividades = 0;
-    var actividadesTeletrabajables = 0;
-    var resultadoActividades = 0;
-    var resultadoActividadesFormat;
-    if (rowCount - 3 === 0) {
-        alert("Inserte más de una actividad");
-    } else
-    {
-        cantidadActividades = rowCount - 2;
-        for (var i = 0; i < cantidadActividades; i++) {
-            if ($("#resultado" + i).val() === "Si") {
-                actividadesTeletrabajables++;
-            }
-        }
-
-        resultadoActividades = actividadesTeletrabajables / cantidadActividades;
-        resultadoActividadesFormat = (resultadoActividades * 100) + "%";
-        $("#puntajeActividades").val(resultadoActividadesFormat);
-        if (resultadoActividades === 1) {
-            $("#puntajeActividadesColor").css("background", "#42f448");
-            $("#modalidad").val("TOTAL");
-            $("#dias").val("5 DÍAS");
-            $("#tipoPuesto").val("ES TELETRABAJABLE");
-        } else if (resultadoActividades < 0.2) {
-            $("#puntajeActividadesColor").css("background", "#e01a1a");
-            $("#modalidad").val("N/A");
-            $("#dias").val("0 DÍAS");
-            $("#tipoPuesto").val("NO ES TELETRABAJABLE");
-        } else
-        {
-            $("#puntajeActividadesColor").css("background", "#f7f71b");
-            $("#modalidad").val("PARCIAL");
-            $("#tipoPuesto").val("ES TELETRABAJABLE");
-            if (resultadoActividades >= 0.2 && resultadoActividades < 0.4) {
-                $("#dias").val("1 DÍA");
-            } else if (resultadoActividades >= 0.4 && resultadoActividades < 0.6) {
-                $("#dias").val("2 DÍAS");
-            } else if (resultadoActividades >= 0.6 && resultadoActividades < 0.8) {
-                $("#dias").val("3 DÍAS");
-            } else if (resultadoActividades >= 0.8 && resultadoActividades < 1) {
-                $("#dias").val("4 DÍAS");
-            }
-        }
-    }
-}
-
-function guardarActividades(anCodigo)
-{
-    var rowCount = $('#tablaActividades tr').length;
-    var alineamiento;
-    var acCodigo;
-    for (var i = 0; i < rowCount - 1; i++) {
-        alineamiento = $('input[name=alineamiento' + i + ']:checked').val();
-        $.ajax({
-            async: false,
-            url: 'AC_ACTIVIDAD_Servlet',
-            data: {
-                accion: "agregarActividad",
-                acDescripcion: $("#actividad" + i).val(),
-                acAlineamiento: alineamiento
-            },
-            error: function () { //si existe un error en la respuesta del ajax
-                mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
-            },
-            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                acCodigo = data;
-                guardarActividadAnalisis(acCodigo, anCodigo);
-                guardarActividadCaracteristica(acCodigo, i);
-            },
-            type: 'POST'
-        });
-    }
-}
-
-//analisis puesto
-function guardarAnalisisPuesto(psProcesoSolicitud)
-{
-    var puntajeActividades, diasRecomendados, modalidad, tipoPuesto;
-    var anCodigo;
-    if (validarAnalisisPuesto()) {
-
-        puntajeActividades = $("#puntajeActividades").val();
-        puntajeActividades = puntajeActividades.slice(0, 3);
-        puntajeActividades = puntajeActividades.replace('.', '');
-        puntajeActividades = puntajeActividades.replace('%', '');
-        diasRecomendados = $("#dias").val();
-        diasRecomendados = diasRecomendados.slice(0, 1);
-        modalidad = $("#modalidad").val();
-        if (modalidad === "TOTAL") {
-            modalidad = "T";
-        } else if (modalidad === "PARCIAL") {
-            modalidad = "P";
-        }
-        tipoPuesto = $("#tipoPuesto").val();
-        if (tipoPuesto === "ES TELETRABAJABLE") {
-            tipoPuesto = "T";
-        } else if (tipoPuesto === "NO ES TELETRABAJABLE") {
-            tipoPuesto = "N";
-        }
-
-        $.ajax({
-            async: false,
-            url: 'AN_ANALISIS_PUESTO_Servlet',
-            data: {
-                accion: "agregarAnalisisPuesto",
-                anResultadoFactores: $("#puntajeFactores").val(),
-                anResultadoActividades: puntajeActividades,
-                psProcesoSolicitud: psProcesoSolicitud,
-                anDiasRecomendados: diasRecomendados,
-                anModalidad: modalidad,
-                anTipoPuesto: tipoPuesto
-            },
-            error: function () { //si existe un error en la respuesta del ajax
-                mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
-            },
-            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                anCodigo = data;
-                guardarActividades(anCodigo);
-                guardarFactoresAnalisis(anCodigo);
-                guardarDocumentacion("notaGerente");
-                avanzarPsProcesoSolicitud(3, 2);
-                ocultarMensaje();
-            },
-            type: 'POST'
-        });
-    } else
-    {
-        alert("Es indispensable realizar el análisis de puesto completo para avanzar en el proceso.");
-    }
-}
-
-function validarAnalisisPuesto()
-{
-    var validacion = true;
-    if ($("#puntajeActividades").val() === "") {
-        validacion = false;
-    }
-    if ($("#puntajeFactores").val() === "") {
-        validacion = false;
-    }
-
-    return validacion;
-}
-
-function consultarAnalisisPuestoByProcesoSolicitud(dataJson)
-{
-    var numeroProceso;
-    for (var i = 0; i < dataJson.length; i++) {
-        if (dataJson[i].esEstado === 2) {
-            numeroProceso = dataJson[i].psCodigo;
-        }
-    }
-
-    if (numeroProceso) {
-        $.ajax({
-            async: false,
-            url: 'AN_ANALISIS_PUESTO_Servlet',
-            data: {
-                accion: "consultaDinamica",
-                campo: "psProcesoSolicitud",
-                valor: numeroProceso,
-                unico: true
-            },
-            error: function () { //si existe un error en la respuesta del ajax
-                cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-            },
-            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                var resultadoFactores = data[0].anResultadoFactores;
-                $("#resultadoFactores").val(resultadoFactores);
-                if (resultadoFactores > 75) {
-                    $("#resultadoFactoresColor").css("background", "#42f448");
-                    $("#recomendacionResultadoFactores").empty();
-                    $("#recomendacionResultadoFactores").append("Los aspectos de gestión relacionados con el puesto FAVORECEN la aplicación de la MODALIDAD DE TELETRABAJO");
-                } else if (resultadoFactores < 25) {
-                    $("#resultadoFactoresColor").css("background", "#e01a1a");
-                    $("#recomendacionResultadoFactores").empty();
-                    $("#recomendacionResultadoFactores").append("Los aspectos de gestión relacionados con el puesto, evidencian la necesidad de aplicar MEJORAS para la aplicación de la MODALIDAD DE TELETRABAJO");
-                } else
-                {
-                    $("#resultadoFactoresColor").css("background", "#f7f71b");
-                    $("#recomendacionResultadoFactores").empty();
-                    $("#recomendacionResultadoFactores").append("Los aspectos de gestión relacionados con el puesto indican SUSCEPTIBILIDAD de aplicar la MODALIDAD DE TELETRABAJO");
-                }
-                var resultadoActividades = data[0].anResultadoActividades;
-                $("#resultadoActividades").val(resultadoActividades + "%");
-                if (resultadoActividades === 100) {
-                    $("#resultadoActividadesColor").css("background", "#42f448");
-                } else if (resultadoActividades < 20) {
-                    $("#resultadoActividadesColor").css("background", "#e01a1a");
-                } else
-                {
-                    $("#resultadoActividadesColor").css("background", "#f7f71b");
-                }
-                $("#diasResultado").val(data[0].anDiasRecomendados + " DIAS");
-                var modalidad = data[0].anModalidad;
-                if (modalidad === "T") {
-                    $("#modalidadResultado").val("TOTAL");
-                } else if (modalidad === "P") {
-                    $("#modalidadResultado").val("PARCIAL");
-                }
-                var tipoPuesto = data[0].anTipoPuesto;
-                if (tipoPuesto === "T") {
-                    $("#tipoPuestoResultado").val("ES TELETRABAJABLE");
-                } else if (tipoPuesto === "N") {
-                    $("#tipoPuestoResultado").val("NO ES TELETRABAJABLE");
-                }
-            },
-            type: 'POST',
-            dataType: "json"
-        });
-    }
-}
-
 //proceso solicitud
 function revisarProcesoSolicitud(dataJson)
 {
@@ -785,17 +396,14 @@ function avanzarPgProcesoSeguimiento(estadoSiguiente, numeroObservacion)
             pgCodigo: pgProcesoSeguimiento,
             pgNumero: pgNumero,
             pgObservacion: observacion,
-            pgEstadoNuevo: estadoSiguiente
+            pgEstadoNuevo: estadoSiguiente,
+            ttTeletrabajador: ttTeletrabajador
         },
         error: function () { //si existe un error en la respuesta del ajax
             mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             pgProcesoSeguimiento = data;
-//            if (estadoSiguiente === 4) {
-//                consultarEstadosByNumero(3);
-//                $("#diasTeletrabajo").hide();
-//            }
             var $active = $('.wizard .nav-tabs li.active');
             ($active).addClass("disabled");
             $active.next().removeClass('disabled');
@@ -807,7 +415,7 @@ function avanzarPgProcesoSeguimiento(estadoSiguiente, numeroObservacion)
 
 function modificarPsProcesoSolicitud(estado)
 {
-    var observacion = $("#observacion"+estado).val();
+    var observacion = $("#observacion" + estado).val();
 
     $.ajax({
         asyn: false,
@@ -827,147 +435,13 @@ function modificarPsProcesoSolicitud(estado)
     });
 }
 
-//actividadAnalisis
-function guardarActividadAnalisis(acCodigo, anCodigo)
-{
-    $.ajax({
-        async: false,
-        url: 'AC_AN_ACTIVIDAD_ANALISIS_Servlet',
-        data: {
-            accion: "agregarActividadAnalisis",
-            acActividad: acCodigo,
-            anAnalisis: anCodigo
-        },
-        error: function () { //si existe un error en la respuesta del ajax
-            mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
-        },
-        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            var respuestaTxt = data.substring(2);
-            var tipoRespuesta = data.substring(0, 2);
-            if (tipoRespuesta === "C~") {
-                mostrarMensaje("mensajeResult", "alert alert-success", respuestaTxt, "Correcto!");
-            } else {
-                if (tipoRespuesta === "E~") {
-                    mostrarMensaje("mensajeResult", "alert alert-danger", respuestaTxt, "Error!");
-                } else {
-                    mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
-                }
-            }
-        },
-        type: 'POST'
-    });
-}
-
-//actividadCaracteristica
-function guardarActividadCaracteristica(acCodigo, i)
-{
-    var checkboxes = document.getElementsByName("caracteristicas" + i);
-    var value, teletrabajable;
-    for (var i = 0; i < checkboxes.length; i++) {
-        value = checkboxes[i].value;
-        if (checkboxes[i].checked)
-        {
-            teletrabajable = "S";
-        } else
-        {
-            teletrabajable = "N";
-        }
-
-        $.ajax({
-            async: false,
-            url: 'AC_CA_ACTIVIDAD_CARACTERISTICA_Servlet',
-            data: {
-                accion: "agregarActividadCaracteristica",
-                acActividad: acCodigo,
-                caCaracteristica: value,
-                acCaTeletrabajable: teletrabajable
-            },
-            error: function () { //si existe un error en la respuesta del ajax
-                mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
-            },
-            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                var respuestaTxt = data.substring(2);
-                var tipoRespuesta = data.substring(0, 2);
-                if (tipoRespuesta === "C~") {
-                    mostrarMensaje("mensajeResult", "alert alert-success", respuestaTxt, "Correcto!");
-                } else {
-                    if (tipoRespuesta === "E~") {
-                        mostrarMensaje("mensajeResult", "alert alert-danger", respuestaTxt, "Error!");
-                    } else {
-                        mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
-                    }
-                }
-            },
-            type: 'POST'
-        });
-    }
-}
-
-//factoresAnalisis
-function guardarFactoresAnalisis(anCodigo)
-{
-    var rowCount = $('#tablaFactores tr').length;
-    var grado, fcFactor;
-
-    for (var i = 0; i < rowCount - 1; i++) {
-        fcFactor = $("#descripcion" + i).attr('name');
-        grado = parseInt($('input[name=factor' + i + ']:checked').val());
-        switch (grado) {
-            case 20:
-                grado = 0;
-                break;
-            case 40:
-                grado = 1;
-                break;
-            case 60:
-                grado = 2;
-                break;
-            case 80:
-                grado = 3;
-                break;
-            case 100:
-                grado = 4;
-                break;
-            default:
-                alert("Error obteniendo los grados del factor.");
-        }
-
-        $.ajax({
-            async: false,
-            url: 'FC_AN_FACTOR_ANALISIS_Servlet',
-            data: {
-                accion: "agregarFactorAnalisis",
-                fcAnGrado: grado,
-                fcFactor: fcFactor,
-                anAnalisis: anCodigo
-            },
-            error: function () { //si existe un error en la respuesta del ajax
-                mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
-            },
-            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                var respuestaTxt = data.substring(2);
-                var tipoRespuesta = data.substring(0, 2);
-                if (tipoRespuesta === "C~") {
-                    mostrarMensaje("mensajeResult", "alert alert-success", respuestaTxt, "Correcto!");
-                } else {
-                    if (tipoRespuesta === "E~") {
-                        mostrarMensaje("mensajeResult", "alert alert-danger", respuestaTxt, "Error!");
-                    } else {
-                        mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
-                    }
-                }
-            },
-            type: 'POST'
-        });
-    }
-}
-
 //documentacion
 function guardarDocumentacion(nombreCampo)
 {
     var datos = new FormData();
     datos.append('file', document.getElementById(nombreCampo).files[0]);
-    datos.append('psProcesoSolicitud', psProcesoSolicitud);
+    datos.append('proceso', 'G');
+    datos.append('psProcesoSolicitud', pgProcesoSeguimiento);
     $.ajax({
         asyn: false,
         url: 'DC_DOCUMENTACION_Servlet',
@@ -997,51 +471,7 @@ function validarDocumentacion(archivo)
     return validacion;
 }
 
-//dias
-function validarDias()
-{
-    var chckbxDias = document.getElementsByName("dia");
-    var validar = false;
-
-    for (var i = 0, l = chckbxDias.length; i < l; i++)
-    {
-        if (chckbxDias[i].checked)
-        {
-            validar = true;
-            break;
-        }
-    }
-
-    return validar;
-}
-
-//solicitud
-function modificarSolicitud()
-{
-    var resultado = $("#resultadoSolicitud").val();
-
-    $.ajax({
-        async: false,
-        url: 'SL_SOLICITUD_Servlet',
-        data: {
-            accion: "modificarSolicitud",
-            slCodigo: slSolicitud,
-            slResultado: resultado
-        },
-        error: function () { //si existe un error en la respuesta del ajax
-            mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
-        },
-        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            if (resultado === "A") {
-                consultarTeletrabajadorByCodigo(true);
-            } else if (resultado === "R") {
-                modificarPsProcesoSolicitud(4);
-            }
-        },
-        type: 'POST'
-    });
-}
-
+//teletrabajador
 function consultarTeletrabajadorByCodigo(estado4)
 {
     $.ajax({
@@ -1059,29 +489,6 @@ function consultarTeletrabajadorByCodigo(estado4)
             if (estado4) {
                 guardarTeletrabajador(data.trTrabajador);
             }
-        },
-        type: 'POST',
-        dataType: "json"
-    });
-}
-
-//teletrabajador
-function guardarTeletrabajador(trTrabajador)
-{
-    $.ajax({
-        async: false,
-        url: 'TT_TELETRABAJADOR_Servlet',
-        data: {
-            accion: "agregarTeletrabajador",
-            trTrabajador: trTrabajador,
-            slSolicitud: slSolicitud
-        },
-        error: function () { //si existe un error en la respuesta del ajax
-            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-        },
-        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            ttTeletrabajador = data;
-            guardarDiasTeletrabajador(data);
         },
         type: 'POST',
         dataType: "json"
@@ -1114,103 +521,40 @@ function consultarTeletrabajadorByTrabajador()
     });
 }
 
-//diasTeletrabajador
-function guardarDiasTeletrabajador(ttTeletrabajador)
-{
-    var chckbxDias = document.getElementsByName("dia");
-    var dia;
-
-    for (var i = 0, l = chckbxDias.length; i < l; i++)
-    {
-        if (chckbxDias[i].checked)
-        {
-            dia = chckbxDias[i].value;
-
-            $.ajax({
-                async: false,
-                url: 'TT_TELETRABAJADOR_Servlet',
-                data: {
-                    accion: "agregarDiasTeletrabajador",
-                    ttTeletrabajador: ttTeletrabajador,
-                    diDia: dia
-                },
-                error: function () { //si existe un error en la respuesta del ajax
-                    cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-                },
-                success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                    avanzarPsProcesoSolicitud(5, 4);
-                },
-                type: 'POST',
-                dataType: "text"
-            });
-        }
-    }
-}
-
-function consultarDiasTeletrabajadorByTeletrabajador()
+//recomendacion
+function guardarRecomendacion()
 {
     $.ajax({
         async: false,
-        url: 'TT_TELETRABAJADOR_Servlet',
+        url: 'PG_PROCESO_SEGUIMIENTO_Servlet',
         data: {
-            accion: "consultarDiasTeletrabajador",
-            campo: "ttTeletrabajador",
-            valor: ttTeletrabajador,
-            unico: true
+            accion: "guardarRecomendacion",
+            reFechaLimite: $("#fechaLimite").data('date'),
+            reDescripcion: $("#descripcionrecomendacion").val(),
+            pgProcesoSeguimiento: pgProcesoSeguimiento
         },
         error: function () { //si existe un error en la respuesta del ajax
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            var dias = parseInt(data.length * 4);
-            $("#diasTeletrabajando").val(dias);
-        },
-        type: 'POST',
-        dataType: "json"
-    });
-}
-
-//calculoAhorro
-function validarCalculoAhorro()
-{
-    var validacion = true;
-
-    if ($("#salarioTotal").val() === "") {
-        validacion = false;
-    }
-
-    if ($("#salarioTeletrabajo").val() === "") {
-        validacion = false;
-    }
-
-    if ($("#costoUnidad").val().trim() === "") {
-        validacion = false;
-    }
-
-    return validacion;
-}
-
-function guardarCalculoAhorro()
-{
-    $.ajax({
-        async: false,
-        url: 'CH_CALCULO_AHORRO_Servlet',
-        data: {
-            accion: "agregarCalculoAhorro",
-            chSalarioTotal: $("#salarioTotal").val(),
-            chSalarioLey: $("#salarioRebajosLey").val(),
-            chSalarioTeletrabajo: $("#salarioTeletrabajo").val(),
-            chCostoEventos: $("#costoUnidad").val(),
-            psProcesoSolicitud: psProcesoSolicitud
-        },
-        error: function () { //si existe un error en la respuesta del ajax
-            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
-        },
-        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            guardarDocumentacion("visita");
-            avanzarPsProcesoSolicitud(7, 6);
+            avanzarPgProcesoSeguimiento(10, 3);
         },
         type: 'POST',
         dataType: "text"
     });
+}
+
+function validarRecomendacion()
+{
+    var validacion = true;
+
+    if ($("#descripcionrecomendacion").val().trim() === "") {
+        validacion = false;
+    }
+
+    if ($("#fechaLimite").data('date') === "") {
+        validacion = false;
+    }
+
+    return validacion;
 }

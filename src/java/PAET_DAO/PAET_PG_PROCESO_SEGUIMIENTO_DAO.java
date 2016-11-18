@@ -47,7 +47,7 @@ public class PAET_PG_PROCESO_SEGUIMIENTO_DAO extends HibernateUtil implements IB
     public PaetPgProcesoSeguimiento merge(PaetPgProcesoSeguimiento o) {
         try {
             iniciaOperacion();
-            String hql = "update PaetPgProcesoSeguimiento pg set pg.pgObservacion = :observacion, pg.pgFecha = :fecha, pg.pgEstado = :estado where pg.pgCodigo = :pgCodigo";
+            String hql = "update PaetPgProcesoSeguimiento pg set pg.pgObservacion = :observacion, pg.pgFechaAtendido = :fecha, pg.pgEstado = :estado where pg.pgCodigo = :pgCodigo";
             int updatedEntities = getSesion().createQuery(hql)
                     .setString("observacion", o.getPgObservacion())
                     .setDate("fecha", o.getPgFechaAtendido())

@@ -33,7 +33,7 @@ public class PAET_RE_RECOMENDACION_BL extends BaseBL implements IBaseBL<PaetReRe
     
     @Override
     public void save(PaetReRecomendacion o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override
