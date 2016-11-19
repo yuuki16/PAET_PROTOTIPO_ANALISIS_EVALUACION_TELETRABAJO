@@ -214,24 +214,24 @@
                                                             <tr id="mt0">
                                                                 <td>1</td>
                                                                 <td><input type="text" id="descripcion0" style="width: 200px"></td>
-                                                                <td><input type="text" class="cuanto" id="limite0" style="width: 50px"></td>
-                                                                <td><input type="text" class="cuanto" id="peso0" style="width: 50px"></td>
-                                                                <td><input type="text" class="cuanto" id="limiteSobre0" style="width: 50px"></td>
-                                                                <td><input type="text" id="pesoSobre0" style="width: 50px; color: red" readonly="true"></td>
-                                                                <td><input type="text" class="cuanto" id="limiteBajo0" style="width: 50px"></td>
-                                                                <td><input type="text" id="pesoBajo0" style="width: 50px; color: red" readonly="true"></td>
+                                                                <td><input type="number" class="cuanto" id="limite0" style="width: 50px"></td>
+                                                                <td><input type="number" class="cuanto" name="peso" id="peso0" style="width: 50px"></td>
+                                                                <td><input type="number" class="cuanto" id="limiteSobre0" style="width: 50px"></td>
+                                                                <td><input type="number" name="pesoSobre" id="pesoSobre0" style="width: 50px; color: red" readonly="true"></td>
+                                                                <td><input type="number" class="cuanto" id="limiteBajo0" style="width: 50px"></td>
+                                                                <td><input type="number" name="pesoBajo" id="pesoBajo0" style="width: 50px; color: red" readonly="true"></td>
                                                                 <td><select class="form-control" id="logica0" style="width: 90px">
                                                                         <option value="MAS" selected="selected">Más es más</option>
                                                                         <option value="MEN">Menos es más</option>
                                                                     </select></td>
-                                                                <td><input type="text" class="cuanto" id="logro0" style="width: 50px"></td>
-                                                                <td><input type="text" id="porcentaje0" style="width: 50px; color: red" readonly="true"></td>
+                                                                <td><input type="number" class="cuanto" id="logro0" style="width: 50px"></td>
+                                                                <td><input type="number" name="porcentaje" id="porcentaje0" style="width: 50px; color: red" readonly="true"></td>
                                                             </tr>
                                                             <tr id='mt1'></tr>
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
-                                                                <th id="total" colspan="2">Total :</th>
+                                                                <th id="total" colspan="2" align="center">Total :</th>
                                                                 <td></td>
                                                                 <td><input type="text" id="pesoTotal" style="width: 50px; color: red" readonly="true"></td>
                                                                 <td></td>
@@ -246,11 +246,6 @@
                                                     </table>
                                                     <a id="add_row" class="btn btn-default pull-left">Agregar Fila</a><a id='delete_row' class="pull-right btn btn-default">Borrar Fila</a>
                                                 </div>
-                                            </li>
-                                            <br>
-                                            <br>
-                                            <li>
-
                                             </li>
                                             <br>
                                             <br>
@@ -270,31 +265,30 @@
                                                             <td>Logro Sobresaliente</td>
                                                             <td><input type="text" id="minSobre" style="width: 100px" readonly="true"></td>
                                                             <td>></td>
-                                                            <td><div id="colorSobre" class="colorResultado" style="background-color: #08c; width: 135px;"></div></td>
+                                                            <td><div id="colorSobre" class="colorResultado" style="background-color: #08c; width: 135px; text-align: center; font-weight: bolder;font-size: larger;"></div></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Logro Alto</td>
                                                             <td><input type="text" id="minAlto" style="width: 100px" readonly="true"></td>
                                                             <td><input type="text" id="maxAlto" style="width: 100px" readonly="true"></td>
-                                                            <td><div id="colorAlto" class="colorResultado" style="background-color: #f49e42; width: 135px;"></div></td>
+                                                            <td><div id="colorAlto" class="colorResultado" style="background-color: #f49e42; width: 135px; text-align: center; font-weight: bolder;font-size: larger;"></div></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Logro Estándar de la Meta</td>
-                                                            <td><input type="text" id="minEst" style="width: 100px" readonly="true"></td>
-                                                            <td><input type="text" id="maxEst" style="width: 100px" readonly="true"></td>
-                                                            <td><div id="colorEst" class="colorResultado" style="background-color: #83f442; width: 135px;"></div></td>
+                                                            <td colspan="2"><center><input type="text" id="minEst" style="width: 100px" readonly="true"></center></td>
+                                                            <td><div id="colorEst" class="colorResultado" style="background-color: #83f442; width: 135px; text-align: center; font-weight: bolder;font-size: larger;"></div></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Logro Aceptable</td>
                                                             <td><input type="text" id="minAcep" style="width: 100px" readonly="true"></td>
                                                             <td><input type="text" id="maxAcep" style="width: 100px" readonly="true"></td>
-                                                            <td><div id="colorAcep" class="colorResultado" style="background-color: #f9f343; width: 135px;"></div></td>
+                                                            <td><div id="colorAcep" class="colorResultado" style="background-color: #f9f343; width: 135px; text-align: center; font-weight: bolder;font-size: larger;"></div></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Logro Bajo</td>
-                                                            <td><input type="text" id="minBajo" style="width: 100px" readonly="true"></td>
+                                                            <td><</td>
                                                             <td><input type="text" id="maxBajo" style="width: 100px" readonly="true"></td>
-                                                            <td><div id="colorBajo" class="colorResultado" style="background-color: #f90000; width: 135px;"></div></td>
+                                                            <td><div id="colorBajo" class="colorResultado" style="background-color: #f90000; width: 135px; text-align: center; font-weight: bolder;font-size: larger;"></div></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

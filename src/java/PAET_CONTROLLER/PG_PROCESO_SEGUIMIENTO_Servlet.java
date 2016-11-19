@@ -89,6 +89,7 @@ public class PG_PROCESO_SEGUIMIENTO_Servlet extends HttpServlet {
                         pgNumero = new BigDecimal(request.getParameter("pgNumero"));
                         ttTeletrabajador = new BigDecimal(request.getParameter("ttTeletrabajador"));
                         procesoSeguimiento.setPgFecha(fechaHoy);
+                        procesoSeguimiento.setPgFechaAtendido(fechaHoy);
                         procesoSeguimiento.setPgNumero(pgNumero);
                         procesoSeguimiento.setTtTeletrabajador(ttTeletrabajador);
                         procesoSeguimiento.setEsEstado(new BigDecimal(41));
@@ -96,6 +97,7 @@ public class PG_PROCESO_SEGUIMIENTO_Servlet extends HttpServlet {
                         //Se guarda el objeto
                         procesoSeguimientoBl.save(procesoSeguimiento);
 
+                        procesoSeguimiento.setPgFechaAtendido(null);
                         procesoSeguimiento.setEsEstado(new BigDecimal(8));
                         procesoSeguimiento.setPgEstado('P');
 

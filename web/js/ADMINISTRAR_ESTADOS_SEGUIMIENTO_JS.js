@@ -54,18 +54,18 @@ $(document).ready(function () {
     $("#add_row").click(function () {
         $('#mt' + i).html('<td>' + parseInt(i + 1) + '</td>' +
                 '<td><input type="text" id="descripcion' + i + '" style="width: 200px"></td>' +
-                '<td><input type="text" class="cuanto" id="limite' + i + '" style="width: 50px"></td>' +
-                '<td><input type="text" class="cuanto" id="peso' + i + '" style="width: 50px"></td>' +
-                '<td><input type="text" class="cuanto" id="limiteSobre' + i + '" style="width: 50px"></td>' +
-                '<td><input type="text" readonly="true" id="pesoSobre' + i + '" style="width: 50px; color: red"></td>' +
-                '<td><input type="text" class="cuanto" id="limiteBajo' + i + '" style="width: 50px"></td>' +
-                '<td><input type="text" readonly="true" id="pesoBajo' + i + '" style="width: 50px; color: red"></td>' +
+                '<td><input type="number" class="cuanto" id="limite' + i + '" style="width: 50px"></td>' +
+                '<td><input type="number" class="cuanto" name="peso" id="peso' + i + '" style="width: 50px"></td>' +
+                '<td><input type="number" class="cuanto" id="limiteSobre' + i + '" style="width: 50px"></td>' +
+                '<td><input type="number" name="pesoSobre" readonly="true" id="pesoSobre' + i + '" style="width: 50px; color: red"></td>' +
+                '<td><input type="number" class="cuanto" id="limiteBajo' + i + '" style="width: 50px"></td>' +
+                '<td><input type="number" name="pesoBajo" readonly="true" id="pesoBajo' + i + '" style="width: 50px; color: red"></td>' +
                 '<td><select class="form-control" id="logica' + i + '" style="width: 90px">' +
                 '<option value="MAS" selected="selected">Más es más</option>' +
                 '<option value="MEN">Menos es más</option>' +
                 '</select></td>' +
-                '<td><input type="text" class="cuanto" id="logro' + i + '" style="width: 50px"></td>' +
-                '<td><input type="text" readonly="true" id="porcentaje' + i + '" style="width: 50px; color: red"></td>');
+                '<td><input type="number" class="cuanto" id="logro' + i + '" style="width: 50px"></td>' +
+                '<td><input type="number" name="porcentaje" readonly="true" id="porcentaje' + i + '" style="width: 50px; color: red"></td>');
         $('#tablaMetas').append('<tr id="mt' + (i + 1) + '"></tr>');
         i++;
     });
@@ -97,81 +97,17 @@ $(document).ready(function () {
             alert("Debe ingresar una recomendación para poder continuar.");
         }
     });
-//
-//    $("#guardar4").click(function () {
-//        if (validarAprobacion()) {
-//            if (($("#resultadoSolicitud").val() === "A" && validarDias()) || $("#resultadoSolicitud").val() === "R") {
-//                modificarSolicitud();
-//            } else
-//            {
-//                alert("Debe seleccionar al menos un día de teletrabajo.");
-//            }
-//        } else
-//        {
-//            alert("Debe de aprobar o denegar la solicitud antes de continuar.");
-//        }
-//    });
-//
-//    $("#guardar5").click(function () {
-//        if (validarDocumentacion("requerimientos")) {
-//            guardarDocumentacion("requerimientos");
-//            avanzarPsProcesoSolicitud(6, 5);
-//        } else
-//        {
-//            alert("Debe de adjuntar el formulario de requerimientos tecnológicos antes de continuar.");
-//        }
-//    });
-//
-//    $("#guardar6").click(function () {
-//        if (validarDocumentacion("visita")) {
-//            if (validarCalculoAhorro()) {
-//                guardarCalculoAhorro();
-//            } else
-//            {
-//                alert("Debe ingresar la información correspondiente al cálculo de ahorro para poder continuar.");
-//            }
-//        } else
-//        {
-//            alert("Debe de adjuntar el documento de la visita realizada antes de continuar.");
-//        }
-//    });
-//    
-//    $("#guardar7").click(function () {
-//        if (validarDocumentacion("adenda")) {
-//            guardarDocumentacion("adenda");
-//            modificarPsProcesoSolicitud(7);
-//            window.location = 'ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp';
-//        } else
-//        {
-//        alert("Debe de adjuntar la adenda firmada para finalizar el proceso.");
-//        }
-//    });
-//
-//    //previsualizar archivo adjuntado
-//    $('#notaGerente').on('fileselect', function (event, numFiles, label) {
-//        $("#archivo").html();
-//        $("#archivo").html(label);
-//    });
-//
+
+    $("#guardar4").click(function () {
+        if (true) {
+            
+        }
+    });
+    
     $('#auditoria').on('fileselect', function (event, numFiles, label) {
         $("#archivoauditoria").html();
         $("#archivoauditoria").html(label);
     });
-//
-//    $('#requerimientos').on('fileselect', function (event, numFiles, label) {
-//        $("#archivorequerimientos").html();
-//        $("#archivorequerimientos").html(label);
-//    });
-//
-//    $('#visita').on('fileselect', function (event, numFiles, label) {
-//        $("#archivoVisita").html();
-//        $("#archivoVisita").html(label);
-//    });
-//    
-//    $('#adenda').on('fileselect', function (event, numFiles, label) {
-//        $("#archivoadenda").html();
-//        $("#archivoadenda").html(label);
-//    });
 });
 
 $(document).on('change', '#auditoria', function () {
@@ -193,21 +129,25 @@ $(document).on('change', '.cuanto', function () {
     if ($("#descripcion" + indice).val().trim() !== "") {
         if ($("#limite" + indice).val().trim() !== "") {
             limite = $("#limite" + indice).val();
-            if ($("#limiteSobre" + indice).val().trim() !== "") {
-                limiteSobre = $("#limiteSobre" + indice).val();
-                if ($("#limiteBajo" + indice).val().trim() !== "") {
-                    limiteBajo = $("#limiteBajo" + indice).val();
-                    if ($("#peso" + indice).val().trim() !== "") {
-                        peso = $("#peso" + indice).val();
+            if ($("#peso" + indice).val().trim() !== "") {
+                peso = $("#peso" + indice).val();
+                calcularTotalPeso();
+                if ($("#limiteSobre" + indice).val().trim() !== "") {
+                    limiteSobre = $("#limiteSobre" + indice).val();
+                    if ($("#limiteBajo" + indice).val().trim() !== "") {
+                        limiteBajo = $("#limiteBajo" + indice).val();
                         if ($("#logro" + indice).val().trim() !== "") {
                             logro = $("#logro" + indice).val();
                             if ($("#logica" + indice).val() === "MAS") {
                                 logroSobre = parseInt(limiteSobre) / parseInt(limite) * parseInt(peso);
                                 $("#pesoSobre" + indice).val(Math.round(logroSobre * 10) / 10);
+                                calcularTotalLogroSobre();
                                 logroBajo = parseInt(limiteBajo) / parseInt(limite) * parseInt(peso);
                                 $("#pesoBajo" + indice).val(Math.round(logroBajo * 10) / 10);
+                                calcularTotalLogroBajo();
                                 logroAlcanzado = parseInt(logro) / parseInt(limite) * parseInt(peso);
                                 $("#porcentaje" + indice).val(Math.round(logroAlcanzado * 10) / 10);
+                                calcularTotalLogroAlcanzado();
                             } else if ($("#logica" + indice).val() === "MEN") {
                                 logroSobre = ((parseInt(limite) - parseInt(limiteSobre)) / parseInt(limite) * parseInt(peso)) + parseInt(peso);
                                 $("#pesoSobre" + indice).val(Math.round(logroSobre * 10) / 10);
@@ -251,6 +191,111 @@ function ocultarMensaje() {
     $("#mensajeResult").removeClass();
     //se setean los estilos
     $("#mensajeResult").addClass("alert alert-success hiddenDiv");
+}
+
+function calcularTotalPeso()
+{
+    var pesos = document.getElementsByName('peso');
+    var peso = 0, pesoTotal = 0, pesoSobreMin = 0, pesoAcepMax = 0;
+    for (var i = 0; i < pesos.length; i++) {
+        if (pesos[i].value.trim() !== "") {
+            peso = pesos[i].value;
+            pesoTotal = parseFloat(pesoTotal) + parseFloat(peso);
+        }
+    }
+
+    $("#pesoTotal").val(pesoTotal);
+    pesoSobreMin = parseFloat(pesoTotal) + 0.01;
+    $("#minAlto").val(pesoSobreMin);
+    $("#minEst").val(pesoTotal);
+    pesoAcepMax = parseFloat(pesoTotal) - 0.01;
+    $("#maxAcep").val(pesoAcepMax);
+}
+
+function calcularTotalLogroSobre()
+{
+    var pesos = document.getElementsByName('pesoSobre');
+    var peso = 0, pesoTotal = 0, pesoAltoMax = 0;
+    for (var i = 0; i < pesos.length; i++) {
+        if (pesos[i].value.trim() !== "") {
+            peso = pesos[i].value;
+            pesoTotal = parseFloat(pesoTotal) + parseFloat(peso);
+        }
+    }
+
+    $("#pesoSobreTotal").val(pesoTotal);
+    $("#minSobre").val(pesoTotal);
+    pesoAltoMax = parseFloat(pesoTotal) - 0.01;
+    $("#maxAlto").val(pesoAltoMax);
+}
+
+function calcularTotalLogroBajo()
+{
+    var pesos = document.getElementsByName('pesoBajo');
+    var peso = 0, pesoTotal = 0, pesoAcepMin = 0;
+    for (var i = 0; i < pesos.length; i++) {
+        if (pesos[i].value.trim() !== "") {
+            peso = pesos[i].value;
+            pesoTotal = parseFloat(pesoTotal) + parseFloat(peso);
+        }
+    }
+
+    $("#pesoBajoTotal").val(pesoTotal);
+    pesoAcepMin = parseFloat(pesoTotal) + 0.021;
+    $("#minAcep").val(pesoAcepMin);
+    $("#maxBajo").val(pesoTotal);
+}
+
+function calcularTotalLogroAlcanzado()
+{
+    var pesos = document.getElementsByName('porcentaje');
+    var peso = 0, pesoTotal = 0;
+    for (var i = 0; i < pesos.length; i++) {
+        if (pesos[i].value.trim() !== "") {
+            peso = pesos[i].value;
+            pesoTotal = parseFloat(pesoTotal) + parseFloat(peso); 
+        }
+    }
+
+    $("#porcentajeTotal").val(pesoTotal);
+
+    var colores = document.getElementsByClassName('colorResultado');
+    var id;
+    for (var i = 0; i < colores.length; i++) {
+        colores[i].innerHTML = "";
+    }
+    
+    pintarLogroAlcanzado();
+}
+
+function pintarLogroAlcanzado()
+{
+    var logroAlcanzado = $("#porcentajeTotal").val();
+    var minSobre = $("#minSobre").val();
+    var minAlto = $("#minAlto").val();
+    var maxAlto = $("#maxAlto");
+    var est = $("#minEst").val();
+    var minAcep = $("#minAcep").val();
+    var maxAcep = $("#maxAcep").val();
+    var minBajo = $("#minBajo").val();
+    var maxBajo = $("#maxBajo").val();
+    
+    if (parseFloat(logroAlcanzado) >= parseFloat(minSobre)) {
+        $("#colorSobre").html(logroAlcanzado);
+        $("#causayaccionmejora").hide();
+    }else if (parseFloat(logroAlcanzado) > parseFloat(est) && parseFloat(logroAlcanzado) < parseFloat(minSobre)) {
+        $("#colorAlto").html(logroAlcanzado);
+        $("#causayaccionmejora").hide();
+    }else if (parseFloat(logroAlcanzado) === parseFloat(est)) {
+        $("#colorEst").html(logroAlcanzado);
+        $("#causayaccionmejora").hide();
+    }else if (parseFloat(logroAlcanzado) > parseFloat(maxBajo) && parseFloat(logroAlcanzado) < parseFloat(est)) {
+        $("#colorAcep").html(logroAlcanzado);
+        $("#causayaccionmejora").show();
+    }else if (parseFloat(logroAlcanzado) <= parseFloat(maxBajo)) {
+        $("#colorBajo").html(logroAlcanzado);
+        $("#causayaccionmejora").hide();
+    }
 }
 
 //estados
@@ -349,6 +394,7 @@ function pintarEstadoPendiente(dataJson)
             $("#" + dataJson[i].esEstado).removeClass();
             $("#" + dataJson[i].esEstado).addClass("active");
             consultarEstadoByCodigo(dataJson[i].esEstado);
+            $("#causayaccionmejora").hide();
         }
     }
 }
