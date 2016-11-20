@@ -33,7 +33,7 @@ public class PAET_MT_META_BL extends BaseBL implements IBaseBL<PaetMtMeta, BigDe
     
     @Override
     public void save(PaetMtMeta o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override

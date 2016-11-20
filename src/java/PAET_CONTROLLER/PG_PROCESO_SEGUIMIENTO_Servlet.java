@@ -107,8 +107,13 @@ public class PG_PROCESO_SEGUIMIENTO_Servlet extends HttpServlet {
                         out.print("C~El proceso de seguimiento fue agregado correctamente");
 
                     } else {//es modificar 
-                        pgCodigo = new BigDecimal(request.getParameter("pgCodigo"));
-
+                        pgCodigo = new BigDecimal(request.getParameter("pgProcesoSeguimiento"));
+                        if (!"".equals(request.getParameter("pgObservacion").trim())) {
+                            procesoSeguimiento.setPgObservacion(request.getParameter("pgObservacion"));
+                        }
+                        procesoSeguimiento.setPgCodigo(pgCodigo);
+                        procesoSeguimiento.setPgFechaAtendido(fechaHoy);
+                        procesoSeguimiento.setPgEstado('F');
                         //Se guarda el objeto
                         procesoSeguimientoBl.merge(procesoSeguimiento);
 
@@ -157,9 +162,9 @@ public class PG_PROCESO_SEGUIMIENTO_Servlet extends HttpServlet {
                     recomendacion.setPgProcesoSeguimiento(pgCodigo);
                     recomendacion.setReDescripcion(request.getParameter("reDescripcion"));
                     recomendacion.setReEstado('P');
-                    
+
                     recomendacionBl.save(recomendacion);
-                    
+
                     out.print("C~El proceso de seguimiento fue agregado correctamente");
                     break;
                 default:

@@ -11,37 +11,34 @@
             </generator>
         </id>
         <property name="mtDescripcion" type="string">
-            <column name="MT_DESCRIPCION" length="200" not-null="true" />
+            <column name="MT_DESCRIPCION" precision="38" not-null="true" />
         </property>
-        <property name="mtLimite" type="short">
-            <column name="MT_LIMITE" precision="4" scale="0" not-null="true" />
+        <property name="mtLimite" type="big_decimal">
+            <column name="MT_LIMITE" precision="38" not-null="true" />
         </property>
-        <property name="mtPeso" type="short">
-            <column name="MT_PESO" precision="3" scale="1" not-null="true" />
+        <property name="mtPeso" type="big_decimal">
+            <column name="MT_PESO" precision="38" not-null="true" />
         </property>
-        <property name="mtLimiteSobresaliente" type="short">
-            <column name="MT_LIMITE_SOBRESALIENTE" precision="4" scale="0" not-null="true" />
+        <property name="mtLimiteSobresaliente" type="big_decimal">
+            <column name="MT_LIMITE_SOBRESALIENTE" precision="38" not-null="true" />
         </property>
-        <property name="mtLimiteBajo" type="short">
-            <column name="MT_LIMITE_BAJO" precision="4" scale="0" not-null="true" />
+        <property name="mtLimiteBajo" type="big_decimal">
+            <column name="MT_LIMITE_BAJO" precision="38" not-null="true" />
         </property>
-        <property name="mtPorcentajeSobresaliente" type="short">
-            <column name="MT_PORCENTAJE_SOBRESALIENTE" precision="3" scale="1" not-null="true" />
+        <property name="mtPorcentajeSobresaliente" type="big_decimal">
+            <column name="MT_PORCENTAJE_SOBRESALIENTE" precision="38" not-null="true" />
         </property>
-        <property name="mtPorcentajeBajo" type="short">
-            <column name="MT_PORCENTAJE_BAJO" precision="3" scale="1" not-null="true" />
-        </property>
-        <property name="mtComentario" type="string">
-            <column name="MT_COMENTARIO" length="50" />
+        <property name="mtPorcentajeBajo" type="big_decimal">
+            <column name="MT_PORCENTAJE_BAJO" precision="38" not-null="true" />
         </property>
         <property name="evEvaluacion" type="big_decimal">
             <column name="EV_EVALUACION" precision="38" not-null="true"  />
         </property>
-        <property name="mtLogroAlcanzado" type="short">
-            <column name="MT_LOGRO_ALCANZADO" precision="4" scale="0" not-null="true" />
+        <property name="mtLogroAlcanzado" type="big_decimal">
+            <column name="MT_LOGRO_ALCANZADO" precision="38" not-null="true" />
         </property>
-        <property name="mtPorcentajeAlcanzado" type="short">
-            <column name="MT_PORCENTAJE_ALCANZADO" precision="3" scale="1" not-null="true" />
+        <property name="mtPorcentajeAlcanzado" type="big_decimal">
+            <column name="MT_PORCENTAJE_ALCANZADO" precision="38" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

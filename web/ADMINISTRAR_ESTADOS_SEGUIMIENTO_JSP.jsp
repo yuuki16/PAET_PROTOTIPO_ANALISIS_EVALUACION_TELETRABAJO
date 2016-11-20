@@ -99,7 +99,21 @@
                                         <p>Paso 4 de 4</p>
                                         <ul class="list-inline">
                                             <li>
-                                                <h5>Resultados del análisis</h5>
+                                                <h5>Período de Evaluación</h5>
+                                                <label for="fechaDesde">Fecha Desde:</label>
+                                                <div id="fechaDesde" class="input-group date form_date" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="dd/mm/yyyy">
+                                                    <input class="form-control" type="text" value="" readonly placeholder="dd/mm/aaaa" id="fechaDesdeText">
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                                <label for="fechaHasta">Fecha Hasta:</label>
+                                                <div id="fechaHasta" class="input-group date form_date" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="dd/mm/yyyy">
+                                                    <input class="form-control" type="text" value="" readonly placeholder="dd/mm/aaaa" id="fechaHastaText">
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
                                             </li>
                                             <br>
                                             <li>
@@ -193,7 +207,7 @@
                                                 </style>
                                                 <div>
                                                     <h5>Definición de metas</h5>
-                                                    <h6>Defina las del teletrabajador a evaluar</h6>
+                                                    <h6>Defina las metas del teletrabajador a evaluar</h6>
                                                     <table class="table" id="tablaMetas">
                                                         <thead>
                                                             <tr>

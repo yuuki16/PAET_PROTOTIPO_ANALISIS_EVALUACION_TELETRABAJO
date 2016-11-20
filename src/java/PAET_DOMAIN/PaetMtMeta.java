@@ -12,22 +12,21 @@ public class PaetMtMeta  implements java.io.Serializable {
 
      private BigDecimal mtCodigo;
      private String mtDescripcion;
-     private short mtLimite;
-     private short mtPeso;
-     private short mtLimiteSobresaliente;
-     private short mtLimiteBajo;
-     private short mtPorcentajeSobresaliente;
-     private short mtPorcentajeBajo;
-     private String mtComentario;
+     private BigDecimal mtLimite;
+     private BigDecimal mtPeso;
+     private BigDecimal mtLimiteSobresaliente;
+     private BigDecimal mtLimiteBajo;
+     private BigDecimal mtPorcentajeSobresaliente;
+     private BigDecimal mtPorcentajeBajo;
      private BigDecimal evEvaluacion;
-     private short mtLogroAlcanzado;
-     private short mtPorcentajeAlcanzado;
+     private BigDecimal mtLogroAlcanzado;
+     private BigDecimal mtPorcentajeAlcanzado;
 
     public PaetMtMeta() {
     }
 
 	
-    public PaetMtMeta(BigDecimal mtCodigo, String mtDescripcion, short mtLimite, short mtPeso, short mtLimiteSobresaliente, short mtLimiteBajo, short mtPorcentajeSobresaliente, short mtPorcentajeBajo, BigDecimal evEvaluacion, short mtLogroAlcanzado, short mtPorcentajeAlcanzado) {
+    public PaetMtMeta(BigDecimal mtCodigo, String mtDescripcion, BigDecimal mtLimite, BigDecimal mtPeso, BigDecimal mtLimiteSobresaliente, BigDecimal mtLimiteBajo, BigDecimal mtPorcentajeSobresaliente, BigDecimal mtPorcentajeBajo, BigDecimal evEvaluacion, BigDecimal mtLogroAlcanzado, BigDecimal mtPorcentajeAlcanzado) {
         this.mtCodigo = mtCodigo;
         this.mtDescripcion = mtDescripcion;
         this.mtLimite = mtLimite;
@@ -57,54 +56,47 @@ public class PaetMtMeta  implements java.io.Serializable {
     public void setMtDescripcion(String mtDescripcion) {
         this.mtDescripcion = mtDescripcion;
     }
-    public short getMtLimite() {
+    public BigDecimal getMtLimite() {
         return this.mtLimite;
     }
     
-    public void setMtLimite(short mtLimite) {
+    public void setMtLimite(BigDecimal mtLimite) {
         this.mtLimite = mtLimite;
     }
-    public short getMtPeso() {
+    public BigDecimal getMtPeso() {
         return this.mtPeso;
     }
     
-    public void setMtPeso(short mtPeso) {
+    public void setMtPeso(BigDecimal mtPeso) {
         this.mtPeso = mtPeso;
     }
-    public short getMtLimiteSobresaliente() {
+    public BigDecimal getMtLimiteSobresaliente() {
         return this.mtLimiteSobresaliente;
     }
     
-    public void setMtLimiteSobresaliente(short mtLimiteSobresaliente) {
+    public void setMtLimiteSobresaliente(BigDecimal mtLimiteSobresaliente) {
         this.mtLimiteSobresaliente = mtLimiteSobresaliente;
     }
-    public short getMtLimiteBajo() {
+    public BigDecimal getMtLimiteBajo() {
         return this.mtLimiteBajo;
     }
     
-    public void setMtLimiteBajo(short mtLimiteBajo) {
+    public void setMtLimiteBajo(BigDecimal mtLimiteBajo) {
         this.mtLimiteBajo = mtLimiteBajo;
     }
-    public short getMtPorcentajeSobresaliente() {
+    public BigDecimal getMtPorcentajeSobresaliente() {
         return this.mtPorcentajeSobresaliente;
     }
     
-    public void setMtPorcentajeSobresaliente(short mtPorcentajeSobresaliente) {
+    public void setMtPorcentajeSobresaliente(BigDecimal mtPorcentajeSobresaliente) {
         this.mtPorcentajeSobresaliente = mtPorcentajeSobresaliente;
     }
-    public short getMtPorcentajeBajo() {
+    public BigDecimal getMtPorcentajeBajo() {
         return this.mtPorcentajeBajo;
     }
     
-    public void setMtPorcentajeBajo(short mtPorcentajeBajo) {
+    public void setMtPorcentajeBajo(BigDecimal mtPorcentajeBajo) {
         this.mtPorcentajeBajo = mtPorcentajeBajo;
-    }
-    public String getMtComentario() {
-        return this.mtComentario;
-    }
-    
-    public void setMtComentario(String mtComentario) {
-        this.mtComentario = mtComentario;
     }
     
     public BigDecimal getEvEvaluacion() {
@@ -115,19 +107,19 @@ public class PaetMtMeta  implements java.io.Serializable {
         this.evEvaluacion = evEvaluacion;
     }
     
-    public short getMtLogroAlcanzado() {
+    public BigDecimal getMtLogroAlcanzado() {
         return this.mtLogroAlcanzado;
     }
     
-    public void setMtLogroAlcanzado(short mtLogroAlcanzado) {
+    public void setMtLogroAlcanzado(BigDecimal mtLogroAlcanzado) {
         this.mtLogroAlcanzado = mtLogroAlcanzado;
     }
     
-    public short getMtPorcentajeAlcanzado() {
+    public BigDecimal getMtPorcentajeAlcanzado() {
         return this.mtPorcentajeAlcanzado;
     }
     
-    public void setMtPorcentajeAlcanzado(short mtPorcentajeAlcanzado) {
+    public void setMtPorcentajeAlcanzado(BigDecimal mtPorcentajeAlcanzado) {
         this.mtPorcentajeAlcanzado = mtPorcentajeAlcanzado;
     }
 }

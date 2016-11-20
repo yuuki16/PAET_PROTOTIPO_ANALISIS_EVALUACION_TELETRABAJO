@@ -9,6 +9,7 @@ import PAET_DOMAIN.PaetAmAccionMejora;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -18,7 +19,16 @@ public class PAET_AM_ACCION_MEJORA_DAO extends HibernateUtil implements IBaseDAO
 
     @Override
     public void save(PaetAmAccionMejora o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
     }
 
     @Override

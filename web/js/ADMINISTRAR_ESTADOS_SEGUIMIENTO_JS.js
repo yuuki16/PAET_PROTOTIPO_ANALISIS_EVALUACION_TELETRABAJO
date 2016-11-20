@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-var pgProcesoSeguimiento, ttTeletrabajador, trTrabajador, pgNumero;
+var pgProcesoSeguimiento, ttTeletrabajador, trTrabajador, pgNumero, evResultado, evLogro, evEvaluacion;
 
 $(document).ready(function () {
     //Genera el datapicker
@@ -29,6 +29,26 @@ $(document).ready(function () {
     });
 
     $('#fechaLimite').datetimepicker({
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+
+    $('#fechaDesde').datetimepicker({
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+
+    $('#fechaHasta').datetimepicker({
         weekStart: 1,
         todayBtn: 1,
         autoclose: 1,
@@ -99,11 +119,24 @@ $(document).ready(function () {
     });
 
     $("#guardar4").click(function () {
-        if (true) {
-            
+        if (validarPeriodoEvaluacion()) {
+            if (validarEvaluacion()) {
+                if (validarMetas()) {
+                    guardarEvaluacion();
+                } else
+                {
+                    alert("Ingrese la información para todas las metas");
+                }
+            } else
+            {
+                alert("Genere la evaluación antes de continuar");
+            }
+        } else
+        {
+            alert("Ingrese un período para la evaluación");
         }
     });
-    
+
     $('#auditoria').on('fileselect', function (event, numFiles, label) {
         $("#archivoauditoria").html();
         $("#archivoauditoria").html(label);
@@ -253,18 +286,18 @@ function calcularTotalLogroAlcanzado()
     for (var i = 0; i < pesos.length; i++) {
         if (pesos[i].value.trim() !== "") {
             peso = pesos[i].value;
-            pesoTotal = parseFloat(pesoTotal) + parseFloat(peso); 
+            pesoTotal = parseFloat(pesoTotal) + parseFloat(peso);
         }
     }
 
-    $("#porcentajeTotal").val(pesoTotal);
+    $("#porcentajeTotal").val(Math.round(pesoTotal * 10) / 10);
 
     var colores = document.getElementsByClassName('colorResultado');
     var id;
     for (var i = 0; i < colores.length; i++) {
         colores[i].innerHTML = "";
     }
-    
+
     pintarLogroAlcanzado();
 }
 
@@ -279,23 +312,41 @@ function pintarLogroAlcanzado()
     var maxAcep = $("#maxAcep").val();
     var minBajo = $("#minBajo").val();
     var maxBajo = $("#maxBajo").val();
-    
+
     if (parseFloat(logroAlcanzado) >= parseFloat(minSobre)) {
         $("#colorSobre").html(logroAlcanzado);
         $("#causayaccionmejora").hide();
-    }else if (parseFloat(logroAlcanzado) > parseFloat(est) && parseFloat(logroAlcanzado) < parseFloat(minSobre)) {
+    } else if (parseFloat(logroAlcanzado) > parseFloat(est) && parseFloat(logroAlcanzado) < parseFloat(minSobre)) {
         $("#colorAlto").html(logroAlcanzado);
         $("#causayaccionmejora").hide();
-    }else if (parseFloat(logroAlcanzado) === parseFloat(est)) {
+    } else if (parseFloat(logroAlcanzado) === parseFloat(est)) {
         $("#colorEst").html(logroAlcanzado);
         $("#causayaccionmejora").hide();
-    }else if (parseFloat(logroAlcanzado) > parseFloat(maxBajo) && parseFloat(logroAlcanzado) < parseFloat(est)) {
+    } else if (parseFloat(logroAlcanzado) > parseFloat(maxBajo) && parseFloat(logroAlcanzado) < parseFloat(est)) {
         $("#colorAcep").html(logroAlcanzado);
         $("#causayaccionmejora").show();
-    }else if (parseFloat(logroAlcanzado) <= parseFloat(maxBajo)) {
+    } else if (parseFloat(logroAlcanzado) <= parseFloat(maxBajo)) {
         $("#colorBajo").html(logroAlcanzado);
-        $("#causayaccionmejora").hide();
+        $("#causayaccionmejora").show();
     }
+}
+
+function mostrarMensaje(modal, classCss, msg, neg) {
+//se le eliminan los estilos al mensaje
+    $("#" + modal).removeClass();
+    //se setean los estilos
+    $("#" + modal).addClass(classCss);
+    //se muestra la capa del mensaje con los parametros del metodo
+    $("#" + modal).fadeIn("slow");
+    $("#" + modal + "Neg").html(neg);
+    $("#" + modal + "Text").html(msg);
+    $("#" + modal + "Text").html(msg);
+}
+
+function ocultarMensaje() {
+    $("#mensajeResult").removeClass();
+    //se setean los estilos
+    $("#mensajeResult").addClass("alert alert-success hiddenDiv");
 }
 
 //estados
@@ -450,32 +501,34 @@ function avanzarPgProcesoSeguimiento(estadoSiguiente, numeroObservacion)
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             pgProcesoSeguimiento = data;
+            mostrarMensaje("mensajeResult", "alert alert-success", "Proceso avanzado exitosamente.", "Correcto!");
             var $active = $('.wizard .nav-tabs li.active');
             ($active).addClass("disabled");
             $active.next().removeClass('disabled');
             nextTab($active);
+            ocultarMensaje();
         },
         type: 'POST'
     });
 }
 
-function modificarPsProcesoSolicitud(estado)
+function modificarPgProcesoSeguimiento()
 {
-    var observacion = $("#observacion" + estado).val();
+    var observacion = $("#observacion4").val();
 
     $.ajax({
         asyn: false,
-        url: 'PS_PROCESO_SOLICITUD_Servlet',
+        url: 'PG_PROCESO_SEGUIMIENTO_Servlet',
         data: {
-            accion: "modificarProcesoSolicitud",
-            psProcesoSolicitud: psProcesoSolicitud,
-            psObservacion: observacion
+            accion: "modificarProcesoSeguimiento",
+            pgProcesoSeguimiento: pgProcesoSeguimiento,
+            pgObservacion: observacion
         },
         error: function () { //si existe un error en la respuesta del ajax
             mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            window.location = 'ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp';
+            window.location = 'ADMINISTRAR_PROCESO_SEGUIMIENTO_JSP.jsp';
         },
         type: 'POST'
     });
@@ -603,4 +656,207 @@ function validarRecomendacion()
     }
 
     return validacion;
+}
+
+//evaluacion
+function validarEvaluacion()
+{
+    var validacion = false;
+    var colores = document.getElementsByClassName('colorResultado');
+    var cuadrante;
+    evResultado = 0;
+    evLogro = "";
+
+    for (var i = 0; i < colores.length; i++) {
+        if (colores[i].innerHTML !== "") {
+            cuadrante = colores[i].id;
+            evResultado = colores[i].innerHTML;
+            validacion = true;
+        }
+    }
+
+    if (cuadrante === "colorBajo" || cuadrante === "colorAcep") {
+        if ($("#causa").val().trim() === "") {
+            alert("Ingrese una causa para el resultado obtenido");
+        } else if ($("#recomendacion").val().trim() === "") {
+            alert("Ingrese una recomendación para mejorar el resultado obtenido");
+        }
+        if (cuadrante === "colorBajo") {
+            evLogro = "B";
+        } else if (cuadrante === "colorAcep")
+        {
+            evLogro = "C";
+        }
+    } else if (cuadrante === "colorEst")
+    {
+        evLogro = "E";
+    } else if (cuadrante === "colorAlto")
+    {
+        evLogro = "A";
+    } else if (cuadrante === "colorSobre")
+    {
+        evLogro = "S";
+    }
+
+    return validacion;
+}
+
+function validarPeriodoEvaluacion()
+{
+    var validacion = true;
+    var difference = 0;
+    var fechaDesde, fechaHasta;
+
+    if ($("#fechaDesde").data('date') === "") {
+        validacion = false;
+    }
+
+    if ($("#fechaHasta").data('date') === "") {
+        validacion = false;
+    }
+
+    return validacion;
+}
+
+function guardarEvaluacion()
+{
+    $.ajax({
+        async: false,
+        url: 'EV_EVALUACION_Servlet',
+        data: {
+            accion: "agregarEvaluacion",
+            evFechaDesde: $("#fechaDesde").data('date'),
+            evFechaHasta: $("#fechaHasta").data('date'),
+            evLogro: evLogro,
+            evResultado: evResultado,
+            pgProcesoSeguimiento: pgProcesoSeguimiento
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            mostrarMensaje("mensajeResult", "alert alert-success", "Se agregó la evaluación exitosamente.", "Correcto!");
+            evEvaluacion = data;
+            guardarMetas(data);
+            if (evLogro === "B" || evLogro === "C") {
+                guardarCausa();
+                guardarAccionMejora();
+            }
+            modificarPgProcesoSeguimiento();
+        },
+        type: 'POST',
+        dataType: "text"
+    });
+}
+
+//metas
+function validarMetas()
+{
+    var validacion = true;
+    var rowCount = $('#tablaMetas tr').length;
+    var cantidadMetas = 0;
+    for (var i = 0; i < rowCount - 3; i++) {
+        if ($("#porcentaje" + i).val() === "") {
+            validacion = false;
+        }
+    }
+    return validacion;
+}
+
+function guardarMetas(evEvaluacion)
+{
+    var rowCount = $('#tablaMetas tr').length;
+    var mtDescripcion, mtLimite, mtPeso, mtLimiteSobresaliente, mtLimiteBajo, mtPorcentajeSobresaliente, mtPorcentajeBajo, mtLogroAlcanzado, mtPorcentajeAlcanzado;
+
+    for (var i = 0; i < rowCount - 3; i++) {
+        mtDescripcion = $("#descripcion" + i).val();
+        mtLimite = $("#limite" + i).val();
+        mtPeso = $("#peso" + i).val();
+        mtLimiteSobresaliente = $("#limiteSobre" + i).val();
+        mtLimiteBajo = $("#limiteBajo" + i).val();
+        mtPorcentajeSobresaliente = $("#pesoSobre" + i).val();
+        mtPorcentajeBajo = $("#pesoBajo" + i).val();
+        mtLogroAlcanzado = $("#logro" + i).val();
+        mtPorcentajeBajo = $("#pesoBajo" + i).val();
+        mtPorcentajeAlcanzado = $("#porcentaje" + i).val();
+        $.ajax({
+            async: false,
+            url: 'EV_EVALUACION_Servlet',
+            data: {
+                accion: "agregarMeta",
+                mtDescripcion: mtDescripcion,
+                mtLimite: mtLimite,
+                mtPeso: mtPeso,
+                mtLimiteSobresaliente: mtLimiteSobresaliente,
+                mtLimiteBajo: mtLimiteBajo,
+                mtPorcentajeSobresaliente: mtPorcentajeSobresaliente,
+                mtPorcentajeBajo: mtPorcentajeBajo,
+                evEvaluacion: evEvaluacion,
+                mtLogroAlcanzado: mtLogroAlcanzado,
+                mtPorcentajeAlcanzado: mtPorcentajeAlcanzado
+            },
+            error: function () { //si existe un error en la respuesta del ajax
+                cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+            },
+            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+                var respuestaTxt = data.substring(2);
+                var tipoRespuesta = data.substring(0, 2);
+                if (tipoRespuesta === "C~") {
+                    mostrarMensaje("mensajeResult", "alert alert-success", respuestaTxt, "Correcto!");
+                } else {
+                    if (tipoRespuesta === "E~") {
+                        mostrarMensaje("mensajeResult", "alert alert-danger", respuestaTxt, "Error!");
+                    } else {
+                        mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
+                    }
+                }
+            },
+            type: 'POST',
+            dataType: "text"
+        });
+    }
+}
+
+//causa
+function guardarCausa()
+{
+    $.ajax({
+        async: false,
+        url: 'EV_EVALUACION_Servlet',
+        data: {
+            accion: "agregarCausa",
+            cuDescripcion: $("#causa").val(),
+            evEvaluacion: evEvaluacion
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            mostrarMensaje("mensajeResult", "alert alert-success", "Se agregó la causa exitosamente.", "Correcto!");
+        },
+        type: 'POST',
+        dataType: "text"
+    });
+}
+
+//accion mejora
+function guardarAccionMejora()
+{
+    $.ajax({
+        async: false,
+        url: 'EV_EVALUACION_Servlet',
+        data: {
+            accion: "agregarAccionMejora",
+            amDescripcion: $("#recomendacion").val(),
+            evEvaluacion: evEvaluacion
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            mostrarMensaje("mensajeResult", "alert alert-success", "Se agregó la acción de mejora exitosamente.", "Correcto!");
+        },
+        type: 'POST',
+        dataType: "text"
+    });
 }

@@ -33,7 +33,7 @@ public class PAET_CU_CAUSA_BL extends BaseBL implements IBaseBL<PaetCuCausa, Big
     
     @Override
     public void save(PaetCuCausa o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override

@@ -544,7 +544,6 @@ function verificarActividad(numeroCheckboxes)
         {
             alert("Escoja el alineamiento de la actividad si desea que sea analizada.");
         }
-
     }
 }
 

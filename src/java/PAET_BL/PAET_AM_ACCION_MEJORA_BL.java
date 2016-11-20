@@ -33,7 +33,7 @@ public class PAET_AM_ACCION_MEJORA_BL extends BaseBL implements IBaseBL<PaetAmAc
     
     @Override
     public void save(PaetAmAccionMejora o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override

@@ -244,18 +244,14 @@ function dibujarProcesos(dataProcesos, nombre)
 }
 
 function dibujarTodosProcesos(dataProcesos)
-{
-    var numero;
-
+{    
     for (var i = 0; i < dataProcesos.length; i++) {
         if (dataProcesos[i].pgEstado === "P") {
-            numero = dataProcesos[i].pgNumero;
-        }
-    }
-
-    for (var j = 0; j < dataProcesos.length; j++) {
-        if (dataProcesos[j].esEstado === 8 && dataProcesos[j].pgNumero === numero) {
-            consultarTeletrabajadorByCodigo(dataProcesos[j].pgFecha, dataProcesos[j].ttTeletrabajador, dataProcesos[j].pgNumero);
+            for (var j = 0; j < dataProcesos.length; j++) {
+                if (dataProcesos[j].esEstado === 41 && dataProcesos[j].pgNumero === dataProcesos[i].pgNumero && dataProcesos[j].ttTeletrabajador === dataProcesos[i].ttTeletrabajador) {
+                   consultarTeletrabajadorByCodigo(dataProcesos[j].pgFecha, dataProcesos[j].ttTeletrabajador, dataProcesos[j].pgNumero);
+                }
+            }
         }
     }
 }
