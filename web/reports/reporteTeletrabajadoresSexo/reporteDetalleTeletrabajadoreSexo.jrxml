@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="80e06de5-9c93-45c3-9626-11b365d20335">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteDetalleTrabajadoresSexo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="80e06de5-9c93-45c3-9626-11b365d20335">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -8,7 +8,10 @@
   TR_NOMBRE, 
   TR_APELLIDO1, 
   TR_APELLIDO2,
-  TR_SEXO,
+  CASE WHEN TR_SEXO = 'FEM'
+    THEN 'FEMENINO'
+    ELSE 'MASCULINO'
+  END TR_SEXO,
   TR_FECHA_INGRESO,
   PAET_TT_TELETRABAJADOR.TT_FECHA_INICIO
 FROM PAET_TR_TRABAJADOR 
@@ -16,7 +19,7 @@ INNER JOIN PAET_TT_TELETRABAJADOR
   ON PAET_TR_TRABAJADOR.TR_USUARIO = PAET_TT_TELETRABAJADOR.TR_TRABAJADOR
 WHERE TR_ESTADO = 'A'
   AND PAET_TT_TELETRABAJADOR.TT_ESTADO = 'A'
-ORDER BY TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2]]>
+ORDER BY TR_SEXO, TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2]]>
 	</queryString>
 	<field name="TR_CEDULA" class="java.lang.String"/>
 	<field name="TR_NOMBRE" class="java.lang.String"/>
@@ -34,7 +37,7 @@ ORDER BY TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2]]>
 					<textElement>
 						<font fontName="Segoe UI Light" size="13"/>
 					</textElement>
-					<textFieldExpression><![CDATA[( $F{TR_SEXO}.toString() == "FEM" ? "FEMENINO" : "MASCULINO" )]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{TR_SEXO}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="12" width="100" height="20" uuid="83cf2122-e319-4cbb-ada5-b31d0ace2636"/>
@@ -52,7 +55,7 @@ ORDER BY TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2]]>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="11" y="15" width="293" height="20" uuid="914662c9-6bec-4406-a8a3-db40363e2708"/>
+				<reportElement x="0" y="15" width="293" height="20" uuid="914662c9-6bec-4406-a8a3-db40363e2708"/>
 				<textElement>
 					<font fontName="Segoe UI Light" size="14"/>
 				</textElement>
@@ -93,7 +96,7 @@ ORDER BY TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="92" height="20" uuid="58f1e9be-2567-43d9-b5fc-66a8c8ecbf9e"/>
 				<textElement>

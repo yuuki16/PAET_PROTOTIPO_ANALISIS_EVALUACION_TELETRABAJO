@@ -48,7 +48,7 @@
                         </li>
                         <li class=" down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="REPORTE_TELETRABAJADORES_JSP.jsp">Reporte de Teletrabajadores</a></li>
+                                <li><a href="REPORTE_TELETRABAJADORES_JASPER_JSP.jsp">Reporte de Teletrabajadores</a></li>
                             </ul>
                         </li>
                     </ul>

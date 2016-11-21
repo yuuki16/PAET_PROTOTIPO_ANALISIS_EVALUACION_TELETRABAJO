@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e12b921-10eb-4960-80d6-1083d2e7c7e5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eba4ddfe-76d9-43d7-9fb2-ce29bdb27733">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -8,7 +8,7 @@
   TR_NOMBRE, 
   TR_APELLIDO1, 
   TR_APELLIDO2,
-  GR_DESCRIPCION,
+  DV_DESCRIPCION,
   TR_FECHA_INGRESO,
   PAET_TT_TELETRABAJADOR.TT_FECHA_INICIO
 FROM PAET_TR_TRABAJADOR 
@@ -16,37 +16,36 @@ INNER JOIN PAET_TT_TELETRABAJADOR
   ON PAET_TR_TRABAJADOR.TR_USUARIO = PAET_TT_TELETRABAJADOR.TR_TRABAJADOR
 JOIN PAET_PT_PUESTO
   ON PT_PUESTO = PT_CODIGO
-JOIN PAET_GR_GERENCIA
-  ON GR_GERENCIA = GR_CODIGO
+JOIN PAET_DV_DIVISION
+  ON DV_DIVISION = DV_CODIGO
 WHERE TR_ESTADO = 'A'
   AND PAET_TT_TELETRABAJADOR.TT_ESTADO = 'A'
-ORDER BY GR_GERENCIA, TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2
-]]>
+ORDER BY DV_DESCRIPCION, TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2]]>
 	</queryString>
 	<field name="TR_CEDULA" class="java.lang.String"/>
 	<field name="TR_NOMBRE" class="java.lang.String"/>
 	<field name="TR_APELLIDO1" class="java.lang.String"/>
 	<field name="TR_APELLIDO2" class="java.lang.String"/>
-	<field name="GR_DESCRIPCION" class="java.lang.String"/>
+	<field name="DV_DESCRIPCION" class="java.lang.String"/>
 	<field name="TR_FECHA_INGRESO" class="java.sql.Timestamp"/>
 	<field name="TT_FECHA_INICIO" class="java.sql.Timestamp"/>
-	<group name="GERENCIA">
-		<groupExpression><![CDATA[$F{GR_DESCRIPCION}]]></groupExpression>
+	<group name="DIVISION">
+		<groupExpression><![CDATA[$F{DV_DESCRIPCION}]]></groupExpression>
 		<groupHeader>
 			<band height="50">
 				<textField>
-					<reportElement x="100" y="15" width="372" height="20" uuid="27acf2ae-5ce2-4c25-96ac-3fc939613f85"/>
+					<reportElement x="92" y="15" width="463" height="20" uuid="f4254796-316f-48b7-882c-8a3752cea6b6"/>
 					<textElement>
 						<font fontName="Segoe UI Light" size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{GR_DESCRIPCION}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{DV_DESCRIPCION}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="15" width="100" height="20" uuid="732b9a00-5bcd-41eb-b694-2e211672c2fc"/>
+					<reportElement x="0" y="15" width="92" height="20" uuid="906f28ac-16db-48c1-bf51-8313724d407a"/>
 					<textElement>
 						<font fontName="Segoe UI Light" size="12"/>
 					</textElement>
-					<text><![CDATA[Gerencia]]></text>
+					<text><![CDATA[División]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -55,41 +54,41 @@ ORDER BY GR_GERENCIA, TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="36" splitType="Stretch">
+		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="15" width="293" height="20" uuid="b33a9a1f-0e76-473f-bf15-07e5e0925839"/>
+				<reportElement x="0" y="15" width="293" height="20" uuid="6ecd02c6-f723-43e9-857c-d1763a9282da"/>
 				<textElement>
 					<font fontName="Segoe UI Light" size="14"/>
 				</textElement>
-				<text><![CDATA[Detalle de Teletrabajadores por Gerencia]]></text>
+				<text><![CDATA[Detalle de Teletrabajadores por División]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="40" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="333" y="20" width="92" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="82639181-2b6e-4cdd-b53e-94f2dfb2974c"/>
-				<textElement textAlignment="Center">
-					<font fontName="Segoe UI Light" size="11"/>
-				</textElement>
-				<text><![CDATA[FECHA INGRESO]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="425" y="20" width="120" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="e6065158-a6fe-4c04-8a83-9f2db4037439"/>
-				<textElement textAlignment="Center">
-					<font fontName="Segoe UI Light" size="11"/>
-				</textElement>
-				<text><![CDATA[FECHA TELETRABAJO]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="92" y="20" width="241" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="cb438eda-4bce-405a-909a-7ae353d49ab8"/>
+				<reportElement mode="Opaque" x="92" y="20" width="241" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="7ce39447-3762-43f3-a68e-a92c26faf5ff"/>
 				<textElement textAlignment="Center">
 					<font fontName="Segoe UI Light" size="11"/>
 				</textElement>
 				<text><![CDATA[NOMBRE COMPLETO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="20" width="92" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="2c2b4702-a207-4a8e-99d3-3e2b2884596f"/>
+				<reportElement mode="Opaque" x="333" y="20" width="92" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="a6cd9440-f39b-48c0-ab57-d4f0e4fc628b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light" size="11"/>
+				</textElement>
+				<text><![CDATA[FECHA INGRESO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="425" y="20" width="120" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="40ddffc7-cd18-4d91-b9e2-98e8b0a98797"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light" size="11"/>
+				</textElement>
+				<text><![CDATA[FECHA TELETRABAJO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="20" width="92" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="38f3b98b-f247-447d-9086-fde56518a42a"/>
 				<textElement textAlignment="Center">
 					<font fontName="Segoe UI Light" size="11"/>
 				</textElement>
@@ -98,34 +97,34 @@ ORDER BY GR_GERENCIA, TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="333" y="1" width="92" height="20" uuid="288b6201-b660-4c5d-8975-911e3c6994e3"/>
+				<reportElement x="425" y="0" width="120" height="20" uuid="b94d9b5b-3b88-49ce-8980-02662571c820"/>
 				<textElement>
 					<font fontName="Segoe UI Light"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TT_FECHA_INICIO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="425" y="0" width="120" height="20" uuid="855feacb-0142-471c-8833-1ff02d83837c"/>
+				<reportElement x="0" y="0" width="92" height="20" uuid="c0245d0a-e400-4970-9634-4872d488a741"/>
 				<textElement>
 					<font fontName="Segoe UI Light"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{TR_FECHA_INGRESO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TR_CEDULA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="92" y="0" width="241" height="20" uuid="001fec34-3784-4fb6-af5e-5bb5a9682f3f"/>
+				<reportElement x="92" y="0" width="241" height="20" uuid="0094400b-c447-4a76-a93e-fc58203abb5c"/>
 				<textElement>
 					<font fontName="Segoe UI Light"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TR_NOMBRE} + " " + $F{TR_APELLIDO1} + " " + $F{TR_APELLIDO2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="92" height="20" uuid="859ddf5e-d3dd-4c9c-8305-10ecd55fb85c"/>
+				<reportElement x="333" y="0" width="92" height="20" uuid="95817219-59cf-47e8-ad71-7ce74243b872"/>
 				<textElement>
 					<font fontName="Segoe UI Light"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{TR_CEDULA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TR_FECHA_INGRESO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

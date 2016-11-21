@@ -1,63 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59b640c4-7dc4-4104-8d26-87776d3697ed">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTeletrabajadoresSexo" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59b640c4-7dc4-4104-8d26-87776d3697ed">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="148"/>
-	<style name="table">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TH" mode="Opaque" backcolor="#908181">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_CH" mode="Opaque" backcolor="#FFE6E6">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 1">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 1_TH" mode="Opaque" backcolor="#A9A9A9">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<subDataset name="TeletrabajadoresSexoTotal" uuid="41cd790f-950c-49bc-8e27-f7803e991193">
+	<property name="ireport.y" value="159"/>
+	<subDataset name="graphSexo" uuid="96aa3d43-f692-4da5-892b-a6c1ed2b049b">
 		<queryString language="SQL">
-			<![CDATA[Select count(*),
-	TR_SEXO
-from PAET_TR_TRABAJADOR 
-group by TR_SEXO]]>
-		</queryString>
-		<field name="COUNT(*)" class="java.math.BigDecimal"/>
-		<field name="TR_SEXO" class="java.lang.String"/>
-	</subDataset>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresSexo\\"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT COUNT(*),
+			<![CDATA[SELECT COUNT(*),
   CASE WHEN TR_SEXO = 'FEM'
     THEN 'FEMENINO'
     ELSE 'MASCULINO'
@@ -69,9 +17,21 @@ WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
 GROUP BY TR_SEXO
 ORDER BY 2]]>
+		</queryString>
+		<field name="COUNT(*)" class="java.math.BigDecimal"/>
+		<field name="TR_SEXO" class="java.lang.String"/>
+		<group name="COUNT(*)">
+			<groupExpression><![CDATA[$F{COUNT(*)}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresSexo\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 1 as test
+from dual ]]>
 	</queryString>
-	<field name="COUNT(*)" class="java.math.BigDecimal"/>
-	<field name="TR_SEXO" class="java.lang.String"/>
+	<field name="TEST" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -99,6 +59,9 @@ ORDER BY 2]]>
 					<chartLegend/>
 				</chart>
 				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="graphSexo" uuid="7fb82d08-9ed4-4bd5-9015-de1a45be5a91"/>
+					</dataset>
 					<keyExpression><![CDATA[$F{TR_SEXO}]]></keyExpression>
 					<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
 					<labelExpression><![CDATA[$F{COUNT(*)}.toString()]]></labelExpression>
@@ -111,16 +74,18 @@ ORDER BY 2]]>
 		</band>
 	</title>
 	<detail>
-		<band height="201" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<subreport>
-				<reportElement positionType="Float" x="0" y="100" width="200" height="100" uuid="795097cd-ff9b-4f97-b756-fc9939f28648"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoreSexo.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement positionType="Float" x="0" y="0" width="200" height="100" uuid="e96c78b3-3c43-4c78-a9ef-f32c78f650cd"/>
+				<reportElement x="0" y="0" width="200" height="100" uuid="e96c78b3-3c43-4c78-a9ef-f32c78f650cd"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoreSexo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="101" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" x="0" y="0" width="200" height="100" uuid="795097cd-ff9b-4f97-b756-fc9939f28648"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoreSexo.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

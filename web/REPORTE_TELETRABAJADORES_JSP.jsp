@@ -18,7 +18,7 @@
         <!-- Referencias -->
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
         <script src="js/utils.js" type="text/javascript"></script>
-        <!--<script src="js/GR_GERENCIA_JS.js" type="text/javascript"></script>-->
+        <script src="js/REPORTE_TELETRABAJADORES_JS.js" type="text/javascript"></script>
     </head>
     <body>
         <%@ include file="/HeaderJSP.jsp" %>
@@ -34,6 +34,7 @@
                             <div class="col-sm-4">
                                 <select class="form-control" id="reporte">
                                     <option value="" selected="selected"></option>
+                                    <option value="reporteTeletrabajadoresSexo">Sexo</option>
                                 </select>
                             </div>
                         </div>
