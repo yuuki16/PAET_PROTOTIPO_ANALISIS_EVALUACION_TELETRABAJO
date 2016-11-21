@@ -17,13 +17,14 @@
     Connection conn = null;
     String reporte = null;
     try {
-        reporte = (String)session.getAttribute("reporte");
+        reporte = (String) session.getAttribute("reporte");
+
         //String sear=(String)session.getAttribute("filtro");
         Class.forName("oracle.jdbc.driver.OracleDriver");
         conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "mmonge", "mmonge");
 
         //File reportFile = new File(application.getRealPath("\\reports\\reporteTeletrabajadoresSexo\\reporteTeletrabajadoresSexo.jasper"));//your report_name.jasper file
-        String jrxmlFile = session.getServletContext().getRealPath("/reports/reporteTeletrabajadoresSexo/"+reporte+".jrxml");
+        String jrxmlFile = session.getServletContext().getRealPath("/reports/"+reporte+"/" + reporte + ".jrxml");
         InputStream input = new FileInputStream(new File(jrxmlFile));
 
         //Generate report

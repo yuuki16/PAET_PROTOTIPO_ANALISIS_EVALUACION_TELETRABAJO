@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTotalTeletrabajadoresDivision" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fbee9095-ef02-4880-9d80-50fafe1434d9">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e35536bd-fbcc-419c-8da9-4eed2989543c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*),
-  DV_DESCRIPCION
+  AR_DESCRIPCION
 FROM PAET_TR_TRABAJADOR
 JOIN PAET_TT_TELETRABAJADOR
   ON TR_USUARIO = TR_TRABAJADOR
 JOIN PAET_PT_PUESTO
   ON PT_CODIGO = PT_PUESTO
-JOIN PAET_DV_DIVISION
-  ON DV_DIVISION = DV_CODIGO
+JOIN PAET_AR_AREA
+  ON AR_AREA = AR_CODIGO
 WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
-GROUP BY DV_DESCRIPCION
+GROUP BY AR_DESCRIPCION
 ORDER BY 2]]>
 	</queryString>
 	<field name="COUNT(*)" class="java.math.BigDecimal"/>
-	<field name="DV_DESCRIPCION" class="java.lang.String"/>
+	<field name="AR_DESCRIPCION" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="15" width="293" height="20" uuid="fe09d02f-101a-4e61-9f41-216baa1bf0ed"/>
+				<reportElement x="0" y="15" width="293" height="20" uuid="c8376a04-8017-423a-a9cf-d7294dfd6bf7"/>
 				<textElement>
 					<font fontName="Segoe UI Light" size="14"/>
 				</textElement>
-				<text><![CDATA[Cantidad de Teletrabajadores por División]]></text>
+				<text><![CDATA[Cantidad de Teletrabajadores por Área]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="48" splitType="Stretch">
+		<band height="50" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="323" y="28" width="208" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="2206a687-8b6f-4bab-bbb9-6ad3630e8459"/>
+				<reportElement mode="Opaque" x="307" y="30" width="177" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="612b4f4e-a9da-4dd9-9889-c1d9a93e8247"/>
 				<textElement textAlignment="Center">
 					<font fontName="Segoe UI Light" size="11"/>
 				</textElement>
 				<text><![CDATA[CANTIDAD]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="46" y="28" width="277" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="5f696bf1-8dfd-4c7d-aaa2-d1e1892458c2"/>
+				<reportElement mode="Opaque" x="36" y="30" width="271" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="476df43f-156e-4830-b1e9-69ef02db619e"/>
 				<textElement textAlignment="Center">
 					<font fontName="Segoe UI Light" size="11"/>
 				</textElement>
-				<text><![CDATA[DIVISIÓN]]></text>
+				<text><![CDATA[ÁREA]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="323" y="0" width="208" height="20" uuid="1e7367b5-f251-40d0-bc74-920f46e082b6"/>
+				<reportElement x="307" y="0" width="177" height="20" uuid="ac8787bb-3168-4edc-a309-725c5fd4854c"/>
 				<textElement textAlignment="Center">
 					<font fontName="Segoe UI Light"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{COUNT(*)}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="46" y="0" width="277" height="20" uuid="2e9b1e86-e845-47d6-a99d-916425d943c6"/>
+				<reportElement x="36" y="0" width="271" height="20" uuid="1877d145-c984-4b4c-b046-dd805a8d66bc"/>
 				<textElement textAlignment="Center">
 					<font fontName="Segoe UI Light"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{DV_DESCRIPCION}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{AR_DESCRIPCION}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81356598-9d42-4096-84b4-fac8903e375f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTeletrabajadoresDivision" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81356598-9d42-4096-84b4-fac8903e375f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresDivision\\"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT COUNT(*),
+	<subDataset name="graphDivision" uuid="9e3ba469-b422-4ff3-8827-ed05a2d99cef">
+		<queryString language="SQL">
+			<![CDATA[SELECT COUNT(*),
   DV_DESCRIPCION
 FROM PAET_TR_TRABAJADOR
 JOIN PAET_TT_TELETRABAJADOR
@@ -20,9 +18,21 @@ WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
 GROUP BY DV_DESCRIPCION
 ORDER BY 2]]>
+		</queryString>
+		<field name="COUNT(*)" class="java.math.BigDecimal"/>
+		<field name="DV_DESCRIPCION" class="java.lang.String"/>
+		<group name="DV_DESCRIPCION">
+			<groupExpression><![CDATA[$F{DV_DESCRIPCION}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresDivision\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 1 AS TEST
+FROM DUAL]]>
 	</queryString>
-	<field name="COUNT(*)" class="java.math.BigDecimal"/>
-	<field name="DV_DESCRIPCION" class="java.lang.String"/>
+	<field name="TEST" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -50,6 +60,9 @@ ORDER BY 2]]>
 					<chartLegend/>
 				</chart>
 				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="graphDivision" uuid="8530a118-3949-46d0-9ea8-89bcb01eba57"/>
+					</dataset>
 					<keyExpression><![CDATA[$F{DV_DESCRIPCION}]]></keyExpression>
 					<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
 					<labelExpression><![CDATA[$F{COUNT(*)}.toString()]]></labelExpression>
@@ -62,14 +75,16 @@ ORDER BY 2]]>
 		</band>
 	</title>
 	<detail>
-		<band height="201" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<subreport>
 				<reportElement x="0" y="0" width="200" height="100" uuid="d8a6b1be-1c0a-4fed-812a-9672ef3d06e9"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoresDivision.jasper"]]></subreportExpression>
 			</subreport>
+		</band>
+		<band height="100">
 			<subreport>
-				<reportElement x="0" y="100" width="200" height="100" uuid="3d5a32b9-cb16-4ae9-bef0-3347b7bda3cf"/>
+				<reportElement positionType="Float" x="0" y="0" width="200" height="100" uuid="3d5a32b9-cb16-4ae9-bef0-3347b7bda3cf"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoresDivision.jasper"]]></subreportExpression>
 			</subreport>

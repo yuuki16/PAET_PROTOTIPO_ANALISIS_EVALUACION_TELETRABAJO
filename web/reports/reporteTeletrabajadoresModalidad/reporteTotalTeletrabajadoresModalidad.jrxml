@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTotalTeletrabajadoresModalidad" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2e26ab9f-0c51-4cb3-bab1-bfd8f79289be">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT COUNT(TT_TELETRABAJADOR) CANTIDAD,
+  MODALIDAD
+FROM (SELECT DISTINCT TT_TELETRABAJADOR,
+        (SELECT CASE WHEN COUNT(DI_DIA) = 5
+                  THEN 'TOTAL'
+                  ELSE 'PARCIAL'
+                END
+        FROM PAET_DI_TT_DIA_TELETRABAJADOR B
+        JOIN PAET_TT_TELETRABAJADOR AT
+          ON B.TT_TELETRABAJADOR = AT.TT_CODIGO
+        WHERE A.TT_TELETRABAJADOR = B.TT_TELETRABAJADOR
+          AND AT.TT_ESTADO = 'A'
+        ) MODALIDAD
+      FROM PAET_DI_TT_DIA_TELETRABAJADOR A
+      JOIN PAET_TT_TELETRABAJADOR BT
+          ON A.TT_TELETRABAJADOR = BT.TT_CODIGO
+      WHERE BT.TT_ESTADO = 'A'
+      ) inline
+GROUP BY MODALIDAD]]>
+	</queryString>
+	<field name="CANTIDAD" class="java.math.BigDecimal"/>
+	<field name="MODALIDAD" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="15" width="293" height="20" uuid="57e77661-2e70-4100-9db4-409521ddb84f"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="14"/>
+				</textElement>
+				<text><![CDATA[Cantidad de Teletrabajadores por Modalidad]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="293" y="30" width="177" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="8812be63-83c9-4c91-a76e-3d536482554d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light" size="11"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="36" y="30" width="257" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="d35cada1-39f3-44f6-81bb-b761aa8ed4a9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light" size="11"/>
+				</textElement>
+				<text><![CDATA[MODALIDAD]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="293" y="0" width="177" height="20" uuid="df77cd9e-0700-4292-a4bc-0c04c238edd6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="0" width="257" height="20" uuid="3de5cedd-d9ad-4785-b134-431c91a55b07"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MODALIDAD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

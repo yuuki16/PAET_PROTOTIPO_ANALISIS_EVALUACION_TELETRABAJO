@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59b640c4-7dc4-4104-8d26-87776d3697ed">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTeletrabajadorePuesto" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59b640c4-7dc4-4104-8d26-87776d3697ed">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="194"/>
+	<property name="ireport.y" value="174"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -43,12 +43,9 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresPuesto\\"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="pt_puesto" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[SELECT COUNT(*),
+	<subDataset name="graphPuesto" uuid="49aa0b1b-543d-4da9-b844-fd89e8949e27">
+		<queryString language="SQL">
+			<![CDATA[SELECT COUNT(*),
   PT_DESCRIPCION
 FROM PAET_TR_TRABAJADOR
 JOIN PAET_PT_PUESTO
@@ -59,9 +56,22 @@ WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
 GROUP BY PT_DESCRIPCION
 ORDER BY 2]]>
+		</queryString>
+		<field name="COUNT(*)" class="java.math.BigDecimal"/>
+		<field name="PT_DESCRIPCION" class="java.lang.String"/>
+		<group name="PT_DESCRIPCION">
+			<groupExpression><![CDATA[$F{PT_DESCRIPCION}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresPuesto\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pt_puesto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 1 AS TEST
+FROM DUAL]]>
 	</queryString>
-	<field name="COUNT(*)" class="java.math.BigDecimal"/>
-	<field name="PT_DESCRIPCION" class="java.lang.String"/>
+	<field name="TEST" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -89,8 +99,12 @@ ORDER BY 2]]>
 					<chartLegend/>
 				</chart>
 				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="graphPuesto" uuid="b93c28f0-a81e-4089-b765-83ffdbb33616"/>
+					</dataset>
 					<keyExpression><![CDATA[$F{PT_DESCRIPCION}]]></keyExpression>
 					<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
+					<labelExpression><![CDATA[$F{COUNT(*)}.toString()]]></labelExpression>
 				</pieDataset>
 				<piePlot>
 					<plot/>
@@ -100,14 +114,16 @@ ORDER BY 2]]>
 		</band>
 	</title>
 	<detail>
-		<band height="223" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<subreport>
 				<reportElement x="0" y="0" width="200" height="100" uuid="89ad8eb6-e598-4ee7-bf22-010a39f78f7e"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoresPuesto.jasper"]]></subreportExpression>
 			</subreport>
+		</band>
+		<band height="100">
 			<subreport>
-				<reportElement x="0" y="100" width="200" height="100" uuid="17683f57-44c5-473a-945d-83a89723c28b"/>
+				<reportElement positionType="Float" x="0" y="0" width="200" height="100" uuid="17683f57-44c5-473a-945d-83a89723c28b"/>
 				<subreportParameter name="pt_puesto"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoresPuesto.jasper"]]></subreportExpression>

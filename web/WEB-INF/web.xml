@@ -116,6 +116,10 @@
         <servlet-name>EV_EVALUACION_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.EV_EVALUACION_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>REPORTE_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.REPORTE_Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DI_DIA_Servlet</servlet-name>
         <url-pattern>/DI_DIA_Servlet</url-pattern>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>EV_EVALUACION_Servlet</servlet-name>
         <url-pattern>/EV_EVALUACION_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>REPORTE_Servlet</servlet-name>
+        <url-pattern>/REPORTE_Servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

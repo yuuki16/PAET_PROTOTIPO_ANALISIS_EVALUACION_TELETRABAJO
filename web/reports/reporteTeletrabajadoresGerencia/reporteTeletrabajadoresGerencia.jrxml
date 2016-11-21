@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a1413a6-5e57-4fb3-9368-0a98b3d4ddc9">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTeletrabajadoresGerencia" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a1413a6-5e57-4fb3-9368-0a98b3d4ddc9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="138"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresGerencia\\"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT COUNT(*),
+	<property name="ireport.y" value="116"/>
+	<subDataset name="graphGerencia" uuid="ed844d69-5920-4d8c-8dce-562462933c44">
+		<queryString language="SQL">
+			<![CDATA[SELECT COUNT(*),
   GR_DESCRIPCION
 FROM PAET_TR_TRABAJADOR
 JOIN PAET_TT_TELETRABAJADOR
@@ -20,9 +18,21 @@ WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
 GROUP BY GR_DESCRIPCION
 ORDER BY 2]]>
+		</queryString>
+		<field name="COUNT(*)" class="java.math.BigDecimal"/>
+		<field name="GR_DESCRIPCION" class="java.lang.String"/>
+		<group name="GR_DESCRIPCION">
+			<groupExpression><![CDATA[$F{GR_DESCRIPCION}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresGerencia\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 1 AS TEST
+FROM DUAL]]>
 	</queryString>
-	<field name="COUNT(*)" class="java.math.BigDecimal"/>
-	<field name="GR_DESCRIPCION" class="java.lang.String"/>
+	<field name="TEST" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -50,6 +60,9 @@ ORDER BY 2]]>
 					<chartLegend/>
 				</chart>
 				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="graphGerencia" uuid="dd15acd4-0f9b-4299-bd2d-214a1fe4fa61"/>
+					</dataset>
 					<keyExpression><![CDATA[$F{GR_DESCRIPCION}]]></keyExpression>
 					<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
 					<labelExpression><![CDATA[$F{COUNT(*)}.toString()]]></labelExpression>
@@ -62,14 +75,16 @@ ORDER BY 2]]>
 		</band>
 	</title>
 	<detail>
-		<band height="201" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<subreport>
 				<reportElement x="0" y="0" width="200" height="100" uuid="0468bdf2-0dbc-413f-ba18-69e777bfc1b2"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoresGerencia.jasper"]]></subreportExpression>
 			</subreport>
+		</band>
+		<band height="100">
 			<subreport>
-				<reportElement x="0" y="100" width="200" height="100" uuid="b7cf4591-bf2d-4084-86a3-31680d250aa8"/>
+				<reportElement positionType="Float" x="0" y="0" width="200" height="100" uuid="b7cf4591-bf2d-4084-86a3-31680d250aa8"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoresGerencia.jasper"]]></subreportExpression>
 			</subreport>

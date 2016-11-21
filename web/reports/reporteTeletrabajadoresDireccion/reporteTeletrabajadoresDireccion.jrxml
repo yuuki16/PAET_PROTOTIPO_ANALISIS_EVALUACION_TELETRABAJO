@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTeletrabajadoresDireccion" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c906dd4-4502-4a84-af01-1e5f2ba99d9f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="160"/>
+	<subDataset name="graphDireccion" uuid="92eb0ab2-773d-4138-83c6-a9cce5b5a15b">
+		<queryString language="SQL">
+			<![CDATA[SELECT COUNT(*),
+  DR_DESCRIPCION
+FROM PAET_TR_TRABAJADOR
+JOIN PAET_TT_TELETRABAJADOR
+  ON TR_USUARIO = TR_TRABAJADOR
+JOIN PAET_PT_PUESTO
+  ON PT_CODIGO = PT_PUESTO
+JOIN PAET_DR_DIRECCION
+  ON DR_DIRECCION = DR_CODIGO
+WHERE TR_ESTADO = 'A'
+  AND TT_ESTADO = 'A'
+GROUP BY DR_DESCRIPCION
+ORDER BY 2]]>
+		</queryString>
+		<field name="COUNT(*)" class="java.math.BigDecimal"/>
+		<field name="DR_DESCRIPCION" class="java.lang.String"/>
+		<group name="DR_DESCRIPCION">
+			<groupExpression><![CDATA[$F{DR_DESCRIPCION}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresDireccion\\"]]></defaultValueExpression>
+	</parameter>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="263" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" forecolor="#000099" backcolor="#000099" uuid="605c0452-50c1-4c5c-9207-85429bc78af2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="126" y="17" width="429" height="46" forecolor="#FFFFFF" uuid="82c6a108-073e-4574-a936-5968d34e44db"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Teletrabajadores por Direción]]></text>
+			</staticText>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="32" y="79" width="482" height="184" uuid="ef361b49-511d-47bb-bd41-27bf828e2b73"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="graphDireccion" uuid="38bc60a2-ec07-4a74-a0cd-e5ee38a86c47"/>
+					</dataset>
+					<keyExpression><![CDATA[$F{DR_DESCRIPCION}]]></keyExpression>
+					<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
+					<labelExpression><![CDATA[$F{COUNT(*)}.toString()]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<image>
+				<reportElement x="0" y="0" width="100" height="79" uuid="b33d9221-c36f-4635-b2db-2944dc035a69"/>
+				<imageExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\Images\\logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="100" uuid="9c7e4eb5-b872-47a2-8af1-40daf8e6da51"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoresDireccion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="100">
+			<subreport>
+				<reportElement positionType="Float" x="0" y="0" width="200" height="100" uuid="35228f39-9ebf-40e6-9fe5-4c7bfbbeeb25"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoresDireccion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="20" uuid="546d02b4-4f5f-479b-b41a-bfc4b6280d6a"/>
+				<textElement>
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="0" width="80" height="20" uuid="1aec8faf-a126-40a4-8b99-afe62dc3a6e8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="0" y="0" width="100" height="20" uuid="06d0ed77-8f6f-4dd9-bd3a-d5890be50200"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
