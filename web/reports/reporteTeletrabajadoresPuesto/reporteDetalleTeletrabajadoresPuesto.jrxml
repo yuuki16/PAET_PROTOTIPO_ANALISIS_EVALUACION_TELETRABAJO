@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="pt_puesto" class="java.lang.String"/>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT TR_CEDULA,
   TR_NOMBRE, 
@@ -19,6 +19,7 @@ JOIN PAET_PT_PUESTO
   ON PT_PUESTO = PT_CODIGO
 WHERE TR_ESTADO = 'A'
   AND PAET_TT_TELETRABAJADOR.TT_ESTADO = 'A'
+  AND PT_PUESTO = NVL($P{filtro}, PT_PUESTO)
 ORDER BY PT_DESCRIPCION, TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2]]>
 	</queryString>
 	<field name="TR_CEDULA" class="java.lang.String"/>

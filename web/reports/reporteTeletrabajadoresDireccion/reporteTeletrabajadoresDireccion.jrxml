@@ -4,7 +4,8 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="160"/>
 	<subDataset name="graphDireccion" uuid="92eb0ab2-773d-4138-83c6-a9cce5b5a15b">
-		<queryString language="SQL">
+		<parameter name="filtro" class="java.lang.String"/>
+		<queryString>
 			<![CDATA[SELECT COUNT(*),
   DR_DESCRIPCION
 FROM PAET_TR_TRABAJADOR
@@ -16,6 +17,7 @@ JOIN PAET_DR_DIRECCION
   ON DR_DIRECCION = DR_CODIGO
 WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
+  AND DR_DIRECCION = NVL($P{filtro}, DR_DIRECCION)
 GROUP BY DR_DESCRIPCION
 ORDER BY 2]]>
 		</queryString>
@@ -28,6 +30,7 @@ ORDER BY 2]]>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresDireccion\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="filtro" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -52,7 +55,11 @@ ORDER BY 2]]>
 				</chart>
 				<pieDataset>
 					<dataset>
-						<datasetRun subDataset="graphDireccion" uuid="38bc60a2-ec07-4a74-a0cd-e5ee38a86c47"/>
+						<datasetRun subDataset="graphDireccion" uuid="38bc60a2-ec07-4a74-a0cd-e5ee38a86c47">
+							<datasetParameter name="filtro">
+								<datasetParameterExpression><![CDATA[$P{filtro}]]></datasetParameterExpression>
+							</datasetParameter>
+						</datasetRun>
 					</dataset>
 					<keyExpression><![CDATA[$F{DR_DESCRIPCION}]]></keyExpression>
 					<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
@@ -73,6 +80,9 @@ ORDER BY 2]]>
 		<band height="100" splitType="Stretch">
 			<subreport>
 				<reportElement x="0" y="0" width="200" height="100" uuid="9c7e4eb5-b872-47a2-8af1-40daf8e6da51"/>
+				<subreportParameter name="filtro">
+					<subreportParameterExpression><![CDATA[$P{filtro}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoresDireccion.jasper"]]></subreportExpression>
 			</subreport>
@@ -80,6 +90,9 @@ ORDER BY 2]]>
 		<band height="100">
 			<subreport>
 				<reportElement positionType="Float" x="0" y="0" width="200" height="100" uuid="35228f39-9ebf-40e6-9fe5-4c7bfbbeeb25"/>
+				<subreportParameter name="filtro">
+					<subreportParameterExpression><![CDATA[$P{filtro}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoresDireccion.jasper"]]></subreportExpression>
 			</subreport>

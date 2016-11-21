@@ -2,9 +2,10 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a64c911b-8059-4ad2-b5b2-69a6c4757345">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="162"/>
+	<property name="ireport.y" value="67"/>
 	<subDataset name="graphArea" uuid="f6a29a9e-cf6b-4fdd-8b46-145534754d18">
-		<queryString language="SQL">
+		<parameter name="filtro" class="java.lang.String"/>
+		<queryString>
 			<![CDATA[SELECT COUNT(*),
   AR_DESCRIPCION
 FROM PAET_TR_TRABAJADOR
@@ -16,6 +17,7 @@ JOIN PAET_AR_AREA
   ON AR_AREA = AR_CODIGO
 WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
+  AND AR_AREA = NVL($P{filtro}, AR_AREA)
 GROUP BY AR_DESCRIPCION
 ORDER BY 2]]>
 		</queryString>
@@ -28,6 +30,7 @@ ORDER BY 2]]>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresArea\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 1 AS TEST
 FROM DUAL]]>
@@ -50,7 +53,11 @@ FROM DUAL]]>
 				</chart>
 				<pieDataset>
 					<dataset>
-						<datasetRun subDataset="graphArea" uuid="2d41cca6-131f-4ed6-9c19-a5a02a20481d"/>
+						<datasetRun subDataset="graphArea" uuid="2d41cca6-131f-4ed6-9c19-a5a02a20481d">
+							<datasetParameter name="filtro">
+								<datasetParameterExpression><![CDATA[$P{filtro}]]></datasetParameterExpression>
+							</datasetParameter>
+						</datasetRun>
 					</dataset>
 					<keyExpression><![CDATA[$F{AR_DESCRIPCION}]]></keyExpression>
 					<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
@@ -78,6 +85,9 @@ FROM DUAL]]>
 		<band height="100" splitType="Stretch">
 			<subreport>
 				<reportElement x="0" y="0" width="200" height="100" uuid="f9bd05b5-2626-417f-bb83-a998fe3f0fad"/>
+				<subreportParameter name="filtro">
+					<subreportParameterExpression><![CDATA[$P{filtro}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoresArea.jasper"]]></subreportExpression>
 			</subreport>
@@ -85,6 +95,9 @@ FROM DUAL]]>
 		<band height="100">
 			<subreport>
 				<reportElement x="0" y="0" width="200" height="100" uuid="bd254940-f5cd-4d0f-b2ef-36a744b93c3f"/>
+				<subreportParameter name="filtro">
+					<subreportParameterExpression><![CDATA[$P{filtro}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoresArea.jasper"]]></subreportExpression>
 			</subreport>

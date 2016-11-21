@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*),
   DV_DESCRIPCION
@@ -15,6 +16,7 @@ JOIN PAET_DV_DIVISION
   ON DV_DIVISION = DV_CODIGO
 WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
+  AND DV_DIVISION = NVL($P{filtro}, DV_DIVISION)
 GROUP BY DV_DESCRIPCION
 ORDER BY 2]]>
 	</queryString>

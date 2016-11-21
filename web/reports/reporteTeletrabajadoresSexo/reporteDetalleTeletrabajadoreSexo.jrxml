@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT TR_CEDULA,
   TR_NOMBRE, 
@@ -19,6 +20,7 @@ INNER JOIN PAET_TT_TELETRABAJADOR
   ON PAET_TR_TRABAJADOR.TR_USUARIO = PAET_TT_TELETRABAJADOR.TR_TRABAJADOR
 WHERE TR_ESTADO = 'A'
   AND PAET_TT_TELETRABAJADOR.TT_ESTADO = 'A'
+  AND TR_SEXO = NVL($P{filtro} ,TR_SEXO)
 ORDER BY TR_SEXO, TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2]]>
 	</queryString>
 	<field name="TR_CEDULA" class="java.lang.String"/>

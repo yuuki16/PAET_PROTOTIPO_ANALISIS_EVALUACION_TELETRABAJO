@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*),
   DR_DESCRIPCION
@@ -15,6 +16,7 @@ JOIN PAET_DR_DIRECCION
   ON DR_DIRECCION = DR_CODIGO
 WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
+  AND DR_DIRECCION = NVL($P{filtro}, DR_DIRECCION)
 GROUP BY DR_DESCRIPCION
 ORDER BY 2]]>
 	</queryString>

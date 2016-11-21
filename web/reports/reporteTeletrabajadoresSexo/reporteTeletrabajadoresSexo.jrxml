@@ -2,9 +2,10 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTeletrabajadoresSexo" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59b640c4-7dc4-4104-8d26-87776d3697ed">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="162"/>
-	<subDataset name="graphSexo" uuid="96aa3d43-f692-4da5-892b-a6c1ed2b049b">
-		<queryString language="SQL">
+	<property name="ireport.y" value="0"/>
+	<subDataset name="graphSexo" uuid="959a940d-c040-481a-8a54-cd9fb0fb079a">
+		<parameter name="filtro" class="java.lang.String"/>
+		<queryString>
 			<![CDATA[SELECT COUNT(*),
   CASE WHEN TR_SEXO = 'FEM'
     THEN 'FEMENINO'
@@ -15,18 +16,20 @@ JOIN PAET_TT_TELETRABAJADOR
   ON TR_USUARIO = TR_TRABAJADOR
 WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
+  AND TR_SEXO = NVL($P{filtro} ,TR_SEXO)
 GROUP BY TR_SEXO
 ORDER BY 2]]>
 		</queryString>
 		<field name="COUNT(*)" class="java.math.BigDecimal"/>
 		<field name="TR_SEXO" class="java.lang.String"/>
-		<group name="COUNT(*)">
-			<groupExpression><![CDATA[$F{COUNT(*)}]]></groupExpression>
+		<group name="TR_SEXO">
+			<groupExpression><![CDATA[$F{TR_SEXO}]]></groupExpression>
 		</group>
 	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresSexo\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select 1 as test
 from dual]]>
@@ -40,10 +43,6 @@ from dual]]>
 			<rectangle>
 				<reportElement x="0" y="0" width="555" height="79" forecolor="#000099" backcolor="#000099" uuid="78e317f4-9788-46c0-b99d-f2bb88ec2aa6"/>
 			</rectangle>
-			<image scaleImage="RetainShape">
-				<reportElement x="0" y="0" width="103" height="79" uuid="809b865a-4bff-41b7-9e7c-14654e7edc71"/>
-				<imageExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\build\\web\\Images\\logo.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="126" y="17" width="429" height="46" forecolor="#FFFFFF" uuid="ff83637f-3d6d-48dc-b239-b16a10533c85"/>
 				<textElement>
@@ -60,7 +59,11 @@ from dual]]>
 				</chart>
 				<pieDataset>
 					<dataset>
-						<datasetRun subDataset="graphSexo" uuid="7fb82d08-9ed4-4bd5-9015-de1a45be5a91"/>
+						<datasetRun subDataset="graphSexo" uuid="7fb82d08-9ed4-4bd5-9015-de1a45be5a91">
+							<datasetParameter name="filtro">
+								<datasetParameterExpression><![CDATA[$P{filtro}]]></datasetParameterExpression>
+							</datasetParameter>
+						</datasetRun>
 					</dataset>
 					<keyExpression><![CDATA[$F{TR_SEXO}]]></keyExpression>
 					<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
@@ -71,12 +74,19 @@ from dual]]>
 					<itemLabel/>
 				</piePlot>
 			</pieChart>
+			<image>
+				<reportElement x="0" y="0" width="126" height="79" uuid="04068938-02ce-4207-8dfa-c8d15a77caf1"/>
+				<imageExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\Images\\logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<detail>
 		<band height="100" splitType="Stretch">
 			<subreport>
 				<reportElement x="0" y="0" width="200" height="100" uuid="e96c78b3-3c43-4c78-a9ef-f32c78f650cd"/>
+				<subreportParameter name="filtro">
+					<subreportParameterExpression><![CDATA[$P{filtro}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoreSexo.jasper"]]></subreportExpression>
 			</subreport>
@@ -84,6 +94,9 @@ from dual]]>
 		<band height="100" splitType="Stretch">
 			<subreport>
 				<reportElement positionType="Float" x="0" y="0" width="200" height="100" uuid="795097cd-ff9b-4f97-b756-fc9939f28648"/>
+				<subreportParameter name="filtro">
+					<subreportParameterExpression><![CDATA[$P{filtro}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoreSexo.jasper"]]></subreportExpression>
 			</subreport>

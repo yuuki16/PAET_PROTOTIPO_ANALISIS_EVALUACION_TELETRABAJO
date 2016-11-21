@@ -52,12 +52,14 @@ public class REPORTE_Servlet extends HttpServlet {
             //se consulta cual accion se desea realizar
             //**********************************************************************
             String accion = request.getParameter("accion");
-            String reporte;
+            String reporte, filtro;
             switch (accion) {
                 case "mostrarReporte":
                     reporte = request.getParameter("reporte");
+                    filtro = request.getParameter("filtro");
                     HttpSession session = request.getSession(true);
                     session.setAttribute("reporte", reporte);
+                    session.setAttribute("filtro", filtro);
                     out.print("C~Generando reporte");
 
                     break;

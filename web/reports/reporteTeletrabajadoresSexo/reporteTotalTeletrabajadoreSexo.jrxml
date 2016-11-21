@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*),
   CASE WHEN TR_SEXO = 'FEM'
@@ -14,6 +15,7 @@ JOIN PAET_TT_TELETRABAJADOR
   ON TR_USUARIO = TR_TRABAJADOR
 WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
+  AND TR_SEXO = NVL($P{filtro} ,TR_SEXO)
 GROUP BY TR_SEXO
 ORDER BY 2]]>
 	</queryString>

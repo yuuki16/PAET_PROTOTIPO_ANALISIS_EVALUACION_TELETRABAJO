@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT TR_CEDULA,
   TR_NOMBRE, 
@@ -20,6 +21,7 @@ JOIN PAET_AR_AREA
   ON AR_AREA = AR_CODIGO
 WHERE TR_ESTADO = 'A'
   AND PAET_TT_TELETRABAJADOR.TT_ESTADO = 'A'
+  AND AR_AREA = NVL($P{filtro}, AR_AREA)
 ORDER BY AR_DESCRIPCION, TR_NOMBRE, TR_APELLIDO1, TR_APELLIDO2]]>
 	</queryString>
 	<field name="TR_CEDULA" class="java.lang.String"/>

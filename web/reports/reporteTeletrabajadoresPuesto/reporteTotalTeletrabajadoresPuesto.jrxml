@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="pt_puesto" class="java.lang.String"/>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*),
   PT_DESCRIPCION
@@ -14,6 +14,7 @@ INNER JOIN PAET_TT_TELETRABAJADOR
   ON TR_TRABAJADOR = TR_USUARIO
 WHERE TR_ESTADO = 'A'
   AND TT_ESTADO = 'A'
+AND PT_PUESTO = NVL($P{filtro}, PT_PUESTO)
 GROUP BY PT_DESCRIPCION
 ORDER BY 2]]>
 	</queryString>
