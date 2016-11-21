@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f76edf0e-2b1a-48a2-b5ab-1c843928e87e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pt_puesto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT COUNT(*),
+  PT_DESCRIPCION
+FROM PAET_TR_TRABAJADOR
+JOIN PAET_PT_PUESTO
+  ON PT_PUESTO = PT_CODIGO
+INNER JOIN PAET_TT_TELETRABAJADOR
+  ON TR_TRABAJADOR = TR_USUARIO
+WHERE TR_ESTADO = 'A'
+  AND TT_ESTADO = 'A'
+GROUP BY PT_DESCRIPCION
+ORDER BY 2]]>
+	</queryString>
+	<field name="COUNT(*)" class="java.math.BigDecimal"/>
+	<field name="PT_DESCRIPCION" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="15" width="293" height="20" uuid="b6350317-2d2f-45b6-ab2f-353a56759934"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="14"/>
+				</textElement>
+				<text><![CDATA[Cantidad de Teletrabajadores por Puesto]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="322" y="28" width="210" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="2330011f-d50a-41db-96a9-d6eed700a5fc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light" size="11"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="45" y="28" width="277" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="82153bf1-9b05-432d-973d-455e1c9afbec"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light" size="11"/>
+				</textElement>
+				<text><![CDATA[Puesto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="322" y="0" width="210" height="20" uuid="e2b3be25-4791-454f-b33e-05e403067d7c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COUNT(*)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="0" width="277" height="20" uuid="7d8fb89f-9c6b-4cf7-b26f-0b95bcb051c8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PT_DESCRIPCION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

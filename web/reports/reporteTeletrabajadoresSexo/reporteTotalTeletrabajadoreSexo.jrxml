@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="80e06de5-9c93-45c3-9626-11b365d20335">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[Select count(*),
+	TR_SEXO
+from PAET_TR_TRABAJADOR 
+group by TR_SEXO]]>
+	</queryString>
+	<field name="COUNT(*)" class="java.math.BigDecimal"/>
+	<field name="TR_SEXO" class="java.lang.String"/>
+	<group name="TR_SEXO">
+		<groupExpression><![CDATA[$F{TR_SEXO}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="15" width="293" height="20" uuid="914662c9-6bec-4406-a8a3-db40363e2708"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="14"/>
+				</textElement>
+				<text><![CDATA[Cantidad de Teletrabajadores por Sexo]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50">
+			<staticText>
+				<reportElement mode="Opaque" x="207" y="30" width="136" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="80868dd0-c28b-4016-9053-644e956d4b20"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0" lineColor="#999999"/>
+					<topPen lineWidth="0.0" lineColor="#999999"/>
+					<leftPen lineWidth="0.0" lineColor="#999999"/>
+					<bottomPen lineWidth="0.0" lineColor="#999999"/>
+					<rightPen lineWidth="0.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light" size="14"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="36" y="30" width="171" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="76725f4b-fe4b-459c-913a-3d1d15a7ec34"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0" lineColor="#999999"/>
+					<topPen lineWidth="0.0" lineColor="#999999"/>
+					<leftPen lineWidth="0.0" lineColor="#999999"/>
+					<bottomPen lineWidth="0.0" lineColor="#999999"/>
+					<rightPen lineWidth="0.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light" size="14"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<textField>
+				<reportElement x="207" y="0" width="136" height="20" uuid="b0d8831e-9b54-4caf-866a-da003fbc63c4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COUNT(*)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="0" width="171" height="20" uuid="e8482bd5-c3bb-4ebc-bee0-76dcc707958d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{TR_SEXO} == "FEM" ? "FEMENINO" : "MASCULINO" )]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

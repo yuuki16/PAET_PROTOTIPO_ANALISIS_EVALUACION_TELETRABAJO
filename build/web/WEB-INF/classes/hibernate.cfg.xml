@@ -9,7 +9,6 @@
     <property name="hibernate.connection.password">mmonge</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.enable_lazy_load_no_trans">true</property>
-    <mapping resource="PAET_DOMAIN/PaetCnCanton.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetTrTrabajador.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetPrProvincia.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetTtTeletrabajador.hbm.xml"/>

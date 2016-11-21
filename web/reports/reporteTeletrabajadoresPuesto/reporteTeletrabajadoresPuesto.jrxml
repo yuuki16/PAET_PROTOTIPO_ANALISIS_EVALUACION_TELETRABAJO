@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59b640c4-7dc4-4104-8d26-87776d3697ed">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="194"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#908181">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#A9A9A9">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\web\\reports\\reporteTeletrabajadoresPuesto\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pt_puesto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT COUNT(*),
+  PT_DESCRIPCION
+FROM PAET_TR_TRABAJADOR
+JOIN PAET_PT_PUESTO
+  ON PT_PUESTO = PT_CODIGO
+INNER JOIN PAET_TT_TELETRABAJADOR
+  ON TR_TRABAJADOR = TR_USUARIO
+WHERE TR_ESTADO = 'A'
+  AND TT_ESTADO = 'A'
+GROUP BY PT_DESCRIPCION
+ORDER BY 2]]>
+	</queryString>
+	<field name="COUNT(*)" class="java.math.BigDecimal"/>
+	<field name="PT_DESCRIPCION" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="263" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" forecolor="#000099" backcolor="#000099" uuid="78e317f4-9788-46c0-b99d-f2bb88ec2aa6"/>
+			</rectangle>
+			<image scaleImage="RetainShape">
+				<reportElement x="0" y="0" width="103" height="79" uuid="809b865a-4bff-41b7-9e7c-14654e7edc71"/>
+				<imageExpression><![CDATA["C:\\Users\\Michelle\\Documents\\PROTOTIPO GRADUACION\\PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO\\build\\web\\Images\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="126" y="17" width="429" height="46" forecolor="#FFFFFF" uuid="ff83637f-3d6d-48dc-b239-b16a10533c85"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Teletrabajadores por Puesto]]></text>
+			</staticText>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="32" y="79" width="482" height="184" uuid="b97ba907-5f37-4dcd-83b7-1185377ea2be"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{PT_DESCRIPCION}]]></keyExpression>
+					<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</title>
+	<detail>
+		<band height="223" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="100" uuid="89ad8eb6-e598-4ee7-bf22-010a39f78f7e"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoresPuesto.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="100" width="200" height="100" uuid="17683f57-44c5-473a-945d-83a89723c28b"/>
+				<subreportParameter name="pt_puesto"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetalleTeletrabajadoresPuesto.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="32" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="0" y="0" width="100" height="20" uuid="a7ac45f7-ba06-4082-959e-a877bcad9250"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="0" width="80" height="20" uuid="dba8c142-c0bc-473e-a9fe-7aaa35080b77"/>
+				<textElement textAlignment="Right">
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="20" uuid="5ef86073-c9e2-4503-8680-a4109ed672d2"/>
+				<textElement>
+					<font fontName="Segoe UI Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
