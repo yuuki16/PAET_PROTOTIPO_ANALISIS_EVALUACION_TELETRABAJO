@@ -78,7 +78,7 @@
                     </div>
                     <!-- TABLA -->
 
-                    <table class="table table-hover table-condensed" id="tablaDireccion"></table>
+                    <table class="table table-hover table-condensed" id="tablaDirecciones"></table>
 
                 </div>
                 <div class="panel-footer">Nota: Acciones validas dependeran del rol del usuario</div>
@@ -119,9 +119,16 @@
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
+                            
+                            <div class="form-group" id="groupDirector">
+                                <label for="director">Director:</label>
+                                <select class="form-control" id="director">
+                                    <option value="" selected="selected"></option>
+                                </select>
+                            </div>
 
                             <div class="form-group">
-                                <input type="hidden" value="agregarDivision" id="direccionesAction"/>
+                                <input type="hidden" value="agregarDireccion" id="direccionesAction"/>
 
                                 <button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
 

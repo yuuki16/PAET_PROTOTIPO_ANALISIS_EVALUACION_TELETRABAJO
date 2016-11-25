@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    consultarTrabajadores();
+    consultarTrabajadores(true);
     consultarPuestos();
     consultarProvincias();
 });
@@ -78,15 +78,15 @@ $(function () {
     });
 
     $("#provincia").change(function () {
-        consultarCantonesByProvincia($( this ).val());
+        consultarCantonesByProvincia($(this).val());
     });
-    
+
     $("#canton").change(function () {
-        consultarDistritosByCanton($( this ).val());
+        consultarDistritosByCanton($(this).val());
     });
 });
 
-function consultarTrabajadores() {
+function consultarTrabajadores(first) {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando los trabajadores");
     //Se envia la información por ajax
     $.ajax({
@@ -100,6 +100,19 @@ function consultarTrabajadores() {
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             ocultarModal("modalMensajes");
             dibujarTabla(data);
+            if (first) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.trNombre > b.trNombre) {
+                        return 1;
+                    }
+                    if (a.trNombre < b.trNombre) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+                dibujarComboJefaturas(sorted);
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -166,6 +179,16 @@ function dibujarFila(rowData) {
             '</button></td>'));
 }
 
+function dibujarComboJefaturas(dataJson)
+{
+    for (var i = 0; i < dataJson.length; i++) {
+        if (dataJson[i].trEstado === "A") {
+            $("#trJefatura").append($("<option value=\"" + dataJson[i].trUsuario + "\">" + dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 + "</option>"));
+            $("#jefatura").append($("<option value=\"" + dataJson[i].trUsuario + "\">" + dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 + "</option>"));
+        }
+    }
+}
+
 function consultarTrabajadorByCodigo(trUsuario) {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando el trabajador seleccionado");
 
@@ -196,14 +219,21 @@ function consultarTrabajadorByCodigo(trUsuario) {
             $("#apellido1").val(data.trApellido1);
             $("#apellido2").val(data.trApellido2);
             $("#sexo").val(data.trSexo);
-            $("#fechaIngreso").val(data.trFechaIngreso);
+            //carga de fechas
+            var fecha = new Date(data.trFechaIngreso);
+            var fechatxt = fecha.getDate() + "/" + parseInt(fecha.getMonth()) + 1 + "/" + fecha.getFullYear();
+            $("#fechaIngreso").data({date: fechatxt});
+            $("#fechaIngresoText").val(fechatxt);
             $("#estado").val(data.trEstado);
             $("#jefatura").val(data.trJefatura);
             $("#puesto").val(data.ptPuesto);
-            $("#fechaEntrada").val(data.trFechaEntrada);
-            
+            fecha = new Date(data.trPtFechaEntrada);
+            fechatxt = fecha.getDate() + "/" + parseInt(fecha.getMonth()) + 1 + "/" + fecha.getFullYear();
+            $("#fechaEntrada").data({date: fechatxt});
+            $("#fechaEntradaText").val(fechatxt);
+
             //se muestra el formulario
-            $("#formularioAdministrar").modal();
+            $("#formularioAdministrarTrabajador").modal();
 
         },
         type: 'POST',
@@ -255,7 +285,7 @@ function guardar() {
                 if (tipoRespuesta === "C~") {
                     mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
                     $("#formularioAdministrarTrabajador").modal("hide");
-                    consultarTrabajadores();
+                    consultarTrabajadores(false);
                     limpiarForm();
                 } else {
                     if (tipoRespuesta === "E~") {
@@ -414,7 +444,7 @@ function enviarBusqueda(campo, valor, unico) {
 function limpiarBusqueda() {
 
     //Consultar todos los divisiones
-    consultarTrabajadores();
+    consultarTrabajadores(false);
 
     //Limpiar txt
     $('#trUsuario').val("");
@@ -438,7 +468,17 @@ function consultarPuestos() {
             alert("Se presento un error a la hora de cargar la información de los trabajadores en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarComboPuestos(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.ptDescripcion > b.ptDescripcion) {
+                    return 1;
+                }
+                if (a.ptDescripcion < b.ptDescripcion) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarComboPuestos(sorted);
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -449,11 +489,15 @@ function consultarPuestos() {
 function dibujarComboPuestos(dataJson) {
 
     for (var i = 0; i < dataJson.length; i++) {
-        $("#puesto").append($("<option value=\"" + dataJson[i].ptCodigo + "\">" + dataJson[i].ptDescripcion + "</option>"));
+        if (dataJson[i].ptEstado === "A") {
+            $("#puesto").append($("<option value=\"" + dataJson[i].ptCodigo + "\">" + dataJson[i].ptDescripcion + "</option>"));
+        }
     }
 
     for (var i = 0; i < dataJson.length; i++) {
-        $("#ptPuesto").append($("<option value=\"" + dataJson[i].ptCodigo + "\">" + dataJson[i].ptDescripcion + "</option>"));
+        if (dataJson[i].ptEstado === "A") {
+            $("#ptPuesto").append($("<option value=\"" + dataJson[i].ptCodigo + "\">" + dataJson[i].ptDescripcion + "</option>"));
+        }
     }
 }
 
@@ -627,7 +671,7 @@ function consultarCorreoByCodigo(crCodigo) {
             $("#correoCorreo").val(data.crCorreo);
             $("#estadoCorreo").val(data.crEstado);
             $("#correoTrabajador").val(data.trTrabajador);
-            
+
             //se muestra el formulario
             $("#formularioAdministrarCorreo").modal();
 
@@ -807,7 +851,7 @@ function consultarTelefonoByCodigo(tlCodigo) {
             $("#telefonoDescripcion").val(data.tlDescripcion);
             $("#telefonoEstado").val(data.tlEstado);
             $("#telefonoTrabajador").val(data.trTrabajador);
-            
+
             //se muestra el formulario
             $("#formularioAdministrarTelefono").modal();
         },
@@ -964,7 +1008,7 @@ function limpiarFormDireccionFisica() {
 }
 
 function consultarDireccionFisicaByCodigo(dfCodigo) {
-    
+
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando la dirección seleccionada");
 
     $.ajax({
@@ -993,10 +1037,10 @@ function consultarDireccionFisicaByCodigo(dfCodigo) {
             consultarCantonByDistrito(data.dsDistrito);
             $("#distrito").val(data.dsDistrito);
             $("#direccionFisicaTrabajador").val(data.trTrabajador);
-            
+
             //se muestra el formulario
             $("#formularioAdministrarDireccionFisica").modal();
-            
+
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
             // se oculta el mensaje de espera
@@ -1053,8 +1097,8 @@ function consultarProvincias() {
     });
 }
 
-function dibujarComboProvincias(dataJson){
-    
+function dibujarComboProvincias(dataJson) {
+
     for (var i = 0; i < dataJson.length; i++) {
         $("#provincia").append($("<option value=\"" + dataJson[i].prCodigo + "\">" + dataJson[i].prDescripcion + "</option>"));
     }
@@ -1079,9 +1123,9 @@ function consultarProvinciaByCanton(cnCanton) {
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data$("#provincia").val(data[0].prProvincia);
             $("#provincia").val(data[0].prProvincia);
             consultarCantonesByProvincia(data[0].prProvincia);
-            $("#canton").val(cnCanton);    
+            $("#canton").val(cnCanton);
             consultarDistritosByCanton(cnCanton);
-            
+
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
         },
@@ -1117,27 +1161,27 @@ function consultarCantonesByProvincia(prProvincia) {
     });
 }
 
-function dibujarComboCantones(dataJson){
-    
+function dibujarComboCantones(dataJson) {
+
     var i;
     var selectbox = document.getElementById("canton");
-    
-    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+
+    for (i = selectbox.options.length - 1; i >= 0; i--)
     {
         if (selectbox.options[i].value !== "") {
-            selectbox.remove(i);   
+            selectbox.remove(i);
         }
     }
-    
+
     var boxDistrito = document.getElementById("distrito");
-    
-    for(i = boxDistrito.options.length - 1 ; i >= 0 ; i--)
+
+    for (i = boxDistrito.options.length - 1; i >= 0; i--)
     {
         if (boxDistrito.options[i].value !== "") {
-            boxDistrito.remove(i);   
+            boxDistrito.remove(i);
         }
     }
-    
+
     for (var i = 0; i < dataJson.length; i++) {
         $("#canton").append($("<option value=\"" + dataJson[i].cnCodigo + "\">" + dataJson[i].cnDescripcion + "</option>"));
     }
@@ -1196,18 +1240,18 @@ function consultarDistritosByCanton(cnCanton) {
     });
 }
 
-function dibujarComboDistritos(dataJson){
-    
+function dibujarComboDistritos(dataJson) {
+
     var i;
     var selectbox = document.getElementById("distrito");
-    
-    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+
+    for (i = selectbox.options.length - 1; i >= 0; i--)
     {
         if (selectbox.options[i].value !== "") {
-            selectbox.remove(i);   
+            selectbox.remove(i);
         }
     }
-    
+
     for (var i = 0; i < dataJson.length; i++) {
         $("#distrito").append($("<option value=\"" + dataJson[i].dsCodigo + "\">" + dataJson[i].dsDescripcion + "</option>"));
     }

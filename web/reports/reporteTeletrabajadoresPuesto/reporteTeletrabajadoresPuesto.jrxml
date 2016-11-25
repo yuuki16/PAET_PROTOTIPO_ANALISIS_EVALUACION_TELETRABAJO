@@ -84,7 +84,7 @@ FROM DUAL]]>
 			<subreport>
 				<reportElement x="0" y="0" width="200" height="100" uuid="89ad8eb6-e598-4ee7-bf22-010a39f78f7e"/>
 				<subreportParameter name="filtro">
-					<subreportParameterExpression><![CDATA[]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{filtro}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteTotalTeletrabajadoresPuesto.jasper"]]></subreportExpression>

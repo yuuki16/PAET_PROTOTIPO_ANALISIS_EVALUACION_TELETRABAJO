@@ -106,10 +106,10 @@ function consultarAreaByCodigo(arCodigo) {
             $("#areasAction").val("modificarArea");
 
             //se carga la información en el formulario
-            $("#arCodigo").val(data.arCodigo);
-            $("#arDescripcion").val(data.arDescripcion);
-            $("#arEstado").val(data.arEstado);
-            $("#drDireccion").val(data.drDireccion);
+            $("#codigo").val(data.arCodigo);
+            $("#descripcion").val(data.arDescripcion);
+            $("#estado").val(data.arEstado);
+            $("#direccion").val(data.drDireccion);
         },
         type: 'POST',
         dataType: "json"
@@ -140,7 +140,7 @@ function guardar() {
                 accion: $("#areasAction").val(),
                 arCodigo: $("#codigo").val(),
                 arDescripcion: $("#descripcion").val(),
-                arestado: $("#estado").val(), //estado ddl
+                arEstado: $("#estado").val(), //estado ddl
                 drDireccion: $("#direccion").val() //direccion ddl
             },
             error: function () { //si existe un error en la respuesta del ajax
@@ -174,16 +174,11 @@ function validar() {
     var validacion = true;
 
     //quitar errores
-    $("#groupCodigo").removeClass("has-error");
     $("#groupDescripcion").removeClass("has-error");
     $("#groupDireccion").removeClass("has-error");
     $("#groupEstado").removeClass("has-error");
 
     //validar campos
-    if ($("#codigo").val() === "") {
-        $("#groupCodigo").addClass("has-error");
-        validacion = false;
-    }
     if ($("#descripcion").val() === "") {
         $("#groupDescripcion").addClass("has-error");
         validacion = false;
@@ -305,10 +300,14 @@ function consultarDirecciones()
 function dibujarCombo(dataJson){
     
     for (var i = 0; i < dataJson.length; i++) {
-        $("#direccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
+        if (dataJson[i].drEstado === "A") {
+            $("#direccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));   
+        }
     }
     
     for (var i = 0; i < dataJson.length; i++) {
-        $("#drDireccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
+        if (dataJson[i].drEstado === "A") {
+            $("#drDireccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
+        }
     }
 }

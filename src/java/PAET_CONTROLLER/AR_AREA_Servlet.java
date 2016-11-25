@@ -68,23 +68,20 @@ public class AR_AREA_Servlet extends HttpServlet {
 
                     drDireccion = new BigDecimal(request.getParameter("drDireccion"));
 
+                    area.setArDescripcion(request.getParameter("arDescripcion"));
+                    area.setArEstado(request.getParameter("arEstado").charAt(0));
+                    area.setDrDireccion(drDireccion);
+
                     if (accion.equals("agregarArea")) {
-                        area.setArDescripcion(request.getParameter("arDescripcion"));
-                        area.setArEstado(request.getParameter("arEstado").charAt(0));
-                        area.setDrDireccion(drDireccion);
-                        
                         //Se guarda el objeto
                         areaBl.save(area);
                         //Se imprime la respuesta con el response
                         out.print("C~El área fue agregado correctamente");
-                        
+
                     } else {
                         arCodigo = new BigDecimal(request.getParameter("arCodigo"));
                         area.setArCodigo(arCodigo);
-                        area.setArDescripcion(request.getParameter("arDescripcion"));
-                        area.setArEstado(request.getParameter("arEstado").charAt(0));
-                        area.setDrDireccion(drDireccion);
-                        
+
                         //Se guarda el objeto
                         areaBl.merge(area);
 

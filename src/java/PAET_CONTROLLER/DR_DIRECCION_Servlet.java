@@ -45,7 +45,7 @@ public class DR_DIRECCION_Servlet extends HttpServlet {
             PaetDrDireccion direccion = new PaetDrDireccion();
             PAET_DR_DIRECCION_BL direccionBl = new PAET_DR_DIRECCION_BL();
             PAET_DV_DIVISION_BL divisionBl = new PAET_DV_DIVISION_BL();
-            
+
             String accion = request.getParameter("accion");
 
             switch (accion) {
@@ -66,11 +66,13 @@ public class DR_DIRECCION_Servlet extends HttpServlet {
                 case "modificarDireccion":
 
                     dvDivision = new BigDecimal(request.getParameter("dvDivision"));
-                    
-                    if (accion.equals("agregarDivision")) { //es insertar
-                        direccion.setDrDescripcion(request.getParameter("drDescripcion"));
-                        direccion.setDrEstado(request.getParameter("drEstado").charAt(0));
-                        direccion.setDvDivision(dvDivision);
+
+                    direccion.setDrDescripcion(request.getParameter("drDescripcion"));
+                    direccion.setDrEstado(request.getParameter("drEstado").charAt(0));
+                    direccion.setDvDivision(dvDivision);
+                    direccion.setTrDirector(request.getParameter("trDirector"));
+
+                    if (accion.equals("agregarDireccion")) { //es insertar
                         //Se guarda el objeto
                         direccionBl.save(direccion);
 
@@ -81,9 +83,6 @@ public class DR_DIRECCION_Servlet extends HttpServlet {
                         drCodigo = new BigDecimal(request.getParameter("drCodigo"));
 
                         direccion.setDrCodigo(drCodigo);
-                        direccion.setDrDescripcion(request.getParameter("drDescripcion"));
-                        direccion.setDrEstado(request.getParameter("drEstado").charAt(0));
-                        direccion.setDvDivision(dvDivision);
                         //Se guarda el objeto
                         direccionBl.merge(direccion);
 

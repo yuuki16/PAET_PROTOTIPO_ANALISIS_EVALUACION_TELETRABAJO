@@ -58,7 +58,7 @@
                                 <li><a href="#">Mis Solicitudes</a></li>
                             </ul>
                         </li>
-                        <li class=""><a href="#">Cerrar Sesión</a></li>
+                        <li class=""><a href="Login.jsp?logout=true" >Cerrar Sesión</a></li>
                     </ul>
                 </div>
             </div>

@@ -34,7 +34,17 @@ function consultarGerencias() {
             alert("Se presento un error a la hora de cargar la información de los días en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarTabla(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.grDescripcion > b.grDescripcion) {
+                    return 1;
+                }
+                if (a.grDescripcion < b.grDescripcion) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarTabla(sorted);
             // se oculta el modal esta funcion se encuentra en el utils.js
             ocultarModal("modalMensajes");
 
@@ -72,7 +82,7 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.grDescripcion + "</td>"));
     if (rowData.grEstado === "A") {
         row.append($("<td> Activo </td>"));
-    }else if (rowData.grEstado === "I") {
+    } else if (rowData.grEstado === "I") {
         row.append($("<td> Inactivo </td>"));
     }
     row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarGerenciaByCodigo(\'' + rowData.grCodigo + '\');">' +
@@ -265,6 +275,6 @@ function limpiarBusqueda() {
     consultarGerencias();
 
     //Limpiar txt
-     $('#grCodigo').val("");
-     $('#grDescripcion').val("");
+    $('#grCodigo').val("");
+    $('#grDescripcion').val("");
 }

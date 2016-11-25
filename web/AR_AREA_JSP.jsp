@@ -64,7 +64,9 @@
                                     <p><b>Buscar por dirección:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="drDireccion" placeholder="Digite el nombre de la dirección">
+                                    <select class="form-control" id="drDireccion">
+                                        <option value="" selected="selected"></option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDrDireccion">

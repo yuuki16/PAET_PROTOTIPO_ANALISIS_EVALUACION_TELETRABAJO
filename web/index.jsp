@@ -56,46 +56,37 @@
 
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img src="http://placehold.it/800x500" alt="">
+                        <img src="Images/Money.png" alt="Ahorro" style="width: 150px; height: 150px">
                         <div class="caption">
-                            <h3>Feature Label</h3>
+                            <h3>Ahorro Monetario</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img src="http://placehold.it/800x500" alt="">
+                        <img src="Images/Paperwork.png" alt="Papeleo" style="width: 150px; height: 150px">
                         <div class="caption">
                             <h3>Feature Label</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img src="http://placehold.it/800x500" alt="">
+                        <img src="Images/People.png" alt="Personal" style="width: 150px; height: 150px">
                         <div class="caption">
-                            <h3>Feature Label</h3>
+                            <h3>Mayor Capacidad Personal</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img src="http://placehold.it/800x500" alt="">
+                        <img src="Images/Time.png" alt="Tiempo" style="width: 150px; height: 150px">
                         <div class="caption">
                             <h3>Feature Label</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>

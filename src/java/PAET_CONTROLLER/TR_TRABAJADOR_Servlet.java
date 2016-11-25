@@ -82,7 +82,7 @@ public class TR_TRABAJADOR_Servlet extends HttpServlet {
                     trabajador.setTrFechaIngreso(date);
                     trabajador.setTrEstado(request.getParameter("trEstado").charAt(0));
                     if (!"".equals(trJefatura.trim())) {
-                        trabajador.setTrApellido2(trJefatura);
+                        trabajador.setTrJefatura(trJefatura);
                     }
                     trabajador.setPtPuesto(request.getParameter("ptPuesto"));
                     fechaEntrada = request.getParameter("trFechaEntrada");

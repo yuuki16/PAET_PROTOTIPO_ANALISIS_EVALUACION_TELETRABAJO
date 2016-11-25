@@ -35,7 +35,17 @@ function consultarDivisiones() {
             alert("Se presento un error a la hora de cargar la información de las divisiones en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarTabla(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.dvDescripcion > b.dvDescripcion) {
+                    return 1;
+                }
+                if (a.dvDescripcion < b.dvDescripcion) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarTabla(sorted);
             // se oculta el modal esta funcion se encuentra en el utils.js
             ocultarModal("modalMensajes");
 
@@ -74,7 +84,7 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.dvDescripcion + "</td>"));
     if (rowData.dvEstado === "A") {
         row.append($("<td> Activo </td>"));
-    }else if (rowData.dvEstado === "I") {
+    } else if (rowData.dvEstado === "I") {
         row.append($("<td> Inactivo </td>"));
     }
     row.append($("<td>" + rowData.grGerencia + "</td>"));
@@ -106,7 +116,7 @@ function consultarDivisionByCodigo(dvCodigo) {
             //************************************************************************
             //carga información en el formulario
             //************************************************************************
-          
+
             //se modificar el hidden que indicar el tipo de accion que se esta realizando
             $("#divisionesAction").val("modificarDivision");
 
@@ -183,7 +193,7 @@ function validar() {
     $("#groupDescripcion").removeClass("has-error");
     $("#groupEstado").removeClass("has-error");
     $("#groupGerencia").removeClass("has-error");
-    
+
     if ($("#descripcion").val() === "") {
         $("#groupDescripcion").addClass("has-error");
         validacion = false;
@@ -280,9 +290,9 @@ function limpiarBusqueda() {
     consultarDivisiones();
 
     //Limpiar txt
-     $('#dvCodigo').val("");
-     $('#dvDescripcion').val("");
-     $('#grGerencia').val("");
+    $('#dvCodigo').val("");
+    $('#dvDescripcion').val("");
+    $('#grGerencia').val("");
 }
 
 function consultarGerencias()
@@ -296,21 +306,35 @@ function consultarGerencias()
             alert("Se presento un error a la hora de cargar la información de las divisiones en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarCombo(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.grDescripcion > b.grDescripcion) {
+                    return 1;
+                }
+                if (a.grDescripcion < b.grDescripcion) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarCombo(sorted);
         },
         type: 'POST',
         dataType: "json"
     });
-    
+
 }
 
-function dibujarCombo(dataJson){
-    
+function dibujarCombo(dataJson) {
+
     for (var i = 0; i < dataJson.length; i++) {
-        $("#gerencia").append($("<option value=\""+dataJson[i].grCodigo+"\">"+dataJson[i].grDescripcion+"</option>"));
+        if (dataJson[i].grEstado === "A") {
+            $("#gerencia").append($("<option value=\"" + dataJson[i].grCodigo + "\">" + dataJson[i].grDescripcion + "</option>"));
+        }
     }
-    
+
     for (var i = 0; i < dataJson.length; i++) {
-        $("#grGerencia").append($("<option value=\""+dataJson[i].grCodigo+"\">"+dataJson[i].grDescripcion+"</option>"));
+        if (dataJson[i].grEstado === "A") {
+            $("#grGerencia").append($("<option value=\"" + dataJson[i].grCodigo + "\">" + dataJson[i].grDescripcion + "</option>"));
+        }
     }
 }

@@ -39,7 +39,7 @@
                                     <option value="reporteTeletrabajadoresDivision">División</option>
                                     <option value="reporteTeletrabajadoresGerencia">Gerencia</option>
                                     <option value="reporteTeletrabajadoresModalidad">Modalidad</option>
-                                    <option value="reporteTeletrabajadoresSexo">Puesto</option>
+                                    <option value="reporteTeletrabajadoresPuesto">Puesto</option>
                                     <option value="reporteTeletrabajadoresSexo">Sexo</option>
                                 </select>
                             </div>

@@ -114,7 +114,7 @@
         </div>
 
         <!-- FORMULARIO TRABAJADORES-->
-        <div class="modal fade" id="formularioAdministrarTrabajador" role="dialog">
+        <div class="modal fade" id="formularioAdministrarTrabajador" role="dialog" style="overflow-y: scroll;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">

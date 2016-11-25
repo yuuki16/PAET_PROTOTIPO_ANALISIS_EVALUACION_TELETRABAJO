@@ -1,6 +1,7 @@
 $(document).ready(function () {
     consultarDirecciones();
     consultarDivisiones();
+    consultarTrabajadores();
 });
 
 $(function () {
@@ -58,6 +59,7 @@ function dibujarTabla(dataJson) {
     row.append($("<th><b>DESCRIPCIÓN</b></th>"));
     row.append($("<th><b>ESTADO</b></th>"));
     row.append($("<th><b>DIVISIÓN</b></th>"));
+    row.append($("<th><b>DIRECTOR</b></th>"));
     row.append($("<th><b>ACCIÓN</th>"));
 
     //carga la tabla con el json devuelto
@@ -78,6 +80,7 @@ function dibujarFila(rowData) {
         row.append($("<td> Inactivo </td>"));
     }
     row.append($("<td>" + rowData.dvDivision + "</td>"));
+    row.append($("<td>" + rowData.trDirector + "</td>"));
     row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarDireccionByCodigo(\'' + rowData.drCodigo + '\');">' +
             '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
             '</button></td>'));
@@ -115,6 +118,7 @@ function consultarDireccionByCodigo(drCodigo) {
             $("#descripcion").val(data.drDescripcion);
             $("#estado").val(data.drEstado);
             $("#division").val(data.dvDivision);
+            $("#director").val(data.trDirector);
         },
         type: 'POST',
         dataType: "json"
@@ -143,10 +147,11 @@ function guardar() {
             url: 'DR_DIRECCION_Servlet',
             data: {
                 accion: $("#direccionesAction").val(),
-                dvCodigo: $("#codigo").val(),
-                dvDescripcion: $("#descripcion").val(),
-                dvEstado: $("#estado").val(),
-                grGerencia: $("#division").val()
+                drCodigo: $("#codigo").val(),
+                drDescripcion: $("#descripcion").val(),
+                drEstado: $("#estado").val(),
+                dvDivision: $("#division").val(),
+                trDirector: $("#director").val()
             },
             error: function () { //si existe un error en la respuesta del ajax
                 mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
@@ -183,8 +188,9 @@ function validar() {
     $("#groupDescripcion").removeClass("has-error");
     $("#groupEstado").removeClass("has-error");
     $("#groupDivision").removeClass("has-error");
+    $("#groupDirector").removeClass("has-error");
     
-    if ($("#descripcion").val() === "") {
+    if ($("#descripcion").val().trim() === "") {
         $("#groupDescripcion").addClass("has-error");
         validacion = false;
     }
@@ -194,6 +200,10 @@ function validar() {
     }
     if ($("#division").val() === "") {
         $("#groupDivision").addClass("has-error");
+        validacion = false;
+    }
+    if ($("#director").val() === "") {
+        $("#groupDirector").addClass("has-error");
         validacion = false;
     }
 
@@ -312,6 +322,33 @@ function dibujarCombo(dataJson){
     
     for (var i = 0; i < dataJson.length; i++) {
         $("#dvDivision").append($("<option value=\""+dataJson[i].dvCodigo+"\">"+dataJson[i].dvDescripcion+"</option>"));
+    }
+}
+
+function consultarTrabajadores()
+{
+    $.ajax({
+        url: 'TR_TRABAJADOR_Servlet',
+        data: {
+            accion: "consultarTrabajadores"
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            alert("Se presento un error a la hora de cargar la información de los trabajadores en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            dibujarComboTrabajadores(data);
+        },
+        type: 'POST',
+        dataType: "json"
+    });
+}
+
+function dibujarComboTrabajadores(dataJson)
+{
+    for (var i = 0; i < dataJson.length; i++) {
+        if (dataJson[i].trEstado === "A") {
+            $("#director").append($("<option value=\""+dataJson[i].trUsuario+"\">"+dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 +"</option>"));
+        }
     }
 }
 
