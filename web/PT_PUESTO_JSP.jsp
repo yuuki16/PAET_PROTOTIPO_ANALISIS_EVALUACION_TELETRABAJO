@@ -38,7 +38,7 @@
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="ptCodigo" placeholder="Digite el código del puesto">
+                                    <input type="text" class="form-control" id="ptCodigo" placeholder="Digite el código del puesto" maxlength="3">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaPtCodigo">
@@ -51,7 +51,7 @@
                                     <p><b>Buscar por descripción:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="ptDescripcion" placeholder="Digite el nombre del puesto">
+                                    <input type="text" class="form-control" id="ptDescripcion" placeholder="Digite el nombre del puesto" maxlength="50">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaPtDescripcion">
@@ -142,12 +142,12 @@
                         <form role="form" onsubmit="return false;" id="formPuestos">
                             <div class="form-group" id="groupCodigo">
                                 <label for="codigo">Código:</label>
-                                <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código">
+                                <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código" maxlength="3">
                             </div>
 
                             <div class="form-group" id="groupDescripcion">
                                 <label for="descripcion">Descripción:</label>
-                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción" >
+                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción" maxlength="50">
                             </div>
 
                             <div class="form-group" id="groupEstado">

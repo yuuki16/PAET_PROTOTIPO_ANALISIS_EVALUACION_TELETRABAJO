@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    consultarTrabajadores(true);
+    consultarTrabajadores(false, null);
     consultarPuestos();
     consultarProvincias();
 });
@@ -84,10 +84,104 @@ $(function () {
     $("#canton").change(function () {
         consultarDistritosByCanton($(this).val());
     });
+
+    $('#formularioAdministrarTrabajador').on('hidden.bs.modal', function (e) {
+        $('#usuario').focus();
+        $("#usuario").removeAttr("readonly");
+
+        //se cambia la accion por agregarDivision
+        $("#trabajadoresAction").val("agregarTrabajador");
+
+        //esconde el div del mensaje
+        mostrarMensaje("mensajeResult", "hiddenDiv", "", "");
+
+        //Resetear el formulario
+        $('#formTrabajadores').trigger("reset");
+
+        //quitar errores
+        $("#groupUsuario").removeClass("has-error");
+        $("#groupCedula").removeClass("has-error");
+        $("#groupNombre").removeClass("has-error");
+        $("#groupApellido1").removeClass("has-error");
+        $("#groupSexo").removeClass("has-error");
+        $("#groupFechaIngreso").removeClass("has-error");
+        $("#groupEstado").removeClass("has-error");
+        $("#groupPuesto").removeClass("has-error");
+        $("#groupFechaEntrada").removeClass("has-error");
+    });
+
+    $('#formularioAdministrarCorreo').on('hidden.bs.modal', function (e) {
+        //setea el focus del formulario
+        $('#correoCorreo').focus();
+
+        //se cambia la accion por agregarDivision
+        $("#correosAction").val("agregarCorreo");
+
+        //esconde el div del mensaje
+        mostrarMensaje("mensajeResultCorreo", "hiddenDiv", "", "");
+
+        //Resetear el formulario
+        $('#formCorreos').trigger("reset");
+        //quitar errores
+        $("#groupCorreoCorreo").removeClass("has-error");
+        $("#groupEstadoCorreo").removeClass("has-error");
+    });
+
+    $('#formularioAdministrarTelefono').on('hidden.bs.modal', function (e) {
+        //setea el focus del formulario
+        $('#telefonoTelefono').focus();
+
+        //se cambia la accion por agregarDivision
+        $("#telefonosAction").val("agregarTelefono");
+
+        //esconde el div del mensaje
+        mostrarMensaje("mensajeResultTelefono", "hiddenDiv", "", "");
+
+        //Resetear el formulario
+        $('#formTelefonos').trigger("reset");
+        $("#groupTelefonoTelefono").removeClass("has-error");
+        $("#groupTelefonoDescripcion").removeClass("has-error");
+        $("#groupTelefonoEstado").removeClass("has-error");
+    });
+
+    $('#formularioAdministrarDireccionFisica').on('hidden.bs.modal', function (e) {
+        //setea el focus del formulario
+        $('#direccionFisicaDireccion').focus();
+
+        //se cambia la accion por agregarDivision
+        $("#direccionesFisicasAction").val("agregarDireccionFisica");
+
+        //esconde el div del mensaje
+        mostrarMensaje("mensajeResultDireccionFisica", "hiddenDiv", "", "");
+
+        //Resetear el formulario
+        $('#formDireccionesFisicas').trigger("reset");
+        //quitar errores
+        $("#groupDireccionFisicaDireccion").removeClass("has-error");
+        $("#groupDireccionFisicaEstado").removeClass("has-error");
+        $("#groupDistrito").removeClass("has-error");
+    });
+
+    $('#telefonoTelefono').on('input', function () {
+        if ($(this).val().length > 20) {
+            $(this).val($(this).val().slice(0, 20));
+        }
+    });
+
+    $('#cedula').on('input', function () {
+        if ($(this).val().length > 20) {
+            $(this).val($(this).val().slice(0, 20));
+        }
+    });
+
+    $('#trCedula').on('input', function () {
+        if ($(this).val().length > 20) {
+            $(this).val($(this).val().slice(0, 20));
+        }
+    });
 });
 
-function consultarTrabajadores(first) {
-    mostrarModal("modalMensajes", "Espere por favor..", "Consultando los trabajadores");
+function consultarTrabajadores(modificar, trUsuario) {
     //Se envia la información por ajax
     $.ajax({
         url: 'TR_TRABAJADOR_Servlet',
@@ -98,20 +192,22 @@ function consultarTrabajadores(first) {
             alert("Se presento un error a la hora de cargar la información de los trabajadores en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            ocultarModal("modalMensajes");
-            dibujarTabla(data);
-            if (first) {
-                var sorted = data.sort(function (a, b) {
-                    if (a.trNombre > b.trNombre) {
-                        return 1;
-                    }
-                    if (a.trNombre < b.trNombre) {
-                        return -1;
-                    }
+            var sorted = data.sort(function (a, b) {
+                if (a.trNombre > b.trNombre) {
+                    return 1;
+                }
+                if (a.trNombre < b.trNombre) {
+                    return -1;
+                }
 
-                    return 0;
-                });
-                dibujarComboJefaturas(sorted);
+                return 0;
+            });
+            if (!modificar) {
+                dibujarTabla(data);
+                dibujarComboJefaturas(sorted, modificar, null);
+            } else
+            {
+                dibujarComboJefaturas(sorted, modificar, trUsuario);
             }
         },
         type: 'POST',
@@ -156,7 +252,12 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.trCedula + "</td>"));
     row.append($("<td>" + rowData.trNombre + "</td>"));
     row.append($("<td>" + rowData.trApellido1 + "</td>"));
-    row.append($("<td>" + rowData.trApellido2 + "</td>"));
+    if (rowData.hasOwnProperty("trApellido2")) {
+        row.append($("<td>" + rowData.trApellido2 + "</td>"));
+    } else
+    {
+        row.append($("<td></td>"));
+    }
     if (rowData.trSexo === "MAS") {
         row.append($("<td> MASCULINO </td>"));
     } else if (rowData.trSexo === "FEM") {
@@ -168,7 +269,12 @@ function dibujarFila(rowData) {
     } else if (rowData.trEstado === "I") {
         row.append($("<td> Inactivo </td>"));
     }
-    row.append($("<td>" + rowData.trJefatura + "</td>"));
+    if (rowData.hasOwnProperty("trJefatura")) {
+        row.append($("<td>" + rowData.trJefatura + "</td>"));
+    } else
+    {
+        row.append($("<td></td>"));
+    }
     row.append($("<td>" + rowData.trPtFechaEntrada + "</td>"));
     row.append($("<td>" + rowData.ptPuesto + "</td>"));
     row.append($('<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" onclick="consultarInformacionByCodigo(\'' + rowData.trUsuario + '\');">' +
@@ -179,12 +285,28 @@ function dibujarFila(rowData) {
             '</button></td>'));
 }
 
-function dibujarComboJefaturas(dataJson)
+function dibujarComboJefaturas(dataJson, modificar, trUsuario)
 {
+    if (modificar) {
+        $("#jefatura").html("");
+        $("#jefatura").append($('<option value="" selected="selected"></option>'));
+    } else
+    {
+        $("#trJefatura").html("");
+        $("#trJefatura").append($('<option value="" selected="selected"></option>'));
+    }
+
     for (var i = 0; i < dataJson.length; i++) {
         if (dataJson[i].trEstado === "A") {
-            $("#trJefatura").append($("<option value=\"" + dataJson[i].trUsuario + "\">" + dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 + "</option>"));
-            $("#jefatura").append($("<option value=\"" + dataJson[i].trUsuario + "\">" + dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 + "</option>"));
+            if (modificar) {
+                if (dataJson[i].trUsuario !== trUsuario) {
+                    $("#jefatura").append($("<option value=\"" + dataJson[i].trUsuario + "\">" + dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 + "</option>"));
+                }
+            } else
+            {
+                $("#trJefatura").append($("<option value=\"" + dataJson[i].trUsuario + "\">" + dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 + "</option>"));
+                $("#jefatura").append($("<option value=\"" + dataJson[i].trUsuario + "\">" + dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 + "</option>"));
+            }
         }
     }
 }
@@ -205,6 +327,7 @@ function consultarTrabajadorByCodigo(trUsuario) {
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
             limpiarForm();
+            consultarTrabajadores(true, trUsuario);
             //************************************************************************
             //carga información en el formulario
             //************************************************************************
@@ -221,14 +344,14 @@ function consultarTrabajadorByCodigo(trUsuario) {
             $("#sexo").val(data.trSexo);
             //carga de fechas
             var fecha = new Date(data.trFechaIngreso);
-            var fechatxt = fecha.getDate() + "/" + parseInt(fecha.getMonth()) + 1 + "/" + fecha.getFullYear();
+            var fechatxt = fecha.getDate() + "/" + parseInt(parseInt(fecha.getMonth()) + 1) + "/" + fecha.getFullYear();
             $("#fechaIngreso").data({date: fechatxt});
             $("#fechaIngresoText").val(fechatxt);
             $("#estado").val(data.trEstado);
             $("#jefatura").val(data.trJefatura);
             $("#puesto").val(data.ptPuesto);
             fecha = new Date(data.trPtFechaEntrada);
-            fechatxt = fecha.getDate() + "/" + parseInt(fecha.getMonth()) + 1 + "/" + fecha.getFullYear();
+            fechatxt = fecha.getDate() + "/" + parseInt(parseInt(fecha.getMonth()) + 1) + "/" + fecha.getFullYear();
             $("#fechaEntrada").data({date: fechatxt});
             $("#fechaEntradaText").val(fechatxt);
 
@@ -253,53 +376,58 @@ function limpiarForm() {
     mostrarMensaje("hiddenDiv", "", "");
 
     //Resetear el formulario
-    $('#formularioAdministrarTrabajador').trigger("reset");
+    $('#formTrabajadores').trigger("reset");
 }
 
 function guardar() {
 
     if (validar()) {
-        //Se envia la información por ajax
-        $.ajax({
-            url: 'TR_TRABAJADOR_Servlet',
-            data: {
-                accion: $("#trabajadoresAction").val(),
-                trUsuario: $("#usuario").val(),
-                trCedula: $("#cedula").val(),
-                trNombre: $("#nombre").val(),
-                trApellido1: $("#apellido1").val(),
-                trApellido2: $("#apellido2").val(),
-                trSexo: $("#sexo").val(),
-                trFechaIngreso: $("#fechaIngreso").data('date'),
-                trEstado: $("#estado").val(),
-                trJefatura: $("#jefatura").val(),
-                trFechaEntrada: $("#fechaEntrada").data('date'),
-                ptPuesto: $("#puesto").val()
-            },
-            error: function () { //si existe un error en la respuesta del ajax
-                mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
-            },
-            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                var respuestaTxt = data.substring(2);
-                var tipoRespuesta = data.substring(0, 2);
-                if (tipoRespuesta === "C~") {
-                    mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
-                    $("#formularioAdministrarTrabajador").modal("hide");
-                    consultarTrabajadores(false);
-                    limpiarForm();
-                } else {
-                    if (tipoRespuesta === "E~") {
-                        mostrarMensaje("alert alert-danger", respuestaTxt, "Error!");
+        if (validarFechas()) {
+            //Se envia la información por ajax
+            $.ajax({
+                url: 'TR_TRABAJADOR_Servlet',
+                data: {
+                    accion: $("#trabajadoresAction").val(),
+                    trUsuario: $("#usuario").val(),
+                    trCedula: $("#cedula").val(),
+                    trNombre: $("#nombre").val(),
+                    trApellido1: $("#apellido1").val(),
+                    trApellido2: $("#apellido2").val(),
+                    trSexo: $("#sexo").val(),
+                    trFechaIngreso: $("#fechaIngreso").data('date'),
+                    trEstado: $("#estado").val(),
+                    trJefatura: $("#jefatura").val(),
+                    trFechaEntrada: $("#fechaEntrada").data('date'),
+                    ptPuesto: $("#puesto").val()
+                },
+                error: function () { //si existe un error en la respuesta del ajax
+                    mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
+                },
+                success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+                    var respuestaTxt = data.substring(2);
+                    var tipoRespuesta = data.substring(0, 2);
+                    if (tipoRespuesta === "C~") {
+                        mostrarMensaje("mensajeResult", "alert alert-success", respuestaTxt, "Correcto!");
+                        $("#formularioAdministrarTrabajador").modal("hide");
+                        consultarTrabajadores(false, null);
+                        limpiarForm();
                     } else {
-                        mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
+                        if (tipoRespuesta === "E~") {
+                            mostrarMensaje("mensajeResult", "alert alert-danger", respuestaTxt, "Error!");
+                        } else {
+                            mostrarMensaje("mensajeResult", "alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
+                        }
                     }
-                }
 
-            },
-            type: 'POST'
-        });
+                },
+                type: 'POST'
+            });
+        } else
+        {
+            mostrarMensaje("mensajeResult", "alert alert-danger", "La fecha de entrada al puesto debe de ser mayor o igual a la de entrada a la empresa", "Error!");
+        }
     } else {
-        mostrarMensaje("alert alert-danger", "Debe digitar los campos del formulario", "Error!");
+        mostrarMensaje("mensajeResult", "alert alert-danger", "Debe digitar los campos del formulario", "Error!");
     }
 }
 
@@ -355,6 +483,19 @@ function validar() {
         validacion = false;
     }
 
+    return validacion;
+}
+
+function validarFechas()
+{
+    var validacion = true;
+    var fechaEntrada, fechaIngreso;
+    fechaEntrada = $("#fechaEntrada").data('date');
+    fechaIngreso = $("#fechaIngreso").data('date');
+    if (fechaEntrada < fechaIngreso) {
+        $("#groupFechaEntrada").addClass("has-error");
+        validacion = false;
+    }
 
     return validacion;
 }
@@ -444,7 +585,7 @@ function enviarBusqueda(campo, valor, unico) {
 function limpiarBusqueda() {
 
     //Consultar todos los divisiones
-    consultarTrabajadores(false);
+    consultarTrabajadores(false, null);
 
     //Limpiar txt
     $('#trUsuario').val("");

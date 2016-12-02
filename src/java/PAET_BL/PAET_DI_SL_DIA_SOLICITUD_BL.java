@@ -33,7 +33,7 @@ public class PAET_DI_SL_DIA_SOLICITUD_BL extends BaseBL implements IBaseBL<PaetD
     
     @Override
     public void save(PaetDiSlDiaSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override

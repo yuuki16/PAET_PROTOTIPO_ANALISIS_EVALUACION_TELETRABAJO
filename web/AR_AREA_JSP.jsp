@@ -38,7 +38,7 @@
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" id="arCodigo" placeholder="Digite el código del área">
+                                    <input type="number" class="form-control" id="arCodigo" placeholder="Digite el código del área" min="1" max="99999999999999999999999999999999999999">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaArCodigo">
@@ -51,7 +51,7 @@
                                     <p><b>Buscar por descripción:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="arDescripcion" placeholder="Digite el nombre del área">
+                                    <input type="text" class="form-control" id="arDescripcion" placeholder="Digite el nombre del área" maxlength="50">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaArDescripcion">
@@ -87,33 +87,32 @@
 
         <!-- FORMULARIO -->
         <div class="modal fade" id="formularioAdministrar" role="dialog">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg" style='width: 600px;'>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" id="myModalTitle"> Administrar Áreas</h4>
                     </div>
                     <div class="modal-body" id="myModalMessage">
                         <form role="form" onsubmit="return false;" id="formAreas">
-                            <div class="form-group" id="groupCodigo">
+                            <div class="form-group" id="groupCodigo" style='display: none'>
                                 <label for="codigo">Código:</label>
                                 <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código" readonly="true">
                             </div>
 
                             <div class="form-group" id="groupDescripcion">
                                 <label for="descripcion">Descripción:</label>
-                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción" >
+                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción del Área" maxlength="50" style='width: 520px;'>
                             </div>
                             
                             <div class="form-group" id="groupDireccion">
                                 <label for="direccion">Dirección:</label>
-                                <select class="form-control" id="direccion">
+                                <select class="form-control" id="direccion" style='width: 520px;'>
                                 </select>
                             </div>
 
                             <div class="form-group" id="groupEstado">
                                 <label for="estado">Estado:</label>
-                                <select class="form-control" id="estado">
+                                <select class="form-control" id="estado" style='width: 100px;'>
                                     <option value="A" selected="selected">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>

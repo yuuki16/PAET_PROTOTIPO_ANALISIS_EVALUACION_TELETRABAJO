@@ -34,33 +34,7 @@ public class PAET_SL_SOLICITUD_DAO extends HibernateUtil implements IBaseDAO<Pae
 
     @Override
     public void save(PaetSlSolicitud o) {
-        PaetPsProcesoSolicitud procesoSolicitud = new PaetPsProcesoSolicitud();
-        PAET_PS_PROCESO_SOLICITUD_BL procesoSolicitudBl = new PAET_PS_PROCESO_SOLICITUD_BL();
-        
-        try {
-            iniciaOperacion();
-            getSesion().save(o);
-            getTransac().commit();
-            //insertar proceso solicitud finalizado
-            procesoSolicitud.setPsFechaEntrada(o.getSlFecha());
-            procesoSolicitud.setSlSolicitud(o.getSlCodigo());
-            procesoSolicitud.setEsEstado(new BigDecimal(1));
-            procesoSolicitud.setPsFechaAtendido(o.getSlFecha());
-            procesoSolicitud.setPsEstado('F');
-            procesoSolicitudBl.save(procesoSolicitud);
-            //insertar proceso solicitud pendiente
-            procesoSolicitud = new PaetPsProcesoSolicitud();
-            procesoSolicitud.setPsFechaEntrada(o.getSlFecha());
-            procesoSolicitud.setSlSolicitud(o.getSlCodigo());
-            procesoSolicitud.setEsEstado(new BigDecimal(2));
-            procesoSolicitud.setPsEstado('P');
-            procesoSolicitudBl.save(procesoSolicitud);
-        } catch (HibernateException he) {
-            manejaExcepcion(he);
-            throw he;
-        } finally {
-            getSesion().close();
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -131,7 +105,38 @@ public class PAET_SL_SOLICITUD_DAO extends HibernateUtil implements IBaseDAO<Pae
 
     @Override
     public BigDecimal saveWithReturn(PaetSlSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BigDecimal slCodigo;
+        
+        PaetPsProcesoSolicitud procesoSolicitud = new PaetPsProcesoSolicitud();
+        PAET_PS_PROCESO_SOLICITUD_BL procesoSolicitudBl = new PAET_PS_PROCESO_SOLICITUD_BL();
+        
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+            slCodigo = o.getSlCodigo();
+            //insertar proceso solicitud finalizado
+            procesoSolicitud.setPsFechaEntrada(o.getSlFecha());
+            procesoSolicitud.setSlSolicitud(o.getSlCodigo());
+            procesoSolicitud.setEsEstado(new BigDecimal(1));
+            procesoSolicitud.setPsFechaAtendido(o.getSlFecha());
+            procesoSolicitud.setPsEstado('F');
+            procesoSolicitudBl.save(procesoSolicitud);
+            //insertar proceso solicitud pendiente
+            procesoSolicitud = new PaetPsProcesoSolicitud();
+            procesoSolicitud.setPsFechaEntrada(o.getSlFecha());
+            procesoSolicitud.setSlSolicitud(o.getSlCodigo());
+            procesoSolicitud.setEsEstado(new BigDecimal(2));
+            procesoSolicitud.setPsEstado('P');
+            procesoSolicitudBl.save(procesoSolicitud);
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
+        
+        return slCodigo;
     }
     
 }

@@ -38,7 +38,7 @@
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" id="fcCodigo" placeholder="Digite el código del factor complementario">
+                                    <input type="number" class="form-control" id="fcCodigo" placeholder="Digite el código del factor complementario" maxlength="38">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaFcCodigo">
@@ -51,7 +51,7 @@
                                     <p><b>Buscar por descripción:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="fcDescripcion" placeholder="Digite la descripción del factor complementario">
+                                    <input type="text" class="form-control" id="fcDescripcion" placeholder="Digite la descripción del factor complementario" maxlength="200">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaFcDescripcion">
@@ -80,14 +80,14 @@
                     </div>
                     <div class="modal-body" id="myModalMessage">
                         <form role="form" onsubmit="return false;" id="formFactoresComplementarios">
-                            <div class="form-group" id="groupCodigo">
+                            <div class="form-group" id="groupCodigo" style="display: none">
                                 <label for="codigo">Código:</label>
                                 <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código" readonly="true">
                             </div>
 
                             <div class="form-group" id="groupDescripcion">
                                 <label for="descripcion">Descripción:</label>
-                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción" >
+                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción" maxlength="200">
                             </div>
                             
                             <div class="form-group" id="groupEstado">

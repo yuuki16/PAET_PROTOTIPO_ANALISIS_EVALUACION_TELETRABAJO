@@ -437,12 +437,12 @@
                         <h1 class="title">Inicio de Sesión</h1>
                         <form action="j_security_check" method=post>
                             <div class="input-container">
-                                <input type="text" id="Username" required="required" name="j_username"/>
+                                <input type="text" id="Username" required="required" name="j_username" autocomplete="off"/>
                                 <label for="Username">Nombre de Usuario</label>
                                 <div class="bar"></div>
                             </div>
                             <div class="input-container">
-                                <input type="password" id="Password" required="required" name="j_password"/>
+                                <input type="password" id="Password" required="required" name="j_password" autocomplete="off"/>
                                 <label for="Password">Contraseña</label>
                                 <div class="bar"></div>
                             </div>

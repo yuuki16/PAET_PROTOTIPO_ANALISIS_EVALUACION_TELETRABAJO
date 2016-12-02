@@ -30,28 +30,20 @@
     <body>
 
         <%@ include file="/HeaderJSP.jsp" %>
-
-        <!-- Page Content -->
         <div class="container">
-
-            <!-- Jumbotron Header -->
+            <!-- Encabezado -->
             <header class="jumbotron hero-spacer">
                 <h1>PAET</h1>
                 <p>Prototipo funcional para el análisis y evaluacion de puestos de teletrabajo.</p>
                 </p>
             </header>
-
             <hr>
-
-            <!-- Title -->
             <div class="row">
                 <div class="col-lg-12">
                     <h3>Beneficios del Teletrabajo</h3>
                 </div>
             </div>
-            <!-- /.row -->
-
-            <!-- Page Features -->
+            <!-- Beneficios del Teletrabajo -->
             <div class="row text-center">
 
                 <div class="col-md-3 col-sm-6 hero-feature">
@@ -90,19 +82,13 @@
                         <div class="caption">
                             <h3>Feature Label</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                            </p>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <!-- /.row -->
-
             <hr>
-
-            <!-- Footer -->
+            <!-- Firma -->
             <footer>
                 <div class="row">
                     <div class="col-lg-12">
@@ -112,6 +98,5 @@
             </footer>
 
         </div>
-        <!-- /.container -->
     </body>
 </html>

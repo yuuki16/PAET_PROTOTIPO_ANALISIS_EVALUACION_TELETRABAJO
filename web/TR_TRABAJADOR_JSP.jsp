@@ -40,7 +40,7 @@
                                     <p><b>Buscar por usuario:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="trUsuario" placeholder="Digite el usuario">
+                                    <input type="text" class="form-control" id="trUsuario" placeholder="Digite el usuario" maxlength="20">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaTrUsuario">
@@ -53,7 +53,7 @@
                                     <p><b>Buscar por cédula:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="trCedula" placeholder="Digite la cédula del trabajador">
+                                    <input type="number" class="form-control" id="trCedula" placeholder="Digite la cédula del trabajador" min="100000000" max="9999999999999999999">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaTrCedula">
@@ -66,7 +66,7 @@
                                     <p><b>Buscar por nombre:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="trNombre" placeholder="Digite el nombre del trabajador">
+                                    <input type="text" class="form-control" id="trNombre" placeholder="Digite el nombre del trabajador" maxlength="150">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaTrNombre">
@@ -115,49 +115,48 @@
 
         <!-- FORMULARIO TRABAJADORES-->
         <div class="modal fade" id="formularioAdministrarTrabajador" role="dialog" style="overflow-y: scroll;">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg" style='width: 500px;'>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" id="myModalTitle"> Administrar Trabajadores</h4>
                     </div>
                     <div class="modal-body" id="myModalMessage">
                         <form role="form" onsubmit="return false;" id="formTrabajadores">
                             <div class="form-group" id="groupUsuario">
                                 <label for="usuario">Usuario:</label>
-                                <input type="text" class="form-control" id="usuario" autofocus="true" placeholder="Usuario">
+                                <input type="text" class="form-control" id="usuario" autofocus="true" placeholder="Nombre de Usuario" maxlength="20" style='width: 230px;' autocomplete="off">
                             </div>
 
                             <div class="form-group" id="groupCedula">
                                 <label for="cedula">Cédula:</label>
-                                <input type="number" class="form-control" id="cedula" placeholder="Cédula" >
+                                <input type="number" class="form-control" id="cedula" placeholder="102340567" min="100000000" max="99999999999999999999" style='width: 230px;'>
                             </div>
 
                             <div class="form-group" id="groupNombre">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre" >
+                                <input type="text" class="form-control" id="nombre" placeholder="Nombre del Trabajador" maxlength="50" style='width: 430px;' autocomplete="off">
                             </div>
 
                             <div class="form-group" id="groupApellido1">
                                 <label for="apellido1">Primer Apellido:</label>
-                                <input type="text" class="form-control" id="apellido1" placeholder="Primer Apellido" >
+                                <input type="text" class="form-control" id="apellido1" placeholder="Primer Apellido del Trabajador" maxlength="50" style='width: 430px;' autocomplete="off">
                             </div>
 
                             <div class="form-group" id="groupApellido2">
                                 <label for="apellido2">Segundo Apellido:</label>
-                                <input type="text" class="form-control" id="apellido2" placeholder="Segundo Apellido" >
+                                <input type="text" class="form-control" id="apellido2" placeholder="Segundo Apellido del Trabajador" maxlength="50" style='width: 430px;' autocomplete="off">
                             </div>
 
                             <div class="form-group" id="groupSexo">
                                 <label for="sexo">Sexo:</label>
-                                <select class="form-control" id="sexo">
+                                <select class="form-control" id="sexo" style='width: 150px;'>
                                     <option value="" selected="selected"></option>
                                     <option value="MAS">Masculino</option>
                                     <option value="FEM">Femenino</option>
                                 </select>
                             </div>
 
-                            <div class="form-group" id="groupFechaIngreso">
+                            <div class="form-group" id="groupFechaIngreso" style='width: 230px;'>
                                 <label for="fechaIngreso">Fecha de Ingreso a la Empresa:</label>
                                 <div id="fechaIngreso" class="input-group date form_date" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="dd/mm/yyyy">
                                     <input class="form-control" type="text" value="" readonly placeholder="dd/mm/aaaa" id="fechaIngresoText">
@@ -167,7 +166,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" id="groupFechaEntrada">
+                            <div class="form-group" id="groupFechaEntrada" style='width: 230px;'>
                                 <label for="fechaEntrada">Fecha de Entrada al Puesto:</label>
                                 <div id="fechaEntrada" class="input-group date form_date" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="dd/mm/yyyy">
                                     <input class="form-control" type="text" value="" readonly placeholder="dd/mm/aaaa" id="fechaEntradaText">
@@ -179,7 +178,7 @@
                             
                             <div class="form-group" id="groupEstado">
                                 <label for="estado">Estado:</label>
-                                <select class="form-control" id="estado">
+                                <select class="form-control" id="estado" style='width: 150px;'>
                                     <option value="A" selected="selected">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>
@@ -187,12 +186,12 @@
 
                             <div class="form-group" id="groupJefatura">
                                 <label for="jefatura">Jefatura:</label>
-                                <select class="form-control" id="jefatura">
+                                <select class="form-control" id="jefatura" style='width: 230px;'> 
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
 
-                            <div class="form-group" id="groupPuesto">
+                            <div class="form-group" id="groupPuesto" style='width: 430px;'>
                                 <label for="puesto">Puesto:</label>
                                 <select class="form-control" id="puesto">
                                     <option value="" selected="selected"></option>
@@ -223,7 +222,6 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" id="myModalTitle"> Administrar Información del Trabajador</h4>
                     </div>
                     <div class="modal-body" id="formularioAdministrarInformacionBody">
@@ -304,10 +302,9 @@
         </div>
         <!-- FORM CORREO -->
         <div class="modal fade" id="formularioAdministrarCorreo" role="dialog">
-            <div class="modal-dialog modal-sm">
+            <div class="modal-dialog modal-sm" style='width: 910px;'>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" id="formAdministrarCorreoTitle">Administrar Correos</h4>
                     </div>
                     <div class="modal-body" id="formAdministrarCorreoMessage">
@@ -318,12 +315,12 @@
 
                             <div class="form-group" id="groupCorreoCorreo">
                                 <label for="correoCorreo">Correo:</label>
-                                <input type="email" class="form-control" id="correoCorreo" placeholder="Correo" >
+                                <input type="email" class="form-control" id="correoCorreo" placeholder="Correo" maxlength="100" autocomplete="off">
                             </div>
                             
                             <div class="form-group" id="groupEstadoCorreo">
                                 <label for="estadoCorreo">Estado:</label>
-                                <select class="form-control" id="estadoCorreo">
+                                <select class="form-control" id="estadoCorreo" style='width: 150px;'>
                                     <option value="A" selected="selected">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>
@@ -354,10 +351,9 @@
         </div>
         <!-- FORM TELEFONO -->
         <div class="modal fade" id="formularioAdministrarTelefono" role="dialog">
-            <div class="modal-dialog modal-sm">
+            <div class="modal-dialog modal-sm" style='width: 280px;'>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" id="formularioAdministrarTelefonoTitle">Administrar Teléfonos</h4>
                     </div>
                     <div class="modal-body" id="formularioAdministrarTelefonoMessage">
@@ -368,17 +364,17 @@
 
                             <div class="form-group" id="groupTelefonoTelefono">
                                 <label for="telefonoTelefono">Teléfono:</label>
-                                <input type="number" class="form-control" id="telefonoTelefono" placeholder="Teléfono" >
+                                <input type="number" class="form-control" id="telefonoTelefono" placeholder="Número Telefónico" min="11111111" max="99999999999999999999" style='width: 230px;' autocomplete="off">
                             </div>
                             
                             <div class="form-group" id="groupTelefonoDescripcion">
                                 <label for="telefonoDescripcion">Descripción:</label>
-                                <input type="text" class="form-control" id="telefonoDescripcion" placeholder="Descripción" >
+                                <input type="text" class="form-control" id="telefonoDescripcion" placeholder="Descripción" maxlength="20" style='width: 230px;' autocomplete="off">
                             </div>
                             
                             <div class="form-group" id="groupTelefonoEstado">
                                 <label for="telefonoEstado">Estado:</label>
-                                <select class="form-control" id="telefonoEstado">
+                                <select class="form-control" id="telefonoEstado" style='width: 150px;'>
                                     <option value="A" selected="selected">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>
@@ -409,10 +405,9 @@
         </div>
         <!-- FORM DIRECCION -->
         <div class="modal fade" id="formularioAdministrarDireccionFisica" role="dialog">
-            <div class="modal-dialog modal-sm">
+            <div class="modal-dialog modal-sm" style='width: 500px;'>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" id="formularioAdministrarDireccionFisicaTitle">Administrar Dirección</h4>
                     </div>
                     <div class="modal-body" id="formularioAdministrarDireccionFisicaMessage">
@@ -423,14 +418,14 @@
                             
                             <div class="form-group" id="groupProvincia">
                                 <label for="provincia">Provincia:</label>
-                                <select class="form-control" id="provincia">
+                                <select class="form-control" id="provincia" style='width: 230px;'>
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
                             
                             <div class="form-group" id="groupCanton">
                                 <label for="canton">Cantón:</label>
-                                <select class="form-control" id="canton">
+                                <select class="form-control" id="canton" style='width: 230px;'>
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
@@ -444,12 +439,12 @@
 
                             <div class="form-group" id="groupDireccionFisicaDireccion">
                                 <label for="direccionFisicaDireccion">Dirección exacta:</label>
-                                <input type="text" class="form-control" id="direccionFisicaDireccion" placeholder="Dirección exacta" >
+                                <input type="text" class="form-control" id="direccionFisicaDireccion" placeholder="Dirección exacta" maxlength="100">
                             </div>
                             
                             <div class="form-group" id="groupDireccionFisicaEstado">
                                 <label for="direccionFisicaEstado">Estado:</label>
-                                <select class="form-control" id="direccionFisicaEstado">
+                                <select class="form-control" id="direccionFisicaEstado" style='width: 150px;'>
                                     <option value="A" selected="selected">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>

@@ -38,7 +38,7 @@
                                     <p><b>Buscar por código:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" id="etCodigo" placeholder="Digite el código del equipo tecnológico">
+                                    <input type="number" class="form-control" id="etCodigo" placeholder="Digite el código del equipo tecnológico" maxlength="38">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaEtCodigo">
@@ -51,7 +51,7 @@
                                     <p><b>Buscar por descripción:</b></p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="etDescripcion" placeholder="Digite el nombre del equipo tecnológico">
+                                    <input type="text" class="form-control" id="etDescripcion" placeholder="Digite el nombre del equipo tecnológico" maxlength="20">
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaEtDescripcion">
@@ -80,14 +80,14 @@
                     </div>
                     <div class="modal-body" id="myModalMessage">
                         <form role="form" onsubmit="return false;" id="formEquipoTecnologico">
-                            <div class="form-group" id="groupCodigo">
+                            <div class="form-group" id="groupCodigo" style="display: none">
                                 <label for="codigo">Código:</label>
                                 <input type="text" class="form-control" id="codigo" autofocus="true" placeholder="Código" readonly="true">
                             </div>
 
                             <div class="form-group" id="groupDescripcion">
                                 <label for="descripcion">Descripción:</label>
-                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción" >
+                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción" maxlength="20">
                             </div>
                             
                             <div class="form-group" id="groupEstado">

@@ -20,6 +20,7 @@ import PAET_DOMAIN.PaetEtSlEquipoSolicitud;
 import PAET_UTILS.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -29,7 +30,16 @@ public class PAET_ET_SL_EQUIPO_SOLICITUD_DAO extends HibernateUtil implements IB
 
     @Override
     public void save(PaetEtSlEquipoSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            getSesion().save(o);
+            getTransac().commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            getSesion().close();
+        }
     }
 
     @Override

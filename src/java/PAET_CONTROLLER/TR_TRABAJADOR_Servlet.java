@@ -37,7 +37,7 @@ public class TR_TRABAJADOR_Servlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
             String json, campo, valor, fechaIngreso, fechaEntrada, trJefatura, trApellido2;
@@ -46,7 +46,7 @@ public class TR_TRABAJADOR_Servlet extends HttpServlet {
             Date date;
             PaetTrTrabajador trabajador = new PaetTrTrabajador();
             PAET_TR_TRABAJADOR_BL trabajadorBl = new PAET_TR_TRABAJADOR_BL();
-            
+
             String accion = request.getParameter("accion");
 
             switch (accion) {
@@ -57,17 +57,23 @@ public class TR_TRABAJADOR_Servlet extends HttpServlet {
                 case "consultarTrabajadorByCodigo":
                     //se consulta el objeto por ID
                     trabajador = trabajadorBl.findById(request.getParameter("trUsuario"));
-
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                    String fecha = formato.format(trabajador.getTrFechaIngreso());
+                    date = formato.parse(fecha);
+                    trabajador.setTrFechaIngreso(date);
+                    fecha = formato.format(trabajador.getTrPtFechaEntrada());
+                    date = formato.parse(fecha);
+                    trabajador.setTrPtFechaEntrada(date);
                     //se pasa la informacion del objeto a formato JSON
                     json = new Gson().toJson(trabajador);
                     out.print(json);
                     break;
                 case "agregarTrabajador":
                 case "modificarTrabajador":
-                    
+
                     trApellido2 = request.getParameter("trApellido2");
                     trJefatura = request.getParameter("trJefatura");
-                    
+
                     trabajador.setTrUsuario(request.getParameter("trUsuario"));
                     trabajador.setTrCedula(request.getParameter("trCedula"));
                     trabajador.setTrNombre(request.getParameter("trNombre"));
@@ -89,9 +95,9 @@ public class TR_TRABAJADOR_Servlet extends HttpServlet {
                     format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
                     date = format.parse(fechaEntrada);
                     trabajador.setTrPtFechaEntrada(date);
-                  
+
                     if (accion.equals("agregarTrabajador")) { //es insertar
-                        
+
                         //Se guarda el objeto
                         trabajadorBl.save(trabajador);
 

@@ -1,4 +1,4 @@
-var trTrabajador;
+var trTrabajador, slSolicitud;
 
 $(document).ready(function () {
     consultarGerencias();
@@ -81,22 +81,29 @@ function consultarTrabajadorByCedula(trCedula) {
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            if (data.length > 0) {
+                //se carga la información en el formulario
+                if (data[0].trEstado === "A") {
+                    consultarPuestoByCodigo(data[0].ptPuesto);
+                    $("#jefatura").val(data[0].trJefatura);
+                    $("#usuario").val(data[0].trUsuario);
+                    $("#nombre").val(data[0].trNombre + " " + data[0].trApellido1 + " " + data[0].trApellido2);
+                    $("#cedula").val(data[0].trCedula);
+                    $("#puesto").val(data[0].ptPuesto);
+                    $("#fechaEntradaPuesto").val(data[0].trPtFechaEntrada);
+                    $("#fechaIngreso").val(data[0].trFechaIngreso);
+
+                    trTrabajador = data[0].trUsuario;
+                } else
+                {
+                    alert("La cédula proporcionada no corresponde a ninguno de nuestros trabajadores activos.");
+                }
+            } else
+            {
+                alert("La cédula proporcionada no corresponde a ninguno de nuestros trabajadores activos.");
+            }
             // se oculta el mensaje de espera
             $('#formSolicitudTeletrabajo').trigger("reset");
-
-            //se carga la información en el formulario
-            if (data[0].trEstado === "A") {
-                consultarPuestoByCodigo(data[0].ptPuesto);
-                $("#jefatura").val(data[0].trJefatura);
-                $("#usuario").val(data[0].trUsuario);
-                $("#nombre").val(data[0].trNombre + " " + data[0].trApellido1 + " " + data[0].trApellido2);
-                $("#cedula").val(data[0].trCedula);
-                $("#puesto").val(data[0].ptPuesto);
-                $("#fechaEntradaPuesto").val(data[0].trPtFechaEntrada);
-                $("#fechaIngreso").val(data[0].trFechaIngreso);
-                
-                trTrabajador = data[0].trUsuario;
-            }
 
             ocultarModal("modalMensajes");
         },
@@ -316,20 +323,59 @@ function dibujarCheckboxDias(dataJson) {
     }
 }
 
-function validarDias(){
-    var chckbxDias = document.getElementsByName("dia"); 
+function validarDias() {
+    var chckbxDias = document.getElementsByName("dia");
     var validar = false;
-    
-    for(var i=0,l=chckbxDias.length;i<l;i++)
+
+    for (var i = 0, l = chckbxDias.length; i < l; i++)
     {
-        if(chckbxDias[i].checked)
+        if (chckbxDias[i].checked)
         {
-            validar=true;
+            validar = true;
             break;
         }
     }
-    
+
     return validar;
+}
+
+function guardarDias()
+{
+    var chckbxDias = document.getElementsByName("dia");
+
+    for (var i = 0, l = chckbxDias.length; i < l; i++)
+    {
+        if (chckbxDias[i].checked)
+        {
+            $.ajax({
+                async: false,
+                url: 'SL_SOLICITUD_Servlet',
+                data: {
+                    accion: "guardarDiaSolicitud",
+                    slSolicitud: slSolicitud,
+                    diDia: chckbxDias[i].val
+                },
+                error: function () { //si existe un error en la respuesta del ajax
+                    mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
+                },
+                success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+                    var respuestaTxt = data.substring(2);
+                    var tipoRespuesta = data.substring(0, 2);
+                    if (tipoRespuesta === "C~") {
+                        mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
+                    } else {
+                        if (tipoRespuesta === "E~") {
+                            mostrarMensaje("alert alert-danger", respuestaTxt, "Error!");
+                        } else {
+                            mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
+                        }
+                    }
+
+                },
+                type: 'POST'
+            });
+        }
+    }
 }
 
 //equipo tecnologico
@@ -364,31 +410,69 @@ function dibujarCheckboxEquipoTecnologico(dataJson) {
 
 function validarEquipoTecnologico()
 {
-    var chckbxEquipoTecnologico = document.getElementsByName("equipoTecnologico"); 
+    var chckbxEquipoTecnologico = document.getElementsByName("equipoTecnologico");
     var validar = false;
-    
-    for(var i=0,l=chckbxEquipoTecnologico.length;i<l;i++)
+
+    for (var i = 0, l = chckbxEquipoTecnologico.length; i < l; i++)
     {
-        if(chckbxEquipoTecnologico[i].checked)
+        if (chckbxEquipoTecnologico[i].checked)
         {
-            validar=true;
+            validar = true;
             break;
         }
     }
-    
+
     return validar;
+}
+
+function guardarEquipoTecnologico()
+{
+    var chckbxEquipoTecnologico = document.getElementsByName("equipoTecnologico");
+
+    for (var i = 0, l = chckbxEquipoTecnologico.length; i < l; i++)
+    {
+        if (chckbxEquipoTecnologico[i].checked)
+        {
+            $.ajax({
+                async: false,
+                url: 'SL_SOLICITUD_Servlet',
+                data: {
+                    accion: "guardarEquipoTecnologico",
+                    slSolicitud: slSolicitud,
+                    etEquipoTecnologico: chckbxEquipoTecnologico[i].val
+                },
+                error: function () { //si existe un error en la respuesta del ajax
+                    mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
+                },
+                success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+                    var respuestaTxt = data.substring(2);
+                    var tipoRespuesta = data.substring(0, 2);
+                    if (tipoRespuesta === "C~") {
+                        mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
+                    } else {
+                        if (tipoRespuesta === "E~") {
+                            mostrarMensaje("alert alert-danger", respuestaTxt, "Error!");
+                        } else {
+                            mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
+                        }
+                    }
+
+                },
+                type: 'POST'
+            });
+        }
+    }
 }
 
 //solicitud
 function guardar() {
 
     var tiempo;
-    
+
     if (validar()) {
         if (document.getElementById('tiempoIndefinido').checked) {
             tiempo = document.getElementById('tiempoIndefinido').value;
-        }
-        else
+        } else
         {
             tiempo = $("#tiempo").val();
         }
@@ -411,19 +495,15 @@ function guardar() {
             error: function () { //si existe un error en la respuesta del ajax
                 mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
             },
-            success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                var respuestaTxt = data.substring(2);
-                var tipoRespuesta = data.substring(0, 2);
-                if (tipoRespuesta === "C~") {
+            success: function (data) {
+                if (data !== null) {
                     mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
                     $('#formSolicitudTeletrabajo').trigger("reset");
-                    //guardarProcesoSolicitud();
+                    slSolicitud = data;
+                    guardarDias();
+                    guardarEquipoTecnologico();
                 } else {
-                    if (tipoRespuesta === "E~") {
-                        mostrarMensaje("alert alert-danger", respuestaTxt, "Error!");
-                    } else {
-                        mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
-                    }
+                    mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
                 }
 
             },
@@ -522,7 +602,7 @@ function consultarSolicitudByTrabajador(trUsuario) {
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
-            
+
             revisarSolicitudesPendientes(data);
 
         },
@@ -531,26 +611,25 @@ function consultarSolicitudByTrabajador(trUsuario) {
     });
 }
 
-function revisarSolicitudesPendientes(dataJson){
-    
+function revisarSolicitudesPendientes(dataJson) {
+
     var poseeSolicitud = false;
-    
-    for (var  i = 0;  i < dataJson.length;  i++) {
+
+    for (var i = 0; i < dataJson.length; i++) {
         if (dataJson[i].slResultado === "P") {
             poseeSolicitud = true;
         }
     }
-    
+
     if (poseeSolicitud) {
         alert("El candidato ya posee una solicitud pendiente.");
-    }
-    else if (revisarTeletrabajadores()) {
+    } else if (revisarTeletrabajadores()) {
         alert("El candidato se encuentra teletrabajando en la actualidad.");
-    }else
+    } else
     {
         guardar();
     }
-    
+
 }
 
 function revisarTeletrabajadores()

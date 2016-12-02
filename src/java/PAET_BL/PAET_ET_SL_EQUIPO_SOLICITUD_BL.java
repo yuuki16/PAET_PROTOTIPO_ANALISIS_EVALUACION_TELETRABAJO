@@ -33,7 +33,7 @@ public class PAET_ET_SL_EQUIPO_SOLICITUD_BL extends BaseBL implements IBaseBL<Pa
     
     @Override
     public void save(PaetEtSlEquipoSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getDao(o.getClass().getName()).save(o);
     }
 
     @Override

@@ -37,6 +37,7 @@
     <mapping resource="PAET_DOMAIN/PaetDvDivision.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetCaCaracteristica.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetCrCorreo.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetCnCanton.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetDrDireccion.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetArArea.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetMtMeta.hbm.xml"/>

@@ -21,6 +21,28 @@ $(function () {
     $("#btLimpiarBusqueda").click(function () {
         limpiarBusqueda();
     });
+
+    $('#arCodigo').on('input', function () {
+        if ($(this).val().length > 38) {
+            $(this).val($(this).val().slice(0, 38));
+        }
+    });
+
+    $('#formularioAdministrar').on('hidden.bs.modal', function (e) {
+        //setea el focus del formulario
+        $('#arCodigo').focus();
+
+        //se cambia la accion por agregarPersona
+        $("#areasAction").val("agregarArea");
+
+        //esconde el div del mensaje
+        mostrarMensaje("hiddenDiv", "", "");
+
+        //Resetear el formulario
+        $('#formAreas').trigger("reset");
+
+        $("#groupDescripcion").removeClass("has-error");
+    });
 });
 
 function consultarAreas() {
@@ -128,6 +150,8 @@ function limpiarForm() {
 
     //Resetear el formulario
     $('#formAreas').trigger("reset");
+
+    $("#groupDescripcion").removeClass("has-error");
 }
 
 function guardar() {
@@ -294,20 +318,20 @@ function consultarDirecciones()
         type: 'POST',
         dataType: "json"
     });
-    
+
 }
 
-function dibujarCombo(dataJson){
-    
+function dibujarCombo(dataJson) {
+
     for (var i = 0; i < dataJson.length; i++) {
         if (dataJson[i].drEstado === "A") {
-            $("#direccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));   
+            $("#direccion").append($("<option value=\"" + dataJson[i].drCodigo + "\">" + dataJson[i].drDescripcion + "</option>"));
         }
     }
-    
+
     for (var i = 0; i < dataJson.length; i++) {
         if (dataJson[i].drEstado === "A") {
-            $("#drDireccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
+            $("#drDireccion").append($("<option value=\"" + dataJson[i].drCodigo + "\">" + dataJson[i].drDescripcion + "</option>"));
         }
     }
 }

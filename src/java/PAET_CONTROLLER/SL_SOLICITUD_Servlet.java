@@ -16,7 +16,11 @@
  */
 package PAET_CONTROLLER;
 
+import PAET_BL.PAET_DI_SL_DIA_SOLICITUD_BL;
+import PAET_BL.PAET_ET_SL_EQUIPO_SOLICITUD_BL;
 import PAET_BL.PAET_SL_SOLICITUD_BL;
+import PAET_DOMAIN.PaetDiSlDiaSolicitud;
+import PAET_DOMAIN.PaetEtSlEquipoSolicitud;
 import PAET_DOMAIN.PaetSlSolicitud;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -49,12 +53,16 @@ public class SL_SOLICITUD_Servlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String json, campo, valor;
-            BigDecimal slCodigo;
+            BigDecimal slCodigo, etEquipoTecnologico;
             Date slFecha;
             long slFechal;
             Boolean unico;
             PaetSlSolicitud solicitud = new PaetSlSolicitud();
             PAET_SL_SOLICITUD_BL solicitudBl = new PAET_SL_SOLICITUD_BL();
+            PaetDiSlDiaSolicitud diaSolicitud = new PaetDiSlDiaSolicitud();
+            PAET_DI_SL_DIA_SOLICITUD_BL diaSolicitudBl = new PAET_DI_SL_DIA_SOLICITUD_BL();
+            PaetEtSlEquipoSolicitud equipoTecnologicoSolicitud = new PaetEtSlEquipoSolicitud();
+            PAET_ET_SL_EQUIPO_SOLICITUD_BL equipoTecnologicoSolicitudBl = new PAET_ET_SL_EQUIPO_SOLICITUD_BL();
 
             String accion = request.getParameter("accion");
 
@@ -90,10 +98,10 @@ public class SL_SOLICITUD_Servlet extends HttpServlet {
                         solicitud.setSlBeneficios(request.getParameter("slBeneficios"));
                         
                         //Se guarda el objeto
-                        solicitudBl.save(solicitud);
-
+                        slCodigo = solicitudBl.saveWithReturn(solicitud);
+                        
                         //Se imprime la respuesta con el response
-                        out.print("C~La solicitud fue enviada correctamente");
+                        out.print(slCodigo);
 
                     } else {//es modificar 
                         slCodigo = new BigDecimal(request.getParameter("slCodigo"));
@@ -114,6 +122,25 @@ public class SL_SOLICITUD_Servlet extends HttpServlet {
                     //se consulta el objeto por el campo y el valor 
                     json = new Gson().toJson(solicitudBl.findDynamicFilter(campo, valor, unico, PaetSlSolicitud.class.getName()));
                     out.print(json);
+                    break;
+                case "guardarDiaSolicitud":
+                    diaSolicitud.setDiDia(request.getParameter("diDia").charAt(0));
+                    slCodigo = new BigDecimal(request.getParameter("slSolicitud"));
+                    diaSolicitud.setSlSolicitud(slCodigo);
+                    
+                    diaSolicitudBl.save(diaSolicitud);
+                    
+                    out.print("C~Los días de la solicitud fueron ingresados correctamente");
+                    break;
+                case "guardarEquipoTecnologico":
+                    etEquipoTecnologico = new BigDecimal(request.getParameter("etEquipoTecnologico"));
+                    equipoTecnologicoSolicitud.setEtEquipo(etEquipoTecnologico);
+                    slCodigo = new BigDecimal(request.getParameter("slSolicitud"));
+                    equipoTecnologicoSolicitud.setSlSolicitud(slCodigo);
+                    
+                    equipoTecnologicoSolicitudBl.save(equipoTecnologicoSolicitud);
+                    
+                    out.print("C~El equipo tecnológico de la solicitud fue ingresado correctamente");
                     break;
                 default:
                     out.print("E~No se indico la acción que se desea realizare");
