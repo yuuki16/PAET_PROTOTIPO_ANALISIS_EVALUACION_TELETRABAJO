@@ -490,14 +490,19 @@ function validarFechas()
 {
     var validacion = true;
     var fechaEntrada, fechaIngreso;
-    fechaEntrada = $("#fechaEntrada").data('date');
-    fechaIngreso = $("#fechaIngreso").data('date');
+    fechaEntrada = cambiarFormatoFecha($("#fechaEntrada").data('date'));
+    fechaIngreso = cambiarFormatoFecha($("#fechaIngreso").data('date'));
     if (fechaEntrada < fechaIngreso) {
         $("#groupFechaEntrada").addClass("has-error");
         validacion = false;
     }
 
     return validacion;
+}
+
+function cambiarFormatoFecha(date){
+   var parts = date.split("/");
+   return new Date(parts[2], parts[1] - 1, parts[0]);
 }
 
 function mostrarMensaje(modal, classCss, msg, neg) {

@@ -63,7 +63,9 @@ public class PAET_SL_SOLICITUD_BL extends BaseBL implements IBaseBL<PaetSlSolici
 
     @Override
     public BigDecimal saveWithReturn(PaetSlSolicitud o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BigDecimal slCodigo;
+        slCodigo = (BigDecimal) this.getDao(o.getClass().getName()).saveWithReturn(o);
+        return slCodigo;
     }
     
 }

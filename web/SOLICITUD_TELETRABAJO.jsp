@@ -73,7 +73,7 @@
 
                             <div class="form-group" id="groupJefaturaInmediata">
                                 <label for="jefatura">Jefatura Inmediata:</label>
-                                <select class="form-control" id="jefatura">
+                                <select class="form-control" id="jefatura" readonly="true">
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>

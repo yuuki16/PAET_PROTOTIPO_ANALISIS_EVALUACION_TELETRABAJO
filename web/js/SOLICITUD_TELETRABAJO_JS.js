@@ -81,6 +81,7 @@ function consultarTrabajadorByCedula(trCedula) {
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            $('#formSolicitudTeletrabajo').trigger("reset");
             if (data.length > 0) {
                 //se carga la información en el formulario
                 if (data[0].trEstado === "A") {
@@ -103,8 +104,6 @@ function consultarTrabajadorByCedula(trCedula) {
                 alert("La cédula proporcionada no corresponde a ninguno de nuestros trabajadores activos.");
             }
             // se oculta el mensaje de espera
-            $('#formSolicitudTeletrabajo').trigger("reset");
-
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -353,7 +352,7 @@ function guardarDias()
                 data: {
                     accion: "guardarDiaSolicitud",
                     slSolicitud: slSolicitud,
-                    diDia: chckbxDias[i].val
+                    diDia: chckbxDias[i].value
                 },
                 error: function () { //si existe un error en la respuesta del ajax
                     mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
@@ -439,7 +438,7 @@ function guardarEquipoTecnologico()
                 data: {
                     accion: "guardarEquipoTecnologico",
                     slSolicitud: slSolicitud,
-                    etEquipoTecnologico: chckbxEquipoTecnologico[i].val
+                    etEquipoTecnologico: chckbxEquipoTecnologico[i].value
                 },
                 error: function () { //si existe un error en la respuesta del ajax
                     mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
@@ -497,11 +496,17 @@ function guardar() {
             },
             success: function (data) {
                 if (data !== null) {
-                    mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
-                    $('#formSolicitudTeletrabajo').trigger("reset");
-                    slSolicitud = data;
-                    guardarDias();
-                    guardarEquipoTecnologico();
+                    var tipoRespuesta = data.substring(0, 2);
+                    if (tipoRespuesta === "E~") {
+                        var respuestaTxt = data.substring(2);
+                        mostrarMensaje("alert alert-danger", respuestaTxt, "Error!");
+                    } else
+                    {
+                        slSolicitud = data;
+                        guardarDias();
+                        guardarEquipoTecnologico();
+                        $('#formSolicitudTeletrabajo').trigger("reset");
+                    }
                 } else {
                     mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador", "Error!");
                 }
