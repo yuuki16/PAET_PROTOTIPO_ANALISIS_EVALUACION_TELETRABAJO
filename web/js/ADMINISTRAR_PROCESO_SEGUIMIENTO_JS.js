@@ -27,12 +27,14 @@ $(function () {
     $("#btBusquedaTrCedula").click(function () {
         $("#procesos").html("");
         $("#estados").hide();
+        ocultarAlerta();
         consultarTrabajadorByCedula($("#trCedula").val());
     });
 
     $("#btLimpiarBusqueda").click(function () {
         $("#procesos").html("");
         $("#estados").hide();
+        ocultarAlerta();
         consultarProcesos();
     });
 });
@@ -63,7 +65,7 @@ function consultarTeletrabajadorByTrabajador(trUsuario, nombre)
                 consultarProcesosByTeletrabajador(data[0].ttCodigo, nombre);
             } else
             {
-                alert("El trabajador seleccionado no es un teletrabajador.");
+                mostrarAlerta("El trabajador seleccionado no es un teletrabajador.");
             }
 
         },
@@ -114,12 +116,12 @@ function consultarTrabajadorByCedula(trCedula)
                 // se oculta el mensaje de espera
                 trTrabajador = data[0].trUsuario;
                 consultarTeletrabajadorByTrabajador(data[0].trUsuario, data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2);
-                ocultarModal("modalMensajes");
             } else
             {
-                alert("La cédula ingresada no corresponde a ninguno de nuestros trabajadores.");
-                ocultarModal("modalMensajes");
+                mostrarAlerta("La cédula ingresada no corresponde a ninguno de nuestros trabajadores.");
+                
             }
+            ocultarModal("modalMensajes");
         },
         type: 'POST',
         dataType: "json"
@@ -179,10 +181,13 @@ function consultarProcesos()
             // Sorting: typeof json === Array
 
             var sorted = data.sort(function (a, b) {
-                if (a.pgFecha > b.pgFecha) {
+                var fecha1 = Date.parse(a.pgFecha);
+                var fecha2 = Date.parse(b.pgFecha);
+                
+                if (fecha1 < fecha2) {
                     return 1;
                 }
-                if (a.pgFecha < b.pgFecha) {
+                if (fecha1 > fecha2) {
                     return -1;
                 }
 
@@ -422,6 +427,18 @@ function pintarEstados(dataJson, teletrabajador, numero)
     $("#estados").show();
 }
 
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
+
+function ocultarAlerta()
+{
+    $("#alert").css("display", "none");
+    $("#alertMsg").html("");
+}
 
 
 

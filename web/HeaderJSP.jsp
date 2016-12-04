@@ -43,7 +43,7 @@
                         </li>
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teletrabajador <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Verificar Proceso de Seguimiento</a></li>
+                                <li><a href="REVISAR_PROCESO_SEGUIMIENTO.jsp">Verificar Proceso de Seguimiento</a></li>
                             </ul>
                         </li>
                         <li class=" down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>

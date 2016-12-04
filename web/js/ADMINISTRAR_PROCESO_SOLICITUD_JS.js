@@ -25,12 +25,14 @@ $(function () {
     $("#btBusquedaTrCedula").click(function () {
         $("#procesos").html("");
         $("#estados").hide();
+        ocultarAlerta();
         consultarTrabajadorByCedula($("#trCedula").val());
     });
 
     $("#btLimpiarBusqueda").click(function () {
         $("#procesos").html("");
         $("#estados").hide();
+        ocultarAlerta();
         consultarProcesos(null, false, null);
     });
 });
@@ -85,12 +87,11 @@ function consultarTrabajadorByCedula(trCedula)
             // se oculta el mensaje de espera
             if (data.length > 0) {
                 consultarSolicitudesByTrabajador(data[0].trUsuario, data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2);
-            }
-            else
+            } else
             {
-                alert("La cédula ingresada no corresponde a ninguno de nuestros trabajadores.");
+                mostrarAlerta("La cédula ingresada no corresponde a ninguno de nuestros trabajadores.");
             }
-            
+
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -143,6 +144,7 @@ function consultarTrabajadorByUsuario(fecha, solicitud, usuario)
                     ' <div class="timeline-label">' +
                     '<p>' + data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2 + '</p>' +
                     '<p>' + fecha + '</p>' +
+                    '<br>' +
                     '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + solicitud + '\')">Revisar Proceso</a></h2>' +
                     ' </div>' +
                     ' </div>' +
@@ -170,27 +172,28 @@ function consultarProcesos(dataSolicitudes, porCedula, nombre)
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            // Sorting: typeof json === Array
-
             var sorted = data.sort(function (a, b) {
-                if (a.psFechaEntrada > b.psFechaEntrada) {
+                var fecha1 = Date.parse(a.psFechaEntrada);
+                var fecha2 = Date.parse(b.psFechaEntrada);
+
+                if (fecha1 < fecha2) {
                     return 1;
                 }
-                if (a.psFechaEntrada < b.psFechaEntrada) {
+                if (fecha1 > fecha2) {
                     return -1;
                 }
 
                 return 0;
-            });
-
+            }
+            );
             if (porCedula) {
                 dibujarProcesos(sorted, dataSolicitudes, nombre);
             } else
             {
                 dibujarTodosProcesos(sorted);
             }
-            
-            
+
+
         },
         type: 'POST',
         dataType: "json"
@@ -212,6 +215,7 @@ function dibujarProcesos(dataProcesos, dataSolicitudes, nombre)
                                 ' <div class="timeline-label">' +
                                 '<p>' + nombre + '</p>' +
                                 '<p>' + dataProcesos[i].psFechaEntrada + '</p>' +
+                                '<br>' +
                                 '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + dataProcesos[i].slSolicitud + '\')">Verificar Proceso</a></h2>' +
                                 ' </div>' +
                                 ' </div>' +
@@ -224,7 +228,7 @@ function dibujarProcesos(dataProcesos, dataSolicitudes, nombre)
         $("#procesos").show();
     } else
     {
-        alert("El trabajador no posee ningún proceso de solicitud.");
+        mostrarAlerta("El trabajador no posee ningún proceso de solicitud.");
     }
 }
 
@@ -328,7 +332,7 @@ function limpiarEstados()
 function pintarEstados(dataJson, solicitud)
 {
     limpiarEstados();
-    
+
     var element = document.getElementsByName("borrar"), index;
 
     for (index = element.length - 1; index >= 0; index--) {
@@ -357,7 +361,18 @@ function pintarEstados(dataJson, solicitud)
     $("#estados").show();
 }
 
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
 
+function ocultarAlerta()
+{
+    $("#alert").css("display", "none");
+    $("#alertMsg").html("");
+}
 
 
 

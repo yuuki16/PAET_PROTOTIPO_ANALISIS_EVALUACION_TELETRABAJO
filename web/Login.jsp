@@ -449,7 +449,8 @@
                             <div class="button-container">
                                 <button type="submit"><span>Iniciar Sesión</span></button>
                             </div>
-                            <div style="color: red; margin: 0 60px; text-align: center; display: block; font-family: 'RobotoDraft', 'Roboto', sans-serif;" >                             
+                            <br>
+                            <div style="color: red; margin: 0 60px; text-align: center; display: block; font-family: 'RobotoDraft', 'Roboto', sans-serif; font-weight: 700;" >                             
                                 <%
                                     if (request.getParameter("error") != null) {
                                         out.println("Usuario o contraseña inválidos, por favor intente de nuevo.");

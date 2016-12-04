@@ -25,12 +25,14 @@ $(function () {
     $("#btBusquedaTrCedula").click(function () {
         $("#procesos").html("");
         $("#estados").hide();
+        ocultarAlerta();
         consultarTrabajadorByCedula($("#trCedula").val());
     });
 
     $("#btLimpiarBusqueda").click(function () {
         $("#procesos").hide();
         $("#estados").hide();
+        ocultarAlerta();
     });
 });
 
@@ -65,7 +67,7 @@ function consultarSeguimientosByTeletrabajador(ttTeletrabajador)
                 dibujarProcesos(sorted);
             } else
             {
-                alert("El trabajador seleccionado no posee ningún proceso de seguimiento pendiente de finalizar.");
+                mostrarAlerta("El trabajador seleccionado no posee ningún proceso de seguimiento.");
             }
 
         },
@@ -96,7 +98,7 @@ function consultarTrabajadorByCedula(trCedula) {
                 consultarTeletrabajadorByTrabajador(data[0].trUsuario);
             } else
             {
-                alert("La cédula proporcionada no pertenece a ninguno de los trabajadores de la empresa.");
+                mostrarAlerta("La cédula proporcionada no corresponde a ninguno de nuestros trabajadores.");
             }
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
@@ -110,7 +112,7 @@ function consultarTrabajadorByCedula(trCedula) {
 function dibujarProcesos(dataProcesos)
 {
     for (var i = 0; i < dataProcesos.length; i++) {
-        if (dataProcesos[i].esEstado === 1) {
+        if (dataProcesos[i].esEstado === 41) {
             $("#procesos").append($('<article class="timeline-entry">' +
                     '<div class="timeline-entry-inner">' +
                     '<div class="timeline-icon bg-secondary">' +
@@ -146,7 +148,17 @@ function consultarEstadosByProceso()
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarEstados(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.esSecuencia > b.esSecuencia) {
+                    return 1;
+                }
+                if (a.esSecuencia < b.esSecuencia) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarEstados(sorted);
             ocultarModal("modalMensajes");
         },
         type: 'POST',
@@ -156,21 +168,17 @@ function consultarEstadosByProceso()
 
 function dibujarEstados(dataJson)
 {
-    var secuencia = 1;
     for (var i = 0; i < dataJson.length; i++) {
-        if (dataJson[i].esSecuencia === secuencia) {
             $("#estados").append($('<article class="timeline-entry">' +
                     '<div class="timeline-entry-inner">' +
-                    '<div name="circulo" class="timeline-icon bg-gray" id="' + dataJson[i].esSecuencia + 'Circulo"' +
+                    '<div name="circulo" class="timeline-icon bg-gray" id="' + dataJson[i].esCodigo + 'Circulo"' +
                     '<i class="entypo-suitcase"></i>' +
                     '</div>' +
-                    '<div class="timeline-label" id="' + dataJson[i].esSecuencia + '">' +
+                    '<div class="timeline-label" id="' + dataJson[i].esCodigo + '">' +
                     '<p>' + dataJson[i].esDescripcion + '</p>' +
                     '</div>' +
                     '</div>' +
                     '</article>'));
-            secuencia++;
-        }
     }
 }
 
@@ -202,8 +210,10 @@ function consultarEstadosByProcesoSeguimiento(ttTeletrabajador, pgNumero)
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
             if (data.length > 0) {
-                if (data[i].pgNumero === pgNumero) {
-                    pintarEstados(data);
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].pgNumero === parseInt(pgNumero)) {
+                        pintarEstados(data);
+                    }
                 }
             } else
             {
@@ -267,7 +277,7 @@ function consultarTeletrabajadorByTrabajador(trTrabajador)
                 }
             } else
             {
-                alert("El trabajador ingresado no se encuentra actualmente teletrabajando.");
+                mostrarAlerta("El trabajador ingresado no se encuentra actualmente teletrabajando.");
             }
 
         },
@@ -276,5 +286,16 @@ function consultarTeletrabajadorByTrabajador(trTrabajador)
     });
 }
 
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
 
+function ocultarAlerta()
+{
+    $("#alert").css("display", "none");
+    $("#alertMsg").html("");
+}
 

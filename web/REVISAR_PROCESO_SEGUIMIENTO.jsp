@@ -45,34 +45,28 @@
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Procesos -->
-        <div class="row" id="proceso">
-            <!-- Procesos -->
-            <div class="col-sm-4">
-                <div class="timeline-centered" id ="procesos"></div>
-            </div>
-            <!-- Estados -->
-            <div class="col-sm-4" >
-                <div class="timeline-centered" id="estados">
-                </div>
-            </div>
-        </div>
-        <!-- Mensajes -->
-        <div class="modal fade" id="modalMensajes" role="dialog">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" id="modalMensajesTitle">Modal Header</h4>
-                    </div>
-                    <div class="modal-body" id="modalMensajesMessage">
-                        <p>This is a small modal.</p>
+                    <!-- Procesos -->
+                    <div class="row" id="proceso">
+                        <!-- Procesos -->
+                        <div class="col-sm-4">
+                            <div class="timeline-centered" id ="procesos"></div>
+                        </div>
+                        <!-- Estados -->
+                        <div class="col-sm-4" >
+                            <div class="timeline-centered" id="estados">
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <center>
+                    <div class="alert alert-danger" style="width: 800px; display: none" id="alert">
+                        <p id="alertMsg"></p>
+                    </div>
+                </center>
+
+                <div class="panel-footer"></div>
             </div>
         </div>
     </body>

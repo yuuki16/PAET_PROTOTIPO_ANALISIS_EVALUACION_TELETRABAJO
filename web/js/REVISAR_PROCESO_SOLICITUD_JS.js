@@ -25,12 +25,14 @@ $(function () {
     $("#btBusquedaTrCedula").click(function () {
         $("#procesos").html("");
         $("#estados").hide();
+        ocultarAlerta();
         consultarTrabajadorByCedula($("#trCedula").val());
     });
 
     $("#btLimpiarBusqueda").click(function () {
         $("#procesos").hide();
         $("#estados").hide();
+        ocultarAlerta();
     });
 });
 
@@ -75,10 +77,14 @@ function consultarTrabajadorByCedula(trCedula) {
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            // se oculta el mensaje de espera
-
-            consultarSolicitudesByTrabajador(data[0].trUsuario);
+            if (data.length > 0) {
+                consultarSolicitudesByTrabajador(data[0].trUsuario);
+            } else
+            {
+                mostrarAlerta("La cédula proporcionada no corresponde a ninguno de nuestros clientes.");
+            }
             ocultarModal("modalMensajes");
+
         },
         type: 'POST',
         dataType: "json"
@@ -134,6 +140,7 @@ function dibujarProcesos(dataProcesos, dataSolicitudes)
                                 '</div>' +
                                 ' <div class="timeline-label">' +
                                 '<p>' + dataProcesos[i].psFechaEntrada + '</p>' +
+                                '<br>' +
                                 '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + dataProcesos[i].slSolicitud + '\')">Verificar Proceso</a></h2>' +
                                 ' </div>' +
                                 ' </div>' +
@@ -235,7 +242,7 @@ function consultarEstadosByProcesoSolicitud(slSolicitud)
 function pintarEstados(dataJson)
 {
     limpiarEstados();
-    
+
     var element = document.getElementsByName("borrar"), index;
 
     for (index = element.length - 1; index >= 0; index--) {
@@ -258,5 +265,16 @@ function pintarEstados(dataJson)
     $("#estados").show();
 }
 
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
 
+function ocultarAlerta()
+{
+     $("#alert").css("display", "none");
+    $("#alertMsg").html("");
+}
 

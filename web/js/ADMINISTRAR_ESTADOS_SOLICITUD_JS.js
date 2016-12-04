@@ -19,7 +19,7 @@ var psProcesoSolicitud, slSolicitud, trTrabajador, ttTeletrabajador;
 $(document).ready(function () {
     consultarEstadosByProceso();
     //acciones barra proceso
-    $('.nav-tabs > li a[title]').tooltip();
+    //$('.nav-tabs > li a[title]').tooltip();
 
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
         var $target = $(e.target);
@@ -148,7 +148,7 @@ $(document).ready(function () {
             alert("Debe de adjuntar el documento de la visita realizada antes de continuar.");
         }
     });
-    
+
     $("#guardar7").click(function () {
         if (validarDocumentacion("adenda")) {
             guardarDocumentacion("adenda");
@@ -156,7 +156,7 @@ $(document).ready(function () {
             window.location = 'ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp';
         } else
         {
-        alert("Debe de adjuntar la adenda firmada para finalizar el proceso.");
+            alert("Debe de adjuntar la adenda firmada para finalizar el proceso.");
         }
     });
 
@@ -185,7 +185,7 @@ $(document).ready(function () {
         $("#archivoVisita").html();
         $("#archivoVisita").html(label);
     });
-    
+
     $('#adenda').on('fileselect', function (event, numFiles, label) {
         $("#archivoadenda").html();
         $("#archivoadenda").html(label);
@@ -309,6 +309,10 @@ function consultarEstadosByProceso()
 function dibujarEstados(dataJson)
 {
     for (var i = 0; i < dataJson.length; i++) {
+        $("#estados").append($('<div role="tooltip" class="tooltip top custom-tooltip" style="margin-top: -60px; width: 110px;">' +
+                '<div class="tooltip-arrow"></div>' +
+                '<div class="tooltip-inner">'+dataJson[i].esDescripcion+'</div>' +
+                '</div>'));
         $("#estados").append($('<li role="presentation" class="disabled" id="' + dataJson[i].esCodigo + '">' +
                 '<a href="#step' + dataJson[i].esSecuencia + '" data-toggle="tab" aria-controls="step' + dataJson[i].esSecuencia + '" role="tab" title="' + dataJson[i].esDescripcion + '">' +
                 '<span class="round-tab">' +
@@ -807,7 +811,7 @@ function avanzarPsProcesoSolicitud(estadoSiguiente, numeroObservacion)
 
 function modificarPsProcesoSolicitud(estado)
 {
-    var observacion = $("#observacion"+estado).val();
+    var observacion = $("#observacion" + estado).val();
 
     $.ajax({
         asyn: false,

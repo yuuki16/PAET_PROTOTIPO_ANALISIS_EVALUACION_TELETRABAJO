@@ -74,7 +74,7 @@ body {
     position: absolute;
     display: block;
     width: 4px;
-    background: #f5f5f6;
+    background: #e0e0e2;
     /*left: 50%;*/
     top: 20px;
     bottom: 20px;
@@ -132,7 +132,7 @@ body {
     text-align: center;
     -moz-box-shadow: 0 0 0 5px #f5f5f6;
     -webkit-box-shadow: 0 0 0 5px #f5f5f6;
-    box-shadow: 0 0 0 5px #f5f5f6;
+    box-shadow: 0 0 0 5px #e0e0e2;
     line-height: 40px;
     font-size: 15px;
     float: left;
@@ -155,7 +155,7 @@ body {
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label {
     position: relative;
-    background: #f5f5f6;
+    background: #e0e0e2;
     padding: 1em;
     margin-left: 60px;
     -webkit-background-clip: padding-box;
@@ -175,14 +175,14 @@ body {
     height: 0;
     border-style: solid;
     border-width: 9px 9px 9px 0;
-    border-color: transparent #f5f5f6 transparent transparent;
+    border-color: transparent #e0e0e2 transparent transparent;
     left: 0;
     top: 10px;
     margin-left: -9px;
 }
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2, .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label p {
-    color: #737881;
+    color: #0C0C0C;
     font-family: "Noto Sans",sans-serif;
     font-size: 12px;
     margin: 0;
@@ -199,7 +199,7 @@ body {
 }
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2 a {
-    color: #002a80;
+    color: #1B92A6;
 }
 
 .wizard {
@@ -372,4 +372,24 @@ input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.panel-heading{
+    background-color: #e0e0e2;
+}
+
+.custom-tooltip {
+    display: inline-block;
+    margin: 10px 20px;
+    opacity: 1;
+    margin-top: -15px;
+}
+
+.custom-tooltip .tooltip-inner {
+	background: grey;
+        height: 70px;
+}
+
+.custom-tooltip.top .tooltip-arrow {
+	border-top-color: grey;
 }

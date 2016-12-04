@@ -32,8 +32,7 @@ $(function ()
                     var respuestaTxt = data.substring(2);
                     var tipoRespuesta = data.substring(0, 2);
                     if (tipoRespuesta === "C~") {
-                        mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
-
+                        move();
                         //se redirecciona en JavaScript
                         setTimeout(function () {
                             window.location = "REPORTE_TELETRABAJADORES_JASPER_JSP.jsp";
@@ -60,6 +59,21 @@ $(function ()
 
     });
 });
+
+function move() {
+    $(".progress").css("display", "block");
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 220);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++;
+            elem.style.width = width + '%';
+        }
+    }
+}
 
 $(document).on('change', '#reporte', function () {
     var reporte = $(this).val();

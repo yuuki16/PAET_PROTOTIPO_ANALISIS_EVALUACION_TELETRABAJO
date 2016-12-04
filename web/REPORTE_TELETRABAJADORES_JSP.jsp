@@ -60,13 +60,20 @@
                             </button>
                         </center>
                         <div class="form-group height25" >
-                                <div class="alert alert-success hiddenDiv" id="mesajeResult">
-                                    <strong id="mesajeResultNeg">Info!</strong> 
-                                    <span id="mesajeResultText">This alert box could indicate a neutral informative change or action.</span>
-                                </div>
+                            <div class="alert alert-success hiddenDiv" id="mesajeResult">
+                                <strong id="mesajeResultNeg">Info!</strong> 
+                                <span id="mesajeResultText">This alert box could indicate a neutral informative change or action.</span>
                             </div>
+                        </div>
                     </form>
                 </div>
+                <center>
+                    <div class="progress" style="width: 500px; display: none;">
+                        <div id="myBar" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+                            Generando reporte. Por favor espere.
+                        </div>
+                    </div>
+                </center>
                 <div class="panel-footer">Nota: Acciones validas dependeran del rol del usuario</div>
             </div>
         </div>
