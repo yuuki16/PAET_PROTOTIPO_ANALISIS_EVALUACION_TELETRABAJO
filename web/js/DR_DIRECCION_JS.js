@@ -16,10 +16,12 @@ $(function () {
     });
 
     $("#btBusquedaDrCodigo, #btBusquedaDrDescripcion, #btBusquedaDvDivision").click(function () {
+        ocultarAlerta();
         buscar(this.id);
     });
 
     $("#btLimpiarBusqueda").click(function () {
+        ocultarAlerta();
         limpiarBusqueda();
     });
 });
@@ -76,7 +78,7 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.drDescripcion + "</td>"));
     if (rowData.drEstado === "A") {
         row.append($("<td> Activo </td>"));
-    }else if (rowData.drEstado === "I") {
+    } else if (rowData.drEstado === "I") {
         row.append($("<td> Inactivo </td>"));
     }
     row.append($("<td>" + rowData.dvDivision + "</td>"));
@@ -109,7 +111,7 @@ function consultarDireccionByCodigo(drCodigo) {
             //************************************************************************
             //carga información en el formulario
             //************************************************************************
-          
+
             //se modificar el hidden que indicar el tipo de accion que se esta realizando
             $("#direccionesAction").val("modificarDireccion");
 
@@ -189,7 +191,7 @@ function validar() {
     $("#groupEstado").removeClass("has-error");
     $("#groupDivision").removeClass("has-error");
     $("#groupDirector").removeClass("has-error");
-    
+
     if ($("#descripcion").val().trim() === "") {
         $("#groupDescripcion").addClass("has-error");
         validacion = false;
@@ -276,8 +278,25 @@ function enviarBusqueda(campo, valor, unico) {
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
 
-            //redibujar la tabla
-            dibujarTabla(data);
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.drDescripcion > b.drDescripcion) {
+                        return 1;
+                    }
+                    if (a.drDescripcion < b.drDescripcion) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+
+                dibujarTabla(sorted);
+            } else
+            {
+                mostrarAlerta("No existen datos para el filtro aplicado.");
+                //redibujar la tabla
+                dibujarTabla(data);
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -290,9 +309,9 @@ function limpiarBusqueda() {
     consultarDirecciones();
 
     //Limpiar txt
-     $('#drCodigo').val("");
-     $('#drDescripcion').val("");
-     $('#dvDivision').val("");
+    $('#drCodigo').val("");
+    $('#drDescripcion').val("");
+    $('#dvDivision').val("");
 }
 
 function consultarDivisiones()
@@ -311,17 +330,17 @@ function consultarDivisiones()
         type: 'POST',
         dataType: "json"
     });
-    
+
 }
 
-function dibujarCombo(dataJson){
-    
+function dibujarCombo(dataJson) {
+
     for (var i = 0; i < dataJson.length; i++) {
-        $("#division").append($("<option value=\""+dataJson[i].dvCodigo+"\">"+dataJson[i].dvDescripcion+"</option>"));
+        $("#division").append($("<option value=\"" + dataJson[i].dvCodigo + "\">" + dataJson[i].dvDescripcion + "</option>"));
     }
-    
+
     for (var i = 0; i < dataJson.length; i++) {
-        $("#dvDivision").append($("<option value=\""+dataJson[i].dvCodigo+"\">"+dataJson[i].dvDescripcion+"</option>"));
+        $("#dvDivision").append($("<option value=\"" + dataJson[i].dvCodigo + "\">" + dataJson[i].dvDescripcion + "</option>"));
     }
 }
 
@@ -347,8 +366,21 @@ function dibujarComboTrabajadores(dataJson)
 {
     for (var i = 0; i < dataJson.length; i++) {
         if (dataJson[i].trEstado === "A") {
-            $("#director").append($("<option value=\""+dataJson[i].trUsuario+"\">"+dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 +"</option>"));
+            $("#director").append($("<option value=\"" + dataJson[i].trUsuario + "\">" + dataJson[i].trNombre + " " + dataJson[i].trApellido1 + " " + dataJson[i].trApellido2 + "</option>"));
         }
     }
+}
+
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
+
+function ocultarAlerta()
+{
+    $("#alert").css("display", "none");
+    $("#alertMsg").html("");
 }
 

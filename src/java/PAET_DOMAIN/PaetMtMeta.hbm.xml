@@ -7,7 +7,7 @@
         <id name="mtCodigo" type="big_decimal">
             <column name="MT_CODIGO" precision="38" scale="0" />
             <generator class="sequence">
-                <param name="sequence">PAET_MT_META_SEQ1</param>
+                <param name="sequence">PAET_MT_META_SEQ</param>
             </generator>
         </id>
         <property name="mtDescripcion" type="string">

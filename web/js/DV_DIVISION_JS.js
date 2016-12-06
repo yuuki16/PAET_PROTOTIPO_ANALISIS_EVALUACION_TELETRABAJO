@@ -15,10 +15,12 @@ $(function () {
     });
 
     $("#btBusquedaDvCodigo, #btBusquedaDvDescripcion, #btBusquedaGrGerencia").click(function () {
+        ocultarAlerta();
         buscar(this.id);
     });
 
     $("#btLimpiarBusqueda").click(function () {
+        ocultarAlerta();
         limpiarBusqueda();
     });
 });
@@ -275,9 +277,24 @@ function enviarBusqueda(campo, valor, unico) {
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.dvDescripcion > b.dvDescripcion) {
+                        return 1;
+                    }
+                    if (a.dvDescripcion < b.dvDescripcion) {
+                        return -1;
+                    }
 
-            //redibujar la tabla
-            dibujarTabla(data);
+                    return 0;
+                });
+                //redibujar la tabla
+                dibujarTabla(sorted);
+            } else
+            {
+                dibujarTabla(data);
+                mostrarAlerta("No existen datos para el filtro aplicado.");
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -337,4 +354,17 @@ function dibujarCombo(dataJson) {
             $("#grGerencia").append($("<option value=\"" + dataJson[i].grCodigo + "\">" + dataJson[i].grDescripcion + "</option>"));
         }
     }
+}
+
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
+
+function ocultarAlerta()
+{
+    $("#alert").css("display", "none");
+    $("#alertMsg").html("");
 }

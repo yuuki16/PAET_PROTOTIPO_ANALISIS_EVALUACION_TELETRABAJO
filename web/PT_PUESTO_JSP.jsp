@@ -59,51 +59,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-group" id="grouparArea">
-                                <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
-                                    <p><b>Buscar por área:</b></p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <select class="form-control" id="arArea">
-                                        <option value="" selected="selected"></option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaArArea">
-                                        Buscar <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="form-group" id="groupdrDireccion">
-                                <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
-                                    <p><b>Buscar por dirección:</b></p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <select class="form-control" id="drDireccion">
-                                        <option value="" selected="selected"></option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDrDireccion">
-                                        Buscar <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="form-group" id="groupdvDivision">
-                                <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
-                                    <p><b>Buscar por división:</b></p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <select class="form-control" id="dvDivision">
-                                        <option value="" selected="selected"></option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDvDivision">
-                                        Buscar <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </div>
-                            </div>
+                            
                             <div class="form-group" id="groupgrGerencia">
                                 <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
                                     <p><b>Buscar por gerencia:</b></p>
@@ -119,6 +75,55 @@
                                     </button>
                                 </div>
                             </div>
+                            
+                            <div class="form-group" id="groupdvDivision">
+                                <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
+                                    <p><b>Buscar por división:</b></p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" id="dvDivision">
+                                        <option value="" selected="selected"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDvDivision">
+                                        Buscar <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" id="groupdrDireccion">
+                                <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
+                                    <p><b>Buscar por dirección:</b></p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" id="drDireccion">
+                                        <option value="" selected="selected"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaDrDireccion">
+                                        Buscar <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" id="grouparArea">
+                                <div class="col-sm-4" style="text-align: right; vertical-align: middle;">
+                                    <p><b>Buscar por área:</b></p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" id="arArea">
+                                        <option value="" selected="selected"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-info centered busqueda" data-toggle="modal" id="btBusquedaArArea">
+                                        Buscar <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            
                         </form>
                     </div>
                     <!-- TABLA -->
@@ -126,6 +131,13 @@
                     <table class="table table-hover table-condensed" id="tablaPuestos"></table>
 
                 </div>
+                
+                <center>
+                    <div class="alert alert-danger" style="width: 800px; display: none" id="alert">
+                        <p id="alertMsg"></p>
+                    </div>
+                </center>
+                
                 <div class="panel-footer">Nota: Acciones validas dependeran del rol del usuario</div>
             </div>
         </div>
@@ -158,16 +170,9 @@
                                 </select>
                             </div>
 
-                            <div class="form-group" id="groupArea">
-                                <label for="area">Área:</label>
-                                <select class="form-control" id="area">
-                                    <option value="" selected="selected"></option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group" id="groupDireccion">
-                                <label for="direccion">Dirección:</label>
-                                <select class="form-control" id="direccion">
+                            <div class="form-group" id="groupGerencia">
+                                <label for="gerencia">Gerencia:</label>
+                                <select class="form-control" id="gerencia">
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
@@ -179,13 +184,20 @@
                                 </select>
                             </div>
                             
-                            <div class="form-group" id="groupGerencia">
-                                <label for="gerencia">Gerencia:</label>
-                                <select class="form-control" id="gerencia">
+                            <div class="form-group" id="groupDireccion">
+                                <label for="direccion">Dirección:</label>
+                                <select class="form-control" id="direccion">
                                     <option value="" selected="selected"></option>
                                 </select>
                             </div>
-
+                            
+                            <div class="form-group" id="groupArea">
+                                <label for="area">Área:</label>
+                                <select class="form-control" id="area">
+                                    <option value="" selected="selected"></option>
+                                </select>
+                            </div>
+                            
                             <div class="form-group">
                                 <input type="hidden" value="agregarPuesto" id="puestosAction"/>
 

@@ -70,10 +70,12 @@ $(function () {
 
     //Busquedas de la página
     $("#btBusquedaTrUsuario, #btBusquedaTrCedula, #btBusquedaTrNombre, #btBusquedaTrJefatura, #btBusquedaPtPuesto").click(function () {
+        ocultarAlerta();
         buscar(this.id);
     });
 
     $("#btLimpiarBusqueda").click(function () {
+        ocultarAlerta();
         limpiarBusqueda();
     });
 
@@ -184,6 +186,7 @@ $(function () {
 function consultarTrabajadores(modificar, trUsuario) {
     //Se envia la información por ajax
     $.ajax({
+        async: false,
         url: 'TR_TRABAJADOR_Servlet',
         data: {
             accion: "consultarTrabajadores"
@@ -315,6 +318,7 @@ function consultarTrabajadorByCodigo(trUsuario) {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando el trabajador seleccionado");
 
     $.ajax({
+        asyn: false,
         url: 'TR_TRABAJADOR_Servlet',
         data: {
             accion: "consultarTrabajadorByCodigo",
@@ -500,9 +504,9 @@ function validarFechas()
     return validacion;
 }
 
-function cambiarFormatoFecha(date){
-   var parts = date.split("/");
-   return new Date(parts[2], parts[1] - 1, parts[0]);
+function cambiarFormatoFecha(date) {
+    var parts = date.split("/");
+    return new Date(parts[2], parts[1] - 1, parts[0]);
 }
 
 function mostrarMensaje(modal, classCss, msg, neg) {
@@ -578,9 +582,24 @@ function enviarBusqueda(campo, valor, unico) {
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.trNombre > b.trNombre) {
+                        return 1;
+                    }
+                    if (a.trNombre < b.trNombre) {
+                        return -1;
+                    }
 
-            //redibujar la tabla
-            dibujarTabla(data);
+                    return 0;
+                });
+                //redibujar la tabla
+                dibujarTabla(sorted);
+            } else
+            {
+                dibujarTabla(data);
+                mostrarAlerta("No existen datos para el filtro aplicado.");
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -1236,7 +1255,17 @@ function consultarProvincias() {
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             ocultarModal("modalMensajes");
-            dibujarComboProvincias(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.prDescripcion > b.prDescripcion) {
+                    return 1;
+                }
+                if (a.prDescripcion < b.prDescripcion) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarComboProvincias(sorted);
         },
         type: 'POST',
         dataType: "json"
@@ -1298,7 +1327,17 @@ function consultarCantonesByProvincia(prProvincia) {
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarComboCantones(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.cnDescripcion > b.cnDescripcion) {
+                    return 1;
+                }
+                if (a.cnDescripcion < b.cnDescripcion) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarComboCantones(sorted);
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
         },
@@ -1377,7 +1416,17 @@ function consultarDistritosByCanton(cnCanton) {
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarComboDistritos(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.dsDescripcion > b.dsDescripcion) {
+                    return 1;
+                }
+                if (a.dsDescripcion < b.dsDescripcion) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarComboDistritos(sorted);
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
         },
@@ -1401,4 +1450,17 @@ function dibujarComboDistritos(dataJson) {
     for (var i = 0; i < dataJson.length; i++) {
         $("#distrito").append($("<option value=\"" + dataJson[i].dsCodigo + "\">" + dataJson[i].dsDescripcion + "</option>"));
     }
+}
+
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
+
+function ocultarAlerta()
+{
+    $("#alert").css("display", "none");
+    $("#alertMsg").html("");
 }

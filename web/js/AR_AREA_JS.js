@@ -15,10 +15,12 @@ $(function () {
     });
 
     $("#btBusquedaArCodigo, #btBusquedaArDescripcion, #btBusquedaDrDireccion").click(function () {
+        ocultarAlerta();
         buscar(this.id);
     });
 
     $("#btLimpiarBusqueda").click(function () {
+        ocultarAlerta();
         limpiarBusqueda();
     });
 
@@ -283,8 +285,25 @@ function enviarBusqueda(campo, valor, unico) {
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
 
-            //redibujar la tabla
-            dibujarTabla(data);
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.arDescripcion > b.arDescripcion) {
+                        return 1;
+                    }
+                    if (a.arDescripcion < b.arDescripcion) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+
+                dibujarTabla(sorted);
+            } else
+            {
+                mostrarAlerta("No existen datos para el filtro aplicado.");
+                //redibujar la tabla
+                dibujarTabla(data);
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -334,4 +353,17 @@ function dibujarCombo(dataJson) {
             $("#drDireccion").append($("<option value=\"" + dataJson[i].drCodigo + "\">" + dataJson[i].drDescripcion + "</option>"));
         }
     }
+}
+
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
+
+function ocultarAlerta()
+{
+    $("#alert").css("display", "none");
+    $("#alertMsg").html("");
 }

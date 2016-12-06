@@ -7,7 +7,7 @@
         <id name="evCodigo" type="big_decimal">
             <column name="EV_CODIGO" precision="38" scale="0" />
             <generator class="sequence">
-                <param name="sequence">PAET_EV_EVALUACION_SEQ1</param>
+                <param name="sequence">PAET_EV_EVALUACION_SEQ</param>
             </generator>
         </id>
         <property name="evFecha" type="date">

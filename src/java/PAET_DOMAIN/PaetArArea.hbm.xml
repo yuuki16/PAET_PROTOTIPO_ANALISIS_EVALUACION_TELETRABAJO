@@ -7,7 +7,7 @@
         <id name="arCodigo" type="big_decimal">
             <column name="AR_CODIGO" precision="22" scale="0" />
             <generator class="sequence">
-                <param name="sequence">PAET_AR_AREA_SEQ1</param>
+                <param name="sequence">PAET_AR_AREA_SEQ</param>
             </generator>
         </id>
         <property name="arDescripcion" type="string">

@@ -7,7 +7,7 @@
         <id name="acCodigo" type="big_decimal">
             <column name="AC_CODIGO" precision="38" scale="0" />
             <generator class="sequence">
-                <param name="sequence">PAET_AC_ACTIVIDAD_SEQ2</param>
+                <param name="sequence">PAET_AC_ACTIVIDAD_SEQ</param>
             </generator>
         </id>
         <property name="acDescripcion" type="string">

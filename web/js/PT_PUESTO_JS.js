@@ -1,8 +1,5 @@
 $(document).ready(function () {
     consultarPuestos();
-    consultarAreas();
-    consultarDirecciones();
-    consultarDivisiones();
     consultarGerencias();
 });
 
@@ -18,11 +15,43 @@ $(function () {
     });
 
     $("#btBusquedaPtCodigo, #btBusquedaPtDescripcion, #btBusquedaArArea, #btBusquedaDrDireccion, #btBusquedaDvDivision, #btBusquedaGrGerencia").click(function () {
+        ocultarAlerta();
         buscar(this.id);
     });
 
     $("#btLimpiarBusqueda").click(function () {
+        ocultarAlerta();
         limpiarBusqueda();
+    });
+
+    $("#gerencia").change(function () {
+        $("#division").html("");
+        consultarDivisionesByGerencia($(this).val(), "form");
+    });
+    
+    $("#grGerencia").change(function () {
+        $("#dvDivision").html("");
+        consultarDivisionesByGerencia($(this).val(), "busqueda");
+    });
+
+    $("#division").change(function () {
+        $("#direccion").html("");
+        consultarDireccionesByDivision($(this).val(), "form");
+    });
+    
+    $("#dvDivision").change(function () {
+        $("#drDireccion").html("");
+        consultarDireccionesByDivision($(this).val(), "busqueda");
+    });
+
+    $("#direccion").change(function () {
+        $("#area").html("");
+        consultarAreasByDireccion($(this).val(), "form");
+    });
+    
+    $("#drDireccion").change(function () {
+        $("#arArea").html("");
+        consultarAreasByDireccion($(this).val(), "busqueda");
     });
 });
 
@@ -38,7 +67,24 @@ function consultarPuestos() {
             alert("Se presento un error a la hora de cargar la información de los puestos en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarTabla(data);
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.ptDescripcion > b.ptDescripcion) {
+                        return 1;
+                    }
+                    if (a.ptDescripcion < b.ptDescripcion) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+
+                dibujarTabla(sorted);
+            } else
+            {
+                dibujarTabla(data);
+                mostrarAlerta("No existen datos en la tabla.");
+            }
             // se oculta el modal esta funcion se encuentra en el utils.js
             ocultarModal("modalMensajes");
 
@@ -80,34 +126,30 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.ptDescripcion + "</td>"));
     if (rowData.ptEstado === "A") {
         row.append($("<td> Activo </td>"));
-    }else if (rowData.ptEstado === "I") {
+    } else if (rowData.ptEstado === "I") {
         row.append($("<td> Inactivo </td>"));
     }
     if (rowData.hasOwnProperty('arArea')) {
         row.append($("<td>" + rowData.arArea + "</td>"));
-    }
-    else
+    } else
     {
         row.append($("<td> NA </td>"));
     }
     if (rowData.hasOwnProperty('drDireccion')) {
         row.append($("<td>" + rowData.drDireccion + "</td>"));
-    }
-    else
+    } else
     {
         row.append($("<td> NA </td>"));
     }
     if (rowData.hasOwnProperty('dvDivision')) {
         row.append($("<td>" + rowData.dvDivision + "</td>"));
-    }
-    else
+    } else
     {
         row.append($("<td> NA </td>"));
     }
     if (rowData.hasOwnProperty('grGerencia')) {
         row.append($("<td>" + rowData.grGerencia + "</td>"));
-    }
-    else
+    } else
     {
         row.append($("<td> NA </td>"));
     }
@@ -120,6 +162,7 @@ function consultarPuestoByCodigo(ptCodigo) {
     mostrarModal("modalMensajes", "Espere por favor..", "Consultando el puesto seleccionado");
 
     $.ajax({
+        async: false,
         url: 'PT_PUESTO_Servlet',
         data: {
             accion: "consultarPuestoByCodigo",
@@ -147,10 +190,24 @@ function consultarPuestoByCodigo(ptCodigo) {
             $("#codigo").val(data.ptCodigo);
             $("#descripcion").val(data.ptDescripcion);
             $("#estado").val(data.ptEstado);
-            $("#area").val(data.arArea);
-            $("#direccion").val(data.drDireccion);
-            $("#division").val(data.dvDivision);
             $("#gerencia").val(data.grGerencia);
+            consultarDivisionesByGerencia(data.grGerencia, "form");
+            
+            if (data.hasOwnProperty("dvDivision")) {
+                $("#direccion").html("");
+                consultarDireccionesByDivision(data.dvDivision, "form");
+                $("#division").val(data.dvDivision);
+            }
+            
+            if (data.hasOwnProperty("drDireccion")) {
+                $("#area").html("");
+                consultarAreasByDireccion(data.drDireccion, "form");
+                $("#direccion").val(data.drDireccion);
+            }
+            
+            if (data.hasOwnProperty("arArea")) {
+                $("#area").val(data.arArea);
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -160,7 +217,7 @@ function consultarPuestoByCodigo(ptCodigo) {
 function limpiarForm() {
     //setea el focus del formulario
     $('#codigo').focus();
-    $("#codigo").removeAttr("readonly"); 
+    $("#codigo").removeAttr("readonly");
 
     //se cambia la accion por agregarDivision
     $("#puestosAction").val("agregarPuesto");
@@ -222,7 +279,7 @@ function validar() {
     //quitar errores
     $("#groupDescripcion").removeClass("has-error");
     $("#groupEstado").removeClass("has-error");
-    
+
     if ($("#descripcion").val() === "") {
         $("#groupDescripcion").addClass("has-error");
         validacion = false;
@@ -231,7 +288,7 @@ function validar() {
         $("#groupEstado").addClass("has-error");
         validacion = false;
     }
-    
+
     return validacion;
 }
 
@@ -263,15 +320,15 @@ function buscar(idBoton) {
         if (validarBusqueda("arArea")) {
             enviarBusqueda("arArea", $("#arArea").val(), false);
         }
-    }else if (idBoton === "btBusquedaDrDireccion") {
+    } else if (idBoton === "btBusquedaDrDireccion") {
         if (validarBusqueda("drDireccion")) {
             enviarBusqueda("drDireccion", $("#drDireccion").val(), false);
         }
-    }else if (idBoton === "btBusquedaDvDivision") {
+    } else if (idBoton === "btBusquedaDvDivision") {
         if (validarBusqueda("dvDivision")) {
             enviarBusqueda("dvDivision", $("#dvDivision").val(), false);
         }
-    }else if (idBoton === "btBusquedaGrGerencia") {
+    } else if (idBoton === "btBusquedaGrGerencia") {
         if (validarBusqueda("grGerencia")) {
             enviarBusqueda("grGerencia", $("#grGerencia").val(), false);
         }
@@ -313,8 +370,25 @@ function enviarBusqueda(campo, valor, unico) {
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
 
-            //redibujar la tabla
-            dibujarTabla(data);
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.ptDescripcion > b.ptDescripcion) {
+                        return 1;
+                    }
+                    if (a.ptDescripcion < b.ptDescripcion) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+
+                dibujarTabla(sorted);
+            } else
+            {
+                mostrarAlerta("No existen datos para el filtro aplicado.");
+                //redibujar la tabla
+                dibujarTabla(data);
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -327,66 +401,129 @@ function limpiarBusqueda() {
     consultarPuestos();
 
     //Limpiar txt
-     $('#ptCodigo').val("");
-     $('#ptDescripcion').val("");
-     $('#arArea').val("");
-     $('#drDireccion').val("");
-     $('#dvDivision').val("");
-     $('#grGerencia').val("");
+    $('#ptCodigo').val("");
+    $('#ptDescripcion').val("");
+    $('#arArea').val("");
+    $('#drDireccion').val("");
+    $('#dvDivision').val("");
+    $('#grGerencia').val("");
 }
 
-function consultarAreas()
+function consultarAreasByDireccion(drDireccion, combo)
 {
     $.ajax({
+        async: false,
         url: 'AR_AREA_Servlet',
         data: {
-            accion: "consultarAreas"
+            accion: "consultaDinamica",
+            campo: "drDireccion",
+            valor: drDireccion,
+            unico: "true"
         },
         error: function () { //si existe un error en la respuesta del ajax
-            alert("Se presento un error a la hora de cargar la información de las áreas en la base de datos");
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarComboAreas(data);
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.arDescripcion > b.arDescripcion) {
+                        return 1;
+                    }
+                    if (a.arDescripcion < b.arDescripcion) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+
+                if (combo === "form") {
+                    dibujarComboAreas(sorted);
+                } else if (combo === "busqueda") {
+                    dibujarComboAreasBusqueda(sorted);
+                }
+            }
         },
         type: 'POST',
         dataType: "json"
-    });   
+    });
 }
 
-function consultarDirecciones()
+function consultarDireccionesByDivision(dvDivision, combo)
 {
     $.ajax({
+        async: false,
         url: 'DR_DIRECCION_Servlet',
         data: {
-            accion: "consultarDirecciones"
+            accion: "consultaDinamica",
+            campo: "dvDivision",
+            valor: dvDivision,
+            unico: "true"
         },
         error: function () { //si existe un error en la respuesta del ajax
-            alert("Se presento un error a la hora de cargar la información de las direcciones en la base de datos");
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarComboDirecciones(data);
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.drDescripcion > b.drDescripcion) {
+                        return 1;
+                    }
+                    if (a.drDescripcion < b.drDescripcion) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+
+                if (combo === "form") {
+                    dibujarComboDirecciones(sorted);
+                }else if (combo === "busqueda") {
+                    dibujarComboDireccionesBusqueda(sorted);
+                }
+            }
         },
         type: 'POST',
         dataType: "json"
-    });   
+    });
 }
 
-function consultarDivisiones()
+function consultarDivisionesByGerencia(grGerencia, combo)
 {
     $.ajax({
+        async: false,
         url: 'DV_DIVISION_Servlet',
         data: {
-            accion: "consultarDivisiones"
+            accion: "consultaDinamica",
+            campo: "grGerencia",
+            valor: grGerencia,
+            unico: "true"
         },
         error: function () { //si existe un error en la respuesta del ajax
-            alert("Se presento un error a la hora de cargar la información de las divisiones en la base de datos");
+            cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarComboDivisiones(data);
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.dvDescripcion > b.dvDescripcion) {
+                        return 1;
+                    }
+                    if (a.dvDescripcion < b.dvDescripcion) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+
+                if (combo === "form") {
+                    dibujarComboDivisiones(sorted);
+                }else if (combo === "busqueda") {
+                    dibujarComboDivisionesBusqueda(sorted);
+                }
+            }
         },
         type: 'POST',
         dataType: "json"
-    });   
+    });
 }
 
 function consultarGerencias()
@@ -400,56 +537,114 @@ function consultarGerencias()
             alert("Se presento un error a la hora de cargar la información de las divisiones en la base de datos");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            dibujarComboGerencias(data);
+            var sorted = data.sort(function (a, b) {
+                if (a.grDescripcion > b.grDescripcion) {
+                    return 1;
+                }
+                if (a.grDescripcion < b.grDescripcion) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            dibujarComboGerencias(sorted);
         },
         type: 'POST',
         dataType: "json"
-    });   
+    });
 }
 
-function dibujarComboAreas(dataJson){
-    
-    for (var i = 0; i < dataJson.length; i++) {
-        $("#area").append($("<option value=\""+dataJson[i].arCodigo+"\">"+dataJson[i].arDescripcion+"</option>"));
-    }
-    
-    for (var i = 0; i < dataJson.length; i++) {
-        $("#arArea").append($("<option value=\""+dataJson[i].arCodigo+"\">"+dataJson[i].arDescripcion+"</option>"));
-    }
-}
+function dibujarComboAreas(dataJson) {
 
-function dibujarComboDirecciones(dataJson){
-    
+    $("#area").append($('<option value="" selected="selected"></option>'));
+
     for (var i = 0; i < dataJson.length; i++) {
-        $("#direccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
-    }
-    
-    for (var i = 0; i < dataJson.length; i++) {
-        $("#drDireccion").append($("<option value=\""+dataJson[i].drCodigo+"\">"+dataJson[i].drDescripcion+"</option>"));
+        if (dataJson[i].arEstado === "A") {
+            $("#area").append($("<option value=\"" + dataJson[i].arCodigo + "\">" + dataJson[i].arDescripcion + "</option>"));
+        }
     }
 }
 
-function dibujarComboDivisiones(dataJson){
+function dibujarComboAreasBusqueda(dataJson)
+{
+    $("#arArea").append($('<option value="" selected="selected"></option>'));
     
     for (var i = 0; i < dataJson.length; i++) {
-        $("#division").append($("<option value=\""+dataJson[i].dvCodigo+"\">"+dataJson[i].dvDescripcion+"</option>"));
-    }
-    
-    for (var i = 0; i < dataJson.length; i++) {
-        $("#dvDivision").append($("<option value=\""+dataJson[i].dvCodigo+"\">"+dataJson[i].dvDescripcion+"</option>"));
-    }
-}
-
-function dibujarComboGerencias(dataJson){
-    
-    for (var i = 0; i < dataJson.length; i++) {
-        $("#gerencia").append($("<option value=\""+dataJson[i].grCodigo+"\">"+dataJson[i].grDescripcion+"</option>"));
-    }
-    
-    for (var i = 0; i < dataJson.length; i++) {
-        $("#grGerencia").append($("<option value=\""+dataJson[i].grCodigo+"\">"+dataJson[i].grDescripcion+"</option>"));
+        if (dataJson[i].arEstado === "A") {
+            $("#arArea").append($("<option value=\"" + dataJson[i].arCodigo + "\">" + dataJson[i].arDescripcion + "</option>"));
+        }
     }
 }
 
+function dibujarComboDirecciones(dataJson) {
+    
+    $("#direccion").append($('<option value="" selected="selected"></option>'));
 
+    for (var i = 0; i < dataJson.length; i++) {
+        if (dataJson[i].drEstado === "A") {
+            $("#direccion").append($("<option value=\"" + dataJson[i].drCodigo + "\">" + dataJson[i].drDescripcion + "</option>"));
+        }
+    }
+}
+
+function dibujarComboDireccionesBusqueda(dataJson) {
+    
+    $("#drDireccion").append($('<option value="" selected="selected"></option>'));
+    
+    for (var i = 0; i < dataJson.length; i++) {
+        if (dataJson[i].drEstado === "A") {
+            $("#drDireccion").append($("<option value=\"" + dataJson[i].drCodigo + "\">" + dataJson[i].drDescripcion + "</option>"));
+        }
+    }
+}
+
+function dibujarComboDivisiones(dataJson) {
+
+    $("#division").append($('<option value="" selected="selected"></option>'));
+
+    for (var i = 0; i < dataJson.length; i++) {
+        if (dataJson[i].dvEstado === "A") {
+            $("#division").append($("<option value=\"" + dataJson[i].dvCodigo + "\">" + dataJson[i].dvDescripcion + "</option>"));
+        }
+    }
+}
+
+function dibujarComboDivisionesBusqueda(dataJson) {
+
+    $("#dvDivision").append($('<option value="" selected="selected"></option>'));
+
+    for (var i = 0; i < dataJson.length; i++) {
+        if (dataJson[i].dvEstado === "A") {
+            $("#dvDivision").append($("<option value=\"" + dataJson[i].dvCodigo + "\">" + dataJson[i].dvDescripcion + "</option>"));
+        }
+    }
+}
+
+function dibujarComboGerencias(dataJson) {
+
+    for (var i = 0; i < dataJson.length; i++) {
+        if (dataJson[i].grEstado === "A") {
+            $("#gerencia").append($("<option value=\"" + dataJson[i].grCodigo + "\">" + dataJson[i].grDescripcion + "</option>"));
+        }
+    }
+
+    for (var i = 0; i < dataJson.length; i++) {
+        if (dataJson[i].grEstado === "A") {
+            $("#grGerencia").append($("<option value=\"" + dataJson[i].grCodigo + "\">" + dataJson[i].grDescripcion + "</option>"));
+        }
+    }
+}
+
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
+
+function ocultarAlerta()
+{
+    $("#alert").css("display", "none");
+    $("#alertMsg").html("");
+}
 

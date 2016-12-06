@@ -14,10 +14,12 @@ $(function () {
     });
 
     $("#btBusquedaGrCodigo, #btBusquedaGrDescripcion").click(function () {
+        ocultarAlerta();
         buscar(this.id);
     });
 
     $("#btLimpiarBusqueda").click(function () {
+        ocultarAlerta();
         limpiarBusqueda();
     });
 });
@@ -261,8 +263,25 @@ function enviarBusqueda(campo, valor, unico) {
             // se oculta el mensaje de espera
             ocultarModal("modalMensajes");
 
-            //redibujar la tabla
-            dibujarTabla(data);
+            if (data.length > 0) {
+                var sorted = data.sort(function (a, b) {
+                    if (a.grDescripcion > b.grDescripcion) {
+                        return 1;
+                    }
+                    if (a.grDescripcion < b.grDescripcion) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+                //redibujar la tabla
+                dibujarTabla(sorted);
+            } else
+            {
+                dibujarTabla(data);
+                mostrarAlerta("No existen datos para el filtro aplicado.");
+            }
+
         },
         type: 'POST',
         dataType: "json"
@@ -277,4 +296,17 @@ function limpiarBusqueda() {
     //Limpiar txt
     $('#grCodigo').val("");
     $('#grDescripcion').val("");
+}
+
+function mostrarAlerta(mensaje)
+{
+    $("#alert").css("display", "block");
+    $("#alertMsg").html("");
+    $("#alertMsg").html(mensaje);
+}
+
+function ocultarAlerta()
+{
+    $("#alert").css("display", "none");
+    $("#alertMsg").html("");
 }

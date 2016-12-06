@@ -66,6 +66,13 @@
                     <table class="table table-hover table-condensed" id="tablaGerencias"></table>
 
                 </div>
+                
+                <center>
+                    <div class="alert alert-danger" style="width: 800px; display: none" id="alert">
+                        <p id="alertMsg"></p>
+                    </div>
+                </center>
+                
                 <div class="panel-footer">Nota: Acciones validas dependeran del rol del usuario</div>
             </div>
         </div>
