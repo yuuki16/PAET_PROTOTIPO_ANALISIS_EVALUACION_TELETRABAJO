@@ -230,7 +230,7 @@ function dibujarProcesos(dataProcesos, nombre)
                             ' <div class="timeline-label">' +
                             '<p>' + nombre + '</p>' +
                             '<p>' + dataProcesos[i].pgFecha + '</p>' +
-                            '  <h2><a onclick="consultarEstadosByTeletrabajador(\'' + ttTeletrabajador + '\', \'' + numero + '\')">Verificar Proceso</a></h2>' +
+                            '  <h2><a onclick="consultarEstadosByTeletrabajador(\'' + ttTeletrabajador + '\', \'' + numero + '\')">Revisar Proceso</a></h2>' +
                             ' </div>' +
                             ' </div>' +
                             '</article>'));

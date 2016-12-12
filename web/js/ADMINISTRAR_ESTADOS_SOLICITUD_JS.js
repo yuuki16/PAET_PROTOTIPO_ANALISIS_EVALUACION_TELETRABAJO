@@ -19,7 +19,7 @@ var psProcesoSolicitud, slSolicitud, trTrabajador, ttTeletrabajador;
 $(document).ready(function () {
     consultarEstadosByProceso();
     //acciones barra proceso
-    //$('.nav-tabs > li a[title]').tooltip();
+    $('.nav-tabs > li a[title]').tooltip();
 
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
         var $target = $(e.target);
@@ -129,6 +129,7 @@ $(document).ready(function () {
         if (validarDocumentacion("requerimientos")) {
             guardarDocumentacion("requerimientos");
             avanzarPsProcesoSolicitud(6, 5);
+            location.reload();
         } else
         {
             alert("Debe de adjuntar el formulario de requerimientos tecnológicos antes de continuar.");
@@ -309,10 +310,6 @@ function consultarEstadosByProceso()
 function dibujarEstados(dataJson)
 {
     for (var i = 0; i < dataJson.length; i++) {
-        $("#estados").append($('<div role="tooltip" class="tooltip top custom-tooltip" style="margin-top: -60px; width: 110px;">' +
-                '<div class="tooltip-arrow"></div>' +
-                '<div class="tooltip-inner">'+dataJson[i].esDescripcion+'</div>' +
-                '</div>'));
         $("#estados").append($('<li role="presentation" class="disabled" id="' + dataJson[i].esCodigo + '">' +
                 '<a href="#step' + dataJson[i].esSecuencia + '" data-toggle="tab" aria-controls="step' + dataJson[i].esSecuencia + '" role="tab" title="' + dataJson[i].esDescripcion + '">' +
                 '<span class="round-tab">' +
@@ -1087,6 +1084,7 @@ function guardarTeletrabajador(trTrabajador)
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             ttTeletrabajador = data;
             guardarDiasTeletrabajador(data);
+            avanzarPsProcesoSolicitud(5, 4);
         },
         type: 'POST',
         dataType: "json"
@@ -1143,7 +1141,7 @@ function guardarDiasTeletrabajador(ttTeletrabajador)
                     cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
                 },
                 success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-                    avanzarPsProcesoSolicitud(5, 4);
+                    
                 },
                 type: 'POST',
                 dataType: "text"

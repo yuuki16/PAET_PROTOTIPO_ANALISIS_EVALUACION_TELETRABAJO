@@ -322,7 +322,7 @@
 
                             <div class="form-group" id="groupCorreoCorreo">
                                 <label for="correoCorreo">Correo:</label>
-                                <input type="email" class="form-control" id="correoCorreo" placeholder="Correo" maxlength="100" autocomplete="off">
+                                <input type="email" class="form-control" id="correoCorreo" placeholder="correo@ice.go.cr" maxlength="100" autocomplete="off">
                             </div>
                             
                             <div class="form-group" id="groupEstadoCorreo">

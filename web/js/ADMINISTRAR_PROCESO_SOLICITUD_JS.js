@@ -216,7 +216,7 @@ function dibujarProcesos(dataProcesos, dataSolicitudes, nombre)
                                 '<p>' + nombre + '</p>' +
                                 '<p>' + dataProcesos[i].psFechaEntrada + '</p>' +
                                 '<br>' +
-                                '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + dataProcesos[i].slSolicitud + '\')">Verificar Proceso</a></h2>' +
+                                '  <h2><a onclick="consultarEstadosByProcesoSolicitud(\'' + dataProcesos[i].slSolicitud + '\')">Revisar Proceso</a></h2>' +
                                 ' </div>' +
                                 ' </div>' +
                                 '</article>'));
