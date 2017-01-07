@@ -13,6 +13,7 @@
   <table-filter match-name="PAET_ES_ESTADO"/>
   <table-filter match-name="PAET_CR_CORREO"/>
   <table-filter match-name="PAET_PG_PROCESO_SEGUIMIENTO"/>
+  <table-filter match-name="PAET_PF_PROCESO_FINALIZACION"/>
   <table-filter match-name="PAET_AM_ACCION_MEJORA"/>
   <table-filter match-name="PAET_RE_RECOMENDACION"/>
   <table-filter match-name="PAET_DI_SL_DIA_SOLICITUD"/>

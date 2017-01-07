@@ -125,6 +125,10 @@
         <servlet-class>PAET_CONTROLLER.PG_PROCESO_SEGUIMIENTO_Servlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PF_PROCESO_FINALIZACION_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.PF_PROCESO_FINALIZACION_Servlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>EV_EVALUACION_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.EV_EVALUACION_Servlet</servlet-class>
     </servlet>
@@ -243,6 +247,10 @@
     <servlet-mapping>
         <servlet-name>PG_PROCESO_SEGUIMIENTO_Servlet</servlet-name>
         <url-pattern>/PG_PROCESO_SEGUIMIENTO_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PF_PROCESO_FINALIZACION_Servlet</servlet-name>
+        <url-pattern>/PF_PROCESO_FINALIZACION_Servlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EV_EVALUACION_Servlet</servlet-name>

@@ -66,10 +66,10 @@ function guardar() {
         //Se envia la información por ajax
         $.ajax({
             async: false,
-            url: 'PF_PROCESP_FINALIZACION_Servlet',
+            url: 'PF_PROCESO_FINALIZACION_Servlet',
             data: {
                 accion: "agregarProcesoFinalizacion",
-                ttTeletrabajor: ttTeletrabajador
+                ttTeletrabajador: ttTeletrabajador
             },
             error: function () { //si existe un error en la respuesta del ajax
                 mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador (Error del ajax)", "Error!");
@@ -83,6 +83,7 @@ function guardar() {
                     } else
                     {
                         $('#formSolicitudFinalizacion').trigger("reset");
+                        mostrarMensaje("alert alert-success", respuestaTxt, "Correcto!");
                     }
                 } else {
                     mostrarMensaje("alert alert-danger", "Se genero un error, contacte al administrador", "Error!");

@@ -22,6 +22,7 @@
     <mapping resource="PAET_DOMAIN/PaetEvEvaluacion.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetDcDocumentacion.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetPgProcesoSeguimiento.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetPfProcesoFinalizacion.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetReRecomendacion.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetEsEstado.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetTlTelefono.hbm.xml"/>
@@ -47,3 +48,4 @@
     <mapping resource="PAET_DOMAIN/PaetChCalculoAhorro.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
+
