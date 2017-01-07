@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-oct-2016 22:10:24 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PAET_DOMAIN.PaetPfProcesoFinalizacion" table="PAET_PF_PROCESO_FINALIZACION" schema="MMONGE" optimistic-lock="version">
+        <id name="pfCodigo" type="big_decimal">
+            <column name="PF_CODIGO" precision="38" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">PAET_PF_PROCESO_FIN_SEQ</param>
+            </generator>
+        </id>
+        <property name="pfFecha" type="date">
+            <column name="PF_FECHA" length="7" not-null="true" />
+        </property>
+        <property name="pfObservacion" type="string">
+            <column name="PF_OBSERVACION" length="100" />
+        </property>
+        <property name="ttTeletrabajador" type="big_decimal">
+            <column name="TT_TELETRABAJADOR" precision="38" scale="0" not-null="true" />
+        </property>
+        <property name="esEstado" type="big_decimal">
+            <column name="ES_ESTADO" precision="38" scale="0" not-null="true" />
+        </property>
+        <property name="pfFechaAtendido" type="date">
+            <column name="PF_FECHA_ATENDIDO" length="7" />
+        </property>
+        <property name="pfEstado" type="char">
+            <column name="PF_ESTADO" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

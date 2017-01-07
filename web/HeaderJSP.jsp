@@ -32,6 +32,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp">Procesos de Solicitud</a></li>
                                 <li><a href="ADMINISTRAR_PROCESO_SEGUIMIENTO_JSP.jsp">Procesos de Seguimiento</a></li>
+                                <li><a href="ADMINISTRAR_PROCESO_FINALIZACION_JSP.jsp">Procesos de Finalización</a></li>
                             </ul>
                         </li>
                         <li class=" dropdown">
@@ -44,6 +45,8 @@
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teletrabajador <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="REVISAR_PROCESO_SEGUIMIENTO.jsp">Verificar Proceso de Seguimiento</a></li>
+                                <li><a href="SOLICITUD_FINALIZACION.jsp">Solicitar Finalización de Teletrabajo</a></li>
+                                <li><a href="REVISAR_PROCESO_FINALIZACION.jsp">Verificar Proceso de Finalización</a></li>
                             </ul>
                         </li>
                         <li class=" down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>

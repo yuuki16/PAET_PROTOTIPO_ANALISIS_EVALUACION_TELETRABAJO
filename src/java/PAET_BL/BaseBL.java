@@ -46,6 +46,7 @@ public class BaseBL {
             daos.put("PAET_DOMAIN.PaetFcAnFactorAnalisis", new PAET_FC_AN_FACTOR_ANALISIS_DAO());
             daos.put("PAET_DOMAIN.PaetGrGerencia", new PAET_GR_GERENCIA_DAO());
             daos.put("PAET_DOMAIN.PaetMtMeta", new PAET_MT_META_DAO());
+            daos.put("PAET_DOMAIN.PaetPfProcesoFinalizacion", new PAET_PF_PROCESO_FINALIZACION_DAO());
             daos.put("PAET_DOMAIN.PaetPgProcesoSeguimiento", new PAET_PG_PROCESO_SEGUIMIENTO_DAO());
             daos.put("PAET_DOMAIN.PaetPrProvincia", new PAET_PR_PROVINCIA_DAO());
             daos.put("PAET_DOMAIN.PaetPsProcesoSolicitud", new PAET_PS_PROCESO_SOLICITUD_DAO());

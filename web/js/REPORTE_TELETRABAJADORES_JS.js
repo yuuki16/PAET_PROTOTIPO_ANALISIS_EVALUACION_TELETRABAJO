@@ -222,8 +222,6 @@ function pintarModalidades()
 {
     $("#filtro").html("");
     $("#filtro").append($('<option value="" selected="selected"></option>'));
-    $("#filtro").append($('<option value="P">Parcial</option>'));
-    $("#filtro").append($('<option value="T">Total</option>'));
 }
 
 //puestos

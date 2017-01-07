@@ -40,7 +40,7 @@
                                     <!--PANEL ESTADO 2-->
                                     <div class="tab-pane" role="tabpanel" id="step2">
                                         <h3>Análisis de Puesto y Aprobación del Gerente</h3>
-                                        <p>Paso 2 de 7</p>
+                                        <p>Paso 2 de 6</p>
                                         <ul class="list-inline">
                                             <li>
                                                 <h4>Análisis de puesto</h4>
@@ -242,7 +242,7 @@
                                     <!--PANEL ESTADO 3-->
                                     <div class="tab-pane" role="tabpanel" id="step3">
                                         <h3>Análisis Psicométrico y Psicosocial</h3>
-                                        <p>Paso 3 de 7</p>
+                                        <p>Paso 3 de 6</p>
                                         <ul class="list-inline">
                                             <li>
                                                 <h5>Adjuntar resultado del análisis psicométrico</h5>
@@ -280,7 +280,7 @@
                                     <!--PANEL ESTADO 4-->
                                     <div class="tab-pane" role="tabpanel" id="step4">
                                         <h3>Aprobar la solicitud</h3>
-                                        <p>Paso 4 de 7</p>
+                                        <p>Paso 4 de 6</p>
                                         <ul class="list-inline">
                                             <li>
                                                 <h5>Resultados del análisis</h5>
@@ -340,7 +340,7 @@
                                     <!--PANEL ESTADO 5-->
                                     <div class="tab-pane" role="tabpanel" id="step5">
                                         <h3>Requerimientos Tecnológicos</h3>
-                                        <p>Paso 5 de 7</p>
+                                        <p>Paso 5 de 6</p>
                                         <ul class="list-inline">
                                             <li>
                                                 <h5>Descargar formulario requerimientos tecnológicos</h5>
@@ -373,72 +373,9 @@
                                         </ul>
                                     </div>
                                     <!--PANEL ESTADO 6-->
-                                    <div class="tab-pane" role="tabpanel" id="step6">
-                                        <h3>Cálculo de Ahorro</h3>
-                                        <p>Paso 6 de 7</p>
-                                        <ul class="list-inline">
-                                            <li>
-                                                <h5>Calcular salario correspondiente a días teletrabajando</h5>
-                                            </li>
-                                            <br>
-                                            <li>
-                                                <label for="salarioTotal">Salario total devengado (STD) sin rebajos:</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">₡</span>
-                                                    <input type="number" class="form-control" id="salarioTotal">
-                                                </div>
-                                                <label for="salarioRebajosLey">Salario total devengado (STD) con rebajos de ley:</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">₡</span>
-                                                    <input type="text" class="form-control" id="salarioRebajosLey" readonly="true">
-                                                </div>
-                                                <label for="diasTeletrabajando">Días en teletrabajo por mes:</label>
-                                                <input type="text" class="form-control" id="diasTeletrabajando" readonly="true">
-                                                <label for="salarioTeletrabajo">Salario total devengado (STD) en Teletrabajo:</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">₡</span>
-                                                    <input type="text" class="form-control" id="salarioTeletrabajo" readonly="true">
-                                                </div>
-                                            </li>
-                                            <br>
-                                            <br>
-                                            <li>
-                                                <h5>Gastos de unidad producidos por mes</h5>
-                                            </li>
-                                            <br>
-                                            <li>
-                                                <label for="costoUnidad">Costo que representan los eventos atendidos por el funcionario por mes:</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">₡</span>
-                                                    <input type="number" class="form-control" id="costoUnidad">
-                                                </div>
-                                            </li>
-                                            <br>
-                                            <br>
-                                            <li>
-                                                <h5>Documento resultado de la visita</h5>
-                                            </li>
-                                            <br>
-                                            <li>
-                                                <br>
-                                                <label class="btn btn-info btn-file">
-                                                    Adjuntar archivo <input type="file" style="display: none;" id="visita">
-                                                </label>
-                                                <label id="archivoVisita"></label>
-                                            </li>
-                                            <li>
-                                                <br>
-                                                <h5>Observación:</h5>
-                                                <textarea class="form-control" rows="5" id="observacion6" style="width: 830px"></textarea>
-                                            </li>
-                                            <br>
-                                            <li><button type="button" class="btn btn-success next-step" style="position: absolute; right: 100px" id="guardar6">Avanzar Proceso</button></li>
-                                        </ul>
-                                    </div>
-                                    <!--PANEL ESTADO 5-->
                                     <div class="tab-pane" role="tabpanel" id="step7">
                                         <h3>Adenda Firmada</h3>
-                                        <p>Paso 7 de 7</p>
+                                        <p>Paso 6 de 6</p>
                                         <ul class="list-inline">
                                             <li>
                                                 <h5>Adjuntar adenda firmada</h5>
@@ -454,10 +391,10 @@
                                             <li>
                                                 <br>
                                                 <h5>Observación:</h5>
-                                                <textarea class="form-control" rows="5" id="observacion7" style="width: 830px"></textarea>
+                                                <textarea class="form-control" rows="5" id="observacion6" style="width: 830px"></textarea>
                                             </li>
                                             <br>
-                                            <li><button type="button" class="btn btn-primary next-step" style="position: absolute; right: 100px" id="guardar7">Finalizar Proceso</button></li>
+                                            <li><button type="button" class="btn btn-primary next-step" style="position: absolute; right: 100px" id="guardar6">Finalizar Proceso</button></li>
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>
@@ -468,7 +405,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </section>
                     </div>

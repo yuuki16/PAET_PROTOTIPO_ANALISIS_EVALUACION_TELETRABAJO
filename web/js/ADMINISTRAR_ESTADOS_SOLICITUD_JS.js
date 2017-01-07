@@ -137,23 +137,9 @@ $(document).ready(function () {
     });
 
     $("#guardar6").click(function () {
-        if (validarDocumentacion("visita")) {
-            if (validarCalculoAhorro()) {
-                guardarCalculoAhorro();
-            } else
-            {
-                alert("Debe ingresar la información correspondiente al cálculo de ahorro para poder continuar.");
-            }
-        } else
-        {
-            alert("Debe de adjuntar el documento de la visita realizada antes de continuar.");
-        }
-    });
-
-    $("#guardar7").click(function () {
         if (validarDocumentacion("adenda")) {
             guardarDocumentacion("adenda");
-            modificarPsProcesoSolicitud(7);
+            modificarPsProcesoSolicitud(6);
             window.location = 'ADMINISTRAR_PROCESO_SOLICITUD_JSP.jsp';
         } else
         {
@@ -374,9 +360,6 @@ function pintarEstadoPendiente(dataJson)
                 $("#diasTeletrabajo").hide();
             } else if (dataJson[i].esEstado > 4) {
                 consultarTeletrabajadorByTrabajador();
-                if (dataJson[i].esEstado === 6) {
-                    consultarDiasTeletrabajadorByTeletrabajador();
-                }
             }
         }
     }
