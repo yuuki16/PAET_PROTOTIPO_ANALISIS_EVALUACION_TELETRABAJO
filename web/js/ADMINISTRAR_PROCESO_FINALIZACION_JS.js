@@ -78,7 +78,7 @@ function consultarTeletrabajadorByTrabajador(trUsuario, nombre)
     });
 }
 
-function consultarTeletrabajadorByCodigo(fechaEntrada, teletrabajador, numero)
+function consultarTeletrabajadorByCodigo(fechaEntrada, teletrabajador)
 {
     $.ajax({
         async: false,
@@ -91,7 +91,7 @@ function consultarTeletrabajadorByCodigo(fechaEntrada, teletrabajador, numero)
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            consultarTrabajadorByUsuario(fechaEntrada, data.trTrabajador, numero, teletrabajador);
+            consultarTrabajadorByUsuario(fechaEntrada, data.trTrabajador, teletrabajador);
         },
         type: 'POST',
         dataType: "json"
@@ -117,13 +117,17 @@ function consultarTrabajadorByCedula(trCedula)
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             if (data.length > 0) {
-                // se oculta el mensaje de espera
-                trTrabajador = data[0].trUsuario;
-                consultarTeletrabajadorByTrabajador(data[0].trUsuario, data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2);
+                if (data[0].trEstado === "A") {
+                    trTrabajador = data[0].trUsuario;
+                    consultarTeletrabajadorByTrabajador(data[0].trUsuario, data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2);
+                }
+                else
+                {
+                    mostrarAlerta("La cédula ingresada no corresponde a ninguno de nuestros trabajadores activos.");
+                }
             } else
             {
-                mostrarAlerta("La cédula ingresada no corresponde a ninguno de nuestros trabajadores.");
-
+                mostrarAlerta("La cédula ingresada no corresponde a ninguno de nuestros trabajadores activos.");
             }
             ocultarModal("modalMensajes");
         },
@@ -132,7 +136,7 @@ function consultarTrabajadorByCedula(trCedula)
     });
 }
 
-function consultarTrabajadorByUsuario(fecha, usuario, numero, teletrabajador)
+function consultarTrabajadorByUsuario(fecha, usuario, teletrabajador)
 {
     $.ajax({
         async: false,
@@ -155,7 +159,7 @@ function consultarTrabajadorByUsuario(fecha, usuario, numero, teletrabajador)
                     ' <div class="timeline-label">' +
                     '<p>' + data[0].trNombre + ' ' + data[0].trApellido1 + ' ' + data[0].trApellido2 + '</p>' +
                     '<p>' + fecha + '</p>' +
-                    '  <h2><a onclick="consultarEstadosByTeletrabajador(\'' + teletrabajador + '\', \'' + numero + '\')">Revisar Proceso</a></h2>' +
+                    '  <h2><a onclick="consultarEstadosByTeletrabajador(\'' + teletrabajador + '\')">Revisar Proceso</a></h2>' +
                     ' </div>' +
                     ' </div>' +
                     '</article>'));
@@ -245,8 +249,8 @@ function dibujarTodosProcesos(dataProcesos)
     for (var i = 0; i < dataProcesos.length; i++) {
         if (dataProcesos[i].pfEstado === "P") {
             for (var j = 0; j < dataProcesos.length; j++) {
-                if (dataProcesos[j].esEstado === 41 && dataProcesos[j].pfNumero === dataProcesos[i].pfNumero && dataProcesos[j].ttTeletrabajador === dataProcesos[i].ttTeletrabajador) {
-                    consultarTeletrabajadorByCodigo(dataProcesos[j].pfFecha, dataProcesos[j].ttTeletrabajador, dataProcesos[j].pfNumero);
+                if (dataProcesos[j].esEstado === 61 && dataProcesos[j].ttTeletrabajador === dataProcesos[i].ttTeletrabajador) {
+                    consultarTeletrabajadorByCodigo(dataProcesos[j].pfFecha, dataProcesos[j].ttTeletrabajador);
                 }
             }
         }
@@ -268,8 +272,13 @@ function consultarProcesosByTeletrabajador(ttTeletrabajador, nombre)
             cambiarMensajeModal("modalMensajes", "Resultado acción", "Se presento un error, contactar al administador");
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
-            // se oculta el mensaje de espera
-            dibujarProcesos(data, nombre);
+            if (data.length > 0) {
+                dibujarProcesos(data, nombre);
+            }
+            else
+            {
+                mostrarAlerta("El trabajador no posee ningún proceso de finalización.");
+            }
         },
         type: 'POST',
         dataType: "json"
@@ -344,7 +353,7 @@ function consultarEstadosByTeletrabajador(teletrabajador)
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             pintarEstados(data, teletrabajador);
-
+            
             ocultarModal("modalMensajes");
         },
         type: 'POST',
