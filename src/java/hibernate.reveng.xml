@@ -19,6 +19,7 @@
   <table-filter match-name="PAET_DI_SL_DIA_SOLICITUD"/>
   <table-filter match-name="PAET_AR_AREA"/>
   <table-filter match-name="PAET_DC_DOCUMENTACION"/>
+  <table-filter match-name="PAET_DO_DOCUMENTO"/>
   <table-filter match-name="PAET_FC_FACTOR_COMPLEMENTARIO"/>
   <table-filter match-name="PAET_ET_SL_EQUIPO_SOLICITUD"/>
   <table-filter match-name="PAET_PT_PUESTO"/>

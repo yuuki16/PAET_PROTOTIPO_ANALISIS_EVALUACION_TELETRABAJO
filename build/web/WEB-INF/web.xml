@@ -113,6 +113,10 @@
         <servlet-class>PAET_CONTROLLER.DC_DOCUMENTACION_Servlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DO_DOCUMENTO_Servlet</servlet-name>
+        <servlet-class>PAET_CONTROLLER.DO_DOCUMENTO_Servlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>TT_TELETRABAJADOR_Servlet</servlet-name>
         <servlet-class>PAET_CONTROLLER.TT_TELETRABAJADOR_Servlet</servlet-class>
     </servlet>
@@ -235,6 +239,10 @@
     <servlet-mapping>
         <servlet-name>DC_DOCUMENTACION_Servlet</servlet-name>
         <url-pattern>/DC_DOCUMENTACION_Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DO_DOCUMENTO_Servlet</servlet-name>
+        <url-pattern>/DO_DOCUMENTO_Servlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TT_TELETRABAJADOR_Servlet</servlet-name>

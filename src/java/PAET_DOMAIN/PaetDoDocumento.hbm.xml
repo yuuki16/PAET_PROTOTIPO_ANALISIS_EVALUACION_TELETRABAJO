@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="PAET_DOMAIN.PaetDoDocumento" optimistic-lock="version" schema="MMONGE" table="PAET_DO_DOCUMENTOS">
+    <id name="doCodigo" type="big_decimal">
+      <column name="DO_CODIGO" precision="38" scale="0"/>
+      <generator class="sequence">
+        <param name="sequence">PAET_DO_DOCUMENTOS_SEQ</param>
+      </generator>
+    </id>
+    <property name="doDocumento" type="java.sql.Clob">
+      <column name="DO_DOCUMENTO" not-null="true"/>
+    </property>
+    <property name="doFecha" type="date">
+      <column length="7" name="DO_FECHA" not-null="true"/>
+    </property>
+    <property name="doTipoProceso" type="char">
+      <column length="1" name="DO_TIPO_PROCESO" not-null="true"/>
+    </property>
+    <property name="doProceso" type="big_decimal">
+      <column length="38" name="DO_PROCESO" not-null="true"/>
+    </property>
+    <property name="doArchivo" type="string">
+      <column length="999" name="DO_ARCHIVO" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

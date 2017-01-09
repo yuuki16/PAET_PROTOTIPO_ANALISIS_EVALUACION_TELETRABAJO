@@ -77,8 +77,8 @@ function guardar() {
             success: function (data) {
                 if (data !== null) {
                     var tipoRespuesta = data.substring(0, 2);
-                    if (tipoRespuesta === "E~") {
-                        var respuestaTxt = data.substring(2);
+                    var respuestaTxt = data.substring(2);
+                    if (tipoRespuesta === "E~") {   
                         mostrarMensaje("alert alert-danger", respuestaTxt, "Error!");
                     } else
                     {

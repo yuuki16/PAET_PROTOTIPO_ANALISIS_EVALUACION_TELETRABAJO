@@ -52,7 +52,7 @@ public class PAET_PF_PROCESO_FINALIZACION_DAO extends HibernateUtil implements I
                     .setString("observacion", o.getPfObservacion())
                     .setDate("fecha", o.getPfFechaAtendido())
                     .setCharacter("estado", o.getPfEstado())
-                    .setBigDecimal("pgCodigo", o.getPfCodigo())
+                    .setBigDecimal("pfCodigo", o.getPfCodigo())
                     .executeUpdate();
             getTransac().commit();
         } catch (HibernateException he) {

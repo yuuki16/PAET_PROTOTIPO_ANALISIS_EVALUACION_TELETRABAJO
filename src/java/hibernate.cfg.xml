@@ -46,6 +46,6 @@
     <mapping resource="PAET_DOMAIN/PaetAcAnActividadAnalisis.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetGrGerencia.hbm.xml"/>
     <mapping resource="PAET_DOMAIN/PaetChCalculoAhorro.hbm.xml"/>
+    <mapping resource="PAET_DOMAIN/PaetDoDocumento.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
-
