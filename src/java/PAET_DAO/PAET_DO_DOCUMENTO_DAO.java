@@ -22,12 +22,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.Writer;
 import java.math.BigDecimal;
+import java.sql.Clob;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.engine.jdbc.SerializableClobProxy;
 
 /**
  *
@@ -39,21 +44,11 @@ public class PAET_DO_DOCUMENTO_DAO extends HibernateUtil implements IBaseDAO<Pae
     public void save(PaetDoDocumento o) {
         try {
             iniciaOperacion();
-            
-            FileInputStream fileInputStream = new FileInputStream("c:\\temp\\sample.txt");
-
-            File clobFile = new File("c:\\temp\\sample.txt");
-            FileReader clobFileReader = new FileReader(new File("c:\\temp\\sample.txt"));
-
-            o.setDoDocumento(Hibernate.getLobCreator(getSesion()).createClob(clobFileReader, (int) clobFile.length()));
-            
             getSesion().save(o);
             getTransac().commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PAET_DO_DOCUMENTO_DAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             getSesion().close();
         }

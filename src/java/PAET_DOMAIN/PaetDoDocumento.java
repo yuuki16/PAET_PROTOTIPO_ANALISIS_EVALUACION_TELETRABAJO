@@ -18,7 +18,7 @@ package PAET_DOMAIN;
 
 import java.math.BigDecimal;
 import java.sql.Clob;
-import java.sql.Date;
+import java.util.Date;
 /**
  *
  * @author Michelle
@@ -26,7 +26,7 @@ import java.sql.Date;
 public class PaetDoDocumento implements java.io.Serializable{
     
     private BigDecimal doCodigo;
-    private Clob doDocumento;
+    private String doDocumento;
     private Date doFecha;
     private char doTipoProceso;
     private BigDecimal doProceso;
@@ -35,7 +35,7 @@ public class PaetDoDocumento implements java.io.Serializable{
     public PaetDoDocumento(){
     }
     
-    public PaetDoDocumento(BigDecimal doCodigo, Clob doDocumento, Date doFecha, char doTipoProceso, BigDecimal doProceso, String doArchivo){
+    public PaetDoDocumento(BigDecimal doCodigo, String doDocumento, Date doFecha, char doTipoProceso, BigDecimal doProceso, String doArchivo){
         this.doCodigo = doCodigo;
         this.doDocumento = doDocumento;
         this.doFecha = doFecha;
@@ -52,11 +52,11 @@ public class PaetDoDocumento implements java.io.Serializable{
         this.doCodigo = doCodigo;
     }
     
-    public Clob getDoDocumento() {
+    public String getDoDocumento() {
         return this.doDocumento;
     }
     
-    public void setDoDocumento(Clob doDocumento) {
+    public void setDoDocumento(String doDocumento) {
         this.doDocumento = doDocumento;
     }
     

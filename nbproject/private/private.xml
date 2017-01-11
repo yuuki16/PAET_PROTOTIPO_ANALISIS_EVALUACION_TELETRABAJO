@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/web/ADMINISTRAR_ESTADOS_FINALIZACION_JSP.jsp</file>
+            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_CONTROLLER/DC_DOCUMENTACION_Servlet.java</file>
+            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_DAO/PAET_DO_DOCUMENTO_DAO.java</file>
             <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/web/js/ADMINISTRAR_ESTADOS_FINALIZACION_JS.js</file>
+            <file>file:/C:/Users/Michelle/Documents/PROTOTIPO%20GRADUACION/PAET_PROTOTIPO_ANALISIS_EVALUACION_TELETRABAJO/src/java/PAET_CONTROLLER/DO_DOCUMENTO_Servlet.java</file>
         </group>
     </open-files>
 </project-private>

@@ -18,14 +18,16 @@ package PAET_CONTROLLER;
 
 import PAET_BL.PAET_DO_DOCUMENTO_BL;
 import PAET_DOMAIN.PaetDoDocumento;
-import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -33,11 +35,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
-import org.hibernate.Hibernate;
 
 /**
  *
@@ -46,6 +46,8 @@ import org.hibernate.Hibernate;
 public class DO_DOCUMENTO_Servlet extends HttpServlet {
 
     String nombreArchivo, proceso, parte;
+    BigDecimal codProceso;
+    Clob archivo;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,7 +68,8 @@ public class DO_DOCUMENTO_Servlet extends HttpServlet {
             if (!ismultipart) {
 
             } else {
-                FileItemFactory factory = new DiskFileItemFactory();
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                factory.setRepository(new File("c:\\temp"));
                 ServletFileUpload upload = new ServletFileUpload(factory);
                 List items = null;
 
@@ -86,20 +89,23 @@ public class DO_DOCUMENTO_Servlet extends HttpServlet {
                             proceso = item.getString();
                         }
                         else if (parte.equals("psProcesoSolicitud")) {
-                             guardarDocumento(item, out);
+                            codProceso = new BigDecimal(item.getString());
+                             //guardarDocumento(item, out);
                         }
                     } else {
+                        
                         String itemname = item.getName();
                         if ((itemname == null) || itemname.equals("")) {
                             continue;
                         }
                         String filename = FilenameUtils.getName(itemname);
-                        
-                        //File f = checkExist(filename);
-                        //item.write(f);
-                        //nombreArchivo = f.getName();
+                        File f = checkExist(filename);
+                        item.write(f);
+                        nombreArchivo = "C:\\temp\\"+f.getName();
                     }
                 }
+                
+                guardarDocumento(out);
             }
         } catch (NumberFormatException e) {
             out.print("E~" + e.getMessage());
@@ -147,39 +153,59 @@ public class DO_DOCUMENTO_Servlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    //private File checkExist(String filename) {
-        //File f = new File(carpetaDestino + "/" + filename);
+    private File checkExist(String filename) {
+        File f = new File("C:/temp/" + filename);
 
-        //if (f.exists()) {
-            //StringBuffer sb = new StringBuffer(filename);
-            //sb.insert(sb.lastIndexOf("."), "-" + new Date().getTime());
-            //f = new File(carpetaDestino + "/" + sb.toString());
-        //}
+        if (f.exists()) {
+            StringBuffer sb = new StringBuffer(filename);
+            sb.insert(sb.lastIndexOf("."), "-" + new Date().getTime());
+            f = new File("C:/temp/" + "/" + sb.toString());
+        }
 
-        //return f;
-    //}
+        return f;
+    }
 
-    private void guardarDocumento(FileItem item, PrintWriter out) throws Exception {
+    private void guardarDocumento(PrintWriter out) throws Exception {
 
-        BigDecimal psProcesoSolicitud;
+        //BigDecimal psProcesoSolicitud;
         PaetDoDocumento documento = new PaetDoDocumento();
-        //PAET_DC_DOCUMENTACION_BL documentacionBl = new PAET_DC_DOCUMENTACION_BL();
-        //Date fecha = new Date();
+        PAET_DO_DOCUMENTO_BL documentoBl = new PAET_DO_DOCUMENTO_BL();
+        Date fecha = new Date();
 
         try {
-            //psProcesoSolicitud = new BigDecimal(item.getString());
-            //documentacion.setDcFecha(fecha);
+            //psProcesoSolicitud = codProceso;
+            
+            documento.setDoFecha(fecha);
             //documentacion.setDcOrigen(carpetaDestino);
-            //documentacion.setDcTipoProceso(proceso.charAt(0));
+            documento.setDoTipoProceso(proceso.charAt(0));
             //documentacion.setDcNombre(nombreArchivo);
-            //documentacion.setDcProceso(psProcesoSolicitud);
-
-            //documentacionBl.save(documentacion);
+            documento.setDoProceso(codProceso);
+            
+            String s = readFileAsString(nombreArchivo);
+            documento.setDoArchivo(nombreArchivo);
+            documento.setDoDocumento(s);
+            
+            documentoBl.save(documento);
 
             out.print("C~La documentación fue agregada correctamente");
         } catch (Exception e) {
             out.print("E~" + e.getMessage());
         }
+    }
+    
+    private String readFileAsString(String filePath) throws java.io.IOException {
+        StringBuffer fileData = new StringBuffer();
+        BufferedReader reader = new BufferedReader(
+                new FileReader(filePath));
+        char[] buf = new char[1024];
+        int numRead=0;
+        while((numRead=reader.read(buf)) != -1){
+            String readData = String.valueOf(buf, 0, numRead);
+            fileData.append(readData);
+            buf = new char[1024];
+        }
+        reader.close();
+        return fileData.toString();
     }
     
 }

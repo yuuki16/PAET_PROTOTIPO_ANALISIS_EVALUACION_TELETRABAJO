@@ -31,6 +31,7 @@ public class BaseBL {
             daos.put("PAET_DOMAIN.PaetCrCorreo", new PAET_CR_CORREO_DAO());
             daos.put("PAET_DOMAIN.PaetCuCausa", new PAET_CU_CAUSA_DAO());
             daos.put("PAET_DOMAIN.PaetDcDocumentacion", new PAET_DC_DOCUMENTACION_DAO());
+            daos.put("PAET_DOMAIN.PaetDoDocumento", new PAET_DO_DOCUMENTO_DAO());
             daos.put("PAET_DOMAIN.PaetDfDireccionFisica", new PAET_DF_DIRECCION_FISICA_DAO());
             daos.put("PAET_DOMAIN.PaetDiDia", new PAET_DI_DIA_DAO());
             daos.put("PAET_DOMAIN.PaetDiSlDiaSolicitud", new PAET_DI_SL_DIA_SOLICITUD_DAO());
